@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Heart, MapPin, Drama, BookOpen, ArrowRight, X,
   Calendar, Play, Mic, ExternalLink, Star
@@ -22,35 +21,31 @@ interface Props {
   onToggleFav: () => void;
 }
 
+// Verschillende verhoudingen voor het speelse masonry-effect.
+// Deterministisch zodat dezelfde voorstelling altijd dezelfde vorm krijgt.
+const ASPECTS = ["3/4", "4/5", "1/1", "5/6", "5/7"];
+function aspectForShow(id: string): string {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) {
+    h = (h << 5) - h + id.charCodeAt(i);
+    h |= 0;
+  }
+  return ASPECTS[Math.abs(h) % ASPECTS.length];
+}
+
 export function ShowCard({
-  show, pill, isFlipped, isExpanded, isFavorite, isMobile,
-  onFlip, onExpand, onCollapse, onToggleFav
+  show, pill, isFlipped, isFavorite,
+  onFlip, onExpand, onToggleFav
 }: Props) {
   const accent = accentForShow(show.id);
   const photoBg = photoBgForShow(show.id);
   const hasPhoto = !!show.foto_url;
-
-  if (isExpanded && !isMobile) {
-    return (
-      <motion.div
-        layout
-        transition={{ type: "spring", stiffness: 220, damping: 28 }}
-        className="col-span-1 row-span-1 sm:col-span-2 sm:row-span-2 rounded-3xl overflow-hidden bg-white border border-line relative"
-      >
-        <ExpandedContent
-          show={show} pill={pill} accent={accent} photoBg={photoBg}
-          hasPhoto={hasPhoto} isFavorite={isFavorite}
-          onClose={onCollapse} onToggleFav={onToggleFav}
-        />
-      </motion.div>
-    );
-  }
+  const aspect = aspectForShow(show.id);
 
   return (
-    <motion.div
-      layout
-      transition={{ type: "spring", stiffness: 220, damping: 28 }}
-      className="relative aspect-[3/4] cursor-pointer"
+    <div
+      className="relative cursor-pointer"
+      style={{ aspectRatio: aspect }}
     >
       <div
         className={`flip-card h-full w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
@@ -67,28 +62,28 @@ export function ShowCard({
               />
             )}
             <div className="relative z-10 max-w-[80%]">
-              <div className="text-white text-base font-medium leading-tight tracking-tight sm:text-lg">
+              <div className="text-white text-sm font-medium leading-tight tracking-tight sm:text-base">
                 {show.titel}
               </div>
             </div>
           </div>
 
           {/* Back */}
-          <div className="flip-face flip-back bg-white p-5 flex flex-col border border-line">
-            <p className="text-sm italic text-ink-soft leading-relaxed mb-4">
+          <div className="flip-face flip-back bg-white pt-14 px-5 pb-5 flex flex-col border border-line">
+            <p className="text-sm italic text-ink-soft leading-relaxed mb-3">
               {show.korte_samenvatting}
             </p>
-            <div className="space-y-2.5 text-sm text-ink-soft mb-auto">
-              <Row icon={<BookOpen size={15} />} text={show.titel} />
-              <Row icon={<Drama size={15} />} text={show.gezelschap_display} />
-              <Row icon={<MapPin size={15} />} text={show.theater_display} />
+            <div className="space-y-2 text-sm text-ink-soft mb-auto">
+              <Row icon={<BookOpen size={14} />} text={show.titel} />
+              <Row icon={<Drama size={14} />} text={show.gezelschap_display} />
+              <Row icon={<MapPin size={14} />} text={show.theater_display} />
             </div>
             <button
               onClick={e => { e.stopPropagation(); onExpand(); }}
-              className="mt-3 flex items-center justify-between rounded-xl bg-ink px-3.5 py-2.5 text-sm font-medium text-white hover:bg-black transition-colors"
+              className="mt-3 flex items-center justify-between rounded-xl bg-ink px-3.5 py-2 text-xs font-medium text-white hover:bg-black transition-colors"
             >
               Meer lezen
-              <ArrowRight size={16} />
+              <ArrowRight size={14} />
             </button>
           </div>
         </div>
@@ -113,7 +108,7 @@ export function ShowCard({
           className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
         />
       </button>
-    </motion.div>
+    </div>
   );
 }
 
