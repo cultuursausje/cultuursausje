@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Heart, MapPin, Drama, BookOpen, ArrowRight, X,
   Calendar, Play, Mic, ExternalLink, Star
@@ -109,7 +108,7 @@ export function ShowCard({
           className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
         />
       </button>
-    </motion.div>
+    </div>
   );
 }
 
