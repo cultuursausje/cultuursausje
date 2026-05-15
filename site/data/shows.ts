@@ -13,7 +13,8 @@ export const shows: Show[] = [
     foto_url: "https://images.squarespace-cdn.com/content/v1/664268bf61d9c829d28a522a/1753806853869-XH23J57FKW078LW14X5V/WMEB_DMBLSM_14-11-2024_3003.jpg",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Seksualiteit", "Maatschappij"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/weg-met-eddy-bellegueule/3886968"
+    ticket_url: "https://ita.nl/nl/voorstellingen/weg-met-eddy-bellegueule/3886968",
+    interesting_because: "Een rauwe coming-of-age in regie van Eline Arbo. Voor wie houdt van eerlijke, persoonlijke verhalen over loskomen van waar je vandaan komt."
   },
   {
     id: "de-dood-van-benny-simons",
@@ -27,7 +28,8 @@ export const shows: Show[] = [
     foto_url: "https://images.squarespace-cdn.com/content/v1/664268bf61d9c829d28a522a/1739665228764-DHTLS0GO2OSVY35XGAKB/Orkater_De-dood-van-Benny-Simons.jpg",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Intergenerationeel trauma", "Masculiniteit", "Rouw"],
-    ticket_url: "https://orkater.nl/voorstelling/de-dood-van-benny-simons"
+    ticket_url: "https://orkater.nl/voorstelling/de-dood-van-benny-simons",
+    interesting_because: "Muziektheater dat schurkt aan zware thema's zonder zwaar te worden. Voor wie van Orkaters mix van live muziek en confronterend spel houdt."
   },
   {
     id: "het-incident", titel: "Het incident",
@@ -39,7 +41,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Ongelijkheid", "Identiteit", "Verbeelding"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/het-incident/4022548/#tickets"
+    ticket_url: "https://ita.nl/nl/voorstellingen/het-incident/4022548/#tickets",
+    interesting_because: "Solo-performance over kansenongelijkheid, met humor en bravoure. Voor wie geprikkeld wordt door verhalen die het systeem fileren via één scherp personage."
   },
   {
     id: "oom-wanja", titel: "Oom Wanja",
@@ -51,7 +54,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Uncle Vanya van Anton Tsjechov", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Gemiste kansen", "Verlangens"],
-    ticket_url: "https://www.toneelgroepmaastricht.nl/agenda/317/topacteurs-in-tragikomedie-over-mislukte-levens/oom-wanja"
+    ticket_url: "https://www.toneelgroepmaastricht.nl/agenda/317/topacteurs-in-tragikomedie-over-mislukte-levens/oom-wanja",
+    interesting_because: "Klassieke Tsjechov door Maastrichts topgezelschap. Voor wie houdt van verhalen waarin niemand krijgt wat 'ie wil maar iedereen toch blijft doorleven."
   },
   {
     id: "villa-europa", titel: "Villa Europa",
@@ -63,7 +67,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Boek van Stefan Zweig (De wereld van gisteren)", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Maatschappij", "Europa"],
-    ticket_url: "https://dewarmewinkel.nl/voorstellingen/villa-europa-2025/"
+    ticket_url: "https://dewarmewinkel.nl/voorstellingen/villa-europa-2025/",
+    interesting_because: "Twee nerds en een Oostenrijkse intellectueel uit 1920. De Warme Winkel zoals je 'm wilt: eigenwijs, slim, met liefde voor cultuur die bijna ten onder is."
   },
   {
     id: "this-will-not-end-well", titel: "This will not end well",
@@ -75,7 +80,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Samenwerking", "Zelfbehoud", "Spel", "Realiteit"],
-    ticket_url: "https://www.hzt.nl/speelt/this-will-not-end-well"
+    ticket_url: "https://www.hzt.nl/speelt/this-will-not-end-well",
+    interesting_because: "Een muzikale ontleding van wat we voor elkaar over hebben in een groep. Voor wie van Sarah Moeremans' vervreemdende stijl houdt."
   },
   {
     id: "medea-voor-een-toeslagenherdenking", titel: "Medea voor een Toeslagenherdenking",
@@ -87,7 +93,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Verhaal van Euripides", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Pijn", "Veerkracht", "Hoop"],
-    ticket_url: "https://www.toneelschuurproducties.nl/medea"
+    ticket_url: "https://www.toneelschuurproducties.nl/medea",
+    interesting_because: "Het toeslagenschandaal gespiegeld aan een Griekse tragedie. Geen woedend pamflet maar een zwaar geladen verhaal van onrecht én veerkracht."
   },
   {
     id: "operation-hellfire", titel: "Operation Hellfire",
@@ -99,7 +106,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Internationaal recht", "Machtspolitiek"],
-    ticket_url: "https://www.hnt.nl/nl/voorstellingen/operation-hellfire-5ysk"
+    ticket_url: "https://www.hnt.nl/nl/voorstellingen/operation-hellfire-5ysk",
+    interesting_because: "Politiek-spannende fictie met morele dilemma's die té echt voelen. Voor wie de actualiteit op het podium scherper wil zien dan in de krant."
   },
   {
     id: "de-architect", titel: "De Architect",
@@ -111,7 +119,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Stuk van Henrik Ibsen", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Persoonlijke ambities", "Maakbaarheid", "Onzekerheid"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/de-architect/3936941/#tickets"
+    ticket_url: "https://ita.nl/nl/voorstellingen/de-architect/3936941/#tickets",
+    interesting_because: "Ibsen-bewerking over de prijs van succes en wat een nieuwe ontmoeting bij je losmaakt. Loopt het hele seizoen — moeilijk te missen."
   },
   {
     id: "the-actor", titel: "The Actor",
@@ -147,7 +156,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Stuk van Samuel Beckett", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Hoop", "Verval"],
-    ticket_url: "https://www.frascatitheater.nl/nl/agenda/samuel-beckett-s-iconische-stuk-als-locatievoorstelling-over-de-mens-die-zijn-ondergang-tegemoet-dendert-dqz4"
+    ticket_url: "https://www.frascatitheater.nl/nl/agenda/samuel-beckett-s-iconische-stuk-als-locatievoorstelling-over-de-mens-die-zijn-ondergang-tegemoet-dendert-dqz4",
+    interesting_because: "Beckett op locatie, met zwarte humor en absurdisme. Voor wie houdt van theater dat schuurt en je laat lachen om dingen die eigenlijk vreselijk zijn."
   },
   {
     id: "a-possibility", titel: "A Possibility",
@@ -243,7 +253,8 @@ export const shows: Show[] = [
     regisseur: "Ivo van Hove", based_on: "Stuk van Tony Kushner", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op zaterdag",
     categorieen: ["Maatschappij", "Identiteit", "LGBTQ"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/angels-in-america/4028907/#tickets"
+    ticket_url: "https://ita.nl/nl/voorstellingen/angels-in-america/4028907/#tickets",
+    interesting_because: "Een legendarisch Amerikaans stuk in regie van Ivo van Hove. Lang en groots theater over identiteit, ziekte en menselijkheid in de jaren '80."
   },
   {
     id: "client-e-busken", titel: "Cliënt E. Busken",
@@ -255,7 +266,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Boek van Jeroen Brouwers", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Existentialisme"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/cli%C3%ABnt-e.-busken/4028930/"
+    ticket_url: "https://ita.nl/nl/voorstellingen/cli%C3%ABnt-e.-busken/4028930/",
+    interesting_because: "Een rauwe monoloog over het uiteinde van een leven, naar Jeroen Brouwers' bekroonde boek. Voor wie zware existentiële stof in zijn puurste vorm wil."
   },
   {
     id: "not-quichot", titel: "Not Quichot",
@@ -291,7 +303,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Polarisatie", "Desinformatie"],
-    ticket_url: "https://dewarmewinkel.nl/voorstellingen/britt-for-president/"
+    ticket_url: "https://dewarmewinkel.nl/voorstellingen/britt-for-president/",
+    interesting_because: "Satirisch en bijtend over lokale politiek en hoe we nog met elkaar in gesprek blijven. De Warme Winkel in topvorm."
   },
   {
     id: "kopenhagen-trilogie", titel: "Kopenhagen Trilogie",
@@ -303,7 +316,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Boek van Tove Ditlevsen", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen",
     categorieen: ["Persoonlijke ambities", "Mentale gezondheid", "Feminisme"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/de-kopenhagen-trilogie-26-27/4029266/#tickets"
+    ticket_url: "https://ita.nl/nl/voorstellingen/de-kopenhagen-trilogie-26-27/4029266/#tickets",
+    interesting_because: "Een driedelige bewerking van Tove Ditlevsens beroemde memoires over ambitie, verslaving en zelfdestructie. Voor wie houdt van literaire bewerkingen die niets toedekken."
   },
   {
     id: "de-uren", titel: "De uren",
@@ -315,7 +329,8 @@ export const shows: Show[] = [
     regisseur: "Eline Arbo", based_on: "Boek van Michael Cunningham", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Vrijheid", "Identiteit", "Emancipatie"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/de-uren/4028934/"
+    ticket_url: "https://ita.nl/nl/voorstellingen/de-uren/4028934/",
+    interesting_because: "Drie vrouwen, drie tijden, één vraag over een authentiek leven. Eline Arbo in haar vertrouwde regie van vrouwen-doorgrondende stukken."
   },
   {
     id: "wuthering-heights", titel: "Wuthering Heights",
@@ -327,7 +342,8 @@ export const shows: Show[] = [
     regisseur: "Eline Arbo", based_on: "Boek van Emily Brontë", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Liefde", "Macht", "Geweld"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/wuthering-heights/4029268/"
+    ticket_url: "https://ita.nl/nl/voorstellingen/wuthering-heights/4029268/",
+    interesting_because: "Brontës klassieker als rauwe machtsspel-vertelling. Voor wie van Eline Arbo's eerdere bewerkingen (Penthesilea, Vogels) hield."
   },
   {
     id: "r2d2-or-not-2b2", titel: "R2D2_or_not_2B2",
@@ -339,7 +355,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Hamlet van Shakespeare", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Technologie", "Menselijkheid"],
-    ticket_url: "https://dewarmewinkel.nl/voorstellingen/r2d2_or_not_2b2/"
+    ticket_url: "https://dewarmewinkel.nl/voorstellingen/r2d2_or_not_2b2/",
+    interesting_because: "Hamlet door robots, satirisch en filosofisch. Voor wie 'wat is mens-zijn' op een onverwachte manier wil onderzoeken."
   },
   {
     id: "richard", titel: "Richard",
@@ -351,7 +368,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Stuk van Shakespeare", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Macht", "Onderdrukking"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/richard/4029251/"
+    ticket_url: "https://ita.nl/nl/voorstellingen/richard/4029251/",
+    interesting_because: "Richard III gespiegeld aan een vrouw onder bezetting. Een ongebruikelijke combinatie die de schade van machtshonger vanaf de andere kant toont."
   },
   {
     id: "prophet-song", titel: "Prophet Song",
@@ -363,7 +381,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "Boek van Paul Lynch", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Verdwijnen democratie", "Familie"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/prophet-song/4028970/"
+    ticket_url: "https://ita.nl/nl/voorstellingen/prophet-song/4028970/",
+    interesting_because: "Booker Prize-winnend boek over een democratie die wegglijdt naar autoritarisme. Voor wie dystopie als spiegel voor de tijd kan velen."
   },
   {
     id: "judith-westbroek-zoekt-een-kamer", titel: "Judith Westbroek zoekt een kamer",
@@ -375,7 +394,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Woningnood"],
-    ticket_url: "https://dewarmewinkel.nl/voorstellingen/judith-westbroek-zoekt-een-kamer/"
+    ticket_url: "https://dewarmewinkel.nl/voorstellingen/judith-westbroek-zoekt-een-kamer/",
+    interesting_because: "Korte, scherpe voorstelling over een hospiteersessie als microkosmos van de woningnood. Snel en bijtend."
   },
   {
     id: "nachtwacht", titel: "Nachtwacht",
@@ -387,7 +407,8 @@ export const shows: Show[] = [
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling",
     categorieen: ["Maatschappij", "Familie", "Identiteit"],
-    ticket_url: "https://carre.nl/voorstelling/nachtwacht"
+    ticket_url: "https://carre.nl/voorstelling/nachtwacht",
+    interesting_because: "Een gitzwart-grappige familietragedie over loskomen van toebedeelde rollen. NITE's signature mix van fysiek en tekst."
   },
   {
     id: "prima-facie", titel: "Prima Facie",
@@ -399,6 +420,7 @@ export const shows: Show[] = [
     regisseur: "Eline Arbo", based_on: "Boek van Suzie Miller", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op zaterdagen",
     categorieen: ["Rechtspraak", "Seksueel misbruik", "Patriarchaat"],
-    ticket_url: "https://ita.nl/nl/voorstellingen/prima-facie/3675691/#tickets"
+    ticket_url: "https://ita.nl/nl/voorstellingen/prima-facie/3675691/#tickets",
+    interesting_because: "Solo over een strafrechtadvocate die met haar eigen denken botst — bekroond stuk dat Nederlandse Toneeljury raakte. Engels boventiteld op zaterdagen."
   }
 ];
