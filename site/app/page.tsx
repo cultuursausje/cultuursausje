@@ -1,8 +1,5 @@
 import { getSiteData } from "@/lib/data";
 import { ShowsExplorer } from "@/components/ShowsExplorer";
-import { FestivalsSection } from "@/components/FestivalsSection";
-import { GezelschappenSection } from "@/components/GezelschappenSection";
-import { TheatersSection } from "@/components/TheatersSection";
 import { festivals } from "@/data/festivals";
 import type { ShowDisplay } from "@/types";
 import { isOver } from "@/lib/dates";
@@ -77,22 +74,18 @@ export default async function HomePage() {
         <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
           Cultuursausje
         </h1>
-        <p className="mt-2 max-w-xl text-sm text-ink-muted sm:text-base">
-          Het complete overzicht van theatervoorstellingen in Amsterdam. Klik op een kaart om meer te zien.
+        <p className="mt-2 max-w-2xl text-sm text-ink-muted sm:text-base">
+          Theateragenda van Nederland — voorstellingen, festivals, gezelschappen en theaters op één plek.
         </p>
       </header>
       <ShowsExplorer
         shows={enriched}
         theaters={theatersInUse}
         gezelschappen={gezelschappenInUse}
+        allTheaters={data.theaters}
+        allGezelschappen={data.gezelschappen}
+        festivals={festivals}
       />
-
-      <FestivalsSection festivals={festivals} shows={enriched} />
-
-      <GezelschappenSection gezelschappen={data.gezelschappen} />
-
-      <TheatersSection theaters={data.theaters} />
-
       <footer className="mt-24 border-t border-line pt-6 text-xs text-ink-faint">
         Cultuursausje · agenda · {new Date().getFullYear()}
       </footer>
