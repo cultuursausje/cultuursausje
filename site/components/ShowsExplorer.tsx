@@ -208,6 +208,9 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
     }).filter(g => g.shows.length > 0);
   }, [filteredShows, selectedMonths]);
 
+  // Beperk hoeveel maand-secties zichtbaar zijn — standaard 2, gebruiker kan stap-voor-stap uitvouwen
+  const [visibleMonthCount, setVisibleMonthCount] = useState(2);
+
   const toggleFav = (id: string) => {
     setFavorites(prev => {
       const next = new Set(prev);
@@ -439,7 +442,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         </div>
       ) : (
         <div className="space-y-12 sm:space-y-16">
-          {months.map(group => (
+          {months.slice(0, visibleMonthCount).map(group => (
             <section key={monthKey(group.year, group.monthIdx)}>
               <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
                 {group.label}
@@ -480,6 +483,17 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
               </div>
             </section>
           ))}
+          {months.length > visibleMonthCount && (
+            <div className="flex justify-center">
+              <button
+                onClick={() => setVisibleMonthCount(v => v + 1)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
+              >
+                Toon {months[visibleMonthCount].label}
+                <ChevronDown size={14} />
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -488,7 +502,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         <>
           <FestivalsSection festivals={festivals} shows={filteredShows} />
           <GezelschappenSection gezelschappen={allGezelschappen} />
-          <TheatersSection theaters={allTheaters} />
+          <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
         </>
       )}
     </>

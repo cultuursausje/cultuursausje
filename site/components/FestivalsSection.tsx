@@ -28,46 +28,52 @@ export function FestivalsSection({ festivals, shows }: Props) {
   const openShows = open ? showsForFestival(open, shows) : [];
 
   return (
-    <section className="relative -mx-6 px-6 py-16 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12" style={{ background: "#FCF0E8" }}>
-      <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
-        Theaterfestivals
-      </h2>
-      <p className="mb-8 max-w-xl text-sm text-ink-muted">
-        De grootste podiumkunstenfestivals van Nederland. Klik op een festival om de programma-voorstellingen te zien (op basis van je actieve filters).
-      </p>
+    <section className="mt-20 sm:mt-24">
+      {/* Prominent vlak met opvallende kleur */}
+      <div
+        className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        style={{ background: "#FF6FA8" }}
+      >
+        <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
+          Theaterfestivals
+        </h2>
+        <p className="mb-8 max-w-xl text-sm text-white/85">
+          De grootste podiumkunstenfestivals van Nederland. Klik op een festival om de programma-voorstellingen te zien (op basis van je actieve filters).
+        </p>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {visible.map(f => (
-          <button
-            key={f.id}
-            onClick={() => setOpenId(f.id)}
-            className="relative aspect-[4/5] overflow-hidden rounded-3xl text-left transition-transform duration-300 hover:scale-[1.02] hover:-rotate-[0.6deg]"
-            style={{ background: f.accent }}
-          >
-            <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
-              <div className="text-xs font-semibold uppercase tracking-widest opacity-80">
-                {f.periode} · {f.plaats}
-              </div>
-              <div>
-                <div className="text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
-                  {f.naam}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {visible.map(f => (
+            <button
+              key={f.id}
+              onClick={() => setOpenId(f.id)}
+              className="relative aspect-[4/5] overflow-hidden rounded-3xl text-left transition-transform duration-300 hover:scale-[1.02] hover:-rotate-[0.6deg]"
+              style={{ background: f.accent }}
+            >
+              <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
+                <div className="text-xs font-semibold uppercase tracking-widest opacity-80">
+                  {f.periode} · {f.plaats}
+                </div>
+                <div>
+                  <div className="text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+                    {f.naam}
+                  </div>
                 </div>
               </div>
-            </div>
-          </button>
-        ))}
-      </div>
-
-      {festivals.length > INITIAL_COUNT && (
-        <div className="mt-6 flex justify-center">
-          <button
-            onClick={() => setExpanded(v => !v)}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
-          >
-            {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
-          </button>
+            </button>
+          ))}
         </div>
-      )}
+
+        {festivals.length > INITIAL_COUNT && (
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={() => setExpanded(v => !v)}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
+            >
+              {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
+            </button>
+          </div>
+        )}
+      </div>
 
       {open && (
         <div

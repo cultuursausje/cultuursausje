@@ -1,18 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import type { Gezelschap } from "@/types";
 
 interface Props {
   gezelschappen: Gezelschap[];
 }
 
-const INITIAL_COUNT = 6;
+const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#2D4DEB", "#00B4FF", "#B85FFF", "#FF3D8B", "#00B488", "#E5B53A"];
+
+function colorForCity(city: string): string {
+  let h = 0;
+  for (let i = 0; i < city.length; i++) {
+    h = (h << 5) - h + city.charCodeAt(i);
+    h |= 0;
+  }
+  return CITY_COLORS[Math.abs(h) % CITY_COLORS.length];
+}
+
+function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
+  const m = new Map<string, Gezelschap[]>();
+  items.forEach(g => {
+    const arr = m.get(g.stad) || [];
+    arr.push(g);
+    m.set(g.stad, arr);
+  });
+  return Array.from(m.entries()).sort((a, b) => a[0].localeCompare(b[0], "nl"));
+}
 
 export function GezelschappenSection({ gezelschappen }: Props) {
-  const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? gezelschappen : gezelschappen.slice(0, INITIAL_COUNT);
+  const grouped = groupByCity(gezelschappen);
 
   return (
     <section className="relative -mx-6 px-6 py-16 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12" style={{ background: "#EDF6E8" }}>
@@ -23,62 +40,37 @@ export function GezelschappenSection({ gezelschappen }: Props) {
         De grootste theatergezelschappen en theatercollectieven van Nederland.
       </p>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map(g => (
-          <a
-            key={g.id}
-            href={g.url}
-            target="_blank"
-            rel="noreferrer"
-            className="group relative overflow-hidden rounded-3xl border border-line bg-white transition-transform duration-300 hover:scale-[1.015] hover:-rotate-[0.4deg]"
-          >
-            {/* Logo box */}
-            <div className="relative flex h-32 items-center justify-center bg-[#F8F6EF] p-6">
-              {g.logo_url ? (
-                <img
-                  src={g.logo_url}
-                  alt={`${g.naam} logo`}
-                  className="block max-h-full max-w-[80%] object-contain"
-                />
-              ) : (
-                <div className="text-xl font-medium text-ink-faint">{g.afkorting}</div>
-              )}
-              {g.logo_credit && (
-                <div className="absolute bottom-1.5 right-2 text-[9px] text-ink-faint leading-none">
-                  © {g.logo_credit}
+      <div className="space-y-10">
+        {grouped.map(([city, list]) => (
+          <div key={city}>
+            <h3
+              className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
+              style={{ color: colorForCity(city) }}
+            >
+              {city}
+            </h3>
+            <div className="grid grid-cols-1 gap-x-12 gap-y-5 md:grid-cols-2">
+              {list.map(g => (
+                <div key={g.id}>
+                  <a
+                    href={g.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
+                  >
+                    {g.naam}
+                    <ExternalLink size={12} className="text-ink-faint" />
+                  </a>
+                  <div className="mt-0.5 text-xs text-ink-faint">{g.type}</div>
+                  {g.beschrijving && (
+                    <p className="mt-1 text-sm text-ink-muted leading-snug">{g.beschrijving}</p>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
-
-            {/* Info */}
-            <div className="p-5">
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <h3 className="text-base font-medium text-ink leading-tight">{g.naam}</h3>
-                <ExternalLink size={14} className="text-ink-faint opacity-0 group-hover:opacity-100 transition-opacity mt-0.5 shrink-0" />
-              </div>
-              <div className="text-xs text-ink-muted mb-3">
-                {g.stad} · {g.type}
-              </div>
-              {g.beschrijving && (
-                <p className="text-sm text-ink-soft leading-relaxed line-clamp-3">
-                  {g.beschrijving}
-                </p>
-              )}
-            </div>
-          </a>
+          </div>
         ))}
       </div>
-
-      {gezelschappen.length > INITIAL_COUNT && (
-        <div className="mt-6 flex justify-center">
-          <button
-            onClick={() => setExpanded(v => !v)}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
-          >
-            {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
-          </button>
-        </div>
-      )}
     </section>
   );
 }
