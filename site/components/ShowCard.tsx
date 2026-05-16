@@ -36,13 +36,26 @@ export function ShowCard({
 
   if (isExpanded) {
     return (
-      <ExpandedCard
-        show={show}
-        pill={pill}
-        isFavorite={isFavorite}
-        onClose={onCollapse}
-        onToggleFav={onToggleFav}
-      />
+      <div className="relative">
+        {/* TL-strip blijft zichtbaar als card vergroot is */}
+        <div
+          className="pointer-events-none absolute -inset-2 rounded-[32px] opacity-75 blur-xl"
+          style={{ background: neon }}
+        />
+        <div
+          className="pointer-events-none absolute -inset-0.5 rounded-[26px] opacity-100 blur-[2px]"
+          style={{ background: neon }}
+        />
+        <div className="relative">
+          <ExpandedCard
+            show={show}
+            pill={pill}
+            isFavorite={isFavorite}
+            onClose={onCollapse}
+            onToggleFav={onToggleFav}
+          />
+        </div>
+      </div>
     );
   }
 
@@ -54,21 +67,19 @@ export function ShowCard({
           : "hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5"
       }`}
     >
-      {/* LED-strip neon achter de card — twee lagen, één kleur per show */}
-      {!isFlipped && (
-        <>
-          {/* Wijde, zachte halo */}
-          <div
-            className="pointer-events-none absolute -inset-6 rounded-[40px] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-90"
-            style={{ background: neon }}
-          />
-          {/* Scherpe LED-strip direct om de card */}
-          <div
-            className="pointer-events-none absolute -inset-1 rounded-[26px] opacity-0 blur-[3px] transition-opacity duration-500 group-hover:opacity-100"
-            style={{ background: neon }}
-          />
-        </>
-      )}
+      {/* LED-strip neon achter de card — blijft zichtbaar als geflipt, gloed bij hover */}
+      <div
+        className={`pointer-events-none absolute -inset-2 rounded-[32px] blur-xl transition-opacity duration-500 ${
+          isFlipped ? "opacity-75" : "opacity-0 group-hover:opacity-75"
+        }`}
+        style={{ background: neon }}
+      />
+      <div
+        className={`pointer-events-none absolute -inset-0.5 rounded-[26px] blur-[2px] transition-opacity duration-500 ${
+          isFlipped ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+        style={{ background: neon }}
+      />
       <div
         className={`flip-card relative w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
         onClick={onFlip}
