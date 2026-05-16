@@ -19,6 +19,11 @@ export interface Show {
   ticket_url: string;
   interesting_because?: string;
   foto_credit?: string;
+  /** Extra foto's voor de carousel op de uitvergrote card. */
+  foto_urls?: string[];
+  /** Specifieke speeldata in Amsterdam (ISO YYYY-MM-DD). Indien gevuld
+   *  worden alleen deze datums getoond in de tickets-sectie. */
+  speeldata?: string[];
 }
 
 export interface Theater {
