@@ -16,6 +16,8 @@ export default function RootLayout({
     <html lang="nl">
       <body className="grain min-h-screen">
         <div className="disco-projection" aria-hidden="true" />
+        <div className="disco-ball" aria-hidden="true" />
+        <div className="disco-ball-small" aria-hidden="true" />
         {children}
       </body>
     </html>
