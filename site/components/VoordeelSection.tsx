@@ -10,7 +10,6 @@ interface VoordeelTip {
 
 const VOORDEEL_TIPS: VoordeelTip[] = [
   { naam: "CJP", url: "https://www.cjp.nl" },
-  { naam: "Meer Theater Card", url: "https://www.meervaart.nl" },
   { naam: "Podiumpas", url: "https://www.podiumpas.nl" },
   { naam: "Stadspas Amsterdam", url: "https://www.amsterdam.nl/stadspas" },
   { naam: "Uitpas Amsterdam", url: "https://www.iamsterdam.com/en/tickets/uitpas" },
@@ -29,7 +28,7 @@ export function VoordeelSection() {
     <section className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
-        style={{ background: "#1A1A18" }}
+        style={{ background: "#241B3F" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
           Met voordeel naar theater

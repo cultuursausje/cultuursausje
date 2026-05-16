@@ -8,7 +8,7 @@ interface Props {
   gezelschappen: Gezelschap[];
 }
 
-const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#FFFFFF", "#1A1A18", "#B85FFF", "#FFD500", "#5AC8FA", "#FFB7C8"];
+const CITY_COLORS = ["#E8849A", "#F2C94C", "#FFFFFF", "#1A1A18", "#B66ED5", "#241B3F", "#FFB89A", "#E5B5D8"];
 
 function colorForCity(city: string): string {
   let h = 0;
@@ -46,7 +46,7 @@ export function GezelschappenSection({ gezelschappen }: Props) {
     <section className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
-        style={{ background: "#BDFF00" }}
+        style={{ background: "#5BB8C2" }}
       >
         <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
           Gezelschappen & collectieven

@@ -229,7 +229,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <section>
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
-        style={{ background: "#FFD500" }}
+        style={{ background: "#F2C94C" }}
       >
       {/* Sectietitel + filter chips */}
       <h2 className="font-display mb-2 text-3xl text-ink tracking-tight sm:text-4xl">

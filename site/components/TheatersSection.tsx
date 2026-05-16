@@ -11,7 +11,7 @@ interface Props {
   mentionedTheaters: Theater[];
 }
 
-const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#FFFFFF", "#1A1A18", "#B85FFF", "#FFD500", "#00FF88", "#FFB7C8"];
+const CITY_COLORS = ["#E8849A", "#F2C94C", "#FFFFFF", "#1A1A18", "#B66ED5", "#241B3F", "#5BB8C2", "#E5B5D8"];
 
 function colorForCity(city: string): string {
   let h = 0;
@@ -54,7 +54,7 @@ export function TheatersSection({ theaters }: Props) {
     <section className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
-        style={{ background: "#5AC8FA" }}
+        style={{ background: "#C7B4DE" }}
       >
         <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
           Theaters
