@@ -38,3 +38,26 @@ export function photoBgForShow(showId: string): string {
   }
   return PHOTO_BGS[Math.abs(hash) % PHOTO_BGS.length];
 }
+
+/**
+ * Neon TL-kleur per show — felle, verzadigde kleur, deterministisch per id
+ * zodat dezelfde voorstelling altijd dezelfde gloed krijgt.
+ */
+const NEON_COLORS = [
+  "#FF1A6B", // hot pink
+  "#FF3D00", // vurig oranje-rood
+  "#FFD500", // goud-geel
+  "#00FF88", // lime-groen
+  "#00B4FF", // electric blauw
+  "#B85FFF", // magenta-paars
+  "#FF6FA8"  // perzik-roze
+];
+
+export function neonForShow(showId: string): string {
+  let hash = 0;
+  for (let i = 0; i < showId.length; i++) {
+    hash = (hash << 5) - hash + showId.charCodeAt(i);
+    hash |= 0;
+  }
+  return NEON_COLORS[Math.abs(hash) % NEON_COLORS.length];
+}
