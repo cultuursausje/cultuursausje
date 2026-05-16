@@ -78,5 +78,18 @@ export const theaters: Theater[] = [
     stad: "Amsterdam",
     url: "https://ccamstel.nl",
     beschrijving: "Cultureel clubhuis voor podiumkunsten in de Pijp, geopend in 2019."
+  },
+  // Tour-venues uit gedeelde voorstellings-URL's
+  {
+    id: "chasse-breda", naam: "Chassé Theater", afkorting: "Chassé",
+    stad: "Breda",
+    url: "https://www.chasse.nl",
+    beschrijving: "Theater en filmhuis in het centrum van Breda."
+  },
+  {
+    id: "karavaan-castricum", naam: "Karavaan Festival (De Zanderij)", afkorting: "Karavaan",
+    stad: "Castricum",
+    url: "https://www.karavaan.nl",
+    beschrijving: "Theaterfestival in Noord-Holland met voorstellingen op bijzondere locaties."
   }
 ];

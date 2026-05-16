@@ -149,7 +149,7 @@ export const shows: Show[] = [
   {
     id: "happy-days", titel: "Happy Days",
     gezelschap_id: "dood-paard", gezelschap: "Dood Paard",
-    theater_id: "frascati", theater: "Frascati", extra_theaters: [],
+    theater_id: "frascati", theater: "Frascati", extra_theaters: ["karavaan-castricum", "chasse-breda"],
     speelperiode_start: "2026-06-04", speelperiode_end: "2026-06-17",
     korte_samenvatting: "Een vrouw, half begraven in het zand, blijft koppig optimistisch terwijl haar wereld afbrokkelt.",
     lange_samenvatting: "Winnie zit tot haar middel ingegraven in een zandheuvel op een braakliggend terrein. Een harde bel wekt haar, maar onverwoestbaar optimistisch begint ze aan de dag — pratend, haar dagelijkse rituelen volvoerend, kleine voorwerpen uit een tas halend. Door te blijven spreken probeert ze het verstrijken van de tijd en het naderende einde te bezweren. Dood Paard brengt Becketts iconische stuk als locatievoorstelling in de buitenlucht: gruwelijk, grappig en confronterend actueel.",
