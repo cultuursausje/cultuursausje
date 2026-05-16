@@ -53,7 +53,6 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
-  const [selectedMonths, setSelectedMonths] = useState<Set<string>>(new Set());
 
   // Beschikbare steden: theaters die we hebben + grote NL theater-steden (gesorteerd)
   const availableCities = useMemo(() => {
@@ -75,10 +74,6 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   const [cityQuery, setCityQuery] = useState("");
   const cityRef = useRef<HTMLDivElement>(null);
 
-  // Maand-dropdown state
-  const [monthOpen, setMonthOpen] = useState(false);
-  const monthRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (!cityOpen) return;
     const handler = (e: MouseEvent) => {
@@ -89,17 +84,6 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     const t = setTimeout(() => document.addEventListener("click", handler), 0);
     return () => { clearTimeout(t); document.removeEventListener("click", handler); };
   }, [cityOpen]);
-
-  useEffect(() => {
-    if (!monthOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (monthRef.current && !monthRef.current.contains(e.target as Node)) {
-        setMonthOpen(false);
-      }
-    };
-    const t = setTimeout(() => document.addEventListener("click", handler), 0);
-    return () => { clearTimeout(t); document.removeEventListener("click", handler); };
-  }, [monthOpen]);
 
   const filteredCities = useMemo(
     () => availableCities.filter(c => c.toLowerCase().includes(cityQuery.toLowerCase())),
@@ -152,37 +136,12 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           !(s.gezelschap_id && selectedGezelschappen.has(s.gezelschap_id))) {
         return false;
       }
-      if (selectedMonths.size > 0) {
-        const anyMatch = Array.from(selectedMonths).some(key => {
-          const [year, m] = key.split("-").map(Number);
-          const monthStart = `${year}-${String(m).padStart(2, "0")}-01`;
-          const lastDay = new Date(year, m, 0).getDate();
-          const monthEnd = `${year}-${String(m).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
-          return s.speelperiode_start <= monthEnd && s.speelperiode_end >= monthStart;
-        });
-        if (!anyMatch) return false;
-      }
       return true;
     });
-  }, [shows, selectedCities, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, theaterStadById]);
-
-  // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
-  const availableMonths = useMemo(() => {
-    return monthsToShow(shows).map(({ year, monthIdx }) => ({
-      key: `${year}-${String(monthIdx + 1).padStart(2, "0")}`,
-      label: monthLabel(year, monthIdx)
-    }));
-  }, [shows]);
+  }, [shows, selectedCities, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, theaterStadById]);
 
   const months: MonthGroup[] = useMemo(() => {
-    let list = monthsToShow(filteredShows);
-    // Als de gebruiker specifieke maanden heeft geselecteerd, toon alleen die maand-secties
-    if (selectedMonths.size > 0) {
-      list = list.filter(({ year, monthIdx }) => {
-        const key = `${year}-${String(monthIdx + 1).padStart(2, "0")}`;
-        return selectedMonths.has(key);
-      });
-    }
+    const list = monthsToShow(filteredShows);
     return list.map(({ year, monthIdx }) => {
       const items = filteredShows
         .map(show => {
@@ -197,7 +156,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         shows: items
       };
     }).filter(g => g.shows.length > 0);
-  }, [filteredShows, selectedMonths]);
+  }, [filteredShows]);
 
   // Eén maand tegelijk zichtbaar — gebruiker navigeert met prev/next
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
@@ -205,7 +164,13 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   // Reset naar eerste maand wanneer filter-resultaten veranderen
   useEffect(() => {
     setCurrentMonthIndex(0);
-  }, [selectedCities, selectedTheaters, selectedGezelschappen, selectedMonths, showFavoritesOnly]);
+  }, [selectedCities, selectedTheaters, selectedGezelschappen, showFavoritesOnly]);
+
+  // Huidige maand + prev/next afleiden — gedeeld tussen filter-rij en grid
+  const safeIdx = months.length > 0 ? Math.min(currentMonthIndex, months.length - 1) : 0;
+  const currentMonth = months.length > 0 ? months[safeIdx] : null;
+  const prevMonth = currentMonth && safeIdx > 0 ? months[safeIdx - 1] : null;
+  const nextMonth = currentMonth && safeIdx < months.length - 1 ? months[safeIdx + 1] : null;
 
   const toggleFav = (id: string) => {
     setFavorites(prev => {
@@ -224,25 +189,14 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     setFlipped(prev => prev.has(key) ? new Set() : new Set([key]));
   };
 
-  const toggleMonth = (key: string) => {
-    setSelectedMonths(prev => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key); else next.add(key);
-      return next;
-    });
-  };
-  const clearMonths = () => setSelectedMonths(new Set());
-
   const hasActiveFilter =
     showFavoritesOnly ||
     selectedTheaters.size > 0 ||
-    selectedGezelschappen.size > 0 ||
-    selectedMonths.size > 0;
+    selectedGezelschappen.size > 0;
   const clearAllFilters = () => {
     setShowFavoritesOnly(false);
     setSelectedTheaters(new Set());
     setSelectedGezelschappen(new Set());
-    setSelectedMonths(new Set());
   };
 
   return (
@@ -334,66 +288,25 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           )}
         </div>
 
-        {/* Multi-select maand-dropdown */}
-        <div ref={monthRef} className="relative">
+        {/* Maand-navigatie — verschijnt alleen wanneer er een vorige/volgende maand is */}
+        {prevMonth && (
           <button
-            onClick={() => setMonthOpen(v => !v)}
-            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              selectedMonths.size > 0
-                ? "bg-ink text-white hover:bg-black"
-                : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-            }`}
+            onClick={() => setCurrentMonthIndex(i => Math.max(0, i - 1))}
+            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
           >
-            <span>
-              {selectedMonths.size === 0
-                ? "Kies een maand"
-                : selectedMonths.size === 1
-                  ? availableMonths.find(m => m.key === Array.from(selectedMonths)[0])?.label ?? "1 maand"
-                  : `${selectedMonths.size} maanden`}
-            </span>
-            <ChevronDown size={14} />
+            <ChevronDown size={14} className="rotate-90" />
+            <span className="capitalize">Terug naar {prevMonth.label}</span>
           </button>
-          {monthOpen && (
-            <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border border-line bg-white shadow-xl overflow-hidden flex flex-col">
-              {selectedMonths.size > 0 && (
-                <div className="flex items-center justify-between px-3 py-2 border-b border-line text-xs">
-                  <span className="text-ink-muted">{selectedMonths.size} geselecteerd</span>
-                  <button
-                    onClick={clearMonths}
-                    className="text-ink-muted hover:text-ink"
-                  >
-                    Wis alle
-                  </button>
-                </div>
-              )}
-              <div className="max-h-64 overflow-y-auto p-2">
-                {availableMonths.length === 0 ? (
-                  <div className="px-3 py-2 text-sm italic text-ink-faint">Geen maanden beschikbaar</div>
-                ) : (
-                  availableMonths.map(m => {
-                    const isActive = selectedMonths.has(m.key);
-                    return (
-                      <button
-                        key={m.key}
-                        onClick={() => toggleMonth(m.key)}
-                        className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
-                          isActive
-                            ? "bg-[#F1EFE8] text-ink font-medium"
-                            : "text-ink-soft hover:bg-[#F8F6EF]"
-                        }`}
-                      >
-                        <span className="capitalize">{m.label}</span>
-                        {isActive && (
-                          <span className="text-ink shrink-0" aria-hidden="true">✓</span>
-                        )}
-                      </button>
-                    );
-                  })
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+        )}
+        {nextMonth && (
+          <button
+            onClick={() => setCurrentMonthIndex(i => Math.min(months.length - 1, i + 1))}
+            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
+          >
+            <span className="capitalize">Toon {nextMonth.label}</span>
+            <ChevronDown size={14} className="-rotate-90" />
+          </button>
+        )}
 
         {/* Hartje — favorieten-toggle, laatste in het rijtje */}
         <button
@@ -453,81 +366,47 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             "Geen voorstellingen om te tonen."
           )}
         </div>
-      ) : (
-        <div className="space-y-8">
-          {(() => {
-            const idx = Math.min(currentMonthIndex, months.length - 1);
-            const group = months[idx];
-            const prev = idx > 0 ? months[idx - 1] : null;
-            const next = idx < months.length - 1 ? months[idx + 1] : null;
-            return (
-              <>
-                <section>
-                  <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
-                    {group.label}
-                  </h2>
-                  <div
-                    className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
-                    style={{ gridAutoFlow: "dense" }}
-                  >
-                    {group.shows.map(({ show, pill }) => {
-                      const key = `${show.id}--${monthKey(group.year, group.monthIdx)}`;
-                      const isExpandedHere = expanded === key;
-                      return (
-                        <div
-                          key={key}
-                          className={`transition-all duration-300 ${
-                            isExpandedHere
-                              ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
-                              : ""
-                          }`}
-                          style={{ alignSelf: "start" }}
-                        >
-                          <ShowCard
-                            show={show}
-                            pill={pill}
-                            monthKey={key}
-                            isFlipped={flipped.has(key)}
-                            isExpanded={isExpandedHere}
-                            isFavorite={favorites.has(show.id)}
-                            isMobile={isMobile}
-                            onFlip={() => toggleFlip(key)}
-                            onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
-                            onCollapse={() => setExpanded(null)}
-                            onToggleFav={() => toggleFav(show.id)}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </section>
-                {(prev || next) && (
-                  <div className="flex flex-wrap items-center justify-center gap-3">
-                    {prev && (
-                      <button
-                        onClick={() => setCurrentMonthIndex(i => Math.max(0, i - 1))}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
-                      >
-                        <ChevronDown size={14} className="rotate-90" />
-                        Terug naar {prev.label}
-                      </button>
-                    )}
-                    {next && (
-                      <button
-                        onClick={() => setCurrentMonthIndex(i => Math.min(months.length - 1, i + 1))}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
-                      >
-                        Toon {next.label}
-                        <ChevronDown size={14} className="-rotate-90" />
-                      </button>
-                    )}
-                  </div>
-                )}
-              </>
-            );
-          })()}
-        </div>
-      )}
+      ) : currentMonth ? (
+        <section>
+          <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
+            {currentMonth.label}
+          </h2>
+          <div
+            className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+            style={{ gridAutoFlow: "dense" }}
+          >
+            {currentMonth.shows.map(({ show, pill }) => {
+              const key = `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`;
+              const isExpandedHere = expanded === key;
+              return (
+                <div
+                  key={key}
+                  className={`transition-all duration-300 ${
+                    isExpandedHere
+                      ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
+                      : ""
+                  }`}
+                  style={{ alignSelf: "start" }}
+                >
+                  <ShowCard
+                    show={show}
+                    pill={pill}
+                    monthKey={key}
+                    isFlipped={flipped.has(key)}
+                    isExpanded={isExpandedHere}
+                    isFavorite={favorites.has(show.id)}
+                    isMobile={isMobile}
+                    onFlip={() => toggleFlip(key)}
+                    onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
+                    onCollapse={() => setExpanded(null)}
+                    onToggleFav={() => toggleFav(show.id)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
