@@ -183,6 +183,19 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     ? currentMonth.shows.filter(({ show }) => !showFavoritesOnly || favorites.has(show.id))
     : [];
 
+  // Alle gelikte voorstellingen (over alle maanden) — voor de favorieten-view zonder maand-kop
+  const allFavoritedShows = useMemo(() => {
+    if (!showFavoritesOnly) return [] as { show: ShowDisplay; pill: string }[];
+    return filteredShowsForNav
+      .filter(s => favorites.has(s.id))
+      .map(show => {
+        const [y, m] = show.speelperiode_start.split("-").map(Number);
+        const pill = pillForMonth(show.speelperiode_start, show.speelperiode_end, y, m - 1) ?? "";
+        return { show, pill };
+      })
+      .sort((a, b) => a.show.speelperiode_start.localeCompare(b.show.speelperiode_start));
+  }, [showFavoritesOnly, filteredShowsForNav, favorites]);
+
   const toggleFav = (id: string) => {
     setFavorites(prev => {
       const next = new Set(prev);
@@ -369,6 +382,52 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             "Geen voorstellingen om te tonen."
           )}
         </div>
+      ) : showFavoritesOnly ? (
+        // Favorieten-view: alle gelikte shows in één grid, zonder maand-kop.
+        // Bij 0 favorieten staat de tekst direct op het gele vlak (geen witte kaart).
+        allFavoritedShows.length === 0 ? (
+          <div className="px-2 py-6 text-center">
+            <div className="text-base text-ink">Je hebt nog geen voorstellingen geliked.</div>
+            <div className="mt-2 text-sm text-ink-soft">
+              Klik op het hartje op een kaart om 'm op te slaan.
+            </div>
+          </div>
+        ) : (
+          <div
+            className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+            style={{ gridAutoFlow: "dense" }}
+          >
+            {allFavoritedShows.map(({ show, pill }) => {
+              const key = `${show.id}--fav`;
+              const isExpandedHere = expanded === key;
+              return (
+                <div
+                  key={key}
+                  className={`transition-all duration-300 ${
+                    isExpandedHere
+                      ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
+                      : ""
+                  }`}
+                  style={{ alignSelf: "start" }}
+                >
+                  <ShowCard
+                    show={show}
+                    pill={pill}
+                    monthKey={key}
+                    isFlipped={flipped.has(key)}
+                    isExpanded={isExpandedHere}
+                    isFavorite={favorites.has(show.id)}
+                    isMobile={isMobile}
+                    onFlip={() => toggleFlip(key)}
+                    onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
+                    onCollapse={() => setExpanded(null)}
+                    onToggleFav={() => toggleFav(show.id)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )
       ) : currentMonth ? (
         <div>
           <h3 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
@@ -376,23 +435,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           </h3>
           {currentMonthShows.length === 0 ? (
             <div className="rounded-3xl bg-white p-10 text-center text-ink-muted">
-              {showFavoritesOnly && favorites.size === 0 ? (
-                <>
-                  Je hebt nog geen voorstellingen geliked.
-                  <div className="mt-2 text-xs text-ink-faint">
-                    Klik op het hartje op een kaart om 'm op te slaan.
-                  </div>
-                </>
-              ) : showFavoritesOnly ? (
-                <>
-                  Geen favorieten in {currentMonth.label}.
-                  <div className="mt-2 text-xs text-ink-faint">
-                    Probeer een andere maand of zet het hartje uit.
-                  </div>
-                </>
-              ) : (
-                "Geen voorstellingen in deze maand."
-              )}
+              Geen voorstellingen in deze maand.
             </div>
           ) : (
             <div
