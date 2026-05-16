@@ -71,18 +71,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   }, [theaters]);
 
   // Steden waar daadwerkelijk voorstellingen plaatsvinden — bepaalt welke
-  // items in de dropdown klikbaar zijn.
+  // items in de dropdown klikbaar zijn. Bron: alle venues per show.
   const citiesWithShows = useMemo(() => {
     const set = new Set<string>();
     shows.forEach(s => {
-      if (s.theater_stad) set.add(s.theater_stad);
-      s.extra_theaters.forEach(id => {
-        const stad = theaterStadById.get(id);
-        if (stad) set.add(stad);
+      s.venues.forEach(v => {
+        if (v.theater_stad) set.add(v.theater_stad);
       });
     });
     return set;
-  }, [shows, theaterStadById]);
+  }, [shows]);
 
   // Stad-dropdown state
   const [cityOpen, setCityOpen] = useState(false);
@@ -131,12 +129,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   const filteredShowsForNav = useMemo(() => {
     if (selectedCities.size === 0) return [];
     return shows.filter(s => {
-      const inCity =
-        selectedCities.has(s.theater_stad) ||
-        s.extra_theaters.some(id => {
-          const stad = theaterStadById.get(id);
-          return stad && selectedCities.has(stad);
-        });
+      const inCity = s.venues.some(v => selectedCities.has(v.theater_stad));
       if (!inCity) return false;
       if (selectedTheaters.size > 0) {
         const has =

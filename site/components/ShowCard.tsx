@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow, neonForShow } from "@/lib/colors";
-import { datesInPeriod, englishDays, formatDateNL } from "@/lib/dates";
+import { englishDays, formatDateNL } from "@/lib/dates";
 
 const NEON_BG = "#B5FF52";
 const NEON_TEXT = "#173404";
@@ -114,7 +114,7 @@ export function ShowCard({
               </p>
             )}
             <div className="text-sm text-ink-muted">
-              <span aria-hidden="true">🏛️</span> {show.theater_display}
+              {show.venues.map(v => v.theater_afkorting).join(" · ")}
             </div>
           </div>
         </div>
@@ -191,19 +191,13 @@ function ExpandedCard({
 }: ExpandedProps) {
   const enDays = englishDays(show.english_friendly, show.english_friendly_detail);
 
-  // Speeldata: gebruik specifieke Amsterdamse data wanneer beschikbaar,
-  // anders genereer ze uit de speelperiode (legacy fallback).
-  const allDates: Date[] = (show.speeldata && show.speeldata.length > 0)
-    ? show.speeldata.map(s => {
-        const [y, m, d] = s.split("-").map(Number);
-        return new Date(y, m - 1, d);
-      })
-    : datesInPeriod(show.speelperiode_start, show.speelperiode_end);
-  const hasSpecificDates = !!(show.speeldata && show.speeldata.length > 0);
+  // Helper: zet ISO-datums om naar Date-objecten
+  const parseDates = (isoList: string[]): Date[] =>
+    isoList.map(s => {
+      const [y, m, d] = s.split("-").map(Number);
+      return new Date(y, m - 1, d);
+    }).sort((a, b) => a.getTime() - b.getTime());
 
-  const MAX_DATES = 24;
-  const dates = allDates.slice(0, MAX_DATES);
-  const overflow = allDates.length - dates.length;
   const genre = genreOfShow(show);
   const themes = themesOfShow(show);
 
@@ -374,7 +368,7 @@ function ExpandedCard({
             {show.titel}
           </h2>
           <div className="mt-2 text-sm text-ink-muted">
-            {show.theater_display} · {show.gezelschap_display}
+            {show.venues.map(v => v.theater_afkorting).join(" · ")} · {show.gezelschap_display}
           </div>
         </div>
 
@@ -398,7 +392,7 @@ function ExpandedCard({
           )}
         </section>
 
-        {/* Tickets + speeldata */}
+        {/* Tickets + speeldata per venue */}
         <section className="border-t border-line p-6 sm:p-8">
           <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
             <h3 className="text-sm font-medium uppercase tracking-widest text-ink-muted">
@@ -417,41 +411,52 @@ function ExpandedCard({
             )}
           </div>
 
-          {dates.length > 0 && (
-            <>
-              <div className="text-xs font-medium text-ink-muted mb-2">
-                Speeldata in Amsterdam
-              </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3 md:grid-cols-4">
-                {dates.map((d, i) => {
-                  const isEn = enDays.has(d.getDay());
-                  return (
-                    <div key={i} className="flex items-center justify-between text-sm text-ink-soft">
-                      <span className="lowercase">{formatDateNL(d)}</span>
-                      {isEn && (
-                        <span
-                          className="ml-2 rounded-full px-2 py-0.5 text-[10px] font-medium"
-                          style={{ background: NEON_BG, color: NEON_TEXT }}
-                        >
-                          EN
-                        </span>
+          <div className="space-y-5">
+            {show.venues.map(v => {
+              const dates = parseDates(v.speeldata);
+              const MAX = 18;
+              const visible = dates.slice(0, MAX);
+              const overflow = dates.length - visible.length;
+              return (
+                <div key={v.theater_id}>
+                  <div className="mb-2 text-xs font-bold text-ink uppercase tracking-wider">
+                    {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
+                  </div>
+                  {visible.length > 0 ? (
+                    <>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3 md:grid-cols-4">
+                        {visible.map((d, i) => {
+                          const isEn = enDays.has(d.getDay());
+                          return (
+                            <div key={i} className="flex items-center justify-between text-sm text-ink-soft">
+                              <span className="lowercase">{formatDateNL(d)}</span>
+                              {isEn && (
+                                <span
+                                  className="ml-2 rounded-full px-2 py-0.5 text-[10px] font-medium"
+                                  style={{ background: NEON_BG, color: NEON_TEXT }}
+                                >
+                                  EN
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      {overflow > 0 && (
+                        <div className="mt-2 text-xs text-ink-muted">
+                          + {overflow} meer — controleer de ticketlink
+                        </div>
                       )}
+                    </>
+                  ) : (
+                    <div className="text-xs text-ink-faint italic">
+                      Speeldata via de ticketlink
                     </div>
-                  );
-                })}
-              </div>
-              {overflow > 0 && (
-                <div className="mt-3 text-xs text-ink-muted">
-                  + {overflow} meer — controleer de ticketlink
+                  )}
                 </div>
-              )}
-              {!hasSpecificDates && (
-                <div className="mt-2 text-xs text-ink-faint italic">
-                  Datums geschat op basis van de speelperiode — exacte speeldagen via ticketlink
-                </div>
-              )}
-            </>
-          )}
+              );
+            })}
+          </div>
         </section>
 
         {/* Recensies */}
