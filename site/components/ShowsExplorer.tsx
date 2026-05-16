@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Heart } from "lucide-react";
 import { ShowCard } from "./ShowCard";
-import { FilterSidebar } from "./FilterSidebar";
 import { FestivalsSection } from "./FestivalsSection";
 import { GezelschappenSection } from "./GezelschappenSection";
 import { TheatersSection } from "./TheatersSection";
@@ -43,7 +42,7 @@ interface MonthGroup {
   shows: { show: ShowDisplay; pill: string }[];
 }
 
-export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, allGezelschappen, festivals }: Props) {
+export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, festivals }: Props) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [flipped, setFlipped] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -55,8 +54,6 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
   const [selectedMonths, setSelectedMonths] = useState<Set<string>>(new Set());
-  const [showThisWeek, setShowThisWeek] = useState(false);
-  const [showTopRated, setShowTopRated] = useState(false);
 
   // Beschikbare steden: theaters die we hebben + grote NL theater-steden (gesorteerd)
   const availableCities = useMemo(() => {
@@ -78,6 +75,10 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
   const [cityQuery, setCityQuery] = useState("");
   const cityRef = useRef<HTMLDivElement>(null);
 
+  // Maand-dropdown state
+  const [monthOpen, setMonthOpen] = useState(false);
+  const monthRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!cityOpen) return;
     const handler = (e: MouseEvent) => {
@@ -88,6 +89,17 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
     const t = setTimeout(() => document.addEventListener("click", handler), 0);
     return () => { clearTimeout(t); document.removeEventListener("click", handler); };
   }, [cityOpen]);
+
+  useEffect(() => {
+    if (!monthOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (monthRef.current && !monthRef.current.contains(e.target as Node)) {
+        setMonthOpen(false);
+      }
+    };
+    const t = setTimeout(() => document.addEventListener("click", handler), 0);
+    return () => { clearTimeout(t); document.removeEventListener("click", handler); };
+  }, [monthOpen]);
 
   const filteredCities = useMemo(
     () => availableCities.filter(c => c.toLowerCase().includes(cityQuery.toLowerCase())),
@@ -115,14 +127,6 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
     return () => window.removeEventListener("keydown", onKey);
   }, [expanded]);
 
-  // Helpers voor quick filters
-  const todayISO = useMemo(() => new Date().toISOString().slice(0, 10), []);
-  const weekEndISO = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 7);
-    return d.toISOString().slice(0, 10);
-  }, []);
-
   // Filter de shows op basis van actieve filters
   const filteredShows = useMemo(() => {
     // Geen stad geselecteerd → geen shows
@@ -137,19 +141,6 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         });
       if (!inCity) return false;
       if (showFavoritesOnly && !favorites.has(s.id)) return false;
-
-      // Deze week: speeldata of speelperiode binnen vandaag t/m vandaag+7
-      if (showThisWeek) {
-        const inSpeeldata = !!s.speeldata && s.speeldata.some(d => d >= todayISO && d <= weekEndISO);
-        const inRange = s.speelperiode_start <= weekEndISO && s.speelperiode_end >= todayISO;
-        if (!inSpeeldata && !inRange) return false;
-      }
-
-      // Best gerecenseerd: heeft minstens één pers-quote met sterren ≥ 4
-      if (showTopRated) {
-        const goodReviews = s.pers_quotes.some(p => (p.sterren ?? 0) >= 4);
-        if (!goodReviews) return false;
-      }
 
       if (selectedTheaters.size > 0) {
         const has =
@@ -173,7 +164,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
       }
       return true;
     });
-  }, [shows, selectedCities, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, showThisWeek, showTopRated, todayISO, weekEndISO, theaterStadById]);
+  }, [shows, selectedCities, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, theaterStadById]);
 
   // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
   const availableMonths = useMemo(() => {
@@ -214,7 +205,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
   // Reset naar eerste maand wanneer filter-resultaten veranderen
   useEffect(() => {
     setCurrentMonthIndex(0);
-  }, [selectedCities, selectedTheaters, selectedGezelschappen, selectedMonths, showFavoritesOnly, showThisWeek, showTopRated]);
+  }, [selectedCities, selectedTheaters, selectedGezelschappen, selectedMonths, showFavoritesOnly]);
 
   const toggleFav = (id: string) => {
     setFavorites(prev => {
@@ -233,24 +224,6 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
     setFlipped(prev => prev.has(key) ? new Set() : new Set([key]));
   };
 
-  const toggleTheater = (id: string) => {
-    setSelectedTheaters(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
-  };
-  const clearTheaters = () => setSelectedTheaters(new Set());
-
-  const toggleGezelschap = (id: string) => {
-    setSelectedGezelschappen(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
-  };
-  const clearGezelschappen = () => setSelectedGezelschappen(new Set());
-
   const toggleMonth = (key: string) => {
     setSelectedMonths(prev => {
       const next = new Set(prev);
@@ -264,38 +237,16 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
     showFavoritesOnly ||
     selectedTheaters.size > 0 ||
     selectedGezelschappen.size > 0 ||
-    selectedMonths.size > 0 ||
-    showThisWeek ||
-    showTopRated;
+    selectedMonths.size > 0;
   const clearAllFilters = () => {
     setShowFavoritesOnly(false);
     setSelectedTheaters(new Set());
     setSelectedGezelschappen(new Set());
     setSelectedMonths(new Set());
-    setShowThisWeek(false);
-    setShowTopRated(false);
   };
 
   return (
     <>
-      <FilterSidebar
-        favoritesActive={showFavoritesOnly}
-        favoritesCount={favorites.size}
-        onToggleFavoritesFilter={() => setShowFavoritesOnly(v => !v)}
-        theaters={theaters}
-        selectedTheaters={selectedTheaters}
-        onToggleTheater={toggleTheater}
-        onClearTheaters={clearTheaters}
-        gezelschappen={gezelschappen}
-        selectedGezelschappen={selectedGezelschappen}
-        onToggleGezelschap={toggleGezelschap}
-        onClearGezelschappen={clearGezelschappen}
-        availableMonths={availableMonths}
-        selectedMonths={selectedMonths}
-        onToggleMonth={toggleMonth}
-        onClearMonths={clearMonths}
-      />
-
       {/* Sectietitel + filter chips */}
       <h2 className="font-display mb-2 text-3xl text-ink tracking-tight sm:text-4xl">
         Alle voorstellingen
@@ -383,29 +334,86 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
           )}
         </div>
 
-        <div className="mx-2 h-6 w-px bg-line" aria-hidden="true" />
+        {/* Multi-select maand-dropdown */}
+        <div ref={monthRef} className="relative">
+          <button
+            onClick={() => setMonthOpen(v => !v)}
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              selectedMonths.size > 0
+                ? "bg-ink text-white hover:bg-black"
+                : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+            }`}
+          >
+            <span>
+              {selectedMonths.size === 0
+                ? "Kies een maand"
+                : selectedMonths.size === 1
+                  ? availableMonths.find(m => m.key === Array.from(selectedMonths)[0])?.label ?? "1 maand"
+                  : `${selectedMonths.size} maanden`}
+            </span>
+            <ChevronDown size={14} />
+          </button>
+          {monthOpen && (
+            <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border border-line bg-white shadow-xl overflow-hidden flex flex-col">
+              {selectedMonths.size > 0 && (
+                <div className="flex items-center justify-between px-3 py-2 border-b border-line text-xs">
+                  <span className="text-ink-muted">{selectedMonths.size} geselecteerd</span>
+                  <button
+                    onClick={clearMonths}
+                    className="text-ink-muted hover:text-ink"
+                  >
+                    Wis alle
+                  </button>
+                </div>
+              )}
+              <div className="max-h-64 overflow-y-auto p-2">
+                {availableMonths.length === 0 ? (
+                  <div className="px-3 py-2 text-sm italic text-ink-faint">Geen maanden beschikbaar</div>
+                ) : (
+                  availableMonths.map(m => {
+                    const isActive = selectedMonths.has(m.key);
+                    return (
+                      <button
+                        key={m.key}
+                        onClick={() => toggleMonth(m.key)}
+                        className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
+                          isActive
+                            ? "bg-[#F1EFE8] text-ink font-medium"
+                            : "text-ink-soft hover:bg-[#F8F6EF]"
+                        }`}
+                      >
+                        <span className="capitalize">{m.label}</span>
+                        {isActive && (
+                          <span className="text-ink shrink-0" aria-hidden="true">✓</span>
+                        )}
+                      </button>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          )}
+        </div>
 
+        {/* Hartje — favorieten-toggle, laatste in het rijtje */}
         <button
-          onClick={() => setShowThisWeek(v => !v)}
-          disabled={selectedCities.size === 0}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-            showThisWeek
-              ? "bg-ink text-white hover:bg-black"
+          onClick={() => setShowFavoritesOnly(v => !v)}
+          className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            showFavoritesOnly
+              ? "bg-[#FF3D8B] text-white hover:bg-[#E5306F]"
               : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-          } disabled:cursor-not-allowed disabled:opacity-50`}
+          }`}
+          aria-label="Toon alleen favorieten"
         >
-          Wat speelt er deze week
-        </button>
-        <button
-          onClick={() => setShowTopRated(v => !v)}
-          disabled={selectedCities.size === 0}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-            showTopRated
-              ? "bg-ink text-white hover:bg-black"
-              : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-          } disabled:cursor-not-allowed disabled:opacity-50`}
-        >
-          Best gerecenseerd
+          <Heart
+            size={14}
+            className={showFavoritesOnly ? "fill-white stroke-white" : "stroke-current"}
+          />
+          {favorites.size > 0 && (
+            <span className={showFavoritesOnly ? "text-white/90" : "text-ink-muted"}>
+              {favorites.size}
+            </span>
+          )}
         </button>
       </div>
 
