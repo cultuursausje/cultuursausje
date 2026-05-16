@@ -70,6 +70,20 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     return m;
   }, [theaters]);
 
+  // Steden waar daadwerkelijk voorstellingen plaatsvinden — bepaalt welke
+  // items in de dropdown klikbaar zijn.
+  const citiesWithShows = useMemo(() => {
+    const set = new Set<string>();
+    shows.forEach(s => {
+      if (s.theater_stad) set.add(s.theater_stad);
+      s.extra_theaters.forEach(id => {
+        const stad = theaterStadById.get(id);
+        if (stad) set.add(stad);
+      });
+    });
+    return set;
+  }, [shows, theaterStadById]);
+
   // Stad-dropdown state
   const [cityOpen, setCityOpen] = useState(false);
   const [cityQuery, setCityQuery] = useState("");
@@ -288,10 +302,13 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                 ) : (
                   filteredCities.map(city => {
                     const isActive = selectedCities.has(city);
+                    const isEnabled = citiesWithShows.has(city);
                     return (
                       <button
                         key={city}
+                        disabled={!isEnabled}
                         onClick={() => {
+                          if (!isEnabled) return;
                           setSelectedCities(prev => {
                             const next = new Set(prev);
                             if (next.has(city)) next.delete(city);
@@ -300,14 +317,19 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                           });
                         }}
                         className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
-                          isActive
-                            ? "bg-[#F1EFE8] text-ink font-medium"
-                            : "text-ink-soft hover:bg-[#F8F6EF]"
+                          !isEnabled
+                            ? "text-ink-faint cursor-not-allowed opacity-50"
+                            : isActive
+                              ? "bg-[#F1EFE8] text-ink font-medium"
+                              : "text-ink-soft hover:bg-[#F8F6EF]"
                         }`}
                       >
                         <span>{city}</span>
-                        {isActive && (
+                        {isActive && isEnabled && (
                           <span className="text-ink shrink-0" aria-hidden="true">✓</span>
+                        )}
+                        {!isEnabled && (
+                          <span className="text-[10px] text-ink-faint shrink-0">geen</span>
                         )}
                       </button>
                     );
@@ -361,10 +383,10 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       </div>
 
       {selectedCities.size === 0 ? (
-        <div className="rounded-3xl bg-white p-12 text-center">
-          <div className="text-2xl font-medium text-ink mb-2">Kies eerst een stad</div>
-          <div className="text-sm text-ink-muted">
-            Selecteer hierboven een of meer steden om voorstellingen te zien.
+        <div className="px-2 py-6 text-center">
+          <div className="text-base text-ink">Je hebt nog geen stad gekozen.</div>
+          <div className="mt-2 text-sm text-ink-soft">
+            Klik hierboven op de stad-knop om een stad te selecteren.
           </div>
         </div>
       ) : monthsForNav.length === 0 ? (

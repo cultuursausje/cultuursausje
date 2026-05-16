@@ -317,8 +317,7 @@ function ExpandedCard({
 
             {/* Pills overlay top — laat ruimte voor close + heart knoppen */}
             <div className="pointer-events-none absolute top-4 left-4 right-28 flex flex-wrap gap-2 z-10">
-              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-bold text-ink capitalize inline-flex items-center gap-1">
-                <span aria-hidden="true">{genre === "dans" ? "💃" : "🎭"}</span>
+              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-ink capitalize">
                 {genre}
               </span>
               {themes.map((t, i) => (
@@ -350,8 +349,7 @@ function ExpandedCard({
           {/* Pills boven titel — alleen wanneer er geen carousel boven staat */}
           {!hasPhotos && (
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-bold text-ink capitalize inline-flex items-center gap-1">
-                <span aria-hidden="true">{genre === "dans" ? "💃" : "🎭"}</span>
+              <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft capitalize">
                 {genre}
               </span>
               {themes.map((t, i) => (
@@ -404,7 +402,7 @@ function ExpandedCard({
         <section className="border-t border-line p-6 sm:p-8">
           <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
             <h3 className="text-sm font-medium uppercase tracking-widest text-ink-muted">
-              🎫 Tickets
+              Tickets
             </h3>
             {show.ticket_url && (
               <a
@@ -487,14 +485,9 @@ function ExpandedCard({
         {/* Over het gezelschap */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            👥 Over het gezelschap
+            Over het gezelschap
           </h3>
           <div className="mb-2 text-base font-medium text-ink">{show.gezelschap_display}</div>
-          {show.gezelschap_beschrijving && (
-            <p className="text-sm text-ink-soft leading-relaxed mb-3">
-              {show.gezelschap_beschrijving}
-            </p>
-          )}
           {show.regisseur && (
             <div className="text-xs text-ink-muted mb-3">Regie van dit stuk: {show.regisseur}</div>
           )}
@@ -513,14 +506,9 @@ function ExpandedCard({
         {/* Over het theater */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            🏛️ Over het theater
+            Over het theater
           </h3>
           <div className="mb-2 text-base font-medium text-ink">{show.theater_naam}</div>
-          {show.theater_beschrijving && (
-            <p className="text-sm text-ink-soft leading-relaxed mb-4">
-              {show.theater_beschrijving}
-            </p>
-          )}
           {show.theater_url && (
             <div className="mb-4">
               <a
