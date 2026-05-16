@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { DiscoBackground } from "@/components/DiscoBackground";
 
 export const metadata: Metadata = {
   title: "Cultuursausje — Theateragenda Amsterdam",
@@ -15,9 +16,7 @@ export default function RootLayout({
   return (
     <html lang="nl">
       <body className="grain min-h-screen">
-        <div className="disco-projection" aria-hidden="true" />
-        <div className="disco-ball" aria-hidden="true" />
-        <div className="disco-ball-small" aria-hidden="true" />
+        <DiscoBackground />
         {children}
       </body>
     </html>

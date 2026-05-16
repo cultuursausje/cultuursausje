@@ -1,5 +1,6 @@
 import { getSiteData } from "@/lib/data";
 import { ShowsExplorer } from "@/components/ShowsExplorer";
+import { SectionNav } from "@/components/SectionNav";
 import { festivals } from "@/data/festivals";
 import type { ShowDisplay } from "@/types";
 import { isOver } from "@/lib/dates";
@@ -70,6 +71,7 @@ export default async function HomePage() {
 
   return (
     <main className="relative z-10 mx-auto max-w-[1280px] px-6 pb-24 pt-10 sm:px-8 lg:px-12">
+      <SectionNav />
       <header className="mb-10 sm:mb-14">
         <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
           Cultuursausje
