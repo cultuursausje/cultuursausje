@@ -6,7 +6,7 @@ import {
   Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
-import { photoBgForShow } from "@/lib/colors";
+import { photoBgForShow, neonForShow } from "@/lib/colors";
 import { datesInPeriod, englishDays, formatDateNL } from "@/lib/dates";
 
 const NEON_BG = "#B5FF52";
@@ -31,6 +31,7 @@ export function ShowCard({
   onFlip, onExpand, onCollapse, onToggleFav
 }: Props) {
   const photoBg = photoBgForShow(show.id);
+  const neon = neonForShow(show.id);
   const hasPhoto = !!show.foto_url;
 
   if (isExpanded) {
@@ -53,24 +54,18 @@ export function ShowCard({
           : "hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5"
       }`}
     >
-      {/* LED-strip neon achter de card — twee lagen voor scherpe rand + zachte halo */}
+      {/* LED-strip neon achter de card — twee lagen, één kleur per show */}
       {!isFlipped && (
         <>
           {/* Wijde, zachte halo */}
           <div
-            className="pointer-events-none absolute -inset-6 rounded-[40px] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-95"
-            style={{
-              background:
-                "linear-gradient(135deg, #FF1A6B 0%, #FF5500 25%, #FFD700 50%, #00FF88 75%, #00AAFF 100%)"
-            }}
+            className="pointer-events-none absolute -inset-6 rounded-[40px] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-90"
+            style={{ background: neon }}
           />
-          {/* Scherpe ring direct om de card — als een LED-strip */}
+          {/* Scherpe LED-strip direct om de card */}
           <div
             className="pointer-events-none absolute -inset-1 rounded-[26px] opacity-0 blur-[3px] transition-opacity duration-500 group-hover:opacity-100"
-            style={{
-              background:
-                "linear-gradient(135deg, #FF1A6B 0%, #FF5500 25%, #FFD700 50%, #00FF88 75%, #00AAFF 100%)"
-            }}
+            style={{ background: neon }}
           />
         </>
       )}
@@ -255,10 +250,13 @@ function ExpandedCard({
             <div
               ref={carouselRef}
               onScroll={onCarouselScroll}
-              className="flex snap-x snap-mandatory overflow-x-auto aspect-[16/10] scrollbar-hide"
+              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
             >
               {photos.map((url, i) => (
-                <div key={i} className="snap-center shrink-0 w-full h-full relative overflow-hidden">
+                <div
+                  key={i}
+                  className="snap-center shrink-0 w-full aspect-[16/10] relative overflow-hidden bg-[#1B2A4E]"
+                >
                   <img
                     src={url}
                     alt=""

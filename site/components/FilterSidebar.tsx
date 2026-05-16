@@ -28,8 +28,6 @@ interface Props {
   selectedMonths: Set<string>;
   onToggleMonth: (key: string) => void;
   onClearMonths: () => void;
-  selectedDay: string | null;
-  onSelectDay: (day: string | null) => void;
 }
 
 type Panel = "theaters" | "gezelschappen" | "calendar" | null;
@@ -59,8 +57,7 @@ export function FilterSidebar(props: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [openPanel]);
 
-  const calendarFilterCount =
-    (props.selectedMonths.size > 0 ? 1 : 0) + (props.selectedDay ? 1 : 0);
+  const calendarFilterCount = props.selectedMonths.size;
 
   return (
     <>
@@ -168,10 +165,7 @@ export function FilterSidebar(props: Props) {
               <button onClick={props.onClearGezelschappen} className="text-xs text-ink-muted hover:text-ink">Wis</button>
             )}
             {openPanel === "calendar" && calendarFilterCount > 0 && (
-              <button
-                onClick={() => { props.onClearMonths(); props.onSelectDay(null); }}
-                className="text-xs text-ink-muted hover:text-ink"
-              >Wis</button>
+              <button onClick={props.onClearMonths} className="text-xs text-ink-muted hover:text-ink">Wis</button>
             )}
           </div>
 
@@ -206,57 +200,30 @@ export function FilterSidebar(props: Props) {
               </div>
             )}
 
-            {/* Kalender panel */}
+            {/* Kalender panel — alleen maand-selectie */}
             {openPanel === "calendar" && (
-              <div className="p-3 space-y-5">
-                <div>
-                  <div className="px-1 pb-2 text-[11px] font-bold uppercase tracking-widest text-ink-muted">
-                    Per maand
-                  </div>
-                  <div className="space-y-0.5">
-                    {props.availableMonths.length === 0 ? (
-                      <div className="px-3 py-2 text-sm text-ink-faint italic">Geen maanden beschikbaar</div>
-                    ) : (
-                      props.availableMonths.map((m) => {
-                        const isSelected = props.selectedMonths.has(m.key);
-                        return (
-                          <button
-                            key={m.key}
-                            onClick={() => props.onToggleMonth(m.key)}
-                            className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
-                              isSelected
-                                ? "bg-[#FFF1D9] text-ink font-medium"
-                                : "text-ink-soft hover:bg-[#F8F6EF]"
-                            }`}
-                          >
-                            <span className="capitalize">{m.label}</span>
-                            {isSelected && <Check size={14} className="text-ink shrink-0" />}
-                          </button>
-                        );
-                      })
-                    )}
-                  </div>
-                </div>
-
-                <div className="border-t border-line pt-4">
-                  <div className="px-1 pb-2 text-[11px] font-bold uppercase tracking-widest text-ink-muted">
-                    Op een specifieke dag
-                  </div>
-                  <input
-                    type="date"
-                    value={props.selectedDay ?? ""}
-                    onChange={(e) => props.onSelectDay(e.target.value || null)}
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-line bg-white focus:outline-none focus:ring-2 focus:ring-[#E5B53A]"
-                  />
-                  {props.selectedDay && (
-                    <button
-                      onClick={() => props.onSelectDay(null)}
-                      className="mt-2 text-xs text-ink-muted hover:text-ink underline-offset-2 underline"
-                    >
-                      Datum wissen
-                    </button>
-                  )}
-                </div>
+              <div className="p-2">
+                {props.availableMonths.length === 0 ? (
+                  <div className="px-3 py-2 text-sm text-ink-faint italic">Geen maanden beschikbaar</div>
+                ) : (
+                  props.availableMonths.map((m) => {
+                    const isSelected = props.selectedMonths.has(m.key);
+                    return (
+                      <button
+                        key={m.key}
+                        onClick={() => props.onToggleMonth(m.key)}
+                        className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
+                          isSelected
+                            ? "bg-[#FFF1D9] text-ink font-medium"
+                            : "text-ink-soft hover:bg-[#F8F6EF]"
+                        }`}
+                      >
+                        <span className="capitalize">{m.label}</span>
+                        {isSelected && <Check size={14} className="text-ink shrink-0" />}
+                      </button>
+                    );
+                  })
+                )}
               </div>
             )}
           </div>

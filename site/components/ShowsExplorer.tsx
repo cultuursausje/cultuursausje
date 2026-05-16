@@ -31,7 +31,6 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
   const [selectedMonths, setSelectedMonths] = useState<Set<string>>(new Set());
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   useEffect(() => { setFavorites(loadFavorites()); }, []);
 
@@ -68,12 +67,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
           !(s.gezelschap_id && selectedGezelschappen.has(s.gezelschap_id))) {
         return false;
       }
-      // Specifieke dag overrult maand-filter
-      if (selectedDay) {
-        const inSpeeldata = !!s.speeldata && s.speeldata.includes(selectedDay);
-        const inRange = s.speelperiode_start <= selectedDay && s.speelperiode_end >= selectedDay;
-        if (!inSpeeldata && !inRange) return false;
-      } else if (selectedMonths.size > 0) {
+      if (selectedMonths.size > 0) {
         const anyMatch = Array.from(selectedMonths).some(key => {
           const [year, m] = key.split("-").map(Number);
           const monthStart = `${year}-${String(m).padStart(2, "0")}-01`;
@@ -85,7 +79,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
       }
       return true;
     });
-  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, selectedDay]);
+  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths]);
 
   // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
   const availableMonths = useMemo(() => {
@@ -96,7 +90,14 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   }, [shows]);
 
   const months: MonthGroup[] = useMemo(() => {
-    const list = monthsToShow(filteredShows);
+    let list = monthsToShow(filteredShows);
+    // Als de gebruiker specifieke maanden heeft geselecteerd, toon alleen die maand-secties
+    if (selectedMonths.size > 0) {
+      list = list.filter(({ year, monthIdx }) => {
+        const key = `${year}-${String(monthIdx + 1).padStart(2, "0")}`;
+        return selectedMonths.has(key);
+      });
+    }
     return list.map(({ year, monthIdx }) => {
       const items = filteredShows
         .map(show => {
@@ -111,7 +112,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
         shows: items
       };
     }).filter(g => g.shows.length > 0);
-  }, [filteredShows]);
+  }, [filteredShows, selectedMonths]);
 
   const toggleFav = (id: string) => {
     setFavorites(prev => {
@@ -161,14 +162,12 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
     showFavoritesOnly ||
     selectedTheaters.size > 0 ||
     selectedGezelschappen.size > 0 ||
-    selectedMonths.size > 0 ||
-    selectedDay !== null;
+    selectedMonths.size > 0;
   const clearAllFilters = () => {
     setShowFavoritesOnly(false);
     setSelectedTheaters(new Set());
     setSelectedGezelschappen(new Set());
     setSelectedMonths(new Set());
-    setSelectedDay(null);
   };
 
   return (
@@ -189,8 +188,6 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
         selectedMonths={selectedMonths}
         onToggleMonth={toggleMonth}
         onClearMonths={clearMonths}
-        selectedDay={selectedDay}
-        onSelectDay={setSelectedDay}
       />
 
       {months.length === 0 ? (
