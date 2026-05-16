@@ -1,13 +1,14 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import type { Gezelschap } from "@/types";
 
 interface Props {
   gezelschappen: Gezelschap[];
 }
 
-const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#2D4DEB", "#00B4FF", "#B85FFF", "#FF3D8B", "#00B488", "#E5B53A"];
+const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#FFFFFF", "#1A1A18", "#B85FFF", "#FFD500", "#5AC8FA", "#FFB7C8"];
 
 function colorForCity(city: string): string {
   let h = 0;
@@ -25,51 +26,74 @@ function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
     arr.push(g);
     m.set(g.stad, arr);
   });
-  return Array.from(m.entries()).sort((a, b) => a[0].localeCompare(b[0], "nl"));
+  return Array.from(m.entries())
+    .sort(([a], [b]) => a.localeCompare(b, "nl"))
+    .map(([city, list]) => [
+      city,
+      [...list].sort((x, y) => x.naam.localeCompare(y.naam, "nl"))
+    ] as [string, Gezelschap[]]);
 }
+
+const INITIAL_CITY_COUNT = 2;
 
 export function GezelschappenSection({ gezelschappen }: Props) {
   const grouped = groupByCity(gezelschappen);
+  const [expanded, setExpanded] = useState(false);
+  const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
+  const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section className="relative -mx-6 px-6 py-16 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12" style={{ background: "#EDF6E8" }}>
-      <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
-        Gezelschappen & collectieven
-      </h2>
-      <p className="mb-8 max-w-xl text-sm text-ink-muted">
-        De grootste theatergezelschappen en theatercollectieven van Nederland.
-      </p>
+    <section className="mt-20 sm:mt-24">
+      <div
+        className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        style={{ background: "#BDFF00" }}
+      >
+        <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
+          Gezelschappen & collectieven
+        </h2>
+        <p className="mb-8 max-w-xl text-sm text-ink-soft">
+          De grootste theatergezelschappen en theatercollectieven van Nederland.
+        </p>
 
-      <div className="space-y-10">
-        {grouped.map(([city, list]) => (
-          <div key={city}>
-            <h3
-              className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
-              style={{ color: colorForCity(city) }}
-            >
-              {city}
-            </h3>
-            <div className="grid grid-cols-1 gap-x-12 gap-y-5 md:grid-cols-2">
-              {list.map(g => (
-                <div key={g.id}>
-                  <a
-                    href={g.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
-                  >
-                    {g.naam}
-                    <ExternalLink size={12} className="text-ink-faint" />
-                  </a>
-                  <div className="mt-0.5 text-xs text-ink-faint">{g.type}</div>
-                  {g.beschrijving && (
-                    <p className="mt-1 text-sm text-ink-muted leading-snug">{g.beschrijving}</p>
-                  )}
-                </div>
-              ))}
+        <div className="space-y-10">
+          {visibleCities.map(([city, list]) => (
+            <div key={city}>
+              <h3
+                className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
+                style={{ color: colorForCity(city) }}
+              >
+                {city}
+              </h3>
+              <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
+                {list.map(g => (
+                  <div key={g.id}>
+                    <a
+                      href={g.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
+                    >
+                      {g.naam}
+                      <ExternalLink size={12} className="text-ink-soft" />
+                    </a>
+                    <div className="mt-0.5 text-xs text-ink-soft">{g.type}</div>
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
+
+        {hasMore && (
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={() => setExpanded(v => !v)}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
+            >
+              {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
+            </button>
           </div>
-        ))}
+        )}
       </div>
     </section>
   );

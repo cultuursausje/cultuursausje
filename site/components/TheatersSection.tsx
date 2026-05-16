@@ -1,16 +1,17 @@
 "use client";
 
-import { ExternalLink, MapPin } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import type { Theater } from "@/types";
 
 interface Props {
   /** Alle theaters voor in de lijst, gegroepeerd per stad. */
   theaters: Theater[];
-  /** Alleen de theaters die in voorstellingen genoemd worden — voor de map. */
+  /** Alleen de theaters die in voorstellingen genoemd worden (niet gebruikt nu, behouden voor API-compat). */
   mentionedTheaters: Theater[];
 }
 
-const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#2D4DEB", "#00B4FF", "#B85FFF", "#FF3D8B", "#00B488", "#E5B53A"];
+const CITY_COLORS = ["#FF1A6B", "#FF6B35", "#FFFFFF", "#1A1A18", "#B85FFF", "#FFD500", "#00FF88", "#FFB7C8"];
 
 function colorForCity(city: string): string {
   let h = 0;
@@ -28,87 +29,86 @@ function groupByCity(items: Theater[]): Array<[string, Theater[]]> {
     arr.push(t);
     m.set(t.stad, arr);
   });
-  return Array.from(m.entries()).sort((a, b) => a[0].localeCompare(b[0], "nl"));
+  // Sorteer per stad alfabetisch + items binnen elke stad alfabetisch
+  return Array.from(m.entries())
+    .sort(([a], [b]) => a.localeCompare(b, "nl"))
+    .map(([city, list]) => [
+      city,
+      [...list].sort((x, y) => x.naam.localeCompare(y.naam, "nl"))
+    ] as [string, Theater[]]);
 }
 
 function mapsLinkForTheater(theater: string, stad: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater + ", " + stad)}`;
 }
 
-function mapsEmbedForMentioned(mentioned: Theater[]): string {
-  if (mentioned.length === 0) return "";
-  // Multi-term zoekopdracht — Google laat zoekresultaten zien als pins
-  const query = mentioned.map(t => `${t.naam} ${t.stad}`).join(", ");
-  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
-}
+const INITIAL_CITY_COUNT = 2;
 
-export function TheatersSection({ theaters, mentionedTheaters }: Props) {
+export function TheatersSection({ theaters }: Props) {
   const grouped = groupByCity(theaters);
-  const mapUrl = mapsEmbedForMentioned(mentionedTheaters);
+  const [expanded, setExpanded] = useState(false);
+  const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
+  const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section className="relative -mx-6 px-6 py-16 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12" style={{ background: "#E8EFFD" }}>
-      <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
-        Theaters
-      </h2>
-      <p className="mb-8 max-w-xl text-sm text-ink-muted">
-        Plekken waar de voorstellingen spelen.
-      </p>
+    <section className="mt-20 sm:mt-24">
+      <div
+        className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        style={{ background: "#5AC8FA" }}
+      >
+        <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
+          Theaters
+        </h2>
+        <p className="mb-8 max-w-xl text-sm text-ink-soft">
+          Plekken waar de voorstellingen spelen.
+        </p>
 
-      {/* Google Maps overzicht — alleen genoemde theaters */}
-      {mapUrl && (
-        <div className="mb-10 overflow-hidden rounded-3xl border border-line bg-white">
-          <div className="aspect-[16/8]">
-            <iframe
-              src={mapUrl}
-              className="block h-full w-full"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Theaters op de kaart"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Tekst-lijst gegroepeerd per stad */}
-      <div className="space-y-10">
-        {grouped.map(([city, list]) => (
-          <div key={city}>
-            <h3
-              className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
-              style={{ color: colorForCity(city) }}
-            >
-              {city}
-            </h3>
-            <div className="grid grid-cols-1 gap-x-12 gap-y-5 md:grid-cols-2">
-              {list.map(t => (
-                <div key={t.id}>
-                  <a
-                    href={t.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
-                  >
-                    {t.naam}
-                    <ExternalLink size={12} className="text-ink-faint" />
-                  </a>
-                  {t.beschrijving && (
-                    <p className="mt-0.5 text-sm text-ink-muted leading-snug">{t.beschrijving}</p>
-                  )}
-                  <a
-                    href={mapsLinkForTheater(t.naam, t.stad)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-1 inline-flex items-center gap-1 text-xs text-ink-faint hover:text-ink underline-offset-2 hover:underline"
-                  >
-                    <MapPin size={11} /> Op de kaart
-                  </a>
-                </div>
-              ))}
+        <div className="space-y-10">
+          {visibleCities.map(([city, list]) => (
+            <div key={city}>
+              <h3
+                className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
+                style={{ color: colorForCity(city) }}
+              >
+                {city}
+              </h3>
+              <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
+                {list.map(t => (
+                  <div key={t.id}>
+                    <a
+                      href={t.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
+                    >
+                      {t.naam}
+                      <ExternalLink size={12} className="text-ink-soft" />
+                    </a>
+                    <a
+                      href={mapsLinkForTheater(t.naam, t.stad)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="ml-3 inline-flex items-center gap-1 text-xs text-ink-soft hover:text-ink underline-offset-2 hover:underline"
+                    >
+                      <MapPin size={11} /> Op de kaart
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
+
+        {hasMore && (
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={() => setExpanded(v => !v)}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
+            >
+              {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
+            </button>
           </div>
-        ))}
+        )}
       </div>
     </section>
   );
