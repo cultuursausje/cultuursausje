@@ -14,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl">
-      <body className="grain min-h-screen">{children}</body>
+      <body className="grain min-h-screen">
+        <div className="disco-projection" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   );
 }
