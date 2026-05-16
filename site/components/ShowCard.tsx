@@ -215,21 +215,21 @@ function ExpandedCard({
             {show.titel}
           </h2>
 
-          {/* Theater + Gezelschap + Type stat-blok */}
-          <div className="mt-5 grid grid-cols-3 rounded-2xl bg-[#F8E8E0] overflow-hidden">
+          {/* Type + Theater + Gezelschap stat-blok */}
+          <div className="mt-5 grid grid-cols-3 rounded-2xl bg-[#F1EFE8] overflow-hidden">
             <div className="p-4 sm:p-5 text-center border-r border-white/60">
-              <div className="text-xs font-bold text-ink mb-1.5">🏛️ Theater</div>
-              <div className="text-sm text-ink-soft">{show.theater_display}</div>
-            </div>
-            <div className="p-4 sm:p-5 text-center border-r border-white/60">
-              <div className="text-xs font-bold text-ink mb-1.5">👥 Gezelschap</div>
-              <div className="text-sm text-ink-soft">{show.gezelschap_display}</div>
-            </div>
-            <div className="p-4 sm:p-5 text-center">
               <div className="text-xs font-bold text-ink mb-1.5">
                 {genre === "dans" ? "💃" : "🎭"} Type
               </div>
               <div className="text-sm text-ink-soft capitalize">{genre}</div>
+            </div>
+            <div className="p-4 sm:p-5 text-center border-r border-white/60">
+              <div className="text-xs font-bold text-ink mb-1.5">🏛️ Theater</div>
+              <div className="text-sm text-ink-soft">{show.theater_display}</div>
+            </div>
+            <div className="p-4 sm:p-5 text-center">
+              <div className="text-xs font-bold text-ink mb-1.5">👥 Gezelschap</div>
+              <div className="text-sm text-ink-soft">{show.gezelschap_display}</div>
             </div>
           </div>
         </div>

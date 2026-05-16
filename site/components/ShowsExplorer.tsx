@@ -96,7 +96,10 @@ export function ShowsExplorer({ shows }: Props) {
           <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
             {group.label}
           </h2>
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
+          <div
+            className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+            style={{ gridAutoFlow: "dense" }}
+          >
             {group.shows.map(({ show, pill }) => {
               const key = `${show.id}--${monthKey(group.year, group.monthIdx)}`;
               const isExpandedHere = expanded === key;
@@ -104,9 +107,7 @@ export function ShowsExplorer({ shows }: Props) {
                 <div
                   key={key}
                   className={`transition-all duration-300 ${
-                    isExpandedHere
-                      ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3"
-                      : ""
+                    isExpandedHere ? "col-span-2" : ""
                   }`}
                   style={{ alignSelf: "start" }}
                 >
