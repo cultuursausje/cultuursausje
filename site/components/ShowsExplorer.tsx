@@ -481,6 +481,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                       isFavorite={favorites.has(show.id)}
                       isMobile={isMobile}
                       selectedCities={selectedCities}
+                      viewMonth={{ year: currentMonth.year, monthIdx: currentMonth.monthIdx }}
                       onFlip={() => toggleFlip(key)}
                       onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
                       onCollapse={() => setExpanded(null)}

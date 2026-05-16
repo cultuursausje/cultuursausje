@@ -22,6 +22,10 @@ interface Props {
   isFavorite: boolean;
   isMobile: boolean;
   selectedCities: Set<string>;
+  /** De maand die actief in de grid wordt getoond. Bepaalt welke
+   *  venues + datums in de uitgeklapte card worden meegenomen.
+   *  Ontbreekt bv. in de favorieten-view (geen maandcontext). */
+  viewMonth?: { year: number; monthIdx: number };
   onFlip: () => void;
   onExpand: () => void;
   onCollapse: () => void;
@@ -29,15 +33,28 @@ interface Props {
 }
 
 export function ShowCard({
-  show, pill, isExpanded, isFavorite, selectedCities,
+  show, pill, isExpanded, isFavorite, selectedCities, viewMonth,
   onExpand, onCollapse, onToggleFav
 }: Props) {
-  // Toon alleen venues uit de geselecteerde steden; valt terug op alle
-  // venues wanneer er geen city-filter actief is.
-  const visibleVenues = selectedCities.size === 0
+  // Eerst filteren op stad-selectie
+  const cityFiltered = selectedCities.size === 0
     ? show.venues
     : show.venues.filter(v => selectedCities.has(v.theater_stad));
-  const venues = visibleVenues.length > 0 ? visibleVenues : show.venues;
+  const cityResolved = cityFiltered.length > 0 ? cityFiltered : show.venues;
+
+  // Vervolgens filteren op de actieve maand: alleen venues met speeldata
+  // in die maand passeren. Voor venues met speeldata filteren we boven-
+  // dien hun datums tot de huidige maand zodat de tickets-sectie alleen
+  // de relevante data toont.
+  const monthPrefix = viewMonth
+    ? `${viewMonth.year}-${String(viewMonth.monthIdx + 1).padStart(2, "0")}-`
+    : null;
+  const monthFiltered = monthPrefix
+    ? cityResolved
+        .filter(v => v.speeldata.some(d => d.startsWith(monthPrefix)))
+        .map(v => ({ ...v, speeldata: v.speeldata.filter(d => d.startsWith(monthPrefix)) }))
+    : cityResolved;
+  const venues = monthFiltered.length > 0 ? monthFiltered : cityResolved;
   const photoBg = photoBgForShow(show.id);
   const neon = neonForShow(show.id);
   const hasPhoto = !!show.foto_url;
