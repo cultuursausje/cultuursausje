@@ -52,6 +52,9 @@ export default async function HomePage() {
         theater_naam: theaterObj.naam,
         theater_afkorting: theaterObj.afkorting,
         theater_stad: theaterObj.stad,
+        theater_url: theaterObj.url,
+        theater_foto_url: theaterObj.foto_url,
+        theater_foto_credit: theaterObj.foto_credit,
         speeldata: s.speeldata ?? [],
         is_primary: true
       });
@@ -66,6 +69,9 @@ export default async function HomePage() {
         theater_naam: t.naam,
         theater_afkorting: t.afkorting,
         theater_stad: t.stad,
+        theater_url: t.url,
+        theater_foto_url: t.foto_url,
+        theater_foto_credit: t.foto_credit,
         speeldata: stop.speeldata ?? [],
         is_primary: false
       });
@@ -80,6 +86,9 @@ export default async function HomePage() {
         theater_naam: t.naam,
         theater_afkorting: t.afkorting,
         theater_stad: t.stad,
+        theater_url: t.url,
+        theater_foto_url: t.foto_url,
+        theater_foto_credit: t.foto_credit,
         speeldata: [],
         is_primary: false
       });
