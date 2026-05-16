@@ -58,3 +58,10 @@ html, body {
 
 /* hide scrollbar on the fullscreen modal */
 .no-scroll-x { overflow-x: hidden; }
+
+/* hide scrollbar — voor de foto-carousel waar nav buttons al zijn */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
