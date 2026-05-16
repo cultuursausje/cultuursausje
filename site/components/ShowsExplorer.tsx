@@ -49,8 +49,8 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
   const [expanded, setExpanded] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Filter state
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  // Filter state — meerdere steden mogelijk, Amsterdam standaard geselecteerd
+  const [selectedCities, setSelectedCities] = useState<Set<string>>(() => new Set(["Amsterdam"]));
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
@@ -125,13 +125,16 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
 
   // Filter de shows op basis van actieve filters
   const filteredShows = useMemo(() => {
-    // Voordat een stad gekozen is, tonen we niets
-    if (!selectedCity) return [];
+    // Geen stad geselecteerd → geen shows
+    if (selectedCities.size === 0) return [];
     return shows.filter(s => {
-      // Stad-filter: primair theater óf één van de extra_theaters moet in de stad zijn
+      // Stad-filter: primair theater óf één van de extra_theaters moet in een geselecteerde stad zijn
       const inCity =
-        s.theater_stad === selectedCity ||
-        s.extra_theaters.some(id => theaterStadById.get(id) === selectedCity);
+        selectedCities.has(s.theater_stad) ||
+        s.extra_theaters.some(id => {
+          const stad = theaterStadById.get(id);
+          return stad && selectedCities.has(stad);
+        });
       if (!inCity) return false;
       if (showFavoritesOnly && !favorites.has(s.id)) return false;
 
@@ -170,7 +173,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
       }
       return true;
     });
-  }, [shows, selectedCity, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, showThisWeek, showTopRated, todayISO, weekEndISO]);
+  }, [shows, selectedCities, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, showThisWeek, showTopRated, todayISO, weekEndISO, theaterStadById]);
 
   // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
   const availableMonths = useMemo(() => {
@@ -285,31 +288,33 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         onClearMonths={clearMonths}
       />
 
-      {/* Filter chips: eerst stad-dropdown (verplicht), dan streepje, dan quick filters */}
+      {/* Sectietitel + filter chips */}
+      <h2 className="font-display mb-2 text-3xl text-ink tracking-tight sm:text-4xl">
+        Alle voorstellingen
+      </h2>
+      <p className="mb-6 text-sm text-ink-muted sm:text-base">
+        Welke stad wil je zien? Standaard: Amsterdam. Selecteer er meer of een andere.
+      </p>
+
       <div className="mb-8 flex flex-wrap items-center gap-2 sm:mb-10">
-        {/* Searchable city dropdown */}
+        {/* Multi-select city dropdown */}
         <div ref={cityRef} className="relative">
           <button
             onClick={() => setCityOpen(v => !v)}
             className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              selectedCity
+              selectedCities.size > 0
                 ? "bg-ink text-white hover:bg-black"
                 : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
             }`}
           >
-            <span>{selectedCity || "Kies een stad"}</span>
-            {selectedCity ? (
-              <span
-                role="button"
-                onClick={e => { e.stopPropagation(); setSelectedCity(null); setCityOpen(false); }}
-                className="-mr-1 ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-white/15"
-                aria-label="Stad wissen"
-              >
-                <X size={11} />
-              </span>
-            ) : (
-              <ChevronDown size={14} />
-            )}
+            <span>
+              {selectedCities.size === 0
+                ? "Kies een stad"
+                : selectedCities.size === 1
+                  ? Array.from(selectedCities)[0]
+                  : `${Array.from(selectedCities)[0]} +${selectedCities.size - 1}`}
+            </span>
+            <ChevronDown size={14} />
           </button>
           {cityOpen && (
             <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border border-line bg-white shadow-xl overflow-hidden flex flex-col">
@@ -323,23 +328,44 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
                   className="w-full rounded-lg border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ink/20"
                 />
               </div>
+              {selectedCities.size > 0 && (
+                <div className="flex items-center justify-between px-3 py-2 border-b border-line text-xs">
+                  <span className="text-ink-muted">{selectedCities.size} geselecteerd</span>
+                  <button
+                    onClick={() => setSelectedCities(new Set())}
+                    className="text-ink-muted hover:text-ink"
+                  >
+                    Wis alle
+                  </button>
+                </div>
+              )}
               <div className="max-h-64 overflow-y-auto p-2">
                 {filteredCities.length === 0 ? (
                   <div className="px-3 py-2 text-sm italic text-ink-faint">Geen resultaten</div>
                 ) : (
                   filteredCities.map(city => {
-                    const isActive = selectedCity === city;
+                    const isActive = selectedCities.has(city);
                     return (
                       <button
                         key={city}
-                        onClick={() => { setSelectedCity(city); setCityOpen(false); setCityQuery(""); }}
-                        className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
+                        onClick={() => {
+                          setSelectedCities(prev => {
+                            const next = new Set(prev);
+                            if (next.has(city)) next.delete(city);
+                            else next.add(city);
+                            return next;
+                          });
+                        }}
+                        className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
                           isActive
                             ? "bg-[#F1EFE8] text-ink font-medium"
                             : "text-ink-soft hover:bg-[#F8F6EF]"
                         }`}
                       >
-                        {city}
+                        <span>{city}</span>
+                        {isActive && (
+                          <span className="text-ink shrink-0" aria-hidden="true">✓</span>
+                        )}
                       </button>
                     );
                   })
@@ -353,7 +379,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
 
         <button
           onClick={() => setShowThisWeek(v => !v)}
-          disabled={!selectedCity}
+          disabled={selectedCities.size === 0}
           className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             showThisWeek
               ? "bg-ink text-white hover:bg-black"
@@ -364,7 +390,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         </button>
         <button
           onClick={() => setShowTopRated(v => !v)}
-          disabled={!selectedCity}
+          disabled={selectedCities.size === 0}
           className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             showTopRated
               ? "bg-ink text-white hover:bg-black"
@@ -375,11 +401,11 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         </button>
       </div>
 
-      {!selectedCity ? (
+      {selectedCities.size === 0 ? (
         <div className="rounded-3xl border border-line bg-white p-12 text-center">
           <div className="text-2xl font-medium text-ink mb-2">Kies eerst een stad</div>
           <div className="text-sm text-ink-muted">
-            Selecteer hierboven een stad om voorstellingen in die stad te zien.
+            Selecteer hierboven een of meer steden om voorstellingen te zien.
           </div>
         </div>
       ) : months.length === 0 ? (
@@ -457,8 +483,8 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         </div>
       )}
 
-      {/* Extra secties — alleen tonen als een stad is geselecteerd */}
-      {selectedCity && (
+      {/* Extra secties — alleen tonen als ten minste één stad is geselecteerd */}
+      {selectedCities.size > 0 && (
         <>
           <FestivalsSection festivals={festivals} shows={filteredShows} />
           <GezelschappenSection gezelschappen={allGezelschappen} />
