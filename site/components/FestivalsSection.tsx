@@ -38,7 +38,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
           Theaterfestivals
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/85">
-          De grootste podiumkunstenfestivals van Nederland. Klik op een festival om de programma-voorstellingen te zien (op basis van je actieve filters).
+          De grootste theaterfestivals van Nederland — locatietheater, internationale gezelschappen en grensverleggend werk. Klik op een festival voor meer info.
         </p>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
