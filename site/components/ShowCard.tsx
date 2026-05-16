@@ -190,11 +190,8 @@ function ExpandedCard({
       <div className="max-h-[80vh] overflow-y-auto">
         {/* Header */}
         <div className="p-6 pt-7 sm:p-8 sm:pt-9 pr-28">
-          {/* Top pills: genre + thema's + english-friendly met vlaggetje */}
+          {/* Top pills: thema's + english-friendly met vlaggetje */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft lowercase">
-              {genre}
-            </span>
             {themes.map((t, i) => (
               <span
                 key={i}
@@ -218,21 +215,30 @@ function ExpandedCard({
             {show.titel}
           </h2>
 
-          {/* Theater + Gezelschap stat-blok */}
-          <div className="mt-5 grid grid-cols-2 rounded-2xl bg-[#F8E8E0] overflow-hidden">
+          {/* Theater + Gezelschap + Type stat-blok */}
+          <div className="mt-5 grid grid-cols-3 rounded-2xl bg-[#F8E8E0] overflow-hidden">
             <div className="p-4 sm:p-5 text-center border-r border-white/60">
-              <div className="text-xs font-bold text-ink mb-1.5">Theater</div>
+              <div className="text-xs font-bold text-ink mb-1.5">🏛️ Theater</div>
               <div className="text-sm text-ink-soft">{show.theater_display}</div>
             </div>
-            <div className="p-4 sm:p-5 text-center">
-              <div className="text-xs font-bold text-ink mb-1.5">Gezelschap</div>
+            <div className="p-4 sm:p-5 text-center border-r border-white/60">
+              <div className="text-xs font-bold text-ink mb-1.5">👥 Gezelschap</div>
               <div className="text-sm text-ink-soft">{show.gezelschap_display}</div>
+            </div>
+            <div className="p-4 sm:p-5 text-center">
+              <div className="text-xs font-bold text-ink mb-1.5">
+                {genre === "dans" ? "💃" : "🎭"} Type
+              </div>
+              <div className="text-sm text-ink-soft capitalize">{genre}</div>
             </div>
           </div>
         </div>
 
         {/* Beschrijving — bold interesting + normale lange samenvatting */}
         <section className="border-t border-line p-6 sm:p-8">
+          <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
+            Over
+          </h3>
           {show.based_on && (
             <div className="text-xs text-ink-muted italic mb-3">
               Op basis van {show.based_on}
@@ -251,7 +257,7 @@ function ExpandedCard({
         {/* Koop tickets + speeldata */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Koop tickets
+            🎫 Tickets
           </h3>
           {show.ticket_url && (
             <a
@@ -299,7 +305,7 @@ function ExpandedCard({
         {show.pers_quotes.length > 0 && (
           <section className="border-t border-line p-6 sm:p-8">
             <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-muted">
-              Recensies
+              📰 Recensies
             </h3>
             <div className="space-y-3">
               {show.pers_quotes.map((p, i) => (
@@ -326,7 +332,7 @@ function ExpandedCard({
         {/* Over het gezelschap */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over het gezelschap
+            👥 Over het gezelschap
           </h3>
           <div className="mb-1 text-base font-medium text-ink">{show.gezelschap_display}</div>
           {show.regisseur && (
@@ -352,7 +358,7 @@ function ExpandedCard({
         {/* Over het theater */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over het theater
+            🏛️ Over het theater
           </h3>
           <div className="mb-1 text-base font-medium text-ink">{show.theater_naam}</div>
           {show.theater_beschrijving && (
@@ -400,7 +406,7 @@ function ExpandedCard({
         {show.media_links.length > 0 && (
           <section className="border-t border-line p-6 sm:p-8">
             <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-muted">
-              In de media
+              🎙️ In de media
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
               {show.media_links.map((m, i) => (
