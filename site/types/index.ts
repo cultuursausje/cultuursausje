@@ -67,6 +67,18 @@ export interface SiteData {
   media: MediaLink[];
 }
 
+export interface Festival {
+  id: string;
+  naam: string;
+  periode: string;
+  plaats: string;
+  beschrijving: string;
+  url: string;
+  accent: string; // hex kleur voor de teaser-card
+  /** Categoriewoorden die in show.categorieen kunnen voorkomen om koppeling te bepalen */
+  match_keywords: string[];
+}
+
 export interface ShowDisplay extends Show {
   pers_quotes: PersQuote[];
   media_links: MediaLink[];
