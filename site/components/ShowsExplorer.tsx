@@ -406,7 +406,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                   key={key}
                   className={`transition-all duration-300 ${
                     isExpandedHere
-                      ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
+                      ? "col-span-2 row-span-2"
                       : ""
                   }`}
                   style={{ alignSelf: "start" }}
@@ -451,7 +451,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                     key={key}
                     className={`transition-all duration-300 ${
                       isExpandedHere
-                        ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
+                        ? "col-span-2 row-span-2"
                         : ""
                     }`}
                     style={{ alignSelf: "start" }}

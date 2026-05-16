@@ -259,7 +259,7 @@ function ExpandedCard({
             <div
               ref={carouselRef}
               onScroll={onCarouselScroll}
-              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide h-72 sm:h-80 md:h-96 lg:h-[440px]"
+              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide h-48 sm:h-56 md:h-60 lg:h-72"
             >
               {photos.map((url, i) => (
                 <div
@@ -317,6 +317,10 @@ function ExpandedCard({
 
             {/* Pills overlay top — laat ruimte voor close + heart knoppen */}
             <div className="pointer-events-none absolute top-4 left-4 right-28 flex flex-wrap gap-2 z-10">
+              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-bold text-ink capitalize inline-flex items-center gap-1">
+                <span aria-hidden="true">{genre === "dans" ? "💃" : "🎭"}</span>
+                {genre}
+              </span>
               {themes.map((t, i) => (
                 <span
                   key={i}
@@ -346,6 +350,10 @@ function ExpandedCard({
           {/* Pills boven titel — alleen wanneer er geen carousel boven staat */}
           {!hasPhotos && (
             <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-bold text-ink capitalize inline-flex items-center gap-1">
+                <span aria-hidden="true">{genre === "dans" ? "💃" : "🎭"}</span>
+                {genre}
+              </span>
               {themes.map((t, i) => (
                 <span
                   key={i}
@@ -367,23 +375,8 @@ function ExpandedCard({
           <h2 className="text-2xl font-medium tracking-tight text-ink leading-tight sm:text-3xl">
             {show.titel}
           </h2>
-
-          {/* Type + Theater + Gezelschap stat-blok */}
-          <div className="mt-5 grid grid-cols-3 rounded-2xl bg-[#F1EFE8] overflow-hidden">
-            <div className="p-4 sm:p-5 text-center border-r border-white/60">
-              <div className="text-xs font-bold text-ink mb-1.5">
-                {genre === "dans" ? "💃" : "🎭"} Type
-              </div>
-              <div className="text-sm text-ink-soft capitalize">{genre}</div>
-            </div>
-            <div className="p-4 sm:p-5 text-center border-r border-white/60">
-              <div className="text-xs font-bold text-ink mb-1.5">🏛️ Theater</div>
-              <div className="text-sm text-ink-soft">{show.theater_display}</div>
-            </div>
-            <div className="p-4 sm:p-5 text-center">
-              <div className="text-xs font-bold text-ink mb-1.5">👥 Gezelschap</div>
-              <div className="text-sm text-ink-soft">{show.gezelschap_display}</div>
-            </div>
+          <div className="mt-2 text-sm text-ink-muted">
+            {show.theater_display} · {show.gezelschap_display}
           </div>
         </div>
 
@@ -540,22 +533,44 @@ function ExpandedCard({
               </a>
             </div>
           )}
-          {/* Maps embed */}
-          <div className="rounded-2xl overflow-hidden border border-line mb-3 aspect-[16/9]">
-            <iframe
-              src={mapsEmbedUrl(show.theater_naam || show.theater)}
-              className="w-full h-full"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={`Kaart ${show.theater_naam || show.theater}`}
-            />
+          {/* 2-koloms: theater-foto links, Google Maps rechts */}
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="relative rounded-2xl overflow-hidden border border-line aspect-[4/3] bg-[#F1EFE8]">
+              {show.theater_foto_url ? (
+                <>
+                  <img
+                    src={show.theater_foto_url}
+                    alt={show.theater_naam}
+                    className="absolute inset-0 block h-full w-full object-cover"
+                  />
+                  {show.theater_foto_credit && (
+                    <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/85 leading-none pointer-events-none">
+                      © {show.theater_foto_credit}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center text-center text-xs text-ink-muted p-4">
+                  Foto van {show.theater_naam} volgt
+                </div>
+              )}
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-line aspect-[4/3]">
+              <iframe
+                src={mapsEmbedUrl(show.theater_naam || show.theater)}
+                className="w-full h-full"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={`Kaart ${show.theater_naam || show.theater}`}
+              />
+            </div>
           </div>
           <a
             href={mapsLinkUrl(show.theater_naam || show.theater)}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+            className="mt-3 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
           >
             Open in Google Maps <ExternalLink size={11} />
           </a>
