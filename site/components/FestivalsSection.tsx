@@ -42,25 +42,42 @@ export function FestivalsSection({ festivals, shows }: Props) {
         </p>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {visible.map(f => (
-            <button
-              key={f.id}
-              onClick={() => setOpenId(f.id)}
-              className="relative aspect-[4/5] overflow-hidden rounded-3xl text-left transition-transform duration-300 hover:scale-[1.02] hover:-rotate-[0.6deg]"
-              style={{ background: f.accent }}
-            >
-              <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
-                <div className="text-xs font-semibold uppercase tracking-widest opacity-80">
-                  {f.periode} · {f.plaats}
-                </div>
-                <div>
-                  <div className="text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
-                    {f.naam}
+          {visible.map(f => {
+            const hero = f.foto_urls?.[0];
+            return (
+              <button
+                key={f.id}
+                onClick={() => setOpenId(f.id)}
+                className="relative aspect-[4/5] overflow-hidden rounded-3xl text-left transition-transform duration-300 hover:scale-[1.02] hover:-rotate-[0.6deg]"
+                style={{ background: f.accent }}
+              >
+                {hero && (
+                  <img
+                    src={hero}
+                    alt={f.naam}
+                    className="absolute inset-0 block h-full w-full object-cover"
+                  />
+                )}
+                {/* Donker gradient voor leesbaarheid van witte tekst */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
+                  <div className="text-xs font-semibold uppercase tracking-widest opacity-90">
+                    {f.periode} · {f.plaats}
+                  </div>
+                  <div>
+                    <div className="text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+                      {f.naam}
+                    </div>
+                    {hero && f.foto_credit && (
+                      <div className="mt-1 text-[10px] opacity-70 leading-none">
+                        © {f.foto_credit}
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
 
         {festivals.length > INITIAL_COUNT && (
