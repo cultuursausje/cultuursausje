@@ -9,24 +9,13 @@ interface VoordeelTip {
 }
 
 const VOORDEEL_TIPS: VoordeelTip[] = [
-  { naam: "We Are Public", url: "https://wearepublic.nl" },
-  { naam: "Last Minute Ticket Shop", url: "https://lastminuteticketshop.nl" },
   { naam: "CJP", url: "https://www.cjp.nl" },
-  { naam: "Studentenkorting", url: "https://www.cultuursausje.nl/voordeel" },
-  { naam: "Stadspas Amsterdam", url: "https://www.amsterdam.nl/stadspas" },
+  { naam: "Meer Theater Card", url: "https://www.meervaart.nl" },
   { naam: "Podiumpas", url: "https://www.podiumpas.nl" },
+  { naam: "Stadspas Amsterdam", url: "https://www.amsterdam.nl/stadspas" },
   { naam: "Uitpas Amsterdam", url: "https://www.iamsterdam.com/en/tickets/uitpas" },
   { naam: "VriendenLoterij", url: "https://www.vriendenloterij.nl" },
-  { naam: "ANWB Theater", url: "https://www.anwb.nl/eropuit/uitjes-en-tickets/theater-en-entertainment" },
-  { naam: "Kortingen 65+", url: "https://www.cultuursausje.nl/voordeel" },
-  { naam: "Sirene-verkoop ITA", url: "https://ita.nl" },
-  { naam: "My Muse & Me", url: "https://www.operaballet.nl/mymuseme" },
-  { naam: "Flirt XL", url: "https://www.operaballet.nl" },
-  { naam: "Mozaïekpas", url: "https://www.podiummozaiek.nl" },
-  { naam: "Meer Theater Card", url: "https://www.meervaart.nl" },
-  { naam: "Jeugdfonds Sport & Cultuur", url: "https://jeugdfondssportencultuur.nl" },
-  { naam: "Pathé Theatre & Opera", url: "https://www.pathe.nl" },
-  { naam: "Cultuurkaart (mbo/vo)", url: "https://www.cjp.nl/cultuurkaart" }
+  { naam: "We Are Public", url: "https://wearepublic.nl" }
 ];
 
 const INITIAL_COUNT = 8;
