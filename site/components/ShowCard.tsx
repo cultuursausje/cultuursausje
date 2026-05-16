@@ -37,14 +37,13 @@ export function ShowCard({
   if (isExpanded) {
     return (
       <div className="relative">
-        {/* TL-strip blijft zichtbaar als card vergroot is */}
+        {/* Scherpe neon-rand: box-shadow met meerdere lagen voor LED-effect */}
         <div
-          className="pointer-events-none absolute -inset-2 rounded-[32px] opacity-75 blur-xl"
-          style={{ background: neon }}
-        />
-        <div
-          className="pointer-events-none absolute -inset-0.5 rounded-[26px] opacity-100 blur-[2px]"
-          style={{ background: neon }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-3xl"
+          style={{
+            boxShadow: `0 0 0 2px ${neon}, 0 0 10px 2px ${neon}, 0 0 24px 4px ${neon}66`
+          }}
         />
         <div className="relative">
           <ExpandedCard
@@ -67,18 +66,15 @@ export function ShowCard({
           : "hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5"
       }`}
     >
-      {/* LED-strip neon achter de card — blijft zichtbaar als geflipt, gloed bij hover */}
+      {/* Scherpe neon-rand met box-shadow lagen — blijft zichtbaar als geflipt */}
       <div
-        className={`pointer-events-none absolute -inset-2 rounded-[32px] blur-xl transition-opacity duration-500 ${
-          isFlipped ? "opacity-75" : "opacity-0 group-hover:opacity-75"
-        }`}
-        style={{ background: neon }}
-      />
-      <div
-        className={`pointer-events-none absolute -inset-0.5 rounded-[26px] blur-[2px] transition-opacity duration-500 ${
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-0 rounded-3xl transition-opacity duration-500 ${
           isFlipped ? "opacity-100" : "opacity-0 group-hover:opacity-100"
         }`}
-        style={{ background: neon }}
+        style={{
+          boxShadow: `0 0 0 2px ${neon}, 0 0 10px 2px ${neon}, 0 0 24px 4px ${neon}66`
+        }}
       />
       <div
         className={`flip-card relative w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
@@ -117,7 +113,9 @@ export function ShowCard({
                 {show.interesting_because}
               </p>
             )}
-            <div className="text-sm text-ink-muted">{show.theater_display}</div>
+            <div className="text-sm text-ink-muted">
+              <span aria-hidden="true">🏛️</span> {show.theater_display}
+            </div>
           </div>
         </div>
       </div>
@@ -261,12 +259,13 @@ function ExpandedCard({
             <div
               ref={carouselRef}
               onScroll={onCarouselScroll}
-              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
+              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide h-72 sm:h-80 md:h-96 lg:h-[440px]"
             >
               {photos.map((url, i) => (
                 <div
                   key={i}
-                  className="snap-center shrink-0 w-full aspect-[16/10] relative overflow-hidden bg-[#1B2A4E]"
+                  className="snap-center shrink-0 w-full h-full relative overflow-hidden bg-[#1B2A4E]"
+                  style={{ minWidth: "100%" }}
                 >
                   <img
                     src={url}
