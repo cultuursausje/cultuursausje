@@ -50,7 +50,14 @@ const NEON_COLORS = [
   "#00FF88", // lime-groen
   "#00B4FF", // electric blauw
   "#B85FFF", // magenta-paars
-  "#FF6FA8"  // perzik-roze
+  "#FF6FA8", // perzik-roze
+  "#5AC8FA", // sky blue
+  "#BDFF00", // chartreuse / lichtgroen
+  "#5FFFC8", // mint
+  "#FF6B35", // helder oranje
+  "#FFE94A", // citroengeel
+  "#A0FF6B", // appel-groen
+  "#FF52C5"  // bubblegum
 ];
 
 export function neonForShow(showId: string): string {
