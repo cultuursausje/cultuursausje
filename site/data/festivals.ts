@@ -197,6 +197,8 @@ export const festivals: Festival[] = [
         titel: "Pucks Midzomernachtsdroom",
         gezelschap: "Veenfabriek",
         type: "muziek",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/pucks-midzomernachtsdroom-1.jpg",
+        foto_credit: "Lin Woldendorp",
         korte_omschrijving: "Betoverend muziektheater dat je liefdeskruid in de ogen strooit en wakker schudt. Over dromen, dwarsliggen en (n)iets durven doen.",
         url: "https://oerol.nl/programma/pucks-midzomernachtsdroom/"
       },
@@ -205,6 +207,8 @@ export const festivals: Festival[] = [
         titel: "Harlekino",
         gezelschap: "Troupe Courage",
         type: "toneel",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/harlekino-1.jpg",
+        foto_credit: "Sacha Muller",
         korte_omschrijving: "Katrien van Beurden speelt deze onewomanshow: een waargebeurd verhaal dat je niet hoeft te geloven. Over overleven en overlevers, met muziek van Remy van Kesteren.",
         url: "https://oerol.nl/programma/harlekino/"
       },
@@ -213,6 +217,8 @@ export const festivals: Festival[] = [
         titel: "CODA",
         gezelschap: "Cello Octet Amsterdam / Sophie van Winden",
         type: "muziek",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/coda-1-scaled.jpg",
+        foto_credit: "Cello Octet Amsterdam",
         korte_omschrijving: "De honderdjarige Magda viert samen met de muziek van klimaatactivist en componist Ryuichi Sakamoto haar laatste uur. Wat mag er niet mee haar graf in?",
         url: "https://oerol.nl/programma/coda/"
       },
@@ -221,6 +227,8 @@ export const festivals: Festival[] = [
         titel: "De Grote Kutshow",
         gezelschap: "De Grote Kutshow",
         type: "toneel",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/de-grote-kutshow-1.jpg",
+        foto_credit: "De Grote Kutshow",
         korte_omschrijving: "Een educatieve en muzikale voorstelling met vernieuwende seksuele voorlichting voor jong én oud. Hier maakt waarschuwing eindelijk plaats voor plezier.",
         url: "https://oerol.nl/programma/de-grote-kutshow/"
       },
@@ -229,6 +237,8 @@ export const festivals: Festival[] = [
         titel: "Spiral",
         gezelschap: "Danstheater AYA / Anne Suurendonk",
         type: "dans",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/spiral.jpg",
+        foto_credit: "Danstheater AYA",
         korte_omschrijving: "Jezelf zijn, jezelf verliezen, jezelf weer vinden. Een groep dansers neemt je mee op een gezamenlijke reis om het alledaagse te ontstijgen.",
         url: "https://oerol.nl/programma/spiral/"
       },
@@ -237,6 +247,8 @@ export const festivals: Festival[] = [
         titel: "Chronos",
         gezelschap: "Dunja Jocić / Silbersee",
         type: "dans",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/chronos-1-scaled.jpg",
+        foto_credit: "Bowie Verschuuren",
         korte_omschrijving: "Op een open plek in het dennenbos dansen vijf figuren een wereld tevoorschijn waarin verleden en toekomst samenvallen.",
         url: "https://oerol.nl/programma/chronos/"
       },
@@ -245,6 +257,8 @@ export const festivals: Festival[] = [
         titel: "ROOM IN OUR HOUSE",
         gezelschap: "Nicole Beutler Projects / Rematriation",
         type: "dans",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/room-in-our-house-2.jpg",
+        foto_credit: "Nicole Beutler Projects",
         korte_omschrijving: "Een gedanst manifest voor vrede, in co-creatie met inheemse kunstenaars uit Noord-Amerika.",
         url: "https://oerol.nl/programma/room-in-our-house/"
       },
@@ -253,6 +267,8 @@ export const festivals: Festival[] = [
         titel: "Threads",
         gezelschap: "Remy van Kesteren",
         type: "muziek",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/threads-1-scaled.jpg",
+        foto_credit: "Remy van Kesteren",
         korte_omschrijving: "Virtuoze harp, elektronica en lichtkunst in het donkere landschap. Een totaalervaring op het eiland.",
         url: "https://oerol.nl/programma/threads/"
       },
@@ -261,6 +277,8 @@ export const festivals: Festival[] = [
         titel: "Uitkijkers",
         gezelschap: "Monki Business",
         type: "anders",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/uitkijkers-1.jpg",
+        foto_credit: "Monki Business",
         korte_omschrijving: "Vier acrobaten verbeelden de wildste toekomstdromen op een klimtoestel van zeven meter hoog. Een uitnodiging om vooruit te kijken en samen te durven fantaseren.",
         url: "https://oerol.nl/programma/uitkijkers/"
       },
@@ -270,6 +288,8 @@ export const festivals: Festival[] = [
         gezelschap: "Chloe Loftus Dance",
         type: "dans",
         english_friendly: true,
+        foto_url: "https://oerol.nl/app/uploads/2026/04/the-air-between-us-1.jpg",
+        foto_credit: "Chloe Loftus Dance",
         korte_omschrijving: "Een adembenemende luchtdans en ode aan gelijkheid en empowerment, die wereldwijd harten verovert.",
         url: "https://oerol.nl/programma/the-air-between-us/"
       },
@@ -278,6 +298,8 @@ export const festivals: Festival[] = [
         titel: "ReinAard",
         gezelschap: "Tom Lanoye",
         type: "toneel",
+        foto_url: "https://oerol.nl/app/uploads/2026/04/reinaard-1-scaled.jpg",
+        foto_credit: "Tom Lanoye / Behoud de Begeerte",
         korte_omschrijving: "Exclusief voor Oerol brengt performer Tom Lanoye 'zijn' Reinaard in de vorm van een feuilleton: vijf afleveringen van elk een uur.",
         url: "https://oerol.nl/programma/reinaard/"
       }
