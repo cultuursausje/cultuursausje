@@ -335,8 +335,8 @@ function ExpandedCard({
                 </span>
               ))}
               {show.english_friendly && (
-                <span className="rounded-full bg-[#EAF3DE] px-3 py-1 text-xs font-bold text-[#173404] inline-flex items-center gap-1.5">
-                  <span className="text-base leading-none" aria-hidden="true">🇬🇧</span>
+                <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-ink inline-flex items-center gap-1">
+                  <span aria-hidden="true">🇬🇧</span>
                   English friendly
                 </span>
               )}
@@ -367,8 +367,8 @@ function ExpandedCard({
                 </span>
               ))}
               {show.english_friendly && (
-                <span className="rounded-full bg-[#EAF3DE] px-3 py-1 text-xs font-bold text-[#173404] inline-flex items-center gap-1.5">
-                  <span className="text-base leading-none" aria-hidden="true">🇬🇧</span>
+                <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft inline-flex items-center gap-1">
+                  <span aria-hidden="true">🇬🇧</span>
                   English friendly
                 </span>
               )}
@@ -380,15 +380,41 @@ function ExpandedCard({
             {show.titel}
           </h2>
           <div className="mt-2 text-sm text-ink-muted">
-            {venues.map(v => v.theater_afkorting).join(" · ")} · {show.gezelschap_display}
+            {venues.map((v, i) => (
+              <span key={v.theater_id}>
+                {i > 0 && " · "}
+                {v.theater_url ? (
+                  <a
+                    href={v.theater_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-ink underline-offset-2 hover:underline"
+                  >
+                    {v.theater_afkorting}
+                  </a>
+                ) : (
+                  v.theater_afkorting
+                )}
+              </span>
+            ))}
+            {" · "}
+            {show.gezelschap_url ? (
+              <a
+                href={show.gezelschap_url}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-ink underline-offset-2 hover:underline"
+              >
+                {show.gezelschap_display}
+              </a>
+            ) : (
+              show.gezelschap_display
+            )}
           </div>
         </div>
 
-        {/* Over het stuk */}
+        {/* Over het stuk — geen titel meer, alleen tekst */}
         <section className="border-t border-line p-6 sm:p-8">
-          <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over het stuk
-          </h3>
           {show.interesting_because && (
             <p className="text-base font-medium text-ink leading-relaxed mb-3">
               {show.interesting_because}
@@ -499,88 +525,32 @@ function ExpandedCard({
           </section>
         )}
 
-        {/* Over het gezelschap */}
+        {/* Locatie — alleen google maps + link per zichtbare venue */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over het gezelschap
+            {venues.length > 1 ? "Locaties" : "Locatie"}
           </h3>
-          <div className="mb-2 text-base font-medium text-ink">{show.gezelschap_display}</div>
-          {show.regisseur && (
-            <div className="text-xs text-ink-muted mb-3">Regie van dit stuk: {show.regisseur}</div>
-          )}
-          {show.gezelschap_url && (
-            <a
-              href={show.gezelschap_url}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-            >
-              Naar website {show.gezelschap_display} <ExternalLink size={11} />
-            </a>
-          )}
-        </section>
-
-        {/* Over het theater — één blok per zichtbare venue */}
-        <section className="border-t border-line p-6 sm:p-8">
-          <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            {venues.length > 1 ? "Over de theaters" : "Over het theater"}
-          </h3>
-          <div className="space-y-6">
+          <div className="space-y-5">
             {venues.map((v, i) => (
-              <div key={v.theater_id} className={i > 0 ? "border-t border-line pt-6" : ""}>
-                <div className="mb-2 text-base font-medium text-ink">
-                  {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
+              <div key={v.theater_id} className={i > 0 ? "border-t border-line pt-5" : ""}>
+                <div className="mb-2 text-sm text-ink-muted">
+                  {v.theater_naam} · {v.theater_stad}
                 </div>
-                {v.theater_url && (
-                  <div className="mb-4">
-                    <a
-                      href={v.theater_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-                    >
-                      Meer over dit theater <ExternalLink size={11} />
-                    </a>
-                  </div>
-                )}
-                {/* 2-koloms: theater-foto links, Google Maps rechts */}
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <div className="relative rounded-2xl overflow-hidden border border-line aspect-[4/3] bg-[#F1EFE8]">
-                    {v.theater_foto_url ? (
-                      <>
-                        <img
-                          src={v.theater_foto_url}
-                          alt={v.theater_naam}
-                          className="absolute inset-0 block h-full w-full object-cover"
-                        />
-                        {v.theater_foto_credit && (
-                          <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/85 leading-none pointer-events-none">
-                            © {v.theater_foto_credit}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center text-center text-xs text-ink-muted p-4">
-                        Foto van {v.theater_naam} volgt
-                      </div>
-                    )}
-                  </div>
-                  <div className="rounded-2xl overflow-hidden border border-line aspect-[4/3]">
-                    <iframe
-                      src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
-                      className="w-full h-full"
-                      style={{ border: 0 }}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
-                    />
-                  </div>
+                <div className="rounded-2xl overflow-hidden border border-line aspect-[16/9]">
+                  <iframe
+                    src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
+                    className="w-full h-full"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
+                  />
                 </div>
                 <a
                   href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+                  className="mt-2 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
                 >
                   Open in Google Maps <ExternalLink size={11} />
                 </a>
