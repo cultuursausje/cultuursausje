@@ -25,6 +25,7 @@ export interface Theater {
   naam: string;
   afkorting: string;
   url: string;
+  beschrijving?: string;
 }
 
 export interface Gezelschap {
@@ -63,6 +64,10 @@ export interface ShowDisplay extends Show {
   pers_quotes: PersQuote[];
   media_links: MediaLink[];
   theater_display: string;
+  theater_naam: string;
+  theater_beschrijving: string;
+  theater_url: string;
   gezelschap_display: string;
   gezelschap_beschrijving: string;
+  gezelschap_url: string;
 }
