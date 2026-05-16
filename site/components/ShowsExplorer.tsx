@@ -31,6 +31,8 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
   const [selectedMonths, setSelectedMonths] = useState<Set<string>>(new Set());
+  const [showThisWeek, setShowThisWeek] = useState(false);
+  const [showTopRated, setShowTopRated] = useState(false);
 
   useEffect(() => { setFavorites(loadFavorites()); }, []);
 
@@ -53,10 +55,32 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [expanded]);
 
+  // Helpers voor quick filters
+  const todayISO = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  const weekEndISO = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    return d.toISOString().slice(0, 10);
+  }, []);
+
   // Filter de shows op basis van actieve filters
   const filteredShows = useMemo(() => {
     return shows.filter(s => {
       if (showFavoritesOnly && !favorites.has(s.id)) return false;
+
+      // Deze week: speeldata of speelperiode binnen vandaag t/m vandaag+7
+      if (showThisWeek) {
+        const inSpeeldata = !!s.speeldata && s.speeldata.some(d => d >= todayISO && d <= weekEndISO);
+        const inRange = s.speelperiode_start <= weekEndISO && s.speelperiode_end >= todayISO;
+        if (!inSpeeldata && !inRange) return false;
+      }
+
+      // Best gerecenseerd: heeft minstens één pers-quote met sterren ≥ 4
+      if (showTopRated) {
+        const goodReviews = s.pers_quotes.some(p => (p.sterren ?? 0) >= 4);
+        if (!goodReviews) return false;
+      }
+
       if (selectedTheaters.size > 0) {
         const has =
           (s.theater_id && selectedTheaters.has(s.theater_id)) ||
@@ -79,7 +103,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
       }
       return true;
     });
-  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths]);
+  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, showThisWeek, showTopRated, todayISO, weekEndISO]);
 
   // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
   const availableMonths = useMemo(() => {
@@ -162,12 +186,16 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
     showFavoritesOnly ||
     selectedTheaters.size > 0 ||
     selectedGezelschappen.size > 0 ||
-    selectedMonths.size > 0;
+    selectedMonths.size > 0 ||
+    showThisWeek ||
+    showTopRated;
   const clearAllFilters = () => {
     setShowFavoritesOnly(false);
     setSelectedTheaters(new Set());
     setSelectedGezelschappen(new Set());
     setSelectedMonths(new Set());
+    setShowThisWeek(false);
+    setShowTopRated(false);
   };
 
   return (
@@ -189,6 +217,30 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
         onToggleMonth={toggleMonth}
         onClearMonths={clearMonths}
       />
+
+      {/* Quick filter chips boven de maand-secties */}
+      <div className="mb-8 flex flex-wrap gap-2 sm:mb-10">
+        <button
+          onClick={() => setShowThisWeek(v => !v)}
+          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            showThisWeek
+              ? "bg-ink text-white hover:bg-black"
+              : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+          }`}
+        >
+          Wat speelt er deze week
+        </button>
+        <button
+          onClick={() => setShowTopRated(v => !v)}
+          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            showTopRated
+              ? "bg-ink text-white hover:bg-black"
+              : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+          }`}
+        >
+          Best gerecenseerd
+        </button>
+      </div>
 
       {months.length === 0 ? (
         <div className="rounded-3xl border border-line bg-white p-10 text-center text-ink-muted">
