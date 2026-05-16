@@ -46,9 +46,11 @@ export function ShowCard({
   }
 
   return (
-    <div className="relative cursor-pointer">
+    <div className="group relative cursor-pointer transition-transform duration-500 ease-out hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5">
+      {/* TL-licht achter de card */}
+      <div className="pointer-events-none absolute -inset-2 rounded-[28px] bg-white opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-50" />
       <div
-        className={`flip-card w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
+        className={`flip-card relative w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
         onClick={onFlip}
       >
         <div className="flip-inner rounded-3xl">
