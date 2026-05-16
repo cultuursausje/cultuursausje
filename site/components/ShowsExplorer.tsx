@@ -27,12 +27,20 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   const [isMobile, setIsMobile] = useState(false);
 
   // Filter state
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
   const [selectedMonths, setSelectedMonths] = useState<Set<string>>(new Set());
   const [showThisWeek, setShowThisWeek] = useState(false);
   const [showTopRated, setShowTopRated] = useState(false);
+
+  // Beschikbare steden uit de theaters
+  const availableCities = useMemo(() => {
+    const set = new Set<string>();
+    theaters.forEach(t => { if (t.stad) set.add(t.stad); });
+    return Array.from(set).sort();
+  }, [theaters]);
 
   useEffect(() => { setFavorites(loadFavorites()); }, []);
 
@@ -65,7 +73,11 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
 
   // Filter de shows op basis van actieve filters
   const filteredShows = useMemo(() => {
+    // Voordat een stad gekozen is, tonen we niets
+    if (!selectedCity) return [];
     return shows.filter(s => {
+      // Stad-filter: theater_stad moet matchen
+      if (s.theater_stad !== selectedCity) return false;
       if (showFavoritesOnly && !favorites.has(s.id)) return false;
 
       // Deze week: speeldata of speelperiode binnen vandaag t/m vandaag+7
@@ -103,7 +115,7 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
       }
       return true;
     });
-  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, showThisWeek, showTopRated, todayISO, weekEndISO]);
+  }, [shows, selectedCity, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, showThisWeek, showTopRated, todayISO, weekEndISO]);
 
   // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
   const availableMonths = useMemo(() => {
@@ -218,31 +230,59 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
         onClearMonths={clearMonths}
       />
 
-      {/* Quick filter chips boven de maand-secties */}
-      <div className="mb-8 flex flex-wrap gap-2 sm:mb-10">
+      {/* Filter chips: eerst stad (verplicht), dan een verticaal streepje, dan quick filters */}
+      <div className="mb-8 flex flex-wrap items-center gap-2 sm:mb-10">
+        {availableCities.map(city => {
+          const isActive = selectedCity === city;
+          return (
+            <button
+              key={city}
+              onClick={() => setSelectedCity(isActive ? null : city)}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                isActive
+                  ? "bg-ink text-white hover:bg-black"
+                  : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+              }`}
+            >
+              {city}
+            </button>
+          );
+        })}
+
+        <div className="mx-2 h-6 w-px bg-line" aria-hidden="true" />
+
         <button
           onClick={() => setShowThisWeek(v => !v)}
+          disabled={!selectedCity}
           className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             showThisWeek
               ? "bg-ink text-white hover:bg-black"
               : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-          }`}
+          } disabled:cursor-not-allowed disabled:opacity-50`}
         >
           Wat speelt er deze week
         </button>
         <button
           onClick={() => setShowTopRated(v => !v)}
+          disabled={!selectedCity}
           className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             showTopRated
               ? "bg-ink text-white hover:bg-black"
               : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-          }`}
+          } disabled:cursor-not-allowed disabled:opacity-50`}
         >
           Best gerecenseerd
         </button>
       </div>
 
-      {months.length === 0 ? (
+      {!selectedCity ? (
+        <div className="rounded-3xl border border-line bg-white p-12 text-center">
+          <div className="text-2xl font-medium text-ink mb-2">Kies eerst een stad</div>
+          <div className="text-sm text-ink-muted">
+            Selecteer hierboven een stad om voorstellingen in die stad te zien.
+          </div>
+        </div>
+      ) : months.length === 0 ? (
         <div className="rounded-3xl border border-line bg-white p-10 text-center text-ink-muted">
           {showFavoritesOnly && favorites.size === 0 ? (
             <>
