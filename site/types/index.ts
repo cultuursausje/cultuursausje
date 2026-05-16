@@ -104,6 +104,9 @@ export interface VenueDisplay {
   theater_naam: string;
   theater_afkorting: string;
   theater_stad: string;
+  theater_url?: string;
+  theater_foto_url?: string;
+  theater_foto_credit?: string;
   /** Speeldata bij dit specifieke theater. Leeg = "datums via ticketlink". */
   speeldata: string[];
   /** Vlag voor de primaire venue (theater_id van de show zelf). */
