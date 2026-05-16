@@ -190,8 +190,8 @@ function ExpandedCard({
       <div className="max-h-[80vh] overflow-y-auto">
         {/* Header */}
         <div className="p-6 pt-7 sm:p-8 sm:pt-9 pr-28">
-          {/* Genre + theme pills - subtiel */}
-          <div className="flex flex-wrap gap-2 mb-3">
+          {/* Top pills: genre + thema's + english-friendly met vlaggetje */}
+          <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft lowercase">
               {genre}
             </span>
@@ -203,12 +203,14 @@ function ExpandedCard({
                 {t}
               </span>
             ))}
-            <span
-              className="rounded-full px-2.5 py-1 text-[11px] font-semibold"
-              style={{ background: NEON_BG, color: NEON_TEXT }}
-            >
-              {pill}
-            </span>
+            {show.english_friendly && (
+              <span
+                className="rounded-full bg-[#EAF3DE] px-3 py-1 text-xs font-bold text-[#173404] inline-flex items-center gap-1.5"
+              >
+                <span className="text-base leading-none" aria-hidden="true">🇬🇧</span>
+                English friendly
+              </span>
+            )}
           </div>
 
           {/* Titel */}
@@ -216,19 +218,16 @@ function ExpandedCard({
             {show.titel}
           </h2>
 
-          {/* Theater / gezelschap / english pills — gekleurd, dik */}
-          <div className="flex flex-wrap gap-2 mt-5">
-            <span className="rounded-full bg-[#2D4DEB] px-3 py-1.5 text-xs font-bold text-white">
-              {show.theater_display}
-            </span>
-            <span className="rounded-full bg-[#FF3D8B] px-3 py-1.5 text-xs font-bold text-white">
-              {show.gezelschap_display}
-            </span>
-            {show.english_friendly && (
-              <span className="rounded-full bg-[#9BD43F] px-3 py-1.5 text-xs font-bold text-[#173404]">
-                English friendly
-              </span>
-            )}
+          {/* Theater + Gezelschap stat-blok */}
+          <div className="mt-5 grid grid-cols-2 rounded-2xl bg-[#F8E8E0] overflow-hidden">
+            <div className="p-4 sm:p-5 text-center border-r border-white/60">
+              <div className="text-xs font-bold text-ink mb-1.5">Theater</div>
+              <div className="text-sm text-ink-soft">{show.theater_display}</div>
+            </div>
+            <div className="p-4 sm:p-5 text-center">
+              <div className="text-xs font-bold text-ink mb-1.5">Gezelschap</div>
+              <div className="text-sm text-ink-soft">{show.gezelschap_display}</div>
+            </div>
           </div>
         </div>
 
@@ -324,6 +323,32 @@ function ExpandedCard({
           </section>
         )}
 
+        {/* Over het gezelschap */}
+        <section className="border-t border-line p-6 sm:p-8">
+          <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
+            Over het gezelschap
+          </h3>
+          <div className="mb-1 text-base font-medium text-ink">{show.gezelschap_display}</div>
+          {show.regisseur && (
+            <div className="text-xs text-ink-muted mb-3">Regie van dit stuk: {show.regisseur}</div>
+          )}
+          {show.gezelschap_beschrijving && (
+            <p className="text-sm text-ink-soft leading-relaxed mb-3">
+              {show.gezelschap_beschrijving}
+            </p>
+          )}
+          {show.gezelschap_url && (
+            <a
+              href={show.gezelschap_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+            >
+              Naar website {show.gezelschap_display} <ExternalLink size={11} />
+            </a>
+          )}
+        </section>
+
         {/* Over het theater */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
@@ -369,32 +394,6 @@ function ExpandedCard({
               </>
             )}
           </div>
-        </section>
-
-        {/* Over het gezelschap */}
-        <section className="border-t border-line p-6 sm:p-8">
-          <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over het gezelschap
-          </h3>
-          <div className="mb-1 text-base font-medium text-ink">{show.gezelschap_display}</div>
-          {show.regisseur && (
-            <div className="text-xs text-ink-muted mb-3">Regie van dit stuk: {show.regisseur}</div>
-          )}
-          {show.gezelschap_beschrijving && (
-            <p className="text-sm text-ink-soft leading-relaxed mb-3">
-              {show.gezelschap_beschrijving}
-            </p>
-          )}
-          {show.gezelschap_url && (
-            <a
-              href={show.gezelschap_url}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-            >
-              Naar website {show.gezelschap_display} <ExternalLink size={11} />
-            </a>
-          )}
         </section>
 
         {/* In de media */}
