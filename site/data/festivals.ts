@@ -127,5 +127,20 @@ export const festivals: Festival[] = [
       "https://picsum.photos/seed/werf-utrecht-3/1280/720"
     ],
     foto_credit: "Placeholder via Lorem Picsum"
+  },
+  {
+    id: "de-parade",
+    naam: "De Parade",
+    periode: "Juni – Augustus",
+    plaats: "Rotterdam, Den Haag, Amsterdam, Utrecht",
+    beschrijving: "Het enige rondreizende theaterfestival ter wereld. 80+ korte voorstellingen in theatertenten — theater, dans, mime en muziek, ieder zo'n 30 minuten zodat je er meerdere op een avond kan combineren. 's Zomers achtereenvolgens in Rotterdam, Den Haag, Amsterdam en Utrecht.",
+    url: "https://deparade.nl",
+    accent: "#FF8A33",
+    match_keywords: ["de parade", "parade"],
+    foto_urls: [
+      "https://deparade.nl/wp-content/uploads/2026/05/Parade-Rotterdam-2026-Erik-van-t-hof-1-1920x1280.jpg",
+      "https://deparade.nl/wp-content/uploads/2026/05/Screenshot-2026-05-13-at-09.48.34.png"
+    ],
+    foto_credit: "Erik van 't Hof — De Parade"
   }
 ];
