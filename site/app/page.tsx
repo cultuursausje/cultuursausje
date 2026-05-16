@@ -51,6 +51,8 @@ export default async function HomePage() {
       theater_beschrijving: theaterObj?.beschrijving || "",
       theater_url: theaterObj?.url || "",
       theater_stad: theaterObj?.stad || "",
+      theater_foto_url: theaterObj?.foto_url,
+      theater_foto_credit: theaterObj?.foto_credit,
       gezelschap_display: gezObj?.naam || s.gezelschap,
       gezelschap_beschrijving: gezObj?.beschrijving || "",
       gezelschap_url: gezObj?.url || ""
@@ -76,8 +78,8 @@ export default async function HomePage() {
         <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
           Cultuursausje
         </h1>
-        <p className="mt-2 max-w-2xl text-sm text-ink-muted sm:text-base">
-          Theateragenda van Nederland — voorstellingen, festivals, gezelschappen en theaters op één plek.
+        <p className="mt-2 whitespace-nowrap text-xs text-ink-muted sm:text-sm md:text-base">
+          Theateragenda van Nederland, voorstellingen, festivals, gezelschappen en theaters op één plek.
         </p>
       </header>
       <ShowsExplorer
