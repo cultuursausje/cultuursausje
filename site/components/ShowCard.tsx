@@ -71,7 +71,7 @@ export function ShowCard({
             {/* Copyright overlay rechtsonder, alleen wanneer er een foto is */}
             {hasPhoto && (
               <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/70 leading-none">
-                © {show.gezelschap_display}
+                © {show.foto_credit || show.gezelschap_display}
               </div>
             )}
           </div>
@@ -234,16 +234,11 @@ function ExpandedCard({
           </div>
         </div>
 
-        {/* Beschrijving — bold interesting + normale lange samenvatting */}
+        {/* Over het stuk */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over
+            Over het stuk
           </h3>
-          {show.based_on && (
-            <div className="text-xs text-ink-muted italic mb-3">
-              Op basis van {show.based_on}
-            </div>
-          )}
           {show.interesting_because && (
             <p className="text-base font-medium text-ink leading-relaxed mb-3">
               {show.interesting_because}
@@ -252,24 +247,31 @@ function ExpandedCard({
           <p className="text-sm text-ink-soft leading-relaxed">
             {show.lange_samenvatting}
           </p>
+          {show.based_on && (
+            <div className="text-xs text-ink-muted italic mt-3">
+              Op basis van {show.based_on}
+            </div>
+          )}
         </section>
 
-        {/* Koop tickets + speeldata */}
+        {/* Tickets + speeldata */}
         <section className="border-t border-line p-6 sm:p-8">
-          <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            🎫 Tickets
-          </h3>
-          {show.ticket_url && (
-            <a
-              href={show.ticket_url}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-medium text-white hover:bg-black transition-colors mb-5"
-            >
-              Naar tickets
-              <ExternalLink size={14} />
-            </a>
-          )}
+          <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
+            <h3 className="text-sm font-medium uppercase tracking-widest text-ink-muted">
+              🎫 Tickets
+            </h3>
+            {show.ticket_url && (
+              <a
+                href={show.ticket_url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-black transition-colors"
+              >
+                Naar tickets
+                <ExternalLink size={14} />
+              </a>
+            )}
+          </div>
 
           {dates.length > 0 && (
             <>
@@ -334,14 +336,14 @@ function ExpandedCard({
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
             👥 Over het gezelschap
           </h3>
-          <div className="mb-1 text-base font-medium text-ink">{show.gezelschap_display}</div>
-          {show.regisseur && (
-            <div className="text-xs text-ink-muted mb-3">Regie van dit stuk: {show.regisseur}</div>
-          )}
+          <div className="mb-2 text-base font-medium text-ink">{show.gezelschap_display}</div>
           {show.gezelschap_beschrijving && (
             <p className="text-sm text-ink-soft leading-relaxed mb-3">
               {show.gezelschap_beschrijving}
             </p>
+          )}
+          {show.regisseur && (
+            <div className="text-xs text-ink-muted mb-3">Regie van dit stuk: {show.regisseur}</div>
           )}
           {show.gezelschap_url && (
             <a
@@ -360,14 +362,26 @@ function ExpandedCard({
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
             🏛️ Over het theater
           </h3>
-          <div className="mb-1 text-base font-medium text-ink">{show.theater_naam}</div>
+          <div className="mb-2 text-base font-medium text-ink">{show.theater_naam}</div>
           {show.theater_beschrijving && (
             <p className="text-sm text-ink-soft leading-relaxed mb-4">
               {show.theater_beschrijving}
             </p>
           )}
+          {show.theater_url && (
+            <div className="mb-4">
+              <a
+                href={show.theater_url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+              >
+                Meer over dit theater <ExternalLink size={11} />
+              </a>
+            </div>
+          )}
           {/* Maps embed */}
-          <div className="rounded-2xl overflow-hidden border border-line mb-4 aspect-[16/9]">
+          <div className="rounded-2xl overflow-hidden border border-line mb-3 aspect-[16/9]">
             <iframe
               src={mapsEmbedUrl(show.theater_naam || show.theater)}
               className="w-full h-full"
@@ -377,29 +391,14 @@ function ExpandedCard({
               title={`Kaart ${show.theater_naam || show.theater}`}
             />
           </div>
-          <div className="flex flex-wrap gap-2 text-xs">
-            <a
-              href={mapsLinkUrl(show.theater_naam || show.theater)}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-            >
-              Open in Google Maps <ExternalLink size={11} />
-            </a>
-            {show.theater_url && (
-              <>
-                <span className="text-ink-faint">·</span>
-                <a
-                  href={show.theater_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-                >
-                  Meer over dit theater <ExternalLink size={11} />
-                </a>
-              </>
-            )}
-          </div>
+          <a
+            href={mapsLinkUrl(show.theater_naam || show.theater)}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+          >
+            Open in Google Maps <ExternalLink size={11} />
+          </a>
         </section>
 
         {/* In de media */}

@@ -18,6 +18,7 @@ export interface Show {
   categorieen: string[];
   ticket_url: string;
   interesting_because?: string;
+  foto_credit?: string;
 }
 
 export interface Theater {
