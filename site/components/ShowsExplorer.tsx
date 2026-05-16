@@ -1,11 +1,23 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown, X } from "lucide-react";
 import { ShowCard } from "./ShowCard";
 import { FilterSidebar } from "./FilterSidebar";
 import { loadFavorites, saveFavorites } from "@/lib/favorites";
 import { monthsToShow, monthLabel, monthKey, pillForMonth } from "@/lib/dates";
 import type { ShowDisplay, Theater, Gezelschap } from "@/types";
+
+// Grotere Nederlandse theater-steden — zodat de dropdown ook steden bevat
+// die nog geen voorstellingen hebben (de gebruiker kan ze toch zoeken).
+const DUTCH_THEATER_CITIES = [
+  "Amsterdam", "Rotterdam", "Den Haag", "Utrecht", "Eindhoven",
+  "Groningen", "Tilburg", "Almere", "Breda", "Nijmegen",
+  "Apeldoorn", "Haarlem", "Enschede", "Arnhem", "Amersfoort",
+  "Maastricht", "Leiden", "'s-Hertogenbosch", "Zwolle", "Leeuwarden",
+  "Dordrecht", "Heerlen", "Delft", "Castricum", "Alkmaar",
+  "Hilversum", "Deventer", "Schiedam"
+];
 
 interface Props {
   shows: ShowDisplay[];
@@ -35,12 +47,41 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   const [showThisWeek, setShowThisWeek] = useState(false);
   const [showTopRated, setShowTopRated] = useState(false);
 
-  // Beschikbare steden uit de theaters
+  // Beschikbare steden: theaters die we hebben + grote NL theater-steden (gesorteerd)
   const availableCities = useMemo(() => {
     const set = new Set<string>();
     theaters.forEach(t => { if (t.stad) set.add(t.stad); });
-    return Array.from(set).sort();
+    DUTCH_THEATER_CITIES.forEach(c => set.add(c));
+    return Array.from(set).sort((a, b) => a.localeCompare(b, "nl"));
   }, [theaters]);
+
+  // Lookup theater_id → stad voor extra_theaters check
+  const theaterStadById = useMemo(() => {
+    const m = new Map<string, string>();
+    theaters.forEach(t => m.set(t.id, t.stad));
+    return m;
+  }, [theaters]);
+
+  // Stad-dropdown state
+  const [cityOpen, setCityOpen] = useState(false);
+  const [cityQuery, setCityQuery] = useState("");
+  const cityRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cityOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (cityRef.current && !cityRef.current.contains(e.target as Node)) {
+        setCityOpen(false);
+      }
+    };
+    const t = setTimeout(() => document.addEventListener("click", handler), 0);
+    return () => { clearTimeout(t); document.removeEventListener("click", handler); };
+  }, [cityOpen]);
+
+  const filteredCities = useMemo(
+    () => availableCities.filter(c => c.toLowerCase().includes(cityQuery.toLowerCase())),
+    [availableCities, cityQuery]
+  );
 
   useEffect(() => { setFavorites(loadFavorites()); }, []);
 
@@ -76,8 +117,11 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
     // Voordat een stad gekozen is, tonen we niets
     if (!selectedCity) return [];
     return shows.filter(s => {
-      // Stad-filter: theater_stad moet matchen
-      if (s.theater_stad !== selectedCity) return false;
+      // Stad-filter: primair theater óf één van de extra_theaters moet in de stad zijn
+      const inCity =
+        s.theater_stad === selectedCity ||
+        s.extra_theaters.some(id => theaterStadById.get(id) === selectedCity);
+      if (!inCity) return false;
       if (showFavoritesOnly && !favorites.has(s.id)) return false;
 
       // Deze week: speeldata of speelperiode binnen vandaag t/m vandaag+7
@@ -230,24 +274,69 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
         onClearMonths={clearMonths}
       />
 
-      {/* Filter chips: eerst stad (verplicht), dan een verticaal streepje, dan quick filters */}
+      {/* Filter chips: eerst stad-dropdown (verplicht), dan streepje, dan quick filters */}
       <div className="mb-8 flex flex-wrap items-center gap-2 sm:mb-10">
-        {availableCities.map(city => {
-          const isActive = selectedCity === city;
-          return (
-            <button
-              key={city}
-              onClick={() => setSelectedCity(isActive ? null : city)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-ink text-white hover:bg-black"
-                  : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-              }`}
-            >
-              {city}
-            </button>
-          );
-        })}
+        {/* Searchable city dropdown */}
+        <div ref={cityRef} className="relative">
+          <button
+            onClick={() => setCityOpen(v => !v)}
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              selectedCity
+                ? "bg-ink text-white hover:bg-black"
+                : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+            }`}
+          >
+            <span>{selectedCity || "Kies een stad"}</span>
+            {selectedCity ? (
+              <span
+                role="button"
+                onClick={e => { e.stopPropagation(); setSelectedCity(null); setCityOpen(false); }}
+                className="-mr-1 ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-white/15"
+                aria-label="Stad wissen"
+              >
+                <X size={11} />
+              </span>
+            ) : (
+              <ChevronDown size={14} />
+            )}
+          </button>
+          {cityOpen && (
+            <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border border-line bg-white shadow-xl overflow-hidden flex flex-col">
+              <div className="p-2 border-b border-line">
+                <input
+                  autoFocus
+                  type="text"
+                  value={cityQuery}
+                  onChange={e => setCityQuery(e.target.value)}
+                  placeholder="Zoek een stad..."
+                  className="w-full rounded-lg border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ink/20"
+                />
+              </div>
+              <div className="max-h-64 overflow-y-auto p-2">
+                {filteredCities.length === 0 ? (
+                  <div className="px-3 py-2 text-sm italic text-ink-faint">Geen resultaten</div>
+                ) : (
+                  filteredCities.map(city => {
+                    const isActive = selectedCity === city;
+                    return (
+                      <button
+                        key={city}
+                        onClick={() => { setSelectedCity(city); setCityOpen(false); setCityQuery(""); }}
+                        className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-[#F1EFE8] text-ink font-medium"
+                            : "text-ink-soft hover:bg-[#F8F6EF]"
+                        }`}
+                      >
+                        {city}
+                      </button>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="mx-2 h-6 w-px bg-line" aria-hidden="true" />
 
