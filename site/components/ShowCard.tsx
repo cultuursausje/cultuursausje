@@ -46,9 +46,23 @@ export function ShowCard({
   }
 
   return (
-    <div className="group relative cursor-pointer transition-transform duration-500 ease-out hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5">
-      {/* TL-licht achter de card */}
-      <div className="pointer-events-none absolute -inset-2 rounded-[28px] bg-white opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-50" />
+    <div
+      className={`group relative cursor-pointer transition-transform duration-500 ease-out ${
+        isFlipped
+          ? ""
+          : "hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5"
+      }`}
+    >
+      {/* TL-licht achter de card — kleurige neon-gloed, alleen op hover en als card niet geflipt is */}
+      {!isFlipped && (
+        <div
+          className="pointer-events-none absolute -inset-3 rounded-[32px] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
+          style={{
+            background:
+              "linear-gradient(135deg, #FF3D8B 0%, #FF6B35 30%, #E5B53A 55%, #9BD43F 80%, #2D4DEB 100%)"
+          }}
+        />
+      )}
       <div
         className={`flip-card relative w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
         onClick={onFlip}
