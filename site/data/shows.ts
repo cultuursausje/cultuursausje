@@ -6,7 +6,11 @@ export const shows: Show[] = [
     titel: "Weg met Eddy Bellegueule",
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2026-05-07", speelperiode_end: "2026-05-23",
+    speelperiode_start: "2026-05-16", speelperiode_end: "2026-06-06",
+    speeldata: ["2026-05-16", "2026-05-17", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23"],
+    tour: [
+      { theater_id: "chasse-breda", speeldata: ["2026-06-02", "2026-06-03"] }
+    ],
     korte_samenvatting: "Een jongen die niet past in het dorp waar hij opgroeit en daarom z'n eigen leven moet uitvinden.",
     lange_samenvatting: "Eddy is anders dan de jongens om hem heen: hij houdt van lezen, van praten, van jongens. In een dorp waar dat onveilig is, en in een gezin dat hem niet ziet, moet hij kiezen tussen blijven of weglopen. Over hoe het voelt om de plek waar je vandaan komt achter je te laten.",
     regisseur: "Eline Arbo", based_on: "Boek van Édouard Louis",
@@ -35,8 +39,12 @@ export const shows: Show[] = [
   {
     id: "het-incident", titel: "Het incident",
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam (m.m.v. June Yanez, Leila Sahir, Zephyr Brüggen)",
-    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: ["bijlmer-parktheater"],
+    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-05-16", speelperiode_end: "2026-06-11",
+    speeldata: ["2026-05-16", "2026-05-17", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24"],
+    tour: [
+      { theater_id: "bijlmer-parktheater", speeldata: ["2026-06-10", "2026-06-11"] }
+    ],
     korte_samenvatting: "Vijftien jaar oud, grote bek, kleine wereld: Guadalupe heeft op school al een toekomst toebedeeld gekregen.",
     lange_samenvatting: "Guadalupe is bijna zestien, heeft een keiharde humor en een veel zachter hart dan ze laat zien. Op één vierkante meter spelen tien personages uit haar leven door elkaar: leraren die haar al hebben afgeschreven, klasgenoten met meer kansen, familie die haar wel ziet. Over opgroeien in een wereld die al voor je heeft besloten wat je kunt.",
     regisseur: "Zephyr Brüggen", based_on: "",
@@ -52,6 +60,7 @@ export const shows: Show[] = [
     gezelschap_id: "toneelgroep-maastricht", gezelschap: "Toneelgroep Maastricht",
     theater_id: "delamar", theater: "DeLaMar", extra_theaters: [],
     speelperiode_start: "2026-05-20", speelperiode_end: "2026-05-24",
+    speeldata: ["2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24"],
     korte_samenvatting: "Wat als je beste jaren al voorbij zijn en je het niet hebt gemerkt?",
     lange_samenvatting: "Een familie op een afgelegen landgoed beseft dat ze decennia voor iemand hebben opgeofferd die hun bewondering niet waard was. Wanneer hij voorstelt het huis te verkopen, knapt iets. Over verspilde tijd, en de stille rouw die daarbij hoort.",
     regisseur: "", based_on: "Uncle Vanya van Anton Tsjechov", foto_url: "",
@@ -65,6 +74,7 @@ export const shows: Show[] = [
     gezelschap_id: "de-warme-winkel", gezelschap: "De Warme Winkel",
     theater_id: "de-sloot", theater: "De Sloot", extra_theaters: [],
     speelperiode_start: "2026-05-21", speelperiode_end: "2026-05-22",
+    speeldata: ["2026-05-21", "2026-05-22"],
     korte_samenvatting: "Wat verlies je als de wereld die je kende langzaam verdwijnt?",
     lange_samenvatting: "Twee nerds proberen grip te krijgen op een Europa dat zichzelf eerder is kwijtgeraakt, en op een schrijver die dat van dichtbij zag gebeuren. Een eigenzinnige avond over cultuur, beschaving, en het ongemakkelijke gevoel dat we dat nu opnieuw meemaken.",
     regisseur: "", based_on: "Boek van Stefan Zweig (De wereld van gisteren)", foto_url: "",
@@ -78,6 +88,7 @@ export const shows: Show[] = [
     gezelschap_id: "het-zuidelijk-toneel", gezelschap: "Het Zuidelijk Toneel",
     theater_id: "frascati", theater: "Frascati", extra_theaters: [],
     speelperiode_start: "2026-05-21", speelperiode_end: "2026-05-23",
+    speeldata: ["2026-05-21", "2026-05-22", "2026-05-23"],
     korte_samenvatting: "Een band in repetitie, waarin de camera de sfeer kantelt en niemand meer weet wie zichzelf is.",
     lange_samenvatting: "De noiseband Distortion Klub repeteert volgens hun credo: alles wat geluid maakt is een instrument. Wanneer een van hen de anderen begint te filmen en te bevragen, vervaagt de grens tussen wie ze zijn en wie ze willen zijn. Over de honger naar gezien worden, en wat dat met je doet.",
     regisseur: "Suze Milius", based_on: "",
@@ -106,6 +117,7 @@ export const shows: Show[] = [
     gezelschap_id: "het-nationale-theater", gezelschap: "Het Nationale Theater",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-05-24", speelperiode_end: "2026-05-25",
+    speeldata: ["2026-05-24", "2026-05-25"],
     korte_samenvatting: "Wat als Den Haag een Amerikaanse oud-president arresteert en de wereld op scherp komt te staan?",
     lange_samenvatting: "Het Internationaal Strafhof doet iets wat niemand voor mogelijk hield, en plotseling staat Nederland in het oog van een storm. Politici, militairen en diplomaten moeten beslissen hoe ver ze gaan voor het idee van internationaal recht. Een politieke thriller die te dicht bij de werkelijkheid komt om comfortabel te zijn.",
     regisseur: "", based_on: "", foto_url: "",
@@ -118,7 +130,12 @@ export const shows: Show[] = [
     id: "de-architect", titel: "De Architect",
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2026-05-27", speelperiode_end: "2027-04-25",
+    speelperiode_start: "2026-05-27", speelperiode_end: "2026-06-14",
+    speeldata: [
+      "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31",
+      "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07",
+      "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14"
+    ],
     korte_samenvatting: "Een vrouw aan de top, een jongere vrouw aan de deur, en de stille angst dat het hier ophoudt.",
     lange_samenvatting: "Sela is een gevierde architect, hard gewerkt en hard gerend. Dan stapt de jonge Hilde haar leven binnen, vol verwachtingen die Sela ooit zelf had. Wat begint als bewondering kantelt naar iets gevaarlijkers. Over wat het kost om te blijven staan bovenaan, en wat je verloren bent toen je daar aankwam.",
     regisseur: "Rebecca Frecknall", based_on: "Bouwmeester Solness van Henrik Ibsen",
@@ -280,6 +297,7 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-08-31", speelperiode_end: "2026-09-09",
+    speeldata: ["2026-08-31", "2026-09-01", "2026-09-06", "2026-09-07", "2026-09-08", "2026-09-09"],
     korte_samenvatting: "Een oude man weigert te praten in het verpleeghuis waar hij niet wil zijn.",
     lange_samenvatting: "Busken wordt behandeld als een kleuter en denkt nog als een volwassen man. Naar buiten toe zwijgt hij, maar in zijn hoofd raast een onophoudelijke stroom van herinneringen, scherpe observaties en woede. Een monoloog over hoe het is om er nog te zijn terwijl niemand meer naar je luistert.",
     regisseur: "Maria Kraakman", based_on: "Boek van Jeroen Brouwers",
@@ -320,7 +338,7 @@ export const shows: Show[] = [
     id: "britt-for-president", titel: "Britt for President",
     gezelschap_id: "de-warme-winkel", gezelschap: "De Warme Winkel",
     theater_id: "frascati", theater: "Frascati", extra_theaters: [],
-    speelperiode_start: "2026-10-06", speelperiode_end: "2026-12-09",
+    speelperiode_start: "2026-09-30", speelperiode_end: "2026-12-18",
     korte_samenvatting: "Britt heeft geen kennis, geen ervaring en geen scrupules, maar wel een mening en gaat de politiek in.",
     lange_samenvatting: "Britt begint lokaal, want daar zit volgens haar de echte democratie. Geen partijdiscipline, geen morele rem, gewoon doen. Een satirisch stuk dat probeert te onderzoeken hoe je nog gesprek voert met iemand die feiten niet erkent, en wat dat betekent voor onze stad, ons land, ons buurtgesprek.",
     regisseur: "Vincent Rietveld", based_on: "",
@@ -340,6 +358,13 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-10-17", speelperiode_end: "2026-12-21",
+    speeldata: [
+      "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21",
+      "2026-10-25", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29",
+      "2026-12-08", "2026-12-09", "2026-12-10", "2026-12-11",
+      "2026-12-14", "2026-12-15", "2026-12-16", "2026-12-17",
+      "2026-12-20", "2026-12-21"
+    ],
     korte_samenvatting: "Een meisje uit een arme arbeiderswijk wil schrijver worden, en betaalt daar bijna alles voor.",
     lange_samenvatting: "Tove groeit op in een Kopenhaagse buurt waar je dat soort dromen niet hardop uitspreekt, maar zij schrijft toch. Wat volgt is een leven van roem, liefdes die misgaan, en een verslaving die haar uiteindelijk inhaalt. Een voorstelling over wat ambitie kost, en hoe vrij een vrouw werkelijk was in de twintigste eeuw.",
     regisseur: "Eline Arbo", based_on: "Boeken van Tove Ditlevsen",
@@ -355,6 +380,11 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-11-06", speelperiode_end: "2026-11-22",
+    speeldata: [
+      "2026-11-06", "2026-11-07", "2026-11-08",
+      "2026-11-11", "2026-11-12", "2026-11-13", "2026-11-14", "2026-11-15",
+      "2026-11-18", "2026-11-19", "2026-11-20", "2026-11-21", "2026-11-22"
+    ],
     korte_samenvatting: "Drie vrouwen, in drie eeuwen, met dezelfde stille vraag: is dit leven van mij?",
     lange_samenvatting: "In 1923 zit Virginia Woolf vast in een rustig dorp en begint een roman. Dertig jaar later voelt huisvrouw Laura de muren van haar perfecte gezin op zich afkomen. En in New York vraagt Clarissa zich vandaag af of ze de juiste keuzes maakte. Drie levens, een eeuw uit elkaar, en de emancipatie die wel en niet bleek door te zetten.",
     regisseur: "Eline Arbo", based_on: "Boek van Michael Cunningham",
@@ -369,7 +399,14 @@ export const shows: Show[] = [
     id: "wuthering-heights", titel: "Wuthering Heights",
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2026-12-02", speelperiode_end: "2027-01-17",
+    speelperiode_start: "2026-12-02", speelperiode_end: "2027-03-07",
+    speeldata: [
+      "2026-12-02", "2026-12-03", "2026-12-04", "2026-12-05", "2026-12-06",
+      "2026-12-09", "2026-12-10", "2026-12-11", "2026-12-12", "2026-12-13",
+      "2026-12-16", "2026-12-17", "2026-12-18", "2026-12-19", "2026-12-20",
+      "2027-01-07", "2027-01-08", "2027-01-09", "2027-01-10",
+      "2027-01-13", "2027-01-14", "2027-01-15", "2027-01-16", "2027-01-17"
+    ],
     korte_samenvatting: "Wie als kind vernederd is, geeft die vernedering vaak ongevraagd door.",
     lange_samenvatting: "Heathcliff wordt als vondeling opgenomen in een familie die hem nooit echt accepteert, en als hij rijk en machtig terugkeert, gaat het niet meer om liefde maar om wraak. Een rauwe, fysieke voorstelling over klasse, vernedering en de keten van geweld die van ouder op kind wordt doorgegeven. Geen romantisch verhaal, maar wel een onvergetelijk.",
     regisseur: "Kjersti Horn", based_on: "Boek van Emily Brontë",
@@ -384,7 +421,10 @@ export const shows: Show[] = [
     id: "r2d2-or-not-2b2", titel: "R2D2_or_not_2B2",
     gezelschap_id: "de-warme-winkel", gezelschap: "De Warme Winkel",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2027-02-17", speelperiode_end: "2027-04-16",
+    speelperiode_start: "2027-02-16", speelperiode_end: "2027-04-24",
+    tour: [
+      { theater_id: "chasse-breda", speeldata: ["2027-03-25"] }
+    ],
     korte_samenvatting: "Een groep robots probeert Hamlet te spelen en vraagt zich af wat mens-zijn ook alweer was.",
     lange_samenvatting: "Stofzuigers, bionische honden en androids in existentiële crisis nemen het theater over en stuntelen door een groot toneelstuk. Ze zoeken naar gevoel, twijfel en betekenis bij personages die hen vreemd zijn, terwijl ze zichzelf voortdurend onderbreken. Geestig en onverwacht aangrijpend over wat ons mensen onderscheidt — als dat nog iets is.",
     regisseur: "Rosie Sommers, Ward Weemhoff, Marieke de Zwaan (eindregie Bianca van der Schoot)",
@@ -418,6 +458,11 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2027-02-24", speelperiode_end: "2027-03-13",
+    speeldata: [
+      "2027-02-24", "2027-02-25", "2027-02-26", "2027-02-27", "2027-02-28",
+      "2027-03-03", "2027-03-04", "2027-03-05", "2027-03-06", "2027-03-07",
+      "2027-03-10", "2027-03-11", "2027-03-13"
+    ],
     korte_samenvatting: "Naast de man die zich naar de top liegt en moordt, staat de vrouw die hij vermorzelt.",
     lange_samenvatting: "Een gewetenloze figuur baant zich met leugens en geweld een weg naar de macht, terwijl een vrouw in bezet gebied alleen maar in leven probeert te blijven. Het stuk zet de onderdrukker en de onderdrukte naast elkaar op het toneel. Over hoe macht werkt, wie ervoor betaalt, en wat we daar vandaag van zien.",
     regisseur: "Alize Zandwijk", based_on: "Richard III van William Shakespeare",
@@ -433,6 +478,11 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2027-03-18", speelperiode_end: "2027-04-04",
+    speeldata: [
+      "2027-03-18", "2027-03-19", "2027-03-20", "2027-03-21",
+      "2027-03-24", "2027-03-25", "2027-03-26", "2027-03-27",
+      "2027-03-31", "2027-04-01", "2027-04-02", "2027-04-03", "2027-04-04"
+    ],
     korte_samenvatting: "Hoe lang duurt het voor je een democratie kwijtraakt, en je er nog steeds woont?",
     lange_samenvatting: "Een nieuwe regering wordt gewoon gekozen, en daarna gaat het stap voor stap mis. Een moeder probeert haar vier kinderen veilig te houden terwijl rechten verdwijnen, mensen verdwijnen, en de buurt zwijgt. Een dystopie die ongemakkelijk dicht bij het nieuws van vandaag zit.",
     regisseur: "Mina Salehpour", based_on: "Boek van Paul Lynch",
@@ -447,7 +497,7 @@ export const shows: Show[] = [
     id: "judith-westbroek-zoekt-een-kamer", titel: "Judith Westbroek zoekt een kamer",
     gezelschap_id: "de-warme-winkel", gezelschap: "De Warme Winkel",
     theater_id: "frascati", theater: "Frascati", extra_theaters: [],
-    speelperiode_start: "2027-03-30", speelperiode_end: "2027-04-01",
+    speelperiode_start: "2027-03-30", speelperiode_end: "2027-05-29",
     korte_samenvatting: "Een hospiteeravond als spiegel voor een land waar nergens meer ruimte voor is.",
     lange_samenvatting: "Judith zit in een huiskamer met onbekenden die haar gaan beoordelen op haar woonpotentieel. Een felle, grappige avond over de woningnood, en over alle andere soorten ruimte die op zijn: stikstofruimte, ademruimte, ruimte om iets van je leven te maken. Voor iedereen die ooit ergens met hangende pootjes binnenkwam.",
     regisseur: "Vincent Rietveld en Bianca van der Schoot", based_on: "",
@@ -463,7 +513,8 @@ export const shows: Show[] = [
     id: "nachtwacht", titel: "Nachtwacht",
     gezelschap_id: "nite", gezelschap: "NITE",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2027-04-23", speelperiode_end: "2027-04-25",
+    speelperiode_start: "2027-03-02", speelperiode_end: "2027-05-15",
+    speeldata: ["2027-04-23", "2027-04-24", "2027-04-25"],
     korte_samenvatting: "Een gezin om het ziekbed van vader, en de oude rolverdeling die plotseling weer in volle hevigheid terug is.",
     lange_samenvatting: "Vader is stervende, en zijn kinderen zitten bij hem terwijl ze zich allemaal heimelijk afvragen hoe ze van hem af komen. Een grote cast van muzikanten, dansers en acteurs maakt er een fysieke en muzikale voorstelling van waarin een hartslag een ritme wordt. Over zorg, afhankelijkheid en hoe je iemand mens laat blijven in de laatste fase van zijn leven.",
     regisseur: "Guy Weizman", based_on: "",
@@ -479,6 +530,10 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2027-05-20", speelperiode_end: "2027-05-30",
+    speeldata: [
+      "2027-05-20", "2027-05-21", "2027-05-22", "2027-05-23",
+      "2027-05-26", "2027-05-27", "2027-05-28", "2027-05-29", "2027-05-30"
+    ],
     korte_samenvatting: "Een topadvocate weet hoe ze slachtoffers in de getuigenbank onderuithaalt, tot ze er zelf een wordt.",
     lange_samenvatting: "Tessa is briljant en hard, en zedenzaken zijn voor haar een spel waarin ze meestal wint. Tot ze op een avond zelf moet aankloppen bij de politie, en alles wat ze weet over de wet plotseling tegen haar werkt. Een solovoorstelling over wat juridisch waar is, wat eerlijk voelt, en het diepe gat daartussen.",
     regisseur: "Eline Arbo", based_on: "Stuk van Suzie Miller",
