@@ -48,6 +48,7 @@ export default async function HomePage() {
       theater_naam: theaterObj?.naam || s.theater,
       theater_beschrijving: theaterObj?.beschrijving || "",
       theater_url: theaterObj?.url || "",
+      theater_stad: theaterObj?.stad || "",
       gezelschap_display: gezObj?.naam || s.gezelschap,
       gezelschap_beschrijving: gezObj?.beschrijving || "",
       gezelschap_url: gezObj?.url || ""
