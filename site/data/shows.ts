@@ -159,6 +159,11 @@ export const shows: Show[] = [
     categorieen: ["Hoop", "Verval"],
     ticket_url: "https://www.frascatitheater.nl/nl/agenda/samuel-beckett-s-iconische-stuk-als-locatievoorstelling-over-de-mens-die-zijn-ondergang-tegemoet-dendert-dqz4",
     foto_credit: "Bowie Verschuuren",
+    speeldata: [
+      "2026-06-04", "2026-06-05", "2026-06-06",
+      "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13",
+      "2026-06-16", "2026-06-17"
+    ],
     interesting_because: "Beckett op locatie, met zwarte humor en absurdisme. Voor wie houdt van theater dat schuurt en je laat lachen om dingen die eigenlijk vreselijk zijn."
   },
   {
@@ -308,6 +313,10 @@ export const shows: Show[] = [
     categorieen: ["Polarisatie", "Desinformatie"],
     ticket_url: "https://dewarmewinkel.nl/voorstellingen/britt-for-president/",
     foto_credit: "Lonneke van der Palen",
+    speeldata: [
+      "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10",
+      "2026-12-08", "2026-12-09"
+    ],
     interesting_because: "Satirisch en bijtend over lokale politiek en hoe we nog met elkaar in gesprek blijven. De Warme Winkel in topvorm."
   },
   {
@@ -363,6 +372,23 @@ export const shows: Show[] = [
     categorieen: ["Technologie", "Menselijkheid"],
     ticket_url: "https://dewarmewinkel.nl/voorstellingen/r2d2_or_not_2b2/",
     foto_credit: "Tobias Kruse",
+    speeldata: [
+      "2027-02-17", "2027-02-18",
+      "2027-04-13", "2027-04-14", "2027-04-15", "2027-04-16"
+    ],
+    foto_urls: [
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_2-1680x1120.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_3-1680x1200.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_4-1680x1200.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_5-1680x1200.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_7-1680x1120.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_9-1680x1120.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_10-1680x1120.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_11-1680x1120.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_13-1680x1200.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_14-1680x1200.jpg",
+      "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_16-1680x1200.jpg"
+    ],
     interesting_because: "Hamlet door robots, satirisch en filosofisch. Voor wie 'wat is mens-zijn' op een onverwachte manier wil onderzoeken."
   },
   {
@@ -404,6 +430,7 @@ export const shows: Show[] = [
     categorieen: ["Woningnood"],
     ticket_url: "https://dewarmewinkel.nl/voorstellingen/judith-westbroek-zoekt-een-kamer/",
     foto_credit: "Sofie Knijff",
+    speeldata: ["2027-03-30", "2027-03-31", "2027-04-01"],
     interesting_because: "Korte, scherpe voorstelling over een hospiteersessie als microkosmos van de woningnood. Snel en bijtend."
   },
   {
