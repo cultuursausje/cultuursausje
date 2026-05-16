@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { X, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { X, ExternalLink, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Festival, FestivalShow, ShowDisplay } from "@/types";
 
 interface Props {
@@ -65,16 +65,51 @@ function showDisplayToItem(s: ShowDisplay): CarouselItem {
   };
 }
 
+// Parse periode-string ("Juni", "Mei – Juni", "Juni – Augustus") naar maandnummers
+const MONTHS_NL: Record<string, number> = {
+  januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
+  juli: 7, augustus: 8, september: 9, oktober: 10, november: 11, december: 12
+};
+
+function parsePeriode(periode: string): { start: number; end: number } {
+  const parts = periode.toLowerCase().split(/[–-]/).map(s => s.trim());
+  const start = MONTHS_NL[parts[0]] ?? 12;
+  const end = parts[1] ? (MONTHS_NL[parts[1]] ?? start) : start;
+  return { start, end };
+}
+
+/** Sorteer: aankomend eerst (oplopend op startmaand), daarna voorbij
+ *  (aflopend, recentst geëindigd eerst). */
+function sortFestivalsByDate(festivals: Festival[], currentMonth: number): Festival[] {
+  return [...festivals].sort((a, b) => {
+    const pa = parsePeriode(a.periode);
+    const pb = parsePeriode(b.periode);
+    const aPast = pa.end < currentMonth;
+    const bPast = pb.end < currentMonth;
+    if (aPast !== bPast) return aPast ? 1 : -1;
+    if (!aPast) return pa.start - pb.start;
+    return pb.start - pa.start;
+  });
+}
+
 export function FestivalsSection({ festivals, shows }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
   const [openShowId, setOpenShowId] = useState<string | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [scrollEdge, setScrollEdge] = useState({ atStart: true, atEnd: false });
 
   // Reset show-detail wanneer een andere festival-modal opent of sluit
   useEffect(() => { setOpenShowId(null); }, [openId]);
 
-  const visible = expanded ? festivals : festivals.slice(0, INITIAL_COUNT);
-  const open = openId ? festivals.find(f => f.id === openId) : null;
+  // Sorteer festivals op aankomende datum — voorbije gaan naar achteren
+  const sortedFestivals = useMemo(() => {
+    const currentMonth = new Date().getMonth() + 1;
+    return sortFestivalsByDate(festivals, currentMonth);
+  }, [festivals]);
+
+  const visible = expanded ? sortedFestivals : sortedFestivals.slice(0, INITIAL_COUNT);
+  const open = openId ? sortedFestivals.find(f => f.id === openId) : null;
   // Bron voor de carousel: festival-eigen programma (uit festival-website)
   // valt terug op keyword-match tegen onze eigen agenda als 'voorstellingen'
   // niet ingevuld is.
@@ -84,6 +119,29 @@ export function FestivalsSection({ festivals, shows }: Props) {
         : showsForFestival(open, shows).map(showDisplayToItem))
     : [];
   const openShow = openShowId ? items.find(s => s.id === openShowId) : null;
+
+  // Carousel scroll-state — voor enable/disable van pijltjes
+  const updateScrollEdge = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    setScrollEdge({
+      atStart: el.scrollLeft <= 0,
+      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1
+    });
+  };
+  useEffect(() => {
+    if (!open) return;
+    const t = setTimeout(updateScrollEdge, 50);
+    return () => clearTimeout(t);
+  }, [openId, items.length]);
+
+  const scrollCarousel = (direction: -1 | 1) => {
+    const el = carouselRef.current;
+    if (!el) return;
+    // Scroll ongeveer twee cards op
+    const cardWidth = 176 + 12; // w-44 + gap-3
+    el.scrollBy({ left: direction * cardWidth * 2, behavior: "smooth" });
+  };
 
   return (
     <section id="festivals" className="mt-20 sm:mt-24">
@@ -224,9 +282,14 @@ export function FestivalsSection({ festivals, shows }: Props) {
                 </p>
               ) : (
                 <>
-                  {/* Horizontale carousel met kleine cards */}
-                  <div className="-mx-6 sm:-mx-8 px-6 sm:px-8 overflow-x-auto scrollbar-hide">
-                    <div className="flex gap-3 snap-x snap-mandatory pb-2">
+                  {/* Horizontale carousel met kleine cards + navigatie-pijltjes */}
+                  <div className="relative">
+                    <div
+                      ref={carouselRef}
+                      onScroll={updateScrollEdge}
+                      className="-mx-6 sm:-mx-8 px-6 sm:px-8 overflow-x-auto scrollbar-hide"
+                    >
+                      <div className="flex gap-3 snap-x snap-mandatory pb-2">
                       {items.map(s => {
                         const isOpen = openShowId === s.id;
                         return (
@@ -273,7 +336,31 @@ export function FestivalsSection({ festivals, shows }: Props) {
                           </button>
                         );
                       })}
+                      </div>
                     </div>
+                    {/* Pijltjes — alleen tonen als er iets te scrollen valt */}
+                    {items.length > 2 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => scrollCarousel(-1)}
+                          disabled={scrollEdge.atStart}
+                          className="absolute top-1/2 -left-2 sm:-left-4 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed"
+                          aria-label="Vorige voorstellingen"
+                        >
+                          <ChevronLeft size={18} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => scrollCarousel(1)}
+                          disabled={scrollEdge.atEnd}
+                          className="absolute top-1/2 -right-2 sm:-right-4 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed"
+                          aria-label="Volgende voorstellingen"
+                        >
+                          <ChevronRight size={18} />
+                        </button>
+                      </>
+                    )}
                   </div>
 
                   {/* Detail-panel onder de carousel */}
