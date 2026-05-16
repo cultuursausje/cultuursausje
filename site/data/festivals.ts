@@ -27,11 +27,11 @@ export const festivals: Festival[] = [
     accent: "#9BD43F",
     match_keywords: ["julidans"],
     foto_urls: [
-      "https://picsum.photos/seed/julidans-dans-1/1280/720",
-      "https://picsum.photos/seed/julidans-dans-2/1280/720",
-      "https://picsum.photos/seed/julidans-dans-3/1280/720"
+      "https://julidans.nl/img/singles/cropped-beeld-zonder-iets-voor-website.jpg?w=1280&h=720&fit=crop-50-50",
+      "https://julidans.nl/img/singles/ROOM-IN-OUR-HOUSE-Campagnebeeld-Design-Studio-Colorado-Photography-Kwadwo-Amfo.jpg?w=1280&h=720&fit=crop-50-50",
+      "https://julidans.nl/img/singles/Tempest_%C2%A9Danny-Willems_Voetvolk_0DS9505_HiRes-4000pxl.JPG?w=1280&h=720&fit=crop-50-50"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Julidans"
   },
   {
     id: "oerol",
@@ -43,11 +43,10 @@ export const festivals: Festival[] = [
     accent: "#2D4DEB",
     match_keywords: ["oerol"],
     foto_urls: [
-      "https://picsum.photos/seed/oerol-terschelling-1/1280/720",
-      "https://picsum.photos/seed/oerol-terschelling-2/1280/720",
-      "https://picsum.photos/seed/oerol-terschelling-3/1280/720"
+      "https://oerol.nl/app/uploads/2026/02/Header-Youtube-2026_2048-x-1152-scaled.jpg",
+      "https://oerol.nl/app/uploads/2024/02/Nieuwsbrief.png"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Oerol Festival"
   },
   {
     id: "ntf",
@@ -59,11 +58,11 @@ export const festivals: Festival[] = [
     accent: "#E5B53A",
     match_keywords: ["nederlands theater festival", "ntf"],
     foto_urls: [
-      "https://picsum.photos/seed/ntf-2026-1/1280/720",
-      "https://picsum.photos/seed/ntf-2026-2/1280/720",
-      "https://picsum.photos/seed/ntf-2026-3/1280/720"
+      "https://tf.nl/wp-content/uploads/2025/07/NTF25_Website-headers6-2.jpg",
+      "https://tf.nl/wp-content/uploads/2026/02/Lage-Landen-Liefde-2025-Mark-Bolk-600x360.jpg",
+      "https://tf.nl/wp-content/uploads/2026/04/Farnoosh-en-Tobias-foto-door-Jaap-Kroon-600x360.jpg"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Mark Bolk, Jaap Kroon — Nederlands Theater Festival"
   },
   {
     id: "amsterdam-fringe",
@@ -91,11 +90,11 @@ export const festivals: Festival[] = [
     accent: "#B85FFF",
     match_keywords: ["festival boulevard", "boulevard"],
     foto_urls: [
-      "https://picsum.photos/seed/boulevard-denbosch-1/1280/720",
-      "https://picsum.photos/seed/boulevard-denbosch-2/1280/720",
-      "https://picsum.photos/seed/boulevard-denbosch-3/1280/720"
+      "https://media.festivalboulevard.nl/media/berlin-karin-jonkers-1920x1080.jpg?guid=39589b14-6463-44d5-a139-1abf2a056eef",
+      "https://media.festivalboulevard.nl/media/20250815_plein_kimvanderweerden_000_1.jpg?guid=243427f7-1b1c-4efa-bfa8-ed31d368e7c8",
+      "https://media.festivalboulevard.nl/media/20250815_plein_kimvanderweerden_000_6.jpg?guid=f3cf6421-7669-473b-810b-fd111f5c1d75"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Karin Jonkers, Kim van der Weerden — Theaterfestival Boulevard"
   },
   {
     id: "karavaan",
