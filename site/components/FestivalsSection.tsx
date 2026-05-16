@@ -2,12 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { X, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
-import type { Festival, ShowDisplay } from "@/types";
+import type { Festival, FestivalShow, ShowDisplay } from "@/types";
 
 interface Props {
   festivals: Festival[];
   /** Reeds gefilterde shows (city/month/theater/gezelschap filters al toegepast) */
   shows: ShowDisplay[];
+}
+
+/** Genormaliseerde shape voor de carousel-kaartjes — voedt zowel
+ *  festival-eigen programma als de keyword-match-fallback. */
+interface CarouselItem {
+  id: string;
+  titel: string;
+  gezelschap: string;
+  type: string;
+  english_friendly: boolean;
+  foto_url?: string;
+  foto_credit?: string;
+  korte_omschrijving?: string;
+  url?: string;
 }
 
 const INITIAL_COUNT = 4;
@@ -23,6 +37,34 @@ function genreOfShow(show: ShowDisplay): "dans" | "toneel" {
   return show.categorieen.some(c => c.toLowerCase().includes("dans")) ? "dans" : "toneel";
 }
 
+function festivalShowToItem(v: FestivalShow): CarouselItem {
+  return {
+    id: v.id,
+    titel: v.titel,
+    gezelschap: v.gezelschap ?? "",
+    type: v.type,
+    english_friendly: !!v.english_friendly,
+    foto_url: v.foto_url,
+    foto_credit: v.foto_credit,
+    korte_omschrijving: v.korte_omschrijving,
+    url: v.url
+  };
+}
+
+function showDisplayToItem(s: ShowDisplay): CarouselItem {
+  return {
+    id: s.id,
+    titel: s.titel,
+    gezelschap: s.gezelschap_display,
+    type: genreOfShow(s),
+    english_friendly: s.english_friendly,
+    foto_url: s.foto_url || undefined,
+    foto_credit: s.foto_credit,
+    korte_omschrijving: s.interesting_because,
+    url: s.ticket_url || undefined
+  };
+}
+
 export function FestivalsSection({ festivals, shows }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -33,8 +75,15 @@ export function FestivalsSection({ festivals, shows }: Props) {
 
   const visible = expanded ? festivals : festivals.slice(0, INITIAL_COUNT);
   const open = openId ? festivals.find(f => f.id === openId) : null;
-  const openShows = open ? showsForFestival(open, shows) : [];
-  const openShow = openShowId ? openShows.find(s => s.id === openShowId) : null;
+  // Bron voor de carousel: festival-eigen programma (uit festival-website)
+  // valt terug op keyword-match tegen onze eigen agenda als 'voorstellingen'
+  // niet ingevuld is.
+  const items: CarouselItem[] = open
+    ? (open.voorstellingen && open.voorstellingen.length > 0
+        ? open.voorstellingen.map(festivalShowToItem)
+        : showsForFestival(open, shows).map(showDisplayToItem))
+    : [];
+  const openShow = openShowId ? items.find(s => s.id === openShowId) : null;
 
   return (
     <section id="festivals" className="mt-20 sm:mt-24">
@@ -169,17 +218,16 @@ export function FestivalsSection({ festivals, shows }: Props) {
               <h4 className="mb-4 text-xs font-medium uppercase tracking-widest text-ink-muted">
                 Voorstellingen tijdens dit festival
               </h4>
-              {openShows.length === 0 ? (
+              {items.length === 0 ? (
                 <p className="text-sm text-ink-muted italic">
-                  Geen voorstellingen voor dit festival in de huidige selectie. Wis je filters of kies een andere stad.
+                  Programma volgt — kijk op {open.naam} voor de actuele lijn-up.
                 </p>
               ) : (
                 <>
                   {/* Horizontale carousel met kleine cards */}
                   <div className="-mx-6 sm:-mx-8 px-6 sm:px-8 overflow-x-auto scrollbar-hide">
                     <div className="flex gap-3 snap-x snap-mandatory pb-2">
-                      {openShows.map(s => {
-                        const genre = genreOfShow(s);
+                      {items.map(s => {
                         const isOpen = openShowId === s.id;
                         return (
                           <button
@@ -203,7 +251,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
                             {/* Pills */}
                             <div className="pointer-events-none absolute top-2 left-2 right-2 flex flex-wrap gap-1 z-10">
                               <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink capitalize">
-                                {genre}
+                                {s.type}
                               </span>
                               {s.english_friendly && (
                                 <span className="rounded-full bg-[#EAF3DE] px-2 py-0.5 text-[10px] font-bold text-[#173404] inline-flex items-center gap-1">
@@ -216,9 +264,11 @@ export function FestivalsSection({ festivals, shows }: Props) {
                               <div className="text-sm font-medium leading-tight">
                                 {s.titel}
                               </div>
-                              <div className="mt-1 text-[10px] text-white/85 leading-tight">
-                                {s.gezelschap_display}
-                              </div>
+                              {s.gezelschap && (
+                                <div className="mt-1 text-[10px] text-white/85 leading-tight">
+                                  {s.gezelschap}
+                                </div>
+                              )}
                             </div>
                           </button>
                         );
@@ -234,9 +284,11 @@ export function FestivalsSection({ festivals, shows }: Props) {
                           <div className="text-base font-medium text-ink leading-tight">
                             {openShow.titel}
                           </div>
-                          <div className="mt-0.5 text-xs text-ink-muted">
-                            {openShow.gezelschap_display}
-                          </div>
+                          {openShow.gezelschap && (
+                            <div className="mt-0.5 text-xs text-ink-muted">
+                              {openShow.gezelschap}
+                            </div>
+                          )}
                         </div>
                         <button
                           onClick={() => setOpenShowId(null)}
@@ -246,14 +298,14 @@ export function FestivalsSection({ festivals, shows }: Props) {
                           <X size={14} />
                         </button>
                       </div>
-                      {openShow.interesting_because && (
+                      {openShow.korte_omschrijving && (
                         <p className="mt-3 text-sm text-ink-soft leading-relaxed">
-                          {openShow.interesting_because}
+                          {openShow.korte_omschrijving}
                         </p>
                       )}
-                      {openShow.ticket_url && (
+                      {openShow.url && (
                         <a
-                          href={openShow.ticket_url}
+                          href={openShow.url}
                           target="_blank"
                           rel="noreferrer"
                           className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-ink hover:underline underline-offset-2"
