@@ -6,6 +6,7 @@ import type { Festival, ShowDisplay } from "@/types";
 
 interface Props {
   festivals: Festival[];
+  /** Reeds gefilterde shows (city/month/theater/gezelschap filters al toegepast) */
   shows: ShowDisplay[];
 }
 
@@ -27,12 +28,12 @@ export function FestivalsSection({ festivals, shows }: Props) {
   const openShows = open ? showsForFestival(open, shows) : [];
 
   return (
-    <section className="mt-24">
-      <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
+    <section className="relative -mx-6 px-6 py-16 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12" style={{ background: "#FCF0E8" }}>
+      <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
         Theaterfestivals
       </h2>
-      <p className="mb-6 max-w-xl text-sm text-ink-muted">
-        De grootste podiumkunstenfestivals van Nederland. Klik op een festival om de programma-voorstellingen te zien.
+      <p className="mb-8 max-w-xl text-sm text-ink-muted">
+        De grootste podiumkunstenfestivals van Nederland. Klik op een festival om de programma-voorstellingen te zien (op basis van je actieve filters).
       </p>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -68,7 +69,6 @@ export function FestivalsSection({ festivals, shows }: Props) {
         </div>
       )}
 
-      {/* Festival detail modal */}
       {open && (
         <div
           className="fixed inset-0 z-50 overflow-y-auto bg-black/40 backdrop-blur-sm"
@@ -86,20 +86,40 @@ export function FestivalsSection({ festivals, shows }: Props) {
               >
                 <X size={18} />
               </button>
-              <div
-                className="h-40 sm:h-48 flex items-end p-6 sm:p-8 text-white"
-                style={{ background: open.accent }}
-              >
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest opacity-80">
-                    {open.periode} · {open.plaats}
+              {/* Carousel placeholder — gradient varianten van de accentkleur */}
+              <div className="flex h-56 sm:h-64 snap-x snap-mandatory overflow-x-auto scrollbar-hide">
+                {(open.foto_urls && open.foto_urls.length > 0
+                  ? open.foto_urls.map((url, i) => ({ kind: "img" as const, url, i }))
+                  : [0, 1, 2].map(i => ({ kind: "ph" as const, url: "", i }))
+                ).map((item) => (
+                  <div
+                    key={item.i}
+                    className="snap-center shrink-0 w-full relative"
+                    style={{ background: open.accent, minWidth: "100%" }}
+                  >
+                    {item.kind === "img" && (
+                      <img src={item.url} alt="" className="absolute inset-0 block h-full w-full object-cover" />
+                    )}
+                    <div className="absolute inset-0 flex items-end p-6 sm:p-8 text-white">
+                      <div>
+                        <div className="text-xs font-semibold uppercase tracking-widest opacity-80">
+                          {open.periode} · {open.plaats}
+                        </div>
+                        <div className="mt-1 text-2xl font-medium tracking-tight sm:text-3xl">
+                          {open.naam}
+                        </div>
+                      </div>
+                    </div>
+                    {open.foto_credit && item.kind === "img" && (
+                      <div className="absolute bottom-2 right-3 text-[10px] text-white/80 leading-none">
+                        © {open.foto_credit}
+                      </div>
+                    )}
                   </div>
-                  <h3 className="mt-1 text-2xl font-medium tracking-tight sm:text-3xl">
-                    {open.naam}
-                  </h3>
-                </div>
+                ))}
               </div>
             </div>
+
             <div className="p-6 sm:p-8">
               <p className="text-sm text-ink-soft leading-relaxed">{open.beschrijving}</p>
               {open.url && (
@@ -119,7 +139,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
               </h4>
               {openShows.length === 0 ? (
                 <p className="text-sm text-ink-muted italic">
-                  Nog geen voorstellingen voor dit festival in onze agenda.
+                  Geen voorstellingen voor dit festival in de huidige selectie. Wis je filters of kies een andere stad.
                 </p>
               ) : (
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

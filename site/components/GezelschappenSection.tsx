@@ -10,45 +10,48 @@ interface Props {
 
 const INITIAL_COUNT = 6;
 
-const COLORS = ["#FF3D8B", "#FF6B35", "#E5B53A", "#9BD43F", "#00B4FF", "#B85FFF", "#FF6FA8"];
-
-function colorFor(id: string): string {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) {
-    h = (h << 5) - h + id.charCodeAt(i);
-    h |= 0;
-  }
-  return COLORS[Math.abs(h) % COLORS.length];
-}
-
 export function GezelschappenSection({ gezelschappen }: Props) {
   const [expanded, setExpanded] = useState(false);
   const visible = expanded ? gezelschappen : gezelschappen.slice(0, INITIAL_COUNT);
 
   return (
-    <section className="mt-24">
-      <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
+    <section className="relative -mx-6 px-6 py-16 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12" style={{ background: "#EDF6E8" }}>
+      <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
         Gezelschappen & collectieven
       </h2>
-      <p className="mb-6 max-w-xl text-sm text-ink-muted">
-        De grootste theater­gezelschappen en theater­collectieven van Nederland.
+      <p className="mb-8 max-w-xl text-sm text-ink-muted">
+        De grootste theatergezelschappen en theatercollectieven van Nederland.
       </p>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map(g => {
-          const color = colorFor(g.id);
-          return (
-            <a
-              key={g.id}
-              href={g.url}
-              target="_blank"
-              rel="noreferrer"
-              className="group relative overflow-hidden rounded-3xl border border-line bg-white p-5 transition-transform duration-300 hover:scale-[1.015] hover:-rotate-[0.4deg]"
-            >
-              <div
-                className="absolute top-0 left-0 h-1.5 w-full"
-                style={{ background: color }}
-              />
+        {visible.map(g => (
+          <a
+            key={g.id}
+            href={g.url}
+            target="_blank"
+            rel="noreferrer"
+            className="group relative overflow-hidden rounded-3xl border border-line bg-white transition-transform duration-300 hover:scale-[1.015] hover:-rotate-[0.4deg]"
+          >
+            {/* Logo box */}
+            <div className="relative flex h-32 items-center justify-center bg-[#F8F6EF] p-6">
+              {g.logo_url ? (
+                <img
+                  src={g.logo_url}
+                  alt={`${g.naam} logo`}
+                  className="block max-h-full max-w-[80%] object-contain"
+                />
+              ) : (
+                <div className="text-xl font-medium text-ink-faint">{g.afkorting}</div>
+              )}
+              {g.logo_credit && (
+                <div className="absolute bottom-1.5 right-2 text-[9px] text-ink-faint leading-none">
+                  © {g.logo_credit}
+                </div>
+              )}
+            </div>
+
+            {/* Info */}
+            <div className="p-5">
               <div className="flex items-start justify-between gap-2 mb-2">
                 <h3 className="text-base font-medium text-ink leading-tight">{g.naam}</h3>
                 <ExternalLink size={14} className="text-ink-faint opacity-0 group-hover:opacity-100 transition-opacity mt-0.5 shrink-0" />
@@ -61,9 +64,9 @@ export function GezelschappenSection({ gezelschappen }: Props) {
                   {g.beschrijving}
                 </p>
               )}
-            </a>
-          );
-        })}
+            </div>
+          </a>
+        ))}
       </div>
 
       {gezelschappen.length > INITIAL_COUNT && (

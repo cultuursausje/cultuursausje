@@ -4,9 +4,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { ShowCard } from "./ShowCard";
 import { FilterSidebar } from "./FilterSidebar";
+import { FestivalsSection } from "./FestivalsSection";
+import { GezelschappenSection } from "./GezelschappenSection";
+import { TheatersSection } from "./TheatersSection";
 import { loadFavorites, saveFavorites } from "@/lib/favorites";
 import { monthsToShow, monthLabel, monthKey, pillForMonth } from "@/lib/dates";
-import type { ShowDisplay, Theater, Gezelschap } from "@/types";
+import type { ShowDisplay, Theater, Gezelschap, Festival } from "@/types";
 
 // Grotere Nederlandse theater-steden — zodat de dropdown ook steden bevat
 // die nog geen voorstellingen hebben (de gebruiker kan ze toch zoeken).
@@ -21,8 +24,16 @@ const DUTCH_THEATER_CITIES = [
 
 interface Props {
   shows: ShowDisplay[];
+  /** Theaters die voorkomen in shows — voor de filter-sidebar. */
   theaters: Theater[];
+  /** Gezelschappen die voorkomen in shows — voor de filter-sidebar. */
   gezelschappen: Gezelschap[];
+  /** Volledige theaters-lijst voor de Theaters-sectie. */
+  allTheaters: Theater[];
+  /** Volledige gezelschappen-lijst voor de Gezelschappen-sectie. */
+  allGezelschappen: Gezelschap[];
+  /** Festival-data voor de Festivals-sectie. */
+  festivals: Festival[];
 }
 
 interface MonthGroup {
@@ -32,7 +43,7 @@ interface MonthGroup {
   shows: { show: ShowDisplay; pill: string }[];
 }
 
-export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
+export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, allGezelschappen, festivals }: Props) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [flipped, setFlipped] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -444,6 +455,15 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
             </section>
           ))}
         </div>
+      )}
+
+      {/* Extra secties — alleen tonen als een stad is geselecteerd */}
+      {selectedCity && (
+        <>
+          <FestivalsSection festivals={festivals} shows={filteredShows} />
+          <GezelschappenSection gezelschappen={allGezelschappen} />
+          <TheatersSection theaters={allTheaters} />
+        </>
       )}
     </>
   );
