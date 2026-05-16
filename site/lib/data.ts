@@ -81,7 +81,14 @@ function rowToShow(r: Record<string, string>): Show {
 }
 
 function rowToTheater(r: Record<string, string>): Theater {
-  return { id: r.id, naam: r.naam, afkorting: r.afkorting, url: r.url };
+  return {
+    id: r.id,
+    naam: r.naam,
+    afkorting: r.afkorting,
+    url: r.url,
+    stad: r.stad || "",
+    beschrijving: r.beschrijving || undefined
+  };
 }
 
 function rowToGezelschap(r: Record<string, string>): Gezelschap {
