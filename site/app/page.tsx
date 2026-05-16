@@ -54,8 +54,20 @@ export default async function HomePage() {
     };
   });
 
+  // Voor de filter-sidebar: alleen theaters/gezelschappen die ook
+  // daadwerkelijk voorkomen in de zichtbare shows.
+  const usedTheaterIds = new Set<string>();
+  const usedGezelschapIds = new Set<string>();
+  enriched.forEach(s => {
+    if (s.theater_id) usedTheaterIds.add(s.theater_id);
+    s.extra_theaters.forEach(id => usedTheaterIds.add(id));
+    if (s.gezelschap_id) usedGezelschapIds.add(s.gezelschap_id);
+  });
+  const theatersInUse = data.theaters.filter(t => usedTheaterIds.has(t.id));
+  const gezelschappenInUse = data.gezelschappen.filter(g => usedGezelschapIds.has(g.id));
+
   return (
-    <main className="relative z-10 mx-auto max-w-[1280px] px-6 pb-24 pt-10 sm:px-8 lg:px-12">
+    <main className="relative z-10 mx-auto max-w-[1280px] px-6 pb-24 pt-10 sm:px-8 lg:px-12 md:pl-24 lg:pl-28">
       <header className="mb-10 sm:mb-14">
         <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
           Cultuursausje
@@ -64,7 +76,11 @@ export default async function HomePage() {
           Het complete overzicht van theatervoorstellingen in Amsterdam. Klik op een kaart om meer te zien.
         </p>
       </header>
-      <ShowsExplorer shows={enriched} />
+      <ShowsExplorer
+        shows={enriched}
+        theaters={theatersInUse}
+        gezelschappen={gezelschappenInUse}
+      />
       <footer className="mt-24 border-t border-line pt-6 text-xs text-ink-faint">
         Cultuursausje · agenda · {new Date().getFullYear()}
       </footer>
