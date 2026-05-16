@@ -111,12 +111,11 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     return () => window.removeEventListener("keydown", onKey);
   }, [expanded]);
 
-  // Filter de shows op basis van actieve filters
-  const filteredShows = useMemo(() => {
-    // Geen stad geselecteerd → geen shows
+  // Shows gefilterd op stad/theater/gezelschap — ZONDER hartje-filter.
+  // Hier baseren we de maand-navigatie op, zodat het hartje de pills niet "leeg trekt".
+  const filteredShowsForNav = useMemo(() => {
     if (selectedCities.size === 0) return [];
     return shows.filter(s => {
-      // Stad-filter: primair theater óf één van de extra_theaters moet in een geselecteerde stad zijn
       const inCity =
         selectedCities.has(s.theater_stad) ||
         s.extra_theaters.some(id => {
@@ -124,8 +123,6 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           return stad && selectedCities.has(stad);
         });
       if (!inCity) return false;
-      if (showFavoritesOnly && !favorites.has(s.id)) return false;
-
       if (selectedTheaters.size > 0) {
         const has =
           (s.theater_id && selectedTheaters.has(s.theater_id)) ||
@@ -138,12 +135,21 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       }
       return true;
     });
-  }, [shows, selectedCities, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, theaterStadById]);
+  }, [shows, selectedCities, selectedTheaters, selectedGezelschappen, theaterStadById]);
 
-  const months: MonthGroup[] = useMemo(() => {
-    const list = monthsToShow(filteredShows);
+  // Volledig gefilterd (incl. hartje) — voor festival-panel
+  const filteredShows = useMemo(() => {
+    return showFavoritesOnly
+      ? filteredShowsForNav.filter(s => favorites.has(s.id))
+      : filteredShowsForNav;
+  }, [filteredShowsForNav, showFavoritesOnly, favorites]);
+
+  // Maanden voor navigatie — gebaseerd op stad/theater/gezelschap, ONGEACHT favorites,
+  // zodat de pills stabiel blijven als je het hartje aan/uit zet
+  const monthsForNav: MonthGroup[] = useMemo(() => {
+    const list = monthsToShow(filteredShowsForNav);
     return list.map(({ year, monthIdx }) => {
-      const items = filteredShows
+      const items = filteredShowsForNav
         .map(show => {
           const pill = pillForMonth(show.speelperiode_start, show.speelperiode_end, year, monthIdx);
           return pill ? { show, pill } : null;
@@ -156,21 +162,26 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         shows: items
       };
     }).filter(g => g.shows.length > 0);
-  }, [filteredShows]);
+  }, [filteredShowsForNav]);
 
   // Eén maand tegelijk zichtbaar — gebruiker navigeert met prev/next
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
 
-  // Reset naar eerste maand wanneer filter-resultaten veranderen
+  // Reset naar eerste maand wanneer scope-filters veranderen (hartje verandert maandindex niet)
   useEffect(() => {
     setCurrentMonthIndex(0);
-  }, [selectedCities, selectedTheaters, selectedGezelschappen, showFavoritesOnly]);
+  }, [selectedCities, selectedTheaters, selectedGezelschappen]);
 
-  // Huidige maand + prev/next afleiden — gedeeld tussen filter-rij en grid
-  const safeIdx = months.length > 0 ? Math.min(currentMonthIndex, months.length - 1) : 0;
-  const currentMonth = months.length > 0 ? months[safeIdx] : null;
-  const prevMonth = currentMonth && safeIdx > 0 ? months[safeIdx - 1] : null;
-  const nextMonth = currentMonth && safeIdx < months.length - 1 ? months[safeIdx + 1] : null;
+  // Huidige maand + prev/next uit monthsForNav — pills blijven dus stabiel
+  const safeIdx = monthsForNav.length > 0 ? Math.min(currentMonthIndex, monthsForNav.length - 1) : 0;
+  const currentMonth = monthsForNav.length > 0 ? monthsForNav[safeIdx] : null;
+  const prevMonth = currentMonth && safeIdx > 0 ? monthsForNav[safeIdx - 1] : null;
+  const nextMonth = currentMonth && safeIdx < monthsForNav.length - 1 ? monthsForNav[safeIdx + 1] : null;
+
+  // Daadwerkelijk te tonen shows in de huidige maand — hartje-filter wordt hier toegepast
+  const currentMonthShows = currentMonth
+    ? currentMonth.shows.filter(({ show }) => !showFavoritesOnly || favorites.has(show.id))
+    : [];
 
   const toggleFav = (id: string) => {
     setFavorites(prev => {
@@ -201,11 +212,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   return (
     <>
+      <section>
+      <div
+        className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        style={{ background: "#FFD500" }}
+      >
       {/* Sectietitel + filter chips */}
       <h2 className="font-display mb-2 text-3xl text-ink tracking-tight sm:text-4xl">
         Alle voorstellingen
       </h2>
-      <p className="mb-6 text-sm text-ink-muted sm:text-base">
+      <p className="mb-6 text-sm text-ink-soft sm:text-base">
         Welke stad wil je zien? Standaard: Amsterdam. Selecteer er meer of een andere.
       </p>
 
@@ -300,7 +316,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         )}
         {nextMonth && (
           <button
-            onClick={() => setCurrentMonthIndex(i => Math.min(months.length - 1, i + 1))}
+            onClick={() => setCurrentMonthIndex(i => Math.min(monthsForNav.length - 1, i + 1))}
             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
           >
             <span className="capitalize">Toon {nextMonth.label}</span>
@@ -331,28 +347,15 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       </div>
 
       {selectedCities.size === 0 ? (
-        <div className="rounded-3xl border border-line bg-white p-12 text-center">
+        <div className="rounded-3xl bg-white p-12 text-center">
           <div className="text-2xl font-medium text-ink mb-2">Kies eerst een stad</div>
           <div className="text-sm text-ink-muted">
             Selecteer hierboven een of meer steden om voorstellingen te zien.
           </div>
         </div>
-      ) : months.length === 0 ? (
-        <div className="rounded-3xl border border-line bg-white p-10 text-center text-ink-muted">
-          {showFavoritesOnly && favorites.size === 0 ? (
-            <>
-              Je hebt nog geen voorstellingen geliked.
-              <div className="mt-2 text-xs text-ink-faint">
-                Klik op het hartje op een kaart om 'm op te slaan.
-              </div>
-              <button
-                onClick={() => setShowFavoritesOnly(false)}
-                className="block mx-auto mt-4 text-sm text-ink underline-offset-2 underline hover:no-underline"
-              >
-                Toon alle voorstellingen
-              </button>
-            </>
-          ) : hasActiveFilter ? (
+      ) : monthsForNav.length === 0 ? (
+        <div className="rounded-3xl bg-white p-10 text-center text-ink-muted">
+          {hasActiveFilter ? (
             <>
               Geen voorstellingen die aan je filters voldoen.
               <button
@@ -367,46 +370,70 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           )}
         </div>
       ) : currentMonth ? (
-        <section>
-          <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
+        <div>
+          <h3 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
             {currentMonth.label}
-          </h2>
-          <div
-            className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
-            style={{ gridAutoFlow: "dense" }}
-          >
-            {currentMonth.shows.map(({ show, pill }) => {
-              const key = `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`;
-              const isExpandedHere = expanded === key;
-              return (
-                <div
-                  key={key}
-                  className={`transition-all duration-300 ${
-                    isExpandedHere
-                      ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
-                      : ""
-                  }`}
-                  style={{ alignSelf: "start" }}
-                >
-                  <ShowCard
-                    show={show}
-                    pill={pill}
-                    monthKey={key}
-                    isFlipped={flipped.has(key)}
-                    isExpanded={isExpandedHere}
-                    isFavorite={favorites.has(show.id)}
-                    isMobile={isMobile}
-                    onFlip={() => toggleFlip(key)}
-                    onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
-                    onCollapse={() => setExpanded(null)}
-                    onToggleFav={() => toggleFav(show.id)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </section>
+          </h3>
+          {currentMonthShows.length === 0 ? (
+            <div className="rounded-3xl bg-white p-10 text-center text-ink-muted">
+              {showFavoritesOnly && favorites.size === 0 ? (
+                <>
+                  Je hebt nog geen voorstellingen geliked.
+                  <div className="mt-2 text-xs text-ink-faint">
+                    Klik op het hartje op een kaart om 'm op te slaan.
+                  </div>
+                </>
+              ) : showFavoritesOnly ? (
+                <>
+                  Geen favorieten in {currentMonth.label}.
+                  <div className="mt-2 text-xs text-ink-faint">
+                    Probeer een andere maand of zet het hartje uit.
+                  </div>
+                </>
+              ) : (
+                "Geen voorstellingen in deze maand."
+              )}
+            </div>
+          ) : (
+            <div
+              className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+              style={{ gridAutoFlow: "dense" }}
+            >
+              {currentMonthShows.map(({ show, pill }) => {
+                const key = `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`;
+                const isExpandedHere = expanded === key;
+                return (
+                  <div
+                    key={key}
+                    className={`transition-all duration-300 ${
+                      isExpandedHere
+                        ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
+                        : ""
+                    }`}
+                    style={{ alignSelf: "start" }}
+                  >
+                    <ShowCard
+                      show={show}
+                      pill={pill}
+                      monthKey={key}
+                      isFlipped={flipped.has(key)}
+                      isExpanded={isExpandedHere}
+                      isFavorite={favorites.has(show.id)}
+                      isMobile={isMobile}
+                      onFlip={() => toggleFlip(key)}
+                      onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
+                      onCollapse={() => setExpanded(null)}
+                      onToggleFav={() => toggleFav(show.id)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       ) : null}
+      </div>
+      </section>
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
