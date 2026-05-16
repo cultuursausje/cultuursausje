@@ -32,6 +32,7 @@ export interface Theater {
   afkorting: string;
   url: string;
   beschrijving?: string;
+  stad: string;
 }
 
 export interface Gezelschap {
@@ -73,6 +74,7 @@ export interface ShowDisplay extends Show {
   theater_naam: string;
   theater_beschrijving: string;
   theater_url: string;
+  theater_stad: string;
   gezelschap_display: string;
   gezelschap_beschrijving: string;
   gezelschap_url: string;
