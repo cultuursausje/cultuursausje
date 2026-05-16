@@ -226,7 +226,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   return (
     <>
-      <section>
+      <section id="voorstellingen">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
         style={{ background: "#F2C94C" }}

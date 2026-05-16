@@ -28,7 +28,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
   const openShows = open ? showsForFestival(open, shows) : [];
 
   return (
-    <section className="mt-20 sm:mt-24">
+    <section id="festivals" className="mt-20 sm:mt-24">
       {/* Prominent vlak met opvallende kleur */}
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"

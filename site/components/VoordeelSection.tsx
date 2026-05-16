@@ -25,7 +25,7 @@ export function VoordeelSection() {
   const hasMore = VOORDEEL_TIPS.length > INITIAL_COUNT;
 
   return (
-    <section className="mt-20 sm:mt-24">
+    <section id="voordeel" className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
         style={{ background: "#241B3F" }}

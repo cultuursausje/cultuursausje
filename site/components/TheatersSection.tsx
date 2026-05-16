@@ -51,7 +51,7 @@ export function TheatersSection({ theaters }: Props) {
   const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section className="mt-20 sm:mt-24">
+    <section id="theaters" className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
         style={{ background: "#C7B4DE" }}
