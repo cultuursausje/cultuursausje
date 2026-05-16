@@ -497,14 +497,10 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
         </div>
       )}
 
-      {/* Extra secties — alleen tonen als ten minste één stad is geselecteerd */}
-      {selectedCities.size > 0 && (
-        <>
-          <FestivalsSection festivals={festivals} shows={filteredShows} />
-          <GezelschappenSection gezelschappen={allGezelschappen} />
-          <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
-        </>
-      )}
+      {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
+      <FestivalsSection festivals={festivals} shows={filteredShows} />
+      <GezelschappenSection gezelschappen={allGezelschappen} />
+      <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
     </>
   );
 }
