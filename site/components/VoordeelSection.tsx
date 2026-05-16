@@ -5,60 +5,31 @@ import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 
 interface VoordeelTip {
   naam: string;
-  beschrijving: string;
-  url?: string;
+  url: string;
 }
 
 const VOORDEEL_TIPS: VoordeelTip[] = [
-  {
-    naam: "Studentenkorting",
-    beschrijving:
-      "Met je studentenkaart, bewijs van inschrijving of OV-studentenkaart krijg je bij de meeste theaters korting. Geldt ook voor (deeltijd-)studies op latere leeftijd."
-  },
-  {
-    naam: "CJP",
-    beschrijving:
-      "Korting tot 30 jaar. €10 in het eerste jaar, daarna €17,50 per jaar. Gratis voor middelbare scholieren en mbo'ers.",
-    url: "https://www.cjp.nl"
-  },
-  {
-    naam: "Stadspas Amsterdam",
-    beschrijving:
-      "Korting op een selectie voorstellingen voor Amsterdammers met laag inkomen en beperkt vermogen.",
-    url: "https://www.amsterdam.nl/stadspas"
-  },
-  {
-    naam: "Podiumpas",
-    beschrijving:
-      "Onbeperkt naar voorstellingen en concerten bij deelnemende podia in Nederland.",
-    url: "https://www.podiumpas.nl"
-  },
-  {
-    naam: "VriendenLoterij",
-    beschrijving:
-      "Als deelnemer ga je met 50% korting naar verschillende theaters in Nederland.",
-    url: "https://www.vriendenloterij.nl"
-  },
-  {
-    naam: "Kortingen 65+",
-    beschrijving:
-      "Sommige theaters bieden korting vanaf 65 jaar. Check de kassa of de website van het theater."
-  },
-  {
-    naam: "Mozaïekpas",
-    beschrijving:
-      "20% korting op tickets en 10% op café-restaurant bij Podium Mozaïek. €15 per seizoen.",
-    url: "https://www.podiummozaiek.nl"
-  },
-  {
-    naam: "My Muse & Me",
-    beschrijving:
-      "Voor 16–35-jarigen: tot 75% korting bij Nationale Opera & Ballet, plus toegang tot exclusieve activiteiten.",
-    url: "https://www.operaballet.nl/mymuseme"
-  }
+  { naam: "We Are Public", url: "https://wearepublic.nl" },
+  { naam: "Last Minute Ticket Shop", url: "https://lastminuteticketshop.nl" },
+  { naam: "CJP", url: "https://www.cjp.nl" },
+  { naam: "Studentenkorting", url: "https://www.cultuursausje.nl/voordeel" },
+  { naam: "Stadspas Amsterdam", url: "https://www.amsterdam.nl/stadspas" },
+  { naam: "Podiumpas", url: "https://www.podiumpas.nl" },
+  { naam: "Uitpas Amsterdam", url: "https://www.iamsterdam.com/en/tickets/uitpas" },
+  { naam: "VriendenLoterij", url: "https://www.vriendenloterij.nl" },
+  { naam: "ANWB Theater", url: "https://www.anwb.nl/eropuit/uitjes-en-tickets/theater-en-entertainment" },
+  { naam: "Kortingen 65+", url: "https://www.cultuursausje.nl/voordeel" },
+  { naam: "Sirene-verkoop ITA", url: "https://ita.nl" },
+  { naam: "My Muse & Me", url: "https://www.operaballet.nl/mymuseme" },
+  { naam: "Flirt XL", url: "https://www.operaballet.nl" },
+  { naam: "Mozaïekpas", url: "https://www.podiummozaiek.nl" },
+  { naam: "Meer Theater Card", url: "https://www.meervaart.nl" },
+  { naam: "Jeugdfonds Sport & Cultuur", url: "https://jeugdfondssportencultuur.nl" },
+  { naam: "Pathé Theatre & Opera", url: "https://www.pathe.nl" },
+  { naam: "Cultuurkaart (mbo/vo)", url: "https://www.cjp.nl/cultuurkaart" }
 ];
 
-const INITIAL_COUNT = 4;
+const INITIAL_COUNT = 8;
 
 export function VoordeelSection() {
   const [expanded, setExpanded] = useState(false);
@@ -75,31 +46,21 @@ export function VoordeelSection() {
           Met voordeel naar theater
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/70">
-          Een lijstje passen, regelingen en kortingsopties om voordeliger naar het theater te gaan.
+          Passen, regelingen en kortingsopties om voordeliger naar het theater te gaan.
         </p>
 
-        <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map(tip => (
-            <div key={tip.naam}>
-              <div className="text-base font-bold text-white">
-                {tip.url ? (
-                  <a
-                    href={tip.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 hover:underline underline-offset-2"
-                  >
-                    {tip.naam}
-                    <ExternalLink size={12} className="text-white/60" />
-                  </a>
-                ) : (
-                  tip.naam
-                )}
-              </div>
-              <p className="mt-1 text-sm text-white/70 leading-relaxed">
-                {tip.beschrijving}
-              </p>
-            </div>
+            <a
+              key={tip.naam}
+              href={tip.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-base font-bold text-white hover:underline underline-offset-2"
+            >
+              {tip.naam}
+              <ExternalLink size={12} className="text-white/60" />
+            </a>
           ))}
         </div>
 

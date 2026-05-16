@@ -481,9 +481,9 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
-      <VoordeelSection />
       <GezelschappenSection gezelschappen={allGezelschappen} />
       <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
+      <VoordeelSection />
     </>
   );
 }
