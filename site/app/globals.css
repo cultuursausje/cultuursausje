@@ -9,10 +9,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap");
 
 html, body {
-  background: #FAFAF7;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #FBFAF5, #F1ECDF);
+  background-attachment: fixed;
   color: #1A1A18;
   font-family: "Space Grotesk", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 .font-display {
@@ -66,35 +68,41 @@ html, body {
   scrollbar-width: none;
 }
 
-/* Discobol-projectie: subtiele bewegende witte lichtvlekken op de achtergrond */
+/* Discobol-projectie: lichtspatten en zachte washes op de achtergrond */
 .disco-projection {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background-image:
-    radial-gradient(circle at 8% 22%, rgba(255, 255, 255, 0.65) 0px, transparent 3px),
-    radial-gradient(circle at 25% 10%, rgba(255, 255, 255, 0.45) 0px, transparent 2px),
-    radial-gradient(circle at 42% 30%, rgba(255, 255, 255, 0.6) 0px, transparent 4px),
-    radial-gradient(circle at 60% 15%, rgba(255, 255, 255, 0.4) 0px, transparent 2px),
-    radial-gradient(circle at 78% 25%, rgba(255, 255, 255, 0.55) 0px, transparent 3px),
-    radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 0.65) 0px, transparent 4px),
-    radial-gradient(circle at 12% 55%, rgba(255, 255, 255, 0.4) 0px, transparent 2px),
-    radial-gradient(circle at 35% 70%, rgba(255, 255, 255, 0.55) 0px, transparent 3px),
-    radial-gradient(circle at 55% 45%, rgba(255, 255, 255, 0.5) 0px, transparent 2px),
-    radial-gradient(circle at 72% 80%, rgba(255, 255, 255, 0.65) 0px, transparent 4px),
-    radial-gradient(circle at 88% 60%, rgba(255, 255, 255, 0.4) 0px, transparent 2px),
-    radial-gradient(circle at 20% 88%, rgba(255, 255, 255, 0.55) 0px, transparent 3px),
-    radial-gradient(circle at 48% 92%, rgba(255, 255, 255, 0.4) 0px, transparent 2px),
-    radial-gradient(circle at 65% 65%, rgba(255, 255, 255, 0.5) 0px, transparent 4px),
-    radial-gradient(circle at 5% 75%, rgba(255, 255, 255, 0.45) 0px, transparent 3px),
-    radial-gradient(circle at 30% 38%, rgba(255, 255, 255, 0.5) 0px, transparent 2px),
-    radial-gradient(circle at 82% 42%, rgba(255, 255, 255, 0.55) 0px, transparent 3px),
-    radial-gradient(circle at 18% 38%, rgba(255, 255, 255, 0.45) 0px, transparent 2px);
-  animation: discoSlowDrift 45s ease-in-out infinite alternate;
+    /* Grote, zachte sferen — geven kleurkleur aan de pagina */
+    radial-gradient(ellipse 500px 360px at 12% 18%, rgba(255, 222, 175, 0.35), transparent 70%),
+    radial-gradient(ellipse 420px 300px at 88% 22%, rgba(195, 215, 255, 0.30), transparent 70%),
+    radial-gradient(ellipse 480px 360px at 30% 88%, rgba(255, 200, 225, 0.30), transparent 70%),
+    radial-gradient(ellipse 420px 320px at 80% 80%, rgba(200, 240, 215, 0.28), transparent 70%),
+    /* Kleinere "discobol-vlekjes" — varierende warm/koel */
+    radial-gradient(circle 12px at 12% 22%, rgba(255, 240, 200, 0.55), transparent 70%),
+    radial-gradient(circle 8px  at 25% 10%, rgba(255, 220, 240, 0.5), transparent 70%),
+    radial-gradient(circle 14px at 42% 30%, rgba(220, 230, 255, 0.55), transparent 70%),
+    radial-gradient(circle 9px  at 60% 15%, rgba(255, 235, 215, 0.5), transparent 70%),
+    radial-gradient(circle 11px at 78% 25%, rgba(230, 255, 230, 0.5), transparent 70%),
+    radial-gradient(circle 13px at 92% 8%,  rgba(255, 215, 200, 0.55), transparent 70%),
+    radial-gradient(circle 9px  at 12% 55%, rgba(220, 240, 255, 0.45), transparent 70%),
+    radial-gradient(circle 12px at 35% 70%, rgba(255, 225, 245, 0.55), transparent 70%),
+    radial-gradient(circle 10px at 55% 45%, rgba(255, 235, 210, 0.5), transparent 70%),
+    radial-gradient(circle 14px at 72% 80%, rgba(225, 230, 255, 0.55), transparent 70%),
+    radial-gradient(circle 9px  at 88% 60%, rgba(240, 255, 230, 0.45), transparent 70%),
+    radial-gradient(circle 11px at 20% 88%, rgba(255, 220, 220, 0.5), transparent 70%),
+    radial-gradient(circle 9px  at 48% 92%, rgba(220, 255, 240, 0.45), transparent 70%),
+    radial-gradient(circle 12px at 65% 65%, rgba(255, 235, 200, 0.5), transparent 70%),
+    radial-gradient(circle 10px at 5% 75%,  rgba(230, 220, 255, 0.5), transparent 70%),
+    radial-gradient(circle 11px at 30% 38%, rgba(255, 230, 230, 0.5), transparent 70%),
+    radial-gradient(circle 12px at 82% 42%, rgba(220, 255, 230, 0.5), transparent 70%),
+    radial-gradient(circle 9px  at 18% 38%, rgba(255, 240, 215, 0.45), transparent 70%);
+  animation: discoSlowDrift 35s ease-in-out infinite alternate;
 }
 
 @keyframes discoSlowDrift {
-  0%   { transform: translate(0px, 0px); }
-  100% { transform: translate(22px, -16px); }
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(28px, -18px) rotate(2deg); }
 }
