@@ -94,6 +94,8 @@ export interface ShowDisplay extends Show {
   theater_beschrijving: string;
   theater_url: string;
   theater_stad: string;
+  theater_foto_url?: string;
+  theater_foto_credit?: string;
   gezelschap_display: string;
   gezelschap_beschrijving: string;
   gezelschap_url: string;
