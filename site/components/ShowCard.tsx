@@ -158,12 +158,28 @@ function ExpandedCard({
   show, pill, isFavorite, onClose, onToggleFav
 }: ExpandedProps) {
   const enDays = englishDays(show.english_friendly, show.english_friendly_detail);
-  const allDates = datesInPeriod(show.speelperiode_start, show.speelperiode_end);
+
+  // Speeldata: gebruik specifieke Amsterdamse data wanneer beschikbaar,
+  // anders genereer ze uit de speelperiode (legacy fallback).
+  const allDates: Date[] = (show.speeldata && show.speeldata.length > 0)
+    ? show.speeldata.map(s => {
+        const [y, m, d] = s.split("-").map(Number);
+        return new Date(y, m - 1, d);
+      })
+    : datesInPeriod(show.speelperiode_start, show.speelperiode_end);
+  const hasSpecificDates = !!(show.speeldata && show.speeldata.length > 0);
+
   const MAX_DATES = 24;
   const dates = allDates.slice(0, MAX_DATES);
   const overflow = allDates.length - dates.length;
   const genre = genreOfShow(show);
   const themes = themesOfShow(show);
+
+  // Foto's voor de carousel: foto_urls (meerdere) of foto_url (enkel)
+  const photos = (show.foto_urls && show.foto_urls.length > 0)
+    ? show.foto_urls
+    : (show.foto_url ? [show.foto_url] : []);
+  const hasPhotos = photos.length > 0;
 
   return (
     <div className="relative bg-white rounded-3xl border border-line overflow-hidden">
@@ -188,27 +204,72 @@ function ExpandedCard({
 
       {/* Scrollbaar binnenwerk */}
       <div className="max-h-[80vh] overflow-y-auto">
-        {/* Header */}
-        <div className="p-6 pt-7 sm:p-8 sm:pt-9 pr-28">
-          {/* Top pills: thema's + english-friendly met vlaggetje */}
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            {themes.map((t, i) => (
-              <span
-                key={i}
-                className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft"
-              >
-                {t}
-              </span>
-            ))}
-            {show.english_friendly && (
-              <span
-                className="rounded-full bg-[#EAF3DE] px-3 py-1 text-xs font-bold text-[#173404] inline-flex items-center gap-1.5"
-              >
-                <span className="text-base leading-none" aria-hidden="true">🇬🇧</span>
-                English friendly
-              </span>
+        {/* Foto-carousel met pills-overlay (alleen als er foto's zijn) */}
+        {hasPhotos && (
+          <div className="relative bg-[#1B2A4E]">
+            <div
+              className="flex snap-x snap-mandatory overflow-x-auto aspect-[16/10]"
+              style={{ scrollbarWidth: "thin" }}
+            >
+              {photos.map((url, i) => (
+                <div key={i} className="snap-center shrink-0 w-full relative">
+                  <img src={url} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+            {/* Pills overlay top — laat ruimte voor close + heart knoppen */}
+            <div className="pointer-events-none absolute top-4 left-4 right-28 flex flex-wrap gap-2 z-20">
+              {themes.map((t, i) => (
+                <span
+                  key={i}
+                  className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-ink"
+                >
+                  {t}
+                </span>
+              ))}
+              {show.english_friendly && (
+                <span className="rounded-full bg-[#EAF3DE] px-3 py-1 text-xs font-bold text-[#173404] inline-flex items-center gap-1.5">
+                  <span className="text-base leading-none" aria-hidden="true">🇬🇧</span>
+                  English friendly
+                </span>
+              )}
+            </div>
+            {/* Copyright bottom-right */}
+            {show.foto_credit && (
+              <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/80 leading-none pointer-events-none">
+                © {show.foto_credit}
+              </div>
+            )}
+            {/* Aantal-indicator voor multi-foto carousel */}
+            {photos.length > 1 && (
+              <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/40 px-2.5 py-0.5 text-[10px] font-medium text-white pointer-events-none">
+                {photos.length} foto's · veeg
+              </div>
             )}
           </div>
+        )}
+
+        {/* Header */}
+        <div className="p-6 pt-7 sm:p-8 sm:pt-9 pr-28">
+          {/* Pills boven titel — alleen wanneer er geen carousel boven staat */}
+          {!hasPhotos && (
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              {themes.map((t, i) => (
+                <span
+                  key={i}
+                  className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft"
+                >
+                  {t}
+                </span>
+              ))}
+              {show.english_friendly && (
+                <span className="rounded-full bg-[#EAF3DE] px-3 py-1 text-xs font-bold text-[#173404] inline-flex items-center gap-1.5">
+                  <span className="text-base leading-none" aria-hidden="true">🇬🇧</span>
+                  English friendly
+                </span>
+              )}
+            </div>
+          )}
 
           {/* Titel */}
           <h2 className="text-2xl font-medium tracking-tight text-ink leading-tight sm:text-3xl">
@@ -275,7 +336,9 @@ function ExpandedCard({
 
           {dates.length > 0 && (
             <>
-              <div className="text-xs font-medium text-ink-muted mb-2">Speeldata</div>
+              <div className="text-xs font-medium text-ink-muted mb-2">
+                Speeldata in Amsterdam
+              </div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3 md:grid-cols-4">
                 {dates.map((d, i) => {
                   const isEn = enDays.has(d.getDay());
@@ -296,7 +359,12 @@ function ExpandedCard({
               </div>
               {overflow > 0 && (
                 <div className="mt-3 text-xs text-ink-muted">
-                  + {overflow} meer — controleer de ticketlink voor de exacte speeldagen
+                  + {overflow} meer — controleer de ticketlink
+                </div>
+              )}
+              {!hasSpecificDates && (
+                <div className="mt-2 text-xs text-ink-faint italic">
+                  Datums geschat op basis van de speelperiode — exacte speeldagen via ticketlink
                 </div>
               )}
             </>
