@@ -4,21 +4,35 @@ import { useEffect, useRef, useState } from "react";
 import { Heart, Check } from "lucide-react";
 import type { Theater, Gezelschap } from "@/types";
 
+interface MonthOption {
+  key: string;   // "YYYY-MM"
+  label: string; // "Mei 2026"
+}
+
 interface Props {
   favoritesActive: boolean;
   favoritesCount: number;
   onToggleFavoritesFilter: () => void;
+
   theaters: Theater[];
   selectedTheaters: Set<string>;
   onToggleTheater: (id: string) => void;
   onClearTheaters: () => void;
+
   gezelschappen: Gezelschap[];
   selectedGezelschappen: Set<string>;
   onToggleGezelschap: (id: string) => void;
   onClearGezelschappen: () => void;
+
+  availableMonths: MonthOption[];
+  selectedMonths: Set<string>;
+  onToggleMonth: (key: string) => void;
+  onClearMonths: () => void;
+  selectedDay: string | null;
+  onSelectDay: (day: string | null) => void;
 }
 
-type Panel = "theaters" | "gezelschappen" | null;
+type Panel = "theaters" | "gezelschappen" | "calendar" | null;
 
 export function FilterSidebar(props: Props) {
   const [openPanel, setOpenPanel] = useState<Panel>(null);
@@ -34,18 +48,19 @@ export function FilterSidebar(props: Props) {
       if (sidebarRef.current?.contains(target)) return;
       setOpenPanel(null);
     };
-    // delay binding zodat de open-klik 'm niet meteen sluit
     const t = setTimeout(() => document.addEventListener("click", handler), 0);
     return () => { clearTimeout(t); document.removeEventListener("click", handler); };
   }, [openPanel]);
 
-  // Escape sluit panel
   useEffect(() => {
     if (!openPanel) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpenPanel(null); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [openPanel]);
+
+  const calendarFilterCount =
+    (props.selectedMonths.size > 0 ? 1 : 0) + (props.selectedDay ? 1 : 0);
 
   return (
     <>
@@ -79,9 +94,7 @@ export function FilterSidebar(props: Props) {
 
         {/* Theaters */}
         <button
-          onClick={() =>
-            setOpenPanel(openPanel === "theaters" ? null : "theaters")
-          }
+          onClick={() => setOpenPanel(openPanel === "theaters" ? null : "theaters")}
           className={`relative flex h-11 w-11 items-center justify-center rounded-xl text-xl leading-none transition-colors ${
             openPanel === "theaters" || props.selectedTheaters.size > 0
               ? "bg-[#E5EBFF]"
@@ -100,9 +113,7 @@ export function FilterSidebar(props: Props) {
 
         {/* Gezelschappen */}
         <button
-          onClick={() =>
-            setOpenPanel(openPanel === "gezelschappen" ? null : "gezelschappen")
-          }
+          onClick={() => setOpenPanel(openPanel === "gezelschappen" ? null : "gezelschappen")}
           className={`relative flex h-11 w-11 items-center justify-center rounded-xl text-xl leading-none transition-colors ${
             openPanel === "gezelschappen" || props.selectedGezelschappen.size > 0
               ? "bg-[#FFE5EF]"
@@ -118,6 +129,25 @@ export function FilterSidebar(props: Props) {
             </span>
           )}
         </button>
+
+        {/* Calendar */}
+        <button
+          onClick={() => setOpenPanel(openPanel === "calendar" ? null : "calendar")}
+          className={`relative flex h-11 w-11 items-center justify-center rounded-xl text-xl leading-none transition-colors ${
+            openPanel === "calendar" || calendarFilterCount > 0
+              ? "bg-[#FFF1D9]"
+              : "hover:bg-[#F8F6EF]"
+          }`}
+          aria-label="Filter op datum"
+          title="Datum"
+        >
+          <span aria-hidden="true">📅</span>
+          {calendarFilterCount > 0 && (
+            <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#E5B53A] px-1 text-[9px] font-bold text-white">
+              {calendarFilterCount}
+            </span>
+          )}
+        </button>
       </aside>
 
       {openPanel && (
@@ -127,49 +157,107 @@ export function FilterSidebar(props: Props) {
         >
           <div className="flex items-center justify-between px-4 py-3 border-b border-line shrink-0">
             <h3 className="text-xs font-medium uppercase tracking-widest text-ink-muted">
-              {openPanel === "theaters" ? "🏛️ Theater" : "👥 Gezelschap"}
+              {openPanel === "theaters" && "🏛️ Theater"}
+              {openPanel === "gezelschappen" && "👥 Gezelschap"}
+              {openPanel === "calendar" && "📅 Datum"}
             </h3>
-            {((openPanel === "theaters" && props.selectedTheaters.size > 0) ||
-              (openPanel === "gezelschappen" &&
-                props.selectedGezelschappen.size > 0)) && (
+            {openPanel === "theaters" && props.selectedTheaters.size > 0 && (
+              <button onClick={props.onClearTheaters} className="text-xs text-ink-muted hover:text-ink">Wis</button>
+            )}
+            {openPanel === "gezelschappen" && props.selectedGezelschappen.size > 0 && (
+              <button onClick={props.onClearGezelschappen} className="text-xs text-ink-muted hover:text-ink">Wis</button>
+            )}
+            {openPanel === "calendar" && calendarFilterCount > 0 && (
               <button
-                onClick={
-                  openPanel === "theaters"
-                    ? props.onClearTheaters
-                    : props.onClearGezelschappen
-                }
+                onClick={() => { props.onClearMonths(); props.onSelectDay(null); }}
                 className="text-xs text-ink-muted hover:text-ink"
-              >
-                Wis
-              </button>
+              >Wis</button>
             )}
           </div>
-          <div className="overflow-y-auto p-2 flex-1">
-            {(openPanel === "theaters" ? props.theaters : props.gezelschappen).map(
-              (item) => {
-                const isSelected =
-                  openPanel === "theaters"
-                    ? props.selectedTheaters.has(item.id)
-                    : props.selectedGezelschappen.has(item.id);
-                const onClick =
-                  openPanel === "theaters"
-                    ? () => props.onToggleTheater(item.id)
-                    : () => props.onToggleGezelschap(item.id);
-                return (
-                  <button
-                    key={item.id}
-                    onClick={onClick}
-                    className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
-                      isSelected
-                        ? "bg-[#F1EFE8] text-ink font-medium"
-                        : "text-ink-soft hover:bg-[#F8F6EF]"
-                    }`}
-                  >
-                    <span>{item.naam}</span>
-                    {isSelected && <Check size={14} className="text-ink shrink-0" />}
-                  </button>
-                );
-              }
+
+          <div className="overflow-y-auto flex-1">
+            {/* Theater / Gezelschap lijsten */}
+            {(openPanel === "theaters" || openPanel === "gezelschappen") && (
+              <div className="p-2">
+                {(openPanel === "theaters" ? props.theaters : props.gezelschappen).map((item) => {
+                  const isSelected =
+                    openPanel === "theaters"
+                      ? props.selectedTheaters.has(item.id)
+                      : props.selectedGezelschappen.has(item.id);
+                  const onClick =
+                    openPanel === "theaters"
+                      ? () => props.onToggleTheater(item.id)
+                      : () => props.onToggleGezelschap(item.id);
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={onClick}
+                      className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
+                        isSelected
+                          ? "bg-[#F1EFE8] text-ink font-medium"
+                          : "text-ink-soft hover:bg-[#F8F6EF]"
+                      }`}
+                    >
+                      <span>{item.naam}</span>
+                      {isSelected && <Check size={14} className="text-ink shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Kalender panel */}
+            {openPanel === "calendar" && (
+              <div className="p-3 space-y-5">
+                <div>
+                  <div className="px-1 pb-2 text-[11px] font-bold uppercase tracking-widest text-ink-muted">
+                    Per maand
+                  </div>
+                  <div className="space-y-0.5">
+                    {props.availableMonths.length === 0 ? (
+                      <div className="px-3 py-2 text-sm text-ink-faint italic">Geen maanden beschikbaar</div>
+                    ) : (
+                      props.availableMonths.map((m) => {
+                        const isSelected = props.selectedMonths.has(m.key);
+                        return (
+                          <button
+                            key={m.key}
+                            onClick={() => props.onToggleMonth(m.key)}
+                            className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
+                              isSelected
+                                ? "bg-[#FFF1D9] text-ink font-medium"
+                                : "text-ink-soft hover:bg-[#F8F6EF]"
+                            }`}
+                          >
+                            <span className="capitalize">{m.label}</span>
+                            {isSelected && <Check size={14} className="text-ink shrink-0" />}
+                          </button>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+
+                <div className="border-t border-line pt-4">
+                  <div className="px-1 pb-2 text-[11px] font-bold uppercase tracking-widest text-ink-muted">
+                    Op een specifieke dag
+                  </div>
+                  <input
+                    type="date"
+                    value={props.selectedDay ?? ""}
+                    onChange={(e) => props.onSelectDay(e.target.value || null)}
+                    className="w-full px-3 py-2 text-sm rounded-lg border border-line bg-white focus:outline-none focus:ring-2 focus:ring-[#E5B53A]"
+                  />
+                  {props.selectedDay && (
+                    <button
+                      onClick={() => props.onSelectDay(null)}
+                      className="mt-2 text-xs text-ink-muted hover:text-ink underline-offset-2 underline"
+                    >
+                      Datum wissen
+                    </button>
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </div>

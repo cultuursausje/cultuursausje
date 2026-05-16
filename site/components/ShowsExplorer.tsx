@@ -30,6 +30,8 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
+  const [selectedMonths, setSelectedMonths] = useState<Set<string>>(new Set());
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   useEffect(() => { setFavorites(loadFavorites()); }, []);
 
@@ -66,9 +68,32 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
           !(s.gezelschap_id && selectedGezelschappen.has(s.gezelschap_id))) {
         return false;
       }
+      // Specifieke dag overrult maand-filter
+      if (selectedDay) {
+        const inSpeeldata = !!s.speeldata && s.speeldata.includes(selectedDay);
+        const inRange = s.speelperiode_start <= selectedDay && s.speelperiode_end >= selectedDay;
+        if (!inSpeeldata && !inRange) return false;
+      } else if (selectedMonths.size > 0) {
+        const anyMatch = Array.from(selectedMonths).some(key => {
+          const [year, m] = key.split("-").map(Number);
+          const monthStart = `${year}-${String(m).padStart(2, "0")}-01`;
+          const lastDay = new Date(year, m, 0).getDate();
+          const monthEnd = `${year}-${String(m).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
+          return s.speelperiode_start <= monthEnd && s.speelperiode_end >= monthStart;
+        });
+        if (!anyMatch) return false;
+      }
       return true;
     });
-  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen]);
+  }, [shows, showFavoritesOnly, favorites, selectedTheaters, selectedGezelschappen, selectedMonths, selectedDay]);
+
+  // Beschikbare maanden afgeleid uit alle shows (niet gefilterd)
+  const availableMonths = useMemo(() => {
+    return monthsToShow(shows).map(({ year, monthIdx }) => ({
+      key: `${year}-${String(monthIdx + 1).padStart(2, "0")}`,
+      label: monthLabel(year, monthIdx)
+    }));
+  }, [shows]);
 
   const months: MonthGroup[] = useMemo(() => {
     const list = monthsToShow(filteredShows);
@@ -123,12 +148,27 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
   };
   const clearGezelschappen = () => setSelectedGezelschappen(new Set());
 
+  const toggleMonth = (key: string) => {
+    setSelectedMonths(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  };
+  const clearMonths = () => setSelectedMonths(new Set());
+
   const hasActiveFilter =
-    showFavoritesOnly || selectedTheaters.size > 0 || selectedGezelschappen.size > 0;
+    showFavoritesOnly ||
+    selectedTheaters.size > 0 ||
+    selectedGezelschappen.size > 0 ||
+    selectedMonths.size > 0 ||
+    selectedDay !== null;
   const clearAllFilters = () => {
     setShowFavoritesOnly(false);
     setSelectedTheaters(new Set());
     setSelectedGezelschappen(new Set());
+    setSelectedMonths(new Set());
+    setSelectedDay(null);
   };
 
   return (
@@ -145,6 +185,12 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
         selectedGezelschappen={selectedGezelschappen}
         onToggleGezelschap={toggleGezelschap}
         onClearGezelschappen={clearGezelschappen}
+        availableMonths={availableMonths}
+        selectedMonths={selectedMonths}
+        onToggleMonth={toggleMonth}
+        onClearMonths={clearMonths}
+        selectedDay={selectedDay}
+        onSelectDay={setSelectedDay}
       />
 
       {months.length === 0 ? (

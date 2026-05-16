@@ -53,15 +53,26 @@ export function ShowCard({
           : "hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5"
       }`}
     >
-      {/* TL-licht achter de card — kleurige neon-gloed, alleen op hover en als card niet geflipt is */}
+      {/* LED-strip neon achter de card — twee lagen voor scherpe rand + zachte halo */}
       {!isFlipped && (
-        <div
-          className="pointer-events-none absolute -inset-3 rounded-[32px] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
-          style={{
-            background:
-              "linear-gradient(135deg, #FF3D8B 0%, #FF6B35 30%, #E5B53A 55%, #9BD43F 80%, #2D4DEB 100%)"
-          }}
-        />
+        <>
+          {/* Wijde, zachte halo */}
+          <div
+            className="pointer-events-none absolute -inset-6 rounded-[40px] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-95"
+            style={{
+              background:
+                "linear-gradient(135deg, #FF1A6B 0%, #FF5500 25%, #FFD700 50%, #00FF88 75%, #00AAFF 100%)"
+            }}
+          />
+          {/* Scherpe ring direct om de card — als een LED-strip */}
+          <div
+            className="pointer-events-none absolute -inset-1 rounded-[26px] opacity-0 blur-[3px] transition-opacity duration-500 group-hover:opacity-100"
+            style={{
+              background:
+                "linear-gradient(135deg, #FF1A6B 0%, #FF5500 25%, #FFD700 50%, #00FF88 75%, #00AAFF 100%)"
+            }}
+          />
+        </>
       )}
       <div
         className={`flip-card relative w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
@@ -70,14 +81,14 @@ export function ShowCard({
         <div className="flip-inner rounded-3xl">
           {/* Front */}
           <div
-            className="flip-face flex items-end p-4 min-h-[220px]"
+            className="flip-face flex items-end p-4 min-h-[220px] overflow-hidden"
             style={{ background: photoBg }}
           >
             {hasPhoto && (
               <img
                 src={show.foto_url}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 block h-full w-full object-cover"
               />
             )}
             <div className="relative z-10 max-w-[80%]">
@@ -247,8 +258,12 @@ function ExpandedCard({
               className="flex snap-x snap-mandatory overflow-x-auto aspect-[16/10] scrollbar-hide"
             >
               {photos.map((url, i) => (
-                <div key={i} className="snap-center shrink-0 w-full relative">
-                  <img src={url} alt="" className="w-full h-full object-cover" />
+                <div key={i} className="snap-center shrink-0 w-full h-full relative overflow-hidden">
+                  <img
+                    src={url}
+                    alt=""
+                    className="absolute inset-0 block h-full w-full object-cover"
+                  />
                 </div>
               ))}
             </div>
