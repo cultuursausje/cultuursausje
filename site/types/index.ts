@@ -84,6 +84,22 @@ export interface SiteData {
   media: MediaLink[];
 }
 
+export interface FestivalShow {
+  /** Stabiele id voor React-key — meestal festival-id + slug. */
+  id: string;
+  titel: string;
+  gezelschap?: string;
+  /** Voor de pill op de kleine card. */
+  type: "dans" | "toneel" | "muziek" | "mime" | "anders";
+  english_friendly?: boolean;
+  foto_url?: string;
+  foto_credit?: string;
+  /** Korte tekst die in het detail-paneel verschijnt — waarom interessant. */
+  korte_omschrijving?: string;
+  /** Link naar de voorstelling op de festival-website. */
+  url: string;
+}
+
 export interface Festival {
   id: string;
   naam: string;
@@ -97,6 +113,10 @@ export interface Festival {
   foto_urls?: string[];
   foto_credit?: string;
   logo_url?: string;
+  /** Programma — voorstellingen die op het festival spelen, opgehaald
+   *  uit de festival-website. Optioneel; bij ontbreken valt de UI
+   *  terug op match_keywords tegen `show.categorieen`. */
+  voorstellingen?: FestivalShow[];
 }
 
 export interface VenueDisplay {
