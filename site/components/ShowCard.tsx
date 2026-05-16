@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import {
-  Heart, ArrowRight, X,
+  Heart, X,
   Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
@@ -11,6 +11,7 @@ import { englishDays, formatDateNL } from "@/lib/dates";
 
 const NEON_BG = "#B5FF52";
 const NEON_TEXT = "#173404";
+const PANEL_BG = "#F1EFE8";
 
 interface Props {
   show: ShowDisplay;
@@ -28,8 +29,8 @@ interface Props {
 }
 
 export function ShowCard({
-  show, pill, isFlipped, isExpanded, isFavorite, selectedCities,
-  onFlip, onExpand, onCollapse, onToggleFav
+  show, pill, isExpanded, isFavorite, selectedCities,
+  onExpand, onCollapse, onToggleFav
 }: Props) {
   // Toon alleen venues uit de geselecteerde steden; valt terug op alle
   // venues wanneer er geen city-filter actief is.
@@ -67,82 +68,48 @@ export function ShowCard({
   }
 
   return (
-    <div
-      className={`group relative cursor-pointer transition-transform duration-500 ease-out ${
-        isFlipped
-          ? ""
-          : "hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5"
-      }`}
-    >
-      {/* Scherpe neon-rand met box-shadow lagen — blijft zichtbaar als geflipt */}
+    <div className="group relative cursor-pointer transition-transform duration-500 ease-out hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5">
+      {/* Neon-rand op hover */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-0 rounded-3xl transition-opacity duration-500 ${
-          isFlipped ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-        }`}
+        className="pointer-events-none absolute inset-0 rounded-3xl transition-opacity duration-500 opacity-0 group-hover:opacity-100"
         style={{
           boxShadow: `0 0 0 2px ${neon}, 0 0 10px 2px ${neon}, 0 0 24px 4px ${neon}66`
         }}
       />
-      <div
-        className={`flip-card relative w-full rounded-3xl ${isFlipped ? "is-flipped" : ""}`}
-        onClick={onFlip}
-      >
-        <div className="flip-inner rounded-3xl">
-          {/* Front */}
-          <div
-            className="flip-face flex items-end p-4 min-h-[220px] overflow-hidden"
-            style={{ background: photoBg }}
-          >
-            {hasPhoto && (
-              <img
-                src={show.foto_url}
-                alt=""
-                className="absolute inset-0 block h-full w-full object-cover"
-              />
-            )}
-            <div className="relative z-10 max-w-[80%]">
-              <div className="text-white text-sm font-medium leading-tight tracking-tight sm:text-base">
-                {show.titel}
-              </div>
-            </div>
-            {/* Copyright overlay rechtsonder, alleen wanneer er een foto is */}
-            {hasPhoto && (
-              <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/70 leading-none">
-                © {show.foto_credit || show.gezelschap_display}
-              </div>
-            )}
-          </div>
 
-          {/* Back — interesting_because als beschrijving + locatie */}
-          <div className="flip-face flip-back bg-white pt-14 px-5 pb-12 flex flex-col border border-line">
-            {show.interesting_because && (
-              <p className="text-sm text-ink-soft leading-relaxed mb-3">
-                {show.interesting_because}
-              </p>
-            )}
-            <div className="text-sm text-ink-muted">
-              {venues.map(v => v.theater_afkorting).join(" · ")}
+      {/* Klikbare kaart — direct naar uitgeklapt */}
+      <button
+        type="button"
+        onClick={onExpand}
+        className="relative block w-full overflow-hidden rounded-3xl text-left"
+        style={{ background: photoBg, minHeight: "220px" }}
+        aria-label={`Open ${show.titel}`}
+      >
+        {hasPhoto && (
+          <img
+            src={show.foto_url}
+            alt=""
+            className="absolute inset-0 block h-full w-full object-cover"
+          />
+        )}
+        <div className="relative z-10 flex min-h-[220px] items-end p-4">
+          <div className="max-w-[80%]">
+            <div className="text-white text-sm font-medium leading-tight tracking-tight sm:text-base">
+              {show.titel}
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Meer-knop — zwevend, los van flip-card */}
-      <button
-        type="button"
-        onClick={() => onExpand()}
-        className={`absolute bottom-4 right-5 z-30 flex items-center gap-1 text-xs font-medium text-ink-muted hover:text-ink transition-opacity ${
-          isFlipped ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        Meer
-        <ArrowRight size={13} />
+        {hasPhoto && (
+          <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/70 leading-none">
+            © {show.foto_credit || show.gezelschap_display}
+          </div>
+        )}
       </button>
 
       {/* Pill — top left */}
       <div
-        className="absolute top-3 left-3 px-3 py-1.5 rounded-full text-xs font-semibold z-20 pointer-events-none"
+        className="pointer-events-none absolute top-3 left-3 z-20 rounded-full px-3 py-1.5 text-xs font-semibold"
         style={{ background: NEON_BG, color: NEON_TEXT }}
       >
         {pill}
@@ -199,7 +166,7 @@ function mapsLinkUrl(theater: string, stad: string): string {
 }
 
 function ExpandedCard({
-  show, pill, isFavorite, venues, onClose, onToggleFav
+  show, isFavorite, venues, onClose, onToggleFav
 }: ExpandedProps) {
   const enDays = englishDays(show.english_friendly, show.english_friendly_detail);
 
@@ -350,243 +317,263 @@ function ExpandedCard({
           </div>
         )}
 
-        {/* Header */}
-        <div className="p-6 pt-7 sm:p-8 sm:pt-9 pr-28">
-          {/* Pills boven titel — alleen wanneer er geen carousel boven staat */}
-          {!hasPhotos && (
-            <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft capitalize">
-                {genre}
-              </span>
-              {themes.map((t, i) => (
-                <span
-                  key={i}
-                  className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft"
-                >
-                  {t}
+        {/* Beige panel-stack — minimalistische gestapelde blokken */}
+        <div className="p-3 space-y-3 sm:p-4 sm:space-y-3">
+          {/* Header + beschrijving in één blok */}
+          <div
+            className="rounded-2xl p-5 sm:p-6"
+            style={{ background: PANEL_BG }}
+          >
+            {/* Pills boven titel — alleen wanneer er geen carousel boven staat */}
+            {!hasPhotos && (
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-ink-soft capitalize">
+                  {genre}
+                </span>
+                {themes.map((t, i) => (
+                  <span
+                    key={i}
+                    className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-ink-soft"
+                  >
+                    {t}
+                  </span>
+                ))}
+                {show.english_friendly && (
+                  <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-ink-soft inline-flex items-center gap-1">
+                    <span aria-hidden="true">🇬🇧</span>
+                    English friendly
+                  </span>
+                )}
+              </div>
+            )}
+
+            <h2 className={`text-2xl font-medium tracking-tight text-ink leading-tight sm:text-3xl ${hasPhotos ? "pr-28" : ""}`}>
+              {show.titel}
+            </h2>
+            <div className="mt-1 text-sm text-ink-muted">
+              {venues.map((v, i) => (
+                <span key={v.theater_id}>
+                  {i > 0 && " · "}
+                  {v.theater_url ? (
+                    <a
+                      href={v.theater_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-ink underline-offset-2 hover:underline"
+                    >
+                      {v.theater_afkorting}
+                    </a>
+                  ) : (
+                    v.theater_afkorting
+                  )}
                 </span>
               ))}
-              {show.english_friendly && (
-                <span className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft inline-flex items-center gap-1">
-                  <span aria-hidden="true">🇬🇧</span>
-                  English friendly
-                </span>
+              {" · "}
+              {show.gezelschap_url ? (
+                <a
+                  href={show.gezelschap_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-ink underline-offset-2 hover:underline"
+                >
+                  {show.gezelschap_display}
+                </a>
+              ) : (
+                show.gezelschap_display
               )}
             </div>
+
+            {(show.interesting_because || show.lange_samenvatting) && (
+              <div className="mt-4">
+                {show.interesting_because && (
+                  <p className="text-base font-medium text-ink leading-relaxed mb-2">
+                    {show.interesting_because}
+                  </p>
+                )}
+                {show.lange_samenvatting && (
+                  <p className="text-sm text-ink-soft leading-relaxed">
+                    {show.lange_samenvatting}
+                  </p>
+                )}
+                {show.based_on && (
+                  <div className="text-xs text-ink-muted italic mt-2">
+                    Op basis van {show.based_on}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Tickets + speeldata per venue */}
+          <div
+            className="rounded-2xl p-5 sm:p-6"
+            style={{ background: PANEL_BG }}
+          >
+            <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
+              <h3 className="text-sm font-medium uppercase tracking-widest text-ink-muted">
+                Tickets
+              </h3>
+              {show.ticket_url && (
+                <a
+                  href={show.ticket_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-ink px-3.5 py-1.5 text-sm font-medium text-white hover:bg-black transition-colors"
+                >
+                  Naar tickets
+                  <ExternalLink size={14} />
+                </a>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              {venues.map(v => {
+                const dates = parseDates(v.speeldata);
+                const MAX = 18;
+                const visible = dates.slice(0, MAX);
+                const overflow = dates.length - visible.length;
+                return (
+                  <div key={v.theater_id}>
+                    <div className="mb-1.5 text-xs font-bold text-ink uppercase tracking-wider">
+                      {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
+                    </div>
+                    {visible.length > 0 ? (
+                      <>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 sm:grid-cols-3 md:grid-cols-4">
+                          {visible.map((d, i) => {
+                            const isEn = enDays.has(d.getDay());
+                            return (
+                              <div key={i} className="flex items-center justify-between text-sm text-ink-soft">
+                                <span className="lowercase">{formatDateNL(d)}</span>
+                                {isEn && (
+                                  <span
+                                    className="ml-2 rounded-full px-2 py-0.5 text-[10px] font-medium"
+                                    style={{ background: NEON_BG, color: NEON_TEXT }}
+                                  >
+                                    EN
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        {overflow > 0 && (
+                          <div className="mt-2 text-xs text-ink-muted">
+                            + {overflow} meer — controleer de ticketlink
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="text-xs text-ink-faint italic">
+                        Speeldata via de ticketlink
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Recensies */}
+          {show.pers_quotes.length > 0 && (
+            <div
+              className="rounded-2xl p-5 sm:p-6"
+              style={{ background: PANEL_BG }}
+            >
+              <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
+                Recensies
+              </h3>
+              <div className="space-y-3">
+                {show.pers_quotes.map((p, i) => (
+                  <div key={i} className="rounded-xl bg-white/70 p-3.5">
+                    {p.sterren !== null && (
+                      <div className="mb-1.5 flex gap-0.5">
+                        {Array.from({ length: 5 }).map((_, idx) => (
+                          <Star
+                            key={idx}
+                            size={14}
+                            className={idx < (p.sterren ?? 0) ? "fill-[#E5B53A] stroke-[#E5B53A]" : "stroke-line"}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    <p className="text-sm italic text-ink-soft leading-relaxed">&ldquo;{p.quote}&rdquo;</p>
+                    <div className="mt-1.5 text-xs text-ink-muted">— {p.bron}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
 
-          {/* Titel */}
-          <h2 className="text-2xl font-medium tracking-tight text-ink leading-tight sm:text-3xl">
-            {show.titel}
-          </h2>
-          <div className="mt-2 text-sm text-ink-muted">
-            {venues.map((v, i) => (
-              <span key={v.theater_id}>
-                {i > 0 && " · "}
-                {v.theater_url ? (
+          {/* Locatie — alleen google maps + link per zichtbare venue */}
+          <div
+            className="rounded-2xl p-5 sm:p-6"
+            style={{ background: PANEL_BG }}
+          >
+            <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
+              {venues.length > 1 ? "Locaties" : "Locatie"}
+            </h3>
+            <div className="space-y-4">
+              {venues.map((v, i) => (
+                <div key={v.theater_id} className={i > 0 ? "border-t border-white/70 pt-4" : ""}>
+                  <div className="mb-2 text-sm text-ink-muted">
+                    {v.theater_naam} · {v.theater_stad}
+                  </div>
+                  <div className="rounded-xl overflow-hidden aspect-[16/9]">
+                    <iframe
+                      src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
+                      className="w-full h-full"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
+                    />
+                  </div>
                   <a
-                    href={v.theater_url}
+                    href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ink underline-offset-2 hover:underline"
+                    className="mt-2 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
                   >
-                    {v.theater_afkorting}
+                    Open in Google Maps <ExternalLink size={11} />
                   </a>
-                ) : (
-                  v.theater_afkorting
-                )}
-              </span>
-            ))}
-            {" · "}
-            {show.gezelschap_url ? (
-              <a
-                href={show.gezelschap_url}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-ink underline-offset-2 hover:underline"
-              >
-                {show.gezelschap_display}
-              </a>
-            ) : (
-              show.gezelschap_display
-            )}
-          </div>
-        </div>
-
-        {/* Over het stuk — geen titel meer, alleen tekst */}
-        <section className="border-t border-line p-6 sm:p-8">
-          {show.interesting_because && (
-            <p className="text-base font-medium text-ink leading-relaxed mb-3">
-              {show.interesting_because}
-            </p>
-          )}
-          <p className="text-sm text-ink-soft leading-relaxed">
-            {show.lange_samenvatting}
-          </p>
-          {show.based_on && (
-            <div className="text-xs text-ink-muted italic mt-3">
-              Op basis van {show.based_on}
-            </div>
-          )}
-        </section>
-
-        {/* Tickets + speeldata per venue */}
-        <section className="border-t border-line p-6 sm:p-8">
-          <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
-            <h3 className="text-sm font-medium uppercase tracking-widest text-ink-muted">
-              Tickets
-            </h3>
-            {show.ticket_url && (
-              <a
-                href={show.ticket_url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-black transition-colors"
-              >
-                Naar tickets
-                <ExternalLink size={14} />
-              </a>
-            )}
-          </div>
-
-          <div className="space-y-5">
-            {venues.map(v => {
-              const dates = parseDates(v.speeldata);
-              const MAX = 18;
-              const visible = dates.slice(0, MAX);
-              const overflow = dates.length - visible.length;
-              return (
-                <div key={v.theater_id}>
-                  <div className="mb-2 text-xs font-bold text-ink uppercase tracking-wider">
-                    {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
-                  </div>
-                  {visible.length > 0 ? (
-                    <>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3 md:grid-cols-4">
-                        {visible.map((d, i) => {
-                          const isEn = enDays.has(d.getDay());
-                          return (
-                            <div key={i} className="flex items-center justify-between text-sm text-ink-soft">
-                              <span className="lowercase">{formatDateNL(d)}</span>
-                              {isEn && (
-                                <span
-                                  className="ml-2 rounded-full px-2 py-0.5 text-[10px] font-medium"
-                                  style={{ background: NEON_BG, color: NEON_TEXT }}
-                                >
-                                  EN
-                                </span>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      {overflow > 0 && (
-                        <div className="mt-2 text-xs text-ink-muted">
-                          + {overflow} meer — controleer de ticketlink
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <div className="text-xs text-ink-faint italic">
-                      Speeldata via de ticketlink
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Recensies */}
-        {show.pers_quotes.length > 0 && (
-          <section className="border-t border-line p-6 sm:p-8">
-            <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-muted">
-              📰 Recensies
-            </h3>
-            <div className="space-y-3">
-              {show.pers_quotes.map((p, i) => (
-                <div key={i} className="rounded-2xl bg-[#F8F6EF] p-4">
-                  {p.sterren !== null && (
-                    <div className="mb-2 flex gap-0.5">
-                      {Array.from({ length: 5 }).map((_, idx) => (
-                        <Star
-                          key={idx}
-                          size={14}
-                          className={idx < (p.sterren ?? 0) ? "fill-[#E5B53A] stroke-[#E5B53A]" : "stroke-line"}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  <p className="text-sm italic text-ink-soft leading-relaxed">&ldquo;{p.quote}&rdquo;</p>
-                  <div className="mt-2 text-xs text-ink-muted">— {p.bron}</div>
                 </div>
               ))}
             </div>
-          </section>
-        )}
+          </div>
 
-        {/* Locatie — alleen google maps + link per zichtbare venue */}
-        <section className="border-t border-line p-6 sm:p-8">
-          <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            {venues.length > 1 ? "Locaties" : "Locatie"}
-          </h3>
-          <div className="space-y-5">
-            {venues.map((v, i) => (
-              <div key={v.theater_id} className={i > 0 ? "border-t border-line pt-5" : ""}>
-                <div className="mb-2 text-sm text-ink-muted">
-                  {v.theater_naam} · {v.theater_stad}
-                </div>
-                <div className="rounded-2xl overflow-hidden border border-line aspect-[16/9]">
-                  <iframe
-                    src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
-                    className="w-full h-full"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
-                  />
-                </div>
-                <a
-                  href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-                >
-                  Open in Google Maps <ExternalLink size={11} />
-                </a>
+          {/* In de media */}
+          {show.media_links.length > 0 && (
+            <div
+              className="rounded-2xl p-5 sm:p-6"
+              style={{ background: PANEL_BG }}
+            >
+              <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
+                In de media
+              </h3>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {show.media_links.map((m, i) => (
+                  <a
+                    key={i}
+                    href={m.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 rounded-xl bg-white/70 p-3 hover:bg-white transition-colors"
+                  >
+                    {m.type === "video" || m.type === "serie"
+                      ? <Play size={18} className="text-accent-cobalt shrink-0" />
+                      : <Mic size={18} className="text-accent-cobalt shrink-0" />}
+                    <div className="min-w-0 flex-1">
+                      <div className="text-sm font-medium text-ink truncate">{m.titel}</div>
+                      <div className="text-xs text-ink-muted capitalize">{m.type}</div>
+                    </div>
+                    <ExternalLink size={14} className="text-ink-faint shrink-0" />
+                  </a>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* In de media */}
-        {show.media_links.length > 0 && (
-          <section className="border-t border-line p-6 sm:p-8">
-            <h3 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-muted">
-              🎙️ In de media
-            </h3>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {show.media_links.map((m, i) => (
-                <a
-                  key={i}
-                  href={m.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border border-line p-3.5 hover:bg-[#F8F6EF] transition-colors"
-                >
-                  {m.type === "video" || m.type === "serie"
-                    ? <Play size={20} className="text-accent-cobalt shrink-0" />
-                    : <Mic size={20} className="text-accent-cobalt shrink-0" />}
-                  <div className="min-w-0 flex-1">
-                    <div className="text-sm font-medium text-ink truncate">{m.titel}</div>
-                    <div className="text-xs text-ink-muted capitalize">{m.type}</div>
-                  </div>
-                  <ExternalLink size={14} className="text-ink-faint shrink-0" />
-                </a>
-              ))}
             </div>
-          </section>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
