@@ -33,6 +33,8 @@ export interface Theater {
   url: string;
   beschrijving?: string;
   stad: string;
+  foto_url?: string;
+  foto_credit?: string;
 }
 
 export interface Gezelschap {
@@ -43,6 +45,8 @@ export interface Gezelschap {
   stad: string;
   url: string;
   beschrijving?: string;
+  logo_url?: string;
+  logo_credit?: string;
 }
 
 export interface PersQuote {
@@ -77,6 +81,9 @@ export interface Festival {
   accent: string; // hex kleur voor de teaser-card
   /** Categoriewoorden die in show.categorieen kunnen voorkomen om koppeling te bepalen */
   match_keywords: string[];
+  foto_urls?: string[];
+  foto_credit?: string;
+  logo_url?: string;
 }
 
 export interface ShowDisplay extends Show {
