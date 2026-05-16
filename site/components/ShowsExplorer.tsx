@@ -149,7 +149,20 @@ export function ShowsExplorer({ shows, theaters, gezelschappen }: Props) {
 
       {months.length === 0 ? (
         <div className="rounded-3xl border border-line bg-white p-10 text-center text-ink-muted">
-          {hasActiveFilter ? (
+          {showFavoritesOnly && favorites.size === 0 ? (
+            <>
+              Je hebt nog geen voorstellingen geliked.
+              <div className="mt-2 text-xs text-ink-faint">
+                Klik op het hartje op een kaart om 'm op te slaan.
+              </div>
+              <button
+                onClick={() => setShowFavoritesOnly(false)}
+                className="block mx-auto mt-4 text-sm text-ink underline-offset-2 underline hover:no-underline"
+              >
+                Toon alle voorstellingen
+              </button>
+            </>
+          ) : hasActiveFilter ? (
             <>
               Geen voorstellingen die aan je filters voldoen.
               <button

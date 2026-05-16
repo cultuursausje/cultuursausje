@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef, useState } from "react";
 import {
   Heart, ArrowRight, X,
-  Play, Mic, ExternalLink, Star
+  Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
@@ -181,6 +182,23 @@ function ExpandedCard({
     : (show.foto_url ? [show.foto_url] : []);
   const hasPhotos = photos.length > 0;
 
+  // Carousel state
+  const [photoIdx, setPhotoIdx] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollToPhoto = (idx: number) => {
+    if (!carouselRef.current) return;
+    const w = carouselRef.current.clientWidth;
+    carouselRef.current.scrollTo({ left: idx * w, behavior: "smooth" });
+  };
+
+  const onCarouselScroll = () => {
+    if (!carouselRef.current) return;
+    const w = carouselRef.current.clientWidth;
+    const i = Math.round(carouselRef.current.scrollLeft / w);
+    if (i !== photoIdx) setPhotoIdx(i);
+  };
+
   return (
     <div className="relative bg-white rounded-3xl border border-line overflow-hidden">
       {/* Close + heart - boven scroll, blijven altijd zichtbaar */}
@@ -208,8 +226,9 @@ function ExpandedCard({
         {hasPhotos && (
           <div className="relative bg-[#1B2A4E]">
             <div
-              className="flex snap-x snap-mandatory overflow-x-auto aspect-[16/10]"
-              style={{ scrollbarWidth: "thin" }}
+              ref={carouselRef}
+              onScroll={onCarouselScroll}
+              className="flex snap-x snap-mandatory overflow-x-auto aspect-[16/10] scrollbar-hide"
             >
               {photos.map((url, i) => (
                 <div key={i} className="snap-center shrink-0 w-full relative">
@@ -217,8 +236,48 @@ function ExpandedCard({
                 </div>
               ))}
             </div>
+
+            {/* Prev / next nav, alleen bij meerdere foto's */}
+            {photos.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => scrollToPhoto(Math.max(0, photoIdx - 1))}
+                  disabled={photoIdx === 0}
+                  className="absolute top-1/2 left-3 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+                  aria-label="Vorige foto"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToPhoto(Math.min(photos.length - 1, photoIdx + 1))}
+                  disabled={photoIdx === photos.length - 1}
+                  className="absolute top-1/2 right-3 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+                  aria-label="Volgende foto"
+                >
+                  <ChevronRight size={18} />
+                </button>
+
+                {/* Stipjes-indicator */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
+                  {photos.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => scrollToPhoto(i)}
+                      className={`h-1.5 rounded-full transition-all ${
+                        i === photoIdx ? "w-6 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
+                      }`}
+                      aria-label={`Foto ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
             {/* Pills overlay top — laat ruimte voor close + heart knoppen */}
-            <div className="pointer-events-none absolute top-4 left-4 right-28 flex flex-wrap gap-2 z-20">
+            <div className="pointer-events-none absolute top-4 left-4 right-28 flex flex-wrap gap-2 z-10">
               {themes.map((t, i) => (
                 <span
                   key={i}
@@ -238,12 +297,6 @@ function ExpandedCard({
             {show.foto_credit && (
               <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/80 leading-none pointer-events-none">
                 © {show.foto_credit}
-              </div>
-            )}
-            {/* Aantal-indicator voor multi-foto carousel */}
-            {photos.length > 1 && (
-              <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/40 px-2.5 py-0.5 text-[10px] font-medium text-white pointer-events-none">
-                {photos.length} foto's · veeg
               </div>
             )}
           </div>

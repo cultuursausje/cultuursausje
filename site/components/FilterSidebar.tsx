@@ -71,7 +71,7 @@ export function FilterSidebar(props: Props) {
             }
           />
           {props.favoritesCount > 0 && (
-            <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#FF3D8B] px-1 text-[9px] font-bold text-white">
+            <span className="absolute top-1.5 right-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white border border-[#FF3D8B] px-1 text-[9px] font-bold text-[#FF3D8B]">
               {props.favoritesCount}
             </span>
           )}
