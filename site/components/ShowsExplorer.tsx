@@ -208,8 +208,13 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
     }).filter(g => g.shows.length > 0);
   }, [filteredShows, selectedMonths]);
 
-  // Beperk hoeveel maand-secties zichtbaar zijn — standaard 2, gebruiker kan stap-voor-stap uitvouwen
-  const [visibleMonthCount, setVisibleMonthCount] = useState(2);
+  // Eén maand tegelijk zichtbaar — gebruiker navigeert met prev/next
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+
+  // Reset naar eerste maand wanneer filter-resultaten veranderen
+  useEffect(() => {
+    setCurrentMonthIndex(0);
+  }, [selectedCities, selectedTheaters, selectedGezelschappen, selectedMonths, showFavoritesOnly, showThisWeek, showTopRated]);
 
   const toggleFav = (id: string) => {
     setFavorites(prev => {
@@ -441,59 +446,78 @@ export function ShowsExplorer({ shows, theaters, gezelschappen, allTheaters, all
           )}
         </div>
       ) : (
-        <div className="space-y-12 sm:space-y-16">
-          {months.slice(0, visibleMonthCount).map(group => (
-            <section key={monthKey(group.year, group.monthIdx)}>
-              <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
-                {group.label}
-              </h2>
-              <div
-                className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
-                style={{ gridAutoFlow: "dense" }}
-              >
-                {group.shows.map(({ show, pill }) => {
-                  const key = `${show.id}--${monthKey(group.year, group.monthIdx)}`;
-                  const isExpandedHere = expanded === key;
-                  return (
-                    <div
-                      key={key}
-                      className={`transition-all duration-300 ${
-                        isExpandedHere
-                          ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
-                          : ""
-                      }`}
-                      style={{ alignSelf: "start" }}
-                    >
-                      <ShowCard
-                        show={show}
-                        pill={pill}
-                        monthKey={key}
-                        isFlipped={flipped.has(key)}
-                        isExpanded={isExpandedHere}
-                        isFavorite={favorites.has(show.id)}
-                        isMobile={isMobile}
-                        onFlip={() => toggleFlip(key)}
-                        onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
-                        onCollapse={() => setExpanded(null)}
-                        onToggleFav={() => toggleFav(show.id)}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
-          {months.length > visibleMonthCount && (
-            <div className="flex justify-center">
-              <button
-                onClick={() => setVisibleMonthCount(v => v + 1)}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
-              >
-                Toon {months[visibleMonthCount].label}
-                <ChevronDown size={14} />
-              </button>
-            </div>
-          )}
+        <div className="space-y-8">
+          {(() => {
+            const idx = Math.min(currentMonthIndex, months.length - 1);
+            const group = months[idx];
+            const prev = idx > 0 ? months[idx - 1] : null;
+            const next = idx < months.length - 1 ? months[idx + 1] : null;
+            return (
+              <>
+                <section>
+                  <h2 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
+                    {group.label}
+                  </h2>
+                  <div
+                    className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+                    style={{ gridAutoFlow: "dense" }}
+                  >
+                    {group.shows.map(({ show, pill }) => {
+                      const key = `${show.id}--${monthKey(group.year, group.monthIdx)}`;
+                      const isExpandedHere = expanded === key;
+                      return (
+                        <div
+                          key={key}
+                          className={`transition-all duration-300 ${
+                            isExpandedHere
+                              ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-2"
+                              : ""
+                          }`}
+                          style={{ alignSelf: "start" }}
+                        >
+                          <ShowCard
+                            show={show}
+                            pill={pill}
+                            monthKey={key}
+                            isFlipped={flipped.has(key)}
+                            isExpanded={isExpandedHere}
+                            isFavorite={favorites.has(show.id)}
+                            isMobile={isMobile}
+                            onFlip={() => toggleFlip(key)}
+                            onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
+                            onCollapse={() => setExpanded(null)}
+                            onToggleFav={() => toggleFav(show.id)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </section>
+                {(prev || next) && (
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    {prev && (
+                      <button
+                        onClick={() => setCurrentMonthIndex(i => Math.max(0, i - 1))}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
+                      >
+                        <ChevronDown size={14} className="rotate-90" />
+                        Terug naar {prev.label}
+                      </button>
+                    )}
+                    {next && (
+                      <button
+                        onClick={() => setCurrentMonthIndex(i => Math.min(months.length - 1, i + 1))}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
+                      >
+                        Toon {next.label}
+                        <ChevronDown size={14} className="-rotate-90" />
+                      </button>
+                    )}
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
       )}
 
