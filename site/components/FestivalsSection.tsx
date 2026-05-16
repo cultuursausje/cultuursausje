@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import type { Festival, ShowDisplay } from "@/types";
 
@@ -19,13 +19,22 @@ function showsForFestival(festival: Festival, shows: ShowDisplay[]): ShowDisplay
   );
 }
 
+function genreOfShow(show: ShowDisplay): "dans" | "toneel" {
+  return show.categorieen.some(c => c.toLowerCase().includes("dans")) ? "dans" : "toneel";
+}
+
 export function FestivalsSection({ festivals, shows }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [openShowId, setOpenShowId] = useState<string | null>(null);
+
+  // Reset show-detail wanneer een andere festival-modal opent of sluit
+  useEffect(() => { setOpenShowId(null); }, [openId]);
 
   const visible = expanded ? festivals : festivals.slice(0, INITIAL_COUNT);
   const open = openId ? festivals.find(f => f.id === openId) : null;
   const openShows = open ? showsForFestival(open, shows) : [];
+  const openShow = openShowId ? openShows.find(s => s.id === openShowId) : null;
 
   return (
     <section id="festivals" className="mt-20 sm:mt-24">
@@ -109,7 +118,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
               >
                 <X size={18} />
               </button>
-              {/* Carousel placeholder — gradient varianten van de accentkleur */}
+              {/* Carousel met festivalfoto's */}
               <div className="flex h-56 sm:h-64 snap-x snap-mandatory overflow-x-auto scrollbar-hide">
                 {(open.foto_urls && open.foto_urls.length > 0
                   ? open.foto_urls.map((url, i) => ({ kind: "img" as const, url, i }))
@@ -165,26 +174,97 @@ export function FestivalsSection({ festivals, shows }: Props) {
                   Geen voorstellingen voor dit festival in de huidige selectie. Wis je filters of kies een andere stad.
                 </p>
               ) : (
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {openShows.map(s => (
-                    <div
-                      key={s.id}
-                      className="rounded-2xl border border-line p-4"
-                    >
-                      <div className="text-base font-medium text-ink leading-tight">
-                        {s.titel}
+                <>
+                  {/* Horizontale carousel met kleine cards */}
+                  <div className="-mx-6 sm:-mx-8 px-6 sm:px-8 overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-3 snap-x snap-mandatory pb-2">
+                      {openShows.map(s => {
+                        const genre = genreOfShow(s);
+                        const isOpen = openShowId === s.id;
+                        return (
+                          <button
+                            key={s.id}
+                            onClick={() => setOpenShowId(isOpen ? null : s.id)}
+                            className={`snap-start shrink-0 w-40 sm:w-44 relative aspect-[3/4] overflow-hidden rounded-2xl text-left transition-all ${
+                              isOpen
+                                ? "ring-2 ring-ink scale-[1.02]"
+                                : "hover:scale-[1.02] hover:-rotate-[0.6deg]"
+                            }`}
+                            style={{ background: open.accent }}
+                          >
+                            {s.foto_url && (
+                              <img
+                                src={s.foto_url}
+                                alt={s.titel}
+                                className="absolute inset-0 block h-full w-full object-cover"
+                              />
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                            {/* Pills */}
+                            <div className="pointer-events-none absolute top-2 left-2 right-2 flex flex-wrap gap-1 z-10">
+                              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink capitalize">
+                                {genre}
+                              </span>
+                              {s.english_friendly && (
+                                <span className="rounded-full bg-[#EAF3DE] px-2 py-0.5 text-[10px] font-bold text-[#173404] inline-flex items-center gap-1">
+                                  <span aria-hidden="true">🇬🇧</span>
+                                </span>
+                              )}
+                            </div>
+                            {/* Titel onderin */}
+                            <div className="absolute bottom-3 left-3 right-3 z-10 text-white">
+                              <div className="text-sm font-medium leading-tight">
+                                {s.titel}
+                              </div>
+                              <div className="mt-1 text-[10px] text-white/85 leading-tight">
+                                {s.gezelschap_display}
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Detail-panel onder de carousel */}
+                  {openShow && (
+                    <div className="mt-4 rounded-2xl bg-[#F1EFE8] p-4 sm:p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="text-base font-medium text-ink leading-tight">
+                            {openShow.titel}
+                          </div>
+                          <div className="mt-0.5 text-xs text-ink-muted">
+                            {openShow.gezelschap_display}
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setOpenShowId(null)}
+                          className="shrink-0 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
+                          aria-label="Sluiten"
+                        >
+                          <X size={14} />
+                        </button>
                       </div>
-                      <div className="mt-1 text-xs text-ink-muted">
-                        {s.gezelschap_display} · {s.theater_display}
-                      </div>
-                      {s.korte_samenvatting && (
-                        <p className="mt-2 text-sm text-ink-soft leading-relaxed line-clamp-3">
-                          {s.korte_samenvatting}
+                      {openShow.interesting_because && (
+                        <p className="mt-3 text-sm text-ink-soft leading-relaxed">
+                          {openShow.interesting_because}
                         </p>
                       )}
+                      {openShow.ticket_url && (
+                        <a
+                          href={openShow.ticket_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-ink hover:underline underline-offset-2"
+                        >
+                          Naar de voorstelling op {open.naam}
+                          <ExternalLink size={11} />
+                        </a>
+                      )}
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
               )}
             </div>
           </div>
