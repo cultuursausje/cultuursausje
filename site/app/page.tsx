@@ -45,8 +45,12 @@ export default async function HomePage() {
       pers_quotes: persByShow.get(s.id) ?? [],
       media_links: mediaByShow.get(s.id) ?? [],
       theater_display: theaterObj?.afkorting || s.theater,
+      theater_naam: theaterObj?.naam || s.theater,
+      theater_beschrijving: theaterObj?.beschrijving || "",
+      theater_url: theaterObj?.url || "",
       gezelschap_display: gezObj?.naam || s.gezelschap,
-      gezelschap_beschrijving: gezObj?.beschrijving || ""
+      gezelschap_beschrijving: gezObj?.beschrijving || "",
+      gezelschap_url: gezObj?.url || ""
     };
   });
 
