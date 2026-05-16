@@ -195,7 +195,7 @@ function ExpandedCard({
             {themes.map((t, i) => (
               <span
                 key={i}
-                className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft lowercase"
+                className="rounded-full bg-[#F1EFE8] px-2.5 py-1 text-[11px] font-medium text-ink-soft"
               >
                 {t}
               </span>

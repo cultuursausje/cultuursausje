@@ -107,7 +107,9 @@ export function ShowsExplorer({ shows }: Props) {
                 <div
                   key={key}
                   className={`transition-all duration-300 ${
-                    isExpandedHere ? "col-span-2" : ""
+                    isExpandedHere
+                      ? "col-span-2 sm:col-span-3 md:col-span-3 xl:col-span-3 row-span-3"
+                      : ""
                   }`}
                   style={{ alignSelf: "start" }}
                 >
