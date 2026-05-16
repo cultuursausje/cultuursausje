@@ -434,6 +434,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                     isExpanded={isExpandedHere}
                     isFavorite={favorites.has(show.id)}
                     isMobile={isMobile}
+                    selectedCities={selectedCities}
                     onFlip={() => toggleFlip(key)}
                     onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
                     onCollapse={() => setExpanded(null)}
@@ -479,6 +480,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                       isExpanded={isExpandedHere}
                       isFavorite={favorites.has(show.id)}
                       isMobile={isMobile}
+                      selectedCities={selectedCities}
                       onFlip={() => toggleFlip(key)}
                       onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
                       onCollapse={() => setExpanded(null)}

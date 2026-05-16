@@ -20,6 +20,7 @@ interface Props {
   isExpanded: boolean;
   isFavorite: boolean;
   isMobile: boolean;
+  selectedCities: Set<string>;
   onFlip: () => void;
   onExpand: () => void;
   onCollapse: () => void;
@@ -27,9 +28,15 @@ interface Props {
 }
 
 export function ShowCard({
-  show, pill, isFlipped, isExpanded, isFavorite,
+  show, pill, isFlipped, isExpanded, isFavorite, selectedCities,
   onFlip, onExpand, onCollapse, onToggleFav
 }: Props) {
+  // Toon alleen venues uit de geselecteerde steden; valt terug op alle
+  // venues wanneer er geen city-filter actief is.
+  const visibleVenues = selectedCities.size === 0
+    ? show.venues
+    : show.venues.filter(v => selectedCities.has(v.theater_stad));
+  const venues = visibleVenues.length > 0 ? visibleVenues : show.venues;
   const photoBg = photoBgForShow(show.id);
   const neon = neonForShow(show.id);
   const hasPhoto = !!show.foto_url;
@@ -50,6 +57,7 @@ export function ShowCard({
             show={show}
             pill={pill}
             isFavorite={isFavorite}
+            venues={venues}
             onClose={onCollapse}
             onToggleFav={onToggleFav}
           />
@@ -114,7 +122,7 @@ export function ShowCard({
               </p>
             )}
             <div className="text-sm text-ink-muted">
-              {show.venues.map(v => v.theater_afkorting).join(" · ")}
+              {venues.map(v => v.theater_afkorting).join(" · ")}
             </div>
           </div>
         </div>
@@ -163,6 +171,8 @@ interface ExpandedProps {
   show: ShowDisplay;
   pill: string;
   isFavorite: boolean;
+  /** Venues gefilterd op de actieve stad-selectie. */
+  venues: ShowDisplay["venues"];
   onClose: () => void;
   onToggleFav: () => void;
 }
@@ -178,16 +188,18 @@ function themesOfShow(show: ShowDisplay): string[] {
     .slice(0, 2);
 }
 
-function mapsEmbedUrl(theater: string): string {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(theater + ", Amsterdam")}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+function mapsEmbedUrl(theater: string, stad: string): string {
+  const q = stad ? `${theater}, ${stad}` : theater;
+  return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 }
 
-function mapsLinkUrl(theater: string): string {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater + ", Amsterdam")}`;
+function mapsLinkUrl(theater: string, stad: string): string {
+  const q = stad ? `${theater}, ${stad}` : theater;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 }
 
 function ExpandedCard({
-  show, pill, isFavorite, onClose, onToggleFav
+  show, pill, isFavorite, venues, onClose, onToggleFav
 }: ExpandedProps) {
   const enDays = englishDays(show.english_friendly, show.english_friendly_detail);
 
@@ -368,7 +380,7 @@ function ExpandedCard({
             {show.titel}
           </h2>
           <div className="mt-2 text-sm text-ink-muted">
-            {show.venues.map(v => v.theater_afkorting).join(" · ")} · {show.gezelschap_display}
+            {venues.map(v => v.theater_afkorting).join(" · ")} · {show.gezelschap_display}
           </div>
         </div>
 
@@ -412,7 +424,7 @@ function ExpandedCard({
           </div>
 
           <div className="space-y-5">
-            {show.venues.map(v => {
+            {venues.map(v => {
               const dates = parseDates(v.speeldata);
               const MAX = 18;
               const visible = dates.slice(0, MAX);
@@ -508,65 +520,73 @@ function ExpandedCard({
           )}
         </section>
 
-        {/* Over het theater */}
+        {/* Over het theater — één blok per zichtbare venue */}
         <section className="border-t border-line p-6 sm:p-8">
           <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-            Over het theater
+            {venues.length > 1 ? "Over de theaters" : "Over het theater"}
           </h3>
-          <div className="mb-2 text-base font-medium text-ink">{show.theater_naam}</div>
-          {show.theater_url && (
-            <div className="mb-4">
-              <a
-                href={show.theater_url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-              >
-                Meer over dit theater <ExternalLink size={11} />
-              </a>
-            </div>
-          )}
-          {/* 2-koloms: theater-foto links, Google Maps rechts */}
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="relative rounded-2xl overflow-hidden border border-line aspect-[4/3] bg-[#F1EFE8]">
-              {show.theater_foto_url ? (
-                <>
-                  <img
-                    src={show.theater_foto_url}
-                    alt={show.theater_naam}
-                    className="absolute inset-0 block h-full w-full object-cover"
-                  />
-                  {show.theater_foto_credit && (
-                    <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/85 leading-none pointer-events-none">
-                      © {show.theater_foto_credit}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center text-center text-xs text-ink-muted p-4">
-                  Foto van {show.theater_naam} volgt
+          <div className="space-y-6">
+            {venues.map((v, i) => (
+              <div key={v.theater_id} className={i > 0 ? "border-t border-line pt-6" : ""}>
+                <div className="mb-2 text-base font-medium text-ink">
+                  {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
                 </div>
-              )}
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-line aspect-[4/3]">
-              <iframe
-                src={mapsEmbedUrl(show.theater_naam || show.theater)}
-                className="w-full h-full"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title={`Kaart ${show.theater_naam || show.theater}`}
-              />
-            </div>
+                {v.theater_url && (
+                  <div className="mb-4">
+                    <a
+                      href={v.theater_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+                    >
+                      Meer over dit theater <ExternalLink size={11} />
+                    </a>
+                  </div>
+                )}
+                {/* 2-koloms: theater-foto links, Google Maps rechts */}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className="relative rounded-2xl overflow-hidden border border-line aspect-[4/3] bg-[#F1EFE8]">
+                    {v.theater_foto_url ? (
+                      <>
+                        <img
+                          src={v.theater_foto_url}
+                          alt={v.theater_naam}
+                          className="absolute inset-0 block h-full w-full object-cover"
+                        />
+                        {v.theater_foto_credit && (
+                          <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/85 leading-none pointer-events-none">
+                            © {v.theater_foto_credit}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-center text-xs text-ink-muted p-4">
+                        Foto van {v.theater_naam} volgt
+                      </div>
+                    )}
+                  </div>
+                  <div className="rounded-2xl overflow-hidden border border-line aspect-[4/3]">
+                    <iframe
+                      src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
+                      className="w-full h-full"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
+                    />
+                  </div>
+                </div>
+                <a
+                  href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+                >
+                  Open in Google Maps <ExternalLink size={11} />
+                </a>
+              </div>
+            ))}
           </div>
-          <a
-            href={mapsLinkUrl(show.theater_naam || show.theater)}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-          >
-            Open in Google Maps <ExternalLink size={11} />
-          </a>
         </section>
 
         {/* In de media */}
