@@ -8,7 +8,7 @@ interface Props {
   gezelschappen: Gezelschap[];
 }
 
-const CITY_COLORS = ["#E8849A", "#F2C94C", "#FFFFFF", "#1A1A18", "#B66ED5", "#241B3F", "#FFB89A", "#E5B5D8"];
+const CITY_COLORS = ["#FFE600", "#FF3B7C", "#FFFFFF", "#FF5722", "#C7DC2D", "#FFB7C8", "#FF8A6E", "#C8B5DE"];
 
 function colorForCity(city: string): string {
   let h = 0;
@@ -46,12 +46,12 @@ export function GezelschappenSection({ gezelschappen }: Props) {
     <section id="gezelschappen" className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
-        style={{ background: "#5BB8C2" }}
+        style={{ background: "#2D4DEB" }}
       >
-        <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
+        <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
           Gezelschappen & collectieven
         </h2>
-        <p className="mb-8 max-w-xl text-sm text-ink-soft">
+        <p className="mb-8 max-w-xl text-sm text-white/80">
           De grootste theatergezelschappen en theatercollectieven van Nederland.
         </p>
 
@@ -71,12 +71,12 @@ export function GezelschappenSection({ gezelschappen }: Props) {
                       href={g.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
+                      className="inline-flex items-center gap-1.5 text-base font-bold text-white hover:underline underline-offset-2"
                     >
                       {g.naam}
-                      <ExternalLink size={12} className="text-ink-soft" />
+                      <ExternalLink size={12} className="text-white/70" />
                     </a>
-                    <div className="mt-0.5 text-xs text-ink-soft">{g.type}</div>
+                    <div className="mt-0.5 text-xs text-white/75">{g.type}</div>
                   </div>
                 ))}
               </div>

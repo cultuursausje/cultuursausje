@@ -32,7 +32,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
       {/* Prominent vlak met opvallende kleur */}
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
-        style={{ background: "#E8849A" }}
+        style={{ background: "#FF5722" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
           Theaterfestivals
