@@ -67,6 +67,9 @@ export interface PersQuote {
   bron: string;
   sterren: number | null;
   quote: string;
+  /** Publicatiedatum van de recensie (ISO YYYY-MM-DD). Gebruikt om
+   *  "Net binnen"-uitlichtingen te bepalen (afgelopen 14 dagen). */
+  date?: string;
 }
 
 export interface MediaLink {
