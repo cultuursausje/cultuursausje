@@ -52,7 +52,8 @@ export function RecensiesSection({ shows }: Props) {
             {featured.map(({ show, quote }) => (
               <div
                 key={show.id}
-                className="rounded-2xl bg-white p-5 sm:p-6 flex flex-col"
+                className="rounded-2xl p-5 sm:p-6 flex flex-col"
+                style={{ background: "#F1EFE8" }}
               >
                 {quote.sterren !== null && (
                   <div className="mb-2 flex gap-0.5">
@@ -73,7 +74,7 @@ export function RecensiesSection({ shows }: Props) {
                 <div className="mt-2 text-xs text-ink-muted">— {quote.bron}</div>
 
                 {/* Show-meta onderaan */}
-                <div className="mt-4 pt-4 border-t border-line flex items-center gap-3">
+                <div className="mt-4 pt-4 border-t border-white/70 flex items-center gap-3">
                   {show.foto_url && (
                     <img
                       src={show.foto_url}

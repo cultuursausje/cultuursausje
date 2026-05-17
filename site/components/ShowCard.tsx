@@ -161,36 +161,18 @@ export function ShowDetailPanel({
 
   return (
     <div className="mt-4 space-y-3">
-      {/* Alles-in-één-paneel: pills + titel + gezelschap + beschrijving + speeldata + locatie */}
+      {/* Alles-in-één-paneel */}
       <div
-        className="relative rounded-2xl p-4 sm:p-5"
+        className="relative rounded-2xl overflow-hidden"
         style={{ background: PANEL_BG }}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
-          aria-label="Sluiten"
-        >
-          <X size={14} />
-        </button>
-        <button
-          onClick={onToggleFav}
-          className="absolute top-3 right-12 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
-          aria-label="Favoriet"
-        >
-          <Heart
-            size={14}
-            className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
-          />
-        </button>
-
-        {/* Foto-carousel boven titel */}
+        {/* Foto-carousel bovenaan — edge-to-edge zodat pills + close erover kunnen vallen */}
         {photos.length > 0 && (
-          <div className="relative mb-4 -mt-1">
+          <div className="relative">
             <div
               ref={photoCarRef}
               onScroll={onPhotoScroll}
-              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide rounded-xl"
+              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
             >
               {photos.map((url, i) => (
                 <div
@@ -211,6 +193,41 @@ export function ShowDetailPanel({
                 </div>
               ))}
             </div>
+
+            {/* Pills overlay top-left op de foto */}
+            <div className="pointer-events-none absolute top-3 left-3 z-20 flex flex-wrap gap-1.5 pr-24">
+              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink capitalize">
+                {genre}
+              </span>
+              {show.english_friendly && (
+                <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink inline-flex items-center gap-1">
+                  <span aria-hidden="true">🇬🇧</span>
+                  English friendly
+                </span>
+              )}
+            </div>
+
+            {/* Close + heart op de foto */}
+            <button
+              onClick={onClose}
+              className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition-colors"
+              aria-label="Sluiten"
+            >
+              <X size={16} />
+            </button>
+            <button
+              onClick={onToggleFav}
+              className="absolute top-3 right-13 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition-colors"
+              style={{ right: "3.25rem" }}
+              aria-label="Favoriet"
+            >
+              <Heart
+                size={15}
+                className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
+              />
+            </button>
+
+            {/* Foto-navigatie bij meerdere foto's */}
             {photos.length > 1 && (
               <>
                 <button
@@ -249,18 +266,41 @@ export function ShowDetailPanel({
           </div>
         )}
 
-        {/* Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 mb-2 pr-20">
-          <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft capitalize">
-            {genre}
-          </span>
-          {show.english_friendly && (
-            <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft inline-flex items-center gap-1">
-              <span aria-hidden="true">🇬🇧</span>
-              English friendly
-            </span>
-          )}
-        </div>
+        {/* Content-area met padding */}
+        <div className="relative p-4 sm:p-5">
+        {/* Close + heart + pills wanneer er GEEN foto is */}
+        {photos.length === 0 && (
+          <>
+            <button
+              onClick={onClose}
+              className="absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
+              aria-label="Sluiten"
+            >
+              <X size={14} />
+            </button>
+            <button
+              onClick={onToggleFav}
+              className="absolute top-3 right-12 z-20 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
+              aria-label="Favoriet"
+            >
+              <Heart
+                size={14}
+                className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
+              />
+            </button>
+            <div className="flex flex-wrap items-center gap-1.5 mb-2 pr-20">
+              <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft capitalize">
+                {genre}
+              </span>
+              {show.english_friendly && (
+                <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft inline-flex items-center gap-1">
+                  <span aria-hidden="true">🇬🇧</span>
+                  English friendly
+                </span>
+              )}
+            </div>
+          </>
+        )}
 
         {/* Titel + gezelschap */}
         <h3 className="text-lg font-medium tracking-tight text-ink leading-tight sm:text-xl">
@@ -395,6 +435,7 @@ export function ShowDetailPanel({
               </a>
             </div>
           ))}
+        </div>
         </div>
       </div>
 
