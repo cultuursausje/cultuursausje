@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, Heart } from "lucide-react";
-import { ShowCard } from "./ShowCard";
+import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
 import { FestivalsSection } from "./FestivalsSection";
 import { VoordeelSection } from "./VoordeelSection";
 import { GezelschappenSection } from "./GezelschappenSection";
@@ -399,8 +399,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           )}
         </div>
       ) : showFavoritesOnly ? (
-        // Favorieten-view: alle gelikte shows in één grid, zonder maand-kop.
-        // Bij 0 favorieten staat de tekst direct op het gele vlak (geen witte kaart).
+        // Favorieten-view: alle gelikte shows in één carousel, zonder maand-kop.
         allFavoritedShows.length === 0 ? (
           <div className="px-2 py-6 text-center">
             <div className="text-base text-ink">Je hebt nog geen voorstellingen geliked.</div>
@@ -409,88 +408,37 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             </div>
           </div>
         ) : (
-          <div
-            className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
-            style={{ gridAutoFlow: "dense" }}
-          >
-            {allFavoritedShows.map(({ show, pill }) => {
-              const key = `${show.id}--fav`;
-              const isExpandedHere = expanded === key;
-              return (
-                <div
-                  key={key}
-                  className={`transition-all duration-300 ${
-                    isExpandedHere
-                      ? "col-span-2 row-span-2"
-                      : ""
-                  }`}
-                  style={{ alignSelf: "start" }}
-                >
-                  <ShowCard
-                    show={show}
-                    pill={pill}
-                    monthKey={key}
-                    isFlipped={flipped.has(key)}
-                    isExpanded={isExpandedHere}
-                    isFavorite={favorites.has(show.id)}
-                    isMobile={isMobile}
-                    selectedCities={selectedCities}
-                    onFlip={() => toggleFlip(key)}
-                    onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
-                    onCollapse={() => setExpanded(null)}
-                    onToggleFav={() => toggleFav(show.id)}
-                  />
-                </div>
-              );
-            })}
-          </div>
+          <ShowCarousel
+            items={allFavoritedShows.map(({ show, pill }) => ({ show, pill, key: `${show.id}--fav` }))}
+            expandedKey={expanded}
+            favorites={favorites}
+            selectedCities={selectedCities}
+            onSelect={(key) => setExpanded(prev => prev === key ? null : key)}
+            onToggleFav={(id) => toggleFav(id)}
+          />
         )
       ) : currentMonth ? (
         <div>
-          <h3 className="font-display mb-5 text-3xl text-ink tracking-tight sm:text-4xl">
+          <h3 className="font-display mb-4 text-3xl text-ink tracking-tight sm:text-4xl">
             {currentMonth.label}
           </h3>
           {currentMonthShows.length === 0 ? (
-            <div className="rounded-3xl bg-white p-10 text-center text-ink-muted">
-              Geen voorstellingen in deze maand.
+            <div className="px-2 py-6 text-center">
+              <div className="text-base text-ink">Geen voorstellingen in deze maand.</div>
             </div>
           ) : (
-            <div
-              className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
-              style={{ gridAutoFlow: "dense" }}
-            >
-              {currentMonthShows.map(({ show, pill }) => {
-                const key = `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`;
-                const isExpandedHere = expanded === key;
-                return (
-                  <div
-                    key={key}
-                    className={`transition-all duration-300 ${
-                      isExpandedHere
-                        ? "col-span-2 row-span-2"
-                        : ""
-                    }`}
-                    style={{ alignSelf: "start" }}
-                  >
-                    <ShowCard
-                      show={show}
-                      pill={pill}
-                      monthKey={key}
-                      isFlipped={flipped.has(key)}
-                      isExpanded={isExpandedHere}
-                      isFavorite={favorites.has(show.id)}
-                      isMobile={isMobile}
-                      selectedCities={selectedCities}
-                      viewMonth={{ year: currentMonth.year, monthIdx: currentMonth.monthIdx }}
-                      onFlip={() => toggleFlip(key)}
-                      onExpand={() => { setExpanded(key); setFlipped(new Set()); }}
-                      onCollapse={() => setExpanded(null)}
-                      onToggleFav={() => toggleFav(show.id)}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            <ShowCarousel
+              items={currentMonthShows.map(({ show, pill }) => ({
+                show, pill,
+                key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`
+              }))}
+              expandedKey={expanded}
+              favorites={favorites}
+              selectedCities={selectedCities}
+              viewMonth={{ year: currentMonth.year, monthIdx: currentMonth.monthIdx }}
+              onSelect={(key) => setExpanded(prev => prev === key ? null : key)}
+              onToggleFav={(id) => toggleFav(id)}
+            />
           )}
         </div>
       ) : null}
@@ -503,5 +451,124 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       <VoordeelSection />
     </>
+  );
+}
+
+// ── Carousel ────────────────────────────────────────────────────────────────
+// Eén rij met kleine voorstellingscards + pijltjes; opent een detail-paneel
+// onder de rij wanneer je op een card klikt.
+
+interface CarouselItem {
+  show: ShowDisplay;
+  pill: string;
+  key: string;
+}
+
+interface ShowCarouselProps {
+  items: CarouselItem[];
+  expandedKey: string | null;
+  favorites: Set<string>;
+  selectedCities: Set<string>;
+  viewMonth?: { year: number; monthIdx: number };
+  onSelect: (key: string) => void;
+  onToggleFav: (id: string) => void;
+}
+
+function ShowCarousel({
+  items, expandedKey, favorites, selectedCities, viewMonth, onSelect, onToggleFav
+}: ShowCarouselProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ atStart: true, atEnd: false });
+
+  const updateEdge = () => {
+    const el = ref.current;
+    if (!el) return;
+    setEdge({
+      atStart: el.scrollLeft <= 0,
+      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1
+    });
+  };
+
+  useEffect(() => {
+    const t = setTimeout(updateEdge, 50);
+    return () => clearTimeout(t);
+  }, [items.length]);
+
+  const scrollByCards = (dir: -1 | 1) => {
+    const el = ref.current;
+    if (!el) return;
+    const cardWidth = 176 + 12; // w-44 + gap-3
+    el.scrollBy({ left: dir * cardWidth * 2, behavior: "smooth" });
+  };
+
+  const expandedItem = items.find(it => it.key === expandedKey);
+  const cityResolvedVenues = expandedItem
+    ? (() => {
+        const cityFiltered = selectedCities.size === 0
+          ? expandedItem.show.venues
+          : expandedItem.show.venues.filter(v => selectedCities.has(v.theater_stad));
+        return cityFiltered.length > 0 ? cityFiltered : expandedItem.show.venues;
+      })()
+    : [];
+
+  return (
+    <div>
+      <div className="relative">
+        <div
+          ref={ref}
+          onScroll={updateEdge}
+          className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
+        >
+          <div className="flex gap-3 snap-x snap-mandatory pb-2">
+            {items.map(({ show, pill, key }) => (
+              <SmallShowCard
+                key={key}
+                show={show}
+                pill={pill}
+                isFavorite={favorites.has(show.id)}
+                isActive={expandedKey === key}
+                onSelect={() => onSelect(key)}
+                onToggleFav={() => onToggleFav(show.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Pijltjes — alleen tonen als er meer is dan zichtbaar */}
+        {items.length > 2 && (
+          <>
+            <button
+              type="button"
+              onClick={() => scrollByCards(-1)}
+              disabled={edge.atStart}
+              className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
+              aria-label="Vorige voorstellingen"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCards(1)}
+              disabled={edge.atEnd}
+              className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
+              aria-label="Volgende voorstellingen"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </>
+        )}
+      </div>
+
+      {expandedItem && (
+        <ShowDetailPanel
+          show={expandedItem.show}
+          venues={cityResolvedVenues}
+          viewMonth={viewMonth}
+          isFavorite={favorites.has(expandedItem.show.id)}
+          onClose={() => onSelect(expandedItem.key)}
+          onToggleFav={() => onToggleFav(expandedItem.show.id)}
+        />
+      )}
+    </div>
   );
 }

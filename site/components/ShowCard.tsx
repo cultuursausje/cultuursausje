@@ -1,106 +1,45 @@
 "use client";
 
-import { useRef, useState } from "react";
 import {
   Heart, X,
-  Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
+  Play, Mic, ExternalLink, Star
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
-import { photoBgForShow, neonForShow } from "@/lib/colors";
+import { photoBgForShow } from "@/lib/colors";
 import { englishDays, formatDateNL } from "@/lib/dates";
 
 const NEON_BG = "#B5FF52";
 const NEON_TEXT = "#173404";
 const PANEL_BG = "#F1EFE8";
 
-interface Props {
+interface SmallCardProps {
   show: ShowDisplay;
   pill: string;
-  monthKey: string;
-  isFlipped: boolean;
-  isExpanded: boolean;
   isFavorite: boolean;
-  isMobile: boolean;
-  selectedCities: Set<string>;
-  /** De maand die actief in de grid wordt getoond. Bepaalt welke
-   *  venues + datums in de uitgeklapte card worden meegenomen.
-   *  Ontbreekt bv. in de favorieten-view (geen maandcontext). */
-  viewMonth?: { year: number; monthIdx: number };
-  onFlip: () => void;
-  onExpand: () => void;
-  onCollapse: () => void;
+  isActive: boolean;
+  onSelect: () => void;
   onToggleFav: () => void;
 }
 
-export function ShowCard({
-  show, pill, isExpanded, isFavorite, selectedCities, viewMonth,
-  onExpand, onCollapse, onToggleFav
-}: Props) {
-  // Eerst filteren op stad-selectie
-  const cityFiltered = selectedCities.size === 0
-    ? show.venues
-    : show.venues.filter(v => selectedCities.has(v.theater_stad));
-  const cityResolved = cityFiltered.length > 0 ? cityFiltered : show.venues;
-
-  // Vervolgens filteren op de actieve maand: alleen venues met speeldata
-  // in die maand passeren. Voor venues met speeldata filteren we boven-
-  // dien hun datums tot de huidige maand zodat de tickets-sectie alleen
-  // de relevante data toont.
-  const monthPrefix = viewMonth
-    ? `${viewMonth.year}-${String(viewMonth.monthIdx + 1).padStart(2, "0")}-`
-    : null;
-  const monthFiltered = monthPrefix
-    ? cityResolved
-        .filter(v => v.speeldata.some(d => d.startsWith(monthPrefix)))
-        .map(v => ({ ...v, speeldata: v.speeldata.filter(d => d.startsWith(monthPrefix)) }))
-    : cityResolved;
-  const venues = monthFiltered.length > 0 ? monthFiltered : cityResolved;
+/** Compacte carousel-card voor de "Alle voorstellingen"-rij. Festival-stijl:
+ *  portrait, foto-overlay, datum-pill linksboven, hartje rechtsboven. */
+export function SmallShowCard({
+  show, pill, isFavorite, isActive, onSelect, onToggleFav
+}: SmallCardProps) {
   const photoBg = photoBgForShow(show.id);
-  const neon = neonForShow(show.id);
   const hasPhoto = !!show.foto_url;
 
-  if (isExpanded) {
-    return (
-      <div className="relative">
-        {/* Scherpe neon-rand: box-shadow met meerdere lagen voor LED-effect */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-3xl"
-          style={{
-            boxShadow: `0 0 0 2px ${neon}, 0 0 10px 2px ${neon}, 0 0 24px 4px ${neon}66`
-          }}
-        />
-        <div className="relative">
-          <ExpandedCard
-            show={show}
-            pill={pill}
-            isFavorite={isFavorite}
-            venues={venues}
-            onClose={onCollapse}
-            onToggleFav={onToggleFav}
-          />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="group relative cursor-pointer transition-transform duration-500 ease-out hover:-rotate-[0.8deg] hover:scale-[1.015] hover:-translate-y-0.5">
-      {/* Neon-rand op hover */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-3xl transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-        style={{
-          boxShadow: `0 0 0 2px ${neon}, 0 0 10px 2px ${neon}, 0 0 24px 4px ${neon}66`
-        }}
-      />
-
-      {/* Klikbare kaart — direct naar uitgeklapt */}
+    <div className="relative shrink-0 snap-start w-40 sm:w-44">
       <button
         type="button"
-        onClick={onExpand}
-        className="relative block w-full overflow-hidden rounded-3xl text-left"
-        style={{ background: photoBg, minHeight: "220px" }}
+        onClick={onSelect}
+        className={`relative block w-full aspect-[3/4] overflow-hidden rounded-2xl text-left transition-all ${
+          isActive
+            ? "ring-2 ring-ink scale-[1.02]"
+            : "hover:scale-[1.02] hover:-rotate-[0.6deg]"
+        }`}
+        style={{ background: photoBg }}
         aria-label={`Open ${show.titel}`}
       >
         {hasPhoto && (
@@ -110,36 +49,32 @@ export function ShowCard({
             className="absolute inset-0 block h-full w-full object-cover"
           />
         )}
-        <div className="relative z-10 flex min-h-[220px] items-end p-4">
-          <div className="max-w-[80%]">
-            <div className="text-white text-sm font-medium leading-tight tracking-tight sm:text-base">
-              {show.titel}
-            </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+
+        {/* Titel + gezelschap onderin */}
+        <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 text-white">
+          <div className="text-sm font-medium leading-tight line-clamp-2">
+            {show.titel}
+          </div>
+          <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
+            {show.gezelschap_display}
           </div>
         </div>
-        {hasPhoto && (
-          <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/70 leading-none">
-            © {show.foto_credit || show.gezelschap_display}
-          </div>
-        )}
       </button>
 
-      {/* Pill — top left */}
-      <div
-        className="pointer-events-none absolute top-3 left-3 z-20 rounded-full px-3 py-1.5 text-xs font-semibold"
-        style={{ background: NEON_BG, color: NEON_TEXT }}
-      >
+      {/* Datum-pill linksboven — neutrale stijl */}
+      <div className="pointer-events-none absolute top-2 left-2 z-20 rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
         {pill}
       </div>
 
-      {/* Heart — top right */}
+      {/* Hartje rechtsboven — los klik-target */}
       <button
         onClick={e => { e.stopPropagation(); onToggleFav(); }}
-        className="absolute top-2.5 right-2.5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 transition-transform hover:scale-110"
+        className="absolute top-1.5 right-1.5 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 hover:bg-white transition"
         aria-label="Favoriet"
       >
         <Heart
-          size={18}
+          size={15}
           className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
         />
       </button>
@@ -148,15 +83,17 @@ export function ShowCard({
 }
 
 // ---------------------------------------------------------------------------
-// Uitvergrote card
+// Inline detail-paneel — verschijnt onder de carousel als een card geopend is.
 // ---------------------------------------------------------------------------
 
-interface ExpandedProps {
+interface DetailProps {
   show: ShowDisplay;
-  pill: string;
   isFavorite: boolean;
   /** Venues gefilterd op de actieve stad-selectie. */
   venues: ShowDisplay["venues"];
+  /** De maand die actief in de grid wordt getoond. Bepaalt welke
+   *  venues + datums worden meegenomen. */
+  viewMonth?: { year: number; monthIdx: number };
   onClose: () => void;
   onToggleFav: () => void;
 }
@@ -182,12 +119,22 @@ function mapsLinkUrl(theater: string, stad: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 }
 
-function ExpandedCard({
-  show, isFavorite, venues, onClose, onToggleFav
-}: ExpandedProps) {
+export function ShowDetailPanel({
+  show, isFavorite, venues: cityVenues, viewMonth, onClose, onToggleFav
+}: DetailProps) {
   const enDays = englishDays(show.english_friendly, show.english_friendly_detail);
 
-  // Helper: zet ISO-datums om naar Date-objecten
+  // Filter venues op de actieve maand én filter de datums binnen elke venue.
+  const monthPrefix = viewMonth
+    ? `${viewMonth.year}-${String(viewMonth.monthIdx + 1).padStart(2, "0")}-`
+    : null;
+  const monthFiltered = monthPrefix
+    ? cityVenues
+        .filter(v => v.speeldata.some(d => d.startsWith(monthPrefix)))
+        .map(v => ({ ...v, speeldata: v.speeldata.filter(d => d.startsWith(monthPrefix)) }))
+    : cityVenues;
+  const venues = monthFiltered.length > 0 ? monthFiltered : cityVenues;
+
   const parseDates = (isoList: string[]): Date[] =>
     isoList.map(s => {
       const [y, m, d] = s.split("-").map(Number);
@@ -197,401 +144,278 @@ function ExpandedCard({
   const genre = genreOfShow(show);
   const themes = themesOfShow(show);
 
-  // Foto's voor de carousel: foto_urls (meerdere) of foto_url (enkel)
-  const photos = (show.foto_urls && show.foto_urls.length > 0)
-    ? show.foto_urls
-    : (show.foto_url ? [show.foto_url] : []);
-  const hasPhotos = photos.length > 0;
-
-  // Carousel state
-  const [photoIdx, setPhotoIdx] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  const scrollToPhoto = (idx: number) => {
-    if (!carouselRef.current) return;
-    const w = carouselRef.current.clientWidth;
-    carouselRef.current.scrollTo({ left: idx * w, behavior: "smooth" });
-  };
-
-  const onCarouselScroll = () => {
-    if (!carouselRef.current) return;
-    const w = carouselRef.current.clientWidth;
-    const i = Math.round(carouselRef.current.scrollLeft / w);
-    if (i !== photoIdx) setPhotoIdx(i);
-  };
-
   return (
-    <div className="relative bg-white rounded-3xl border border-line overflow-hidden">
-      {/* Close + heart - boven scroll, blijven altijd zichtbaar */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-40 flex h-9 w-9 items-center justify-center rounded-full bg-[#F1EFE8] hover:bg-line transition-colors shadow-sm"
-        aria-label="Sluiten"
+    <div className="mt-4 space-y-3">
+      {/* Header-paneel: titel, theater · gezelschap, beschrijving */}
+      <div
+        className="relative rounded-2xl p-4 sm:p-5"
+        style={{ background: PANEL_BG }}
       >
-        <X size={18} />
-      </button>
-      <button
-        onClick={onToggleFav}
-        className="absolute top-4 right-16 z-40 flex h-9 w-9 items-center justify-center rounded-full bg-[#F1EFE8] hover:bg-line transition-colors shadow-sm"
-        aria-label="Favoriet"
-      >
-        <Heart
-          size={18}
-          className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
-        />
-      </button>
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
+          aria-label="Sluiten"
+        >
+          <X size={14} />
+        </button>
+        <button
+          onClick={onToggleFav}
+          className="absolute top-3 right-12 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
+          aria-label="Favoriet"
+        >
+          <Heart
+            size={14}
+            className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
+          />
+        </button>
 
-      {/* Scrollbaar binnenwerk */}
-      <div className="max-h-[80vh] overflow-y-auto">
-        {/* Foto-carousel met pills-overlay (alleen als er foto's zijn) */}
-        {hasPhotos && (
-          <div className="relative bg-[#1B2A4E]">
-            <div
-              ref={carouselRef}
-              onScroll={onCarouselScroll}
-              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide h-48 sm:h-56 md:h-60 lg:h-72"
+        <div className="flex flex-wrap items-center gap-1.5 mb-2 pr-20">
+          <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft capitalize">
+            {genre}
+          </span>
+          {themes.map((t, i) => (
+            <span
+              key={i}
+              className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft"
             >
-              {photos.map((url, i) => (
-                <div
-                  key={i}
-                  className="snap-center shrink-0 w-full h-full relative overflow-hidden bg-[#1B2A4E]"
-                  style={{ minWidth: "100%" }}
-                >
-                  <img
-                    src={url}
-                    alt=""
-                    className="absolute inset-0 block h-full w-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+              {t}
+            </span>
+          ))}
+          {show.english_friendly && (
+            <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft inline-flex items-center gap-1">
+              <span aria-hidden="true">🇬🇧</span>
+              English friendly
+            </span>
+          )}
+        </div>
 
-            {/* Prev / next nav, alleen bij meerdere foto's */}
-            {photos.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => scrollToPhoto(Math.max(0, photoIdx - 1))}
-                  disabled={photoIdx === 0}
-                  className="absolute top-1/2 left-3 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
-                  aria-label="Vorige foto"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollToPhoto(Math.min(photos.length - 1, photoIdx + 1))}
-                  disabled={photoIdx === photos.length - 1}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
-                  aria-label="Volgende foto"
-                >
-                  <ChevronRight size={18} />
-                </button>
-
-                {/* Stipjes-indicator */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
-                  {photos.map((_, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => scrollToPhoto(i)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        i === photoIdx ? "w-6 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
-                      }`}
-                      aria-label={`Foto ${i + 1}`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Pills overlay top — laat ruimte voor close + heart knoppen */}
-            <div className="pointer-events-none absolute top-4 left-4 right-28 flex flex-wrap gap-2 z-10">
-              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-ink capitalize">
-                {genre}
-              </span>
-              {themes.map((t, i) => (
-                <span
-                  key={i}
-                  className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-ink"
-                >
-                  {t}
-                </span>
-              ))}
-              {show.english_friendly && (
-                <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-ink inline-flex items-center gap-1">
-                  <span aria-hidden="true">🇬🇧</span>
-                  English friendly
-                </span>
-              )}
-            </div>
-            {/* Copyright bottom-right */}
-            {show.foto_credit && (
-              <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/80 leading-none pointer-events-none">
-                © {show.foto_credit}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Beige panel-stack — minimalistische gestapelde blokken */}
-        <div className="p-3 space-y-3 sm:p-4 sm:space-y-3">
-          {/* Header + beschrijving in één blok */}
-          <div
-            className="rounded-2xl p-5 sm:p-6"
-            style={{ background: PANEL_BG }}
-          >
-            {/* Pills boven titel — alleen wanneer er geen carousel boven staat */}
-            {!hasPhotos && (
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-ink-soft capitalize">
-                  {genre}
-                </span>
-                {themes.map((t, i) => (
-                  <span
-                    key={i}
-                    className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-ink-soft"
-                  >
-                    {t}
-                  </span>
-                ))}
-                {show.english_friendly && (
-                  <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-ink-soft inline-flex items-center gap-1">
-                    <span aria-hidden="true">🇬🇧</span>
-                    English friendly
-                  </span>
-                )}
-              </div>
-            )}
-
-            <h2 className={`text-2xl font-medium tracking-tight text-ink leading-tight sm:text-3xl ${hasPhotos ? "pr-28" : ""}`}>
-              {show.titel}
-            </h2>
-            <div className="mt-1 text-sm text-ink-muted">
-              {venues.map((v, i) => (
-                <span key={v.theater_id}>
-                  {i > 0 && " · "}
-                  {v.theater_url ? (
-                    <a
-                      href={v.theater_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-ink underline-offset-2 hover:underline"
-                    >
-                      {v.theater_afkorting}
-                    </a>
-                  ) : (
-                    v.theater_afkorting
-                  )}
-                </span>
-              ))}
-              {" · "}
-              {show.gezelschap_url ? (
+        <h3 className="text-lg font-medium tracking-tight text-ink leading-tight sm:text-xl">
+          {show.titel}
+        </h3>
+        <div className="mt-1 text-xs text-ink-muted sm:text-sm">
+          {venues.map((v, i) => (
+            <span key={v.theater_id}>
+              {i > 0 && " · "}
+              {v.theater_url ? (
                 <a
-                  href={show.gezelschap_url}
+                  href={v.theater_url}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-ink underline-offset-2 hover:underline"
                 >
-                  {show.gezelschap_display}
+                  {v.theater_afkorting}
                 </a>
               ) : (
-                show.gezelschap_display
+                v.theater_afkorting
               )}
-            </div>
+            </span>
+          ))}
+          {" · "}
+          {show.gezelschap_url ? (
+            <a
+              href={show.gezelschap_url}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-ink underline-offset-2 hover:underline"
+            >
+              {show.gezelschap_display}
+            </a>
+          ) : (
+            show.gezelschap_display
+          )}
+        </div>
 
-            {(show.interesting_because || show.lange_samenvatting) && (
-              <div className="mt-4">
-                {show.interesting_because && (
-                  <p className="text-base font-medium text-ink leading-relaxed mb-2">
-                    {show.interesting_because}
-                  </p>
-                )}
-                {show.lange_samenvatting && (
-                  <p className="text-sm text-ink-soft leading-relaxed">
-                    {show.lange_samenvatting}
-                  </p>
-                )}
-                {show.based_on && (
-                  <div className="text-xs text-ink-muted italic mt-2">
-                    Op basis van {show.based_on}
-                  </div>
-                )}
+        {(show.interesting_because || show.lange_samenvatting) && (
+          <div className="mt-3">
+            {show.interesting_because && (
+              <p className="text-sm font-medium text-ink leading-relaxed mb-2">
+                {show.interesting_because}
+              </p>
+            )}
+            {show.lange_samenvatting && (
+              <p className="text-sm text-ink-soft leading-relaxed">
+                {show.lange_samenvatting}
+              </p>
+            )}
+            {show.based_on && (
+              <div className="mt-2 text-xs text-ink-muted italic">
+                Op basis van {show.based_on}
               </div>
             )}
           </div>
+        )}
+      </div>
 
-          {/* Tickets + speeldata per venue */}
-          <div
-            className="rounded-2xl p-5 sm:p-6"
-            style={{ background: PANEL_BG }}
-          >
-            <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
-              <h3 className="text-sm font-medium uppercase tracking-widest text-ink-muted">
-                Tickets
-              </h3>
-              {show.ticket_url && (
-                <a
-                  href={show.ticket_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-ink px-3.5 py-1.5 text-sm font-medium text-white hover:bg-black transition-colors"
-                >
-                  Naar tickets
-                  <ExternalLink size={14} />
-                </a>
-              )}
-            </div>
-
-            <div className="space-y-4">
-              {venues.map(v => {
-                const dates = parseDates(v.speeldata);
-                const MAX = 18;
-                const visible = dates.slice(0, MAX);
-                const overflow = dates.length - visible.length;
-                return (
-                  <div key={v.theater_id}>
-                    <div className="mb-1.5 text-xs font-bold text-ink uppercase tracking-wider">
-                      {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
-                    </div>
-                    {visible.length > 0 ? (
-                      <>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 sm:grid-cols-3 md:grid-cols-4">
-                          {visible.map((d, i) => {
-                            const isEn = enDays.has(d.getDay());
-                            return (
-                              <div key={i} className="flex items-center justify-between text-sm text-ink-soft">
-                                <span className="lowercase">{formatDateNL(d)}</span>
-                                {isEn && (
-                                  <span
-                                    className="ml-2 rounded-full px-2 py-0.5 text-[10px] font-medium"
-                                    style={{ background: NEON_BG, color: NEON_TEXT }}
-                                  >
-                                    EN
-                                  </span>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                        {overflow > 0 && (
-                          <div className="mt-2 text-xs text-ink-muted">
-                            + {overflow} meer — controleer de ticketlink
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="text-xs text-ink-faint italic">
-                        Speeldata via de ticketlink
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Recensies */}
-          {show.pers_quotes.length > 0 && (
-            <div
-              className="rounded-2xl p-5 sm:p-6"
-              style={{ background: PANEL_BG }}
+      {/* Tickets-paneel */}
+      <div
+        className="rounded-2xl p-4 sm:p-5"
+        style={{ background: PANEL_BG }}
+      >
+        <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
+          <h4 className="text-xs font-medium uppercase tracking-widest text-ink-muted">
+            Tickets
+          </h4>
+          {show.ticket_url && (
+            <a
+              href={show.ticket_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-ink px-3 py-1.5 text-xs font-medium text-white hover:bg-black transition-colors sm:text-sm"
             >
-              <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-                Recensies
-              </h3>
-              <div className="space-y-3">
-                {show.pers_quotes.map((p, i) => (
-                  <div key={i} className="rounded-xl bg-white/70 p-3.5">
-                    {p.sterren !== null && (
-                      <div className="mb-1.5 flex gap-0.5">
-                        {Array.from({ length: 5 }).map((_, idx) => (
-                          <Star
-                            key={idx}
-                            size={14}
-                            className={idx < (p.sterren ?? 0) ? "fill-[#E5B53A] stroke-[#E5B53A]" : "stroke-line"}
-                          />
-                        ))}
-                      </div>
-                    )}
-                    <p className="text-sm italic text-ink-soft leading-relaxed">&ldquo;{p.quote}&rdquo;</p>
-                    <div className="mt-1.5 text-xs text-ink-muted">— {p.bron}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Locatie — alleen google maps + link per zichtbare venue */}
-          <div
-            className="rounded-2xl p-5 sm:p-6"
-            style={{ background: PANEL_BG }}
-          >
-            <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-              {venues.length > 1 ? "Locaties" : "Locatie"}
-            </h3>
-            <div className="space-y-4">
-              {venues.map((v, i) => (
-                <div key={v.theater_id} className={i > 0 ? "border-t border-white/70 pt-4" : ""}>
-                  <div className="mb-2 text-sm text-ink-muted">
-                    {v.theater_naam} · {v.theater_stad}
-                  </div>
-                  <div className="rounded-xl overflow-hidden aspect-[16/9]">
-                    <iframe
-                      src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
-                      className="w-full h-full"
-                      style={{ border: 0 }}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
-                    />
-                  </div>
-                  <a
-                    href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-xs text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-                  >
-                    Open in Google Maps <ExternalLink size={11} />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* In de media */}
-          {show.media_links.length > 0 && (
-            <div
-              className="rounded-2xl p-5 sm:p-6"
-              style={{ background: PANEL_BG }}
-            >
-              <h3 className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-muted">
-                In de media
-              </h3>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {show.media_links.map((m, i) => (
-                  <a
-                    key={i}
-                    href={m.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-3 rounded-xl bg-white/70 p-3 hover:bg-white transition-colors"
-                  >
-                    {m.type === "video" || m.type === "serie"
-                      ? <Play size={18} className="text-accent-cobalt shrink-0" />
-                      : <Mic size={18} className="text-accent-cobalt shrink-0" />}
-                    <div className="min-w-0 flex-1">
-                      <div className="text-sm font-medium text-ink truncate">{m.titel}</div>
-                      <div className="text-xs text-ink-muted capitalize">{m.type}</div>
-                    </div>
-                    <ExternalLink size={14} className="text-ink-faint shrink-0" />
-                  </a>
-                ))}
-              </div>
-            </div>
+              Naar tickets
+              <ExternalLink size={12} />
+            </a>
           )}
         </div>
+
+        <div className="space-y-3">
+          {venues.map(v => {
+            const dates = parseDates(v.speeldata);
+            const MAX = 18;
+            const visible = dates.slice(0, MAX);
+            const overflow = dates.length - visible.length;
+            return (
+              <div key={v.theater_id}>
+                <div className="mb-1 text-[11px] font-bold text-ink uppercase tracking-wider">
+                  {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
+                </div>
+                {visible.length > 0 ? (
+                  <>
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-1 sm:grid-cols-3 md:grid-cols-4">
+                      {visible.map((d, i) => {
+                        const isEn = enDays.has(d.getDay());
+                        return (
+                          <div key={i} className="flex items-center justify-between text-xs text-ink-soft sm:text-sm">
+                            <span className="lowercase">{formatDateNL(d)}</span>
+                            {isEn && (
+                              <span
+                                className="ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-medium"
+                                style={{ background: NEON_BG, color: NEON_TEXT }}
+                              >
+                                EN
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {overflow > 0 && (
+                      <div className="mt-1.5 text-[11px] text-ink-muted">
+                        + {overflow} meer — controleer de ticketlink
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-[11px] text-ink-faint italic">
+                    Speeldata via de ticketlink
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
+
+      {/* Recensies-paneel */}
+      {show.pers_quotes.length > 0 && (
+        <div
+          className="rounded-2xl p-4 sm:p-5"
+          style={{ background: PANEL_BG }}
+        >
+          <h4 className="mb-3 text-xs font-medium uppercase tracking-widest text-ink-muted">
+            Recensies
+          </h4>
+          <div className="space-y-2">
+            {show.pers_quotes.map((p, i) => (
+              <div key={i} className="rounded-xl bg-white/70 p-3">
+                {p.sterren !== null && (
+                  <div className="mb-1 flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <Star
+                        key={idx}
+                        size={12}
+                        className={idx < (p.sterren ?? 0) ? "fill-[#E5B53A] stroke-[#E5B53A]" : "stroke-line"}
+                      />
+                    ))}
+                  </div>
+                )}
+                <p className="text-xs italic text-ink-soft leading-relaxed sm:text-sm">&ldquo;{p.quote}&rdquo;</p>
+                <div className="mt-1 text-[10px] text-ink-muted">— {p.bron}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Locatie-paneel */}
+      <div
+        className="rounded-2xl p-4 sm:p-5"
+        style={{ background: PANEL_BG }}
+      >
+        <h4 className="mb-3 text-xs font-medium uppercase tracking-widest text-ink-muted">
+          {venues.length > 1 ? "Locaties" : "Locatie"}
+        </h4>
+        <div className="space-y-4">
+          {venues.map((v, i) => (
+            <div key={v.theater_id} className={i > 0 ? "border-t border-white/70 pt-4" : ""}>
+              <div className="mb-2 text-xs text-ink-muted sm:text-sm">
+                {v.theater_naam} · {v.theater_stad}
+              </div>
+              <div className="rounded-xl overflow-hidden aspect-[16/9]">
+                <iframe
+                  src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
+                  className="w-full h-full"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
+                />
+              </div>
+              <a
+                href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1.5 inline-flex items-center gap-1 text-[11px] text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+              >
+                Open in Google Maps <ExternalLink size={11} />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Media-paneel */}
+      {show.media_links.length > 0 && (
+        <div
+          className="rounded-2xl p-4 sm:p-5"
+          style={{ background: PANEL_BG }}
+        >
+          <h4 className="mb-3 text-xs font-medium uppercase tracking-widest text-ink-muted">
+            In de media
+          </h4>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {show.media_links.map((m, i) => (
+              <a
+                key={i}
+                href={m.url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 rounded-xl bg-white/70 p-2.5 hover:bg-white transition-colors"
+              >
+                {m.type === "video" || m.type === "serie"
+                  ? <Play size={16} className="text-accent-cobalt shrink-0" />
+                  : <Mic size={16} className="text-accent-cobalt shrink-0" />}
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-medium text-ink truncate sm:text-sm">{m.titel}</div>
+                  <div className="text-[10px] text-ink-muted capitalize">{m.type}</div>
+                </div>
+                <ExternalLink size={12} className="text-ink-faint shrink-0" />
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
