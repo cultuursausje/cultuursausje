@@ -4,12 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Star, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
-import { ShowDetailPanel } from "./ShowCard";
 
 interface Props {
   shows: ShowDisplay[];
-  favorites: Set<string>;
-  onToggleFav: (id: string) => void;
 }
 
 const WINDOW_DAYS = 14;
@@ -17,6 +14,7 @@ const MIN_SOURCES = 3;
 const HIGH_STAR = 4;
 const INITIAL_QUOTES = 1;
 const MAX_FEATURED = 5;
+const PANEL_BG = "#F1EFE8";
 
 interface Featured {
   show: ShowDisplay;
@@ -65,7 +63,6 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; avgStars: number; premiereMs: number } => c !== null)
     .sort((a, b) => b.avgStars - a.avgStars || a.premiereMs - b.premiereMs);
 
-  // Combineer: eerst recent, dan fallback met shows die nog niet in recent zaten
   const seen = new Set(recent.map(r => r.show.id));
   const combined: Featured[] = recent.map(({ show, quotes }) => ({ show, quotes }));
   for (const f of fallback) {
@@ -93,15 +90,15 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
               size={11}
               className={idx < (quote.sterren ?? 0)
                 ? "fill-[#E5B53A] stroke-[#E5B53A]"
-                : "stroke-white/30"}
+                : "stroke-line"}
             />
           ))}
         </div>
       )}
-      <p className="text-sm italic text-white leading-relaxed">
+      <p className="text-sm italic text-ink-soft leading-relaxed">
         &ldquo;{quote.quote}&rdquo;
       </p>
-      <div className="mt-0.5 text-[11px] text-white/70 inline-flex items-center gap-1">
+      <div className="mt-0.5 text-[11px] text-ink-muted inline-flex items-center gap-1">
         {quote.bron}
         {quote.date && (
           <>
@@ -109,7 +106,7 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
             <span className="lowercase">{formatShortDate(quote.date)}</span>
           </>
         )}
-        {quote.url && <ExternalLink size={9} className="text-white/60" />}
+        {quote.url && <ExternalLink size={9} className="text-ink-faint" />}
       </div>
     </>
   );
@@ -122,10 +119,9 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
   );
 }
 
-export function RecensiesSection({ shows, favorites, onToggleFav }: Props) {
+export function RecensiesSection({ shows }: Props) {
   const featured = pickFeatured(shows);
   const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set());
-  const [expandedShowId, setExpandedShowId] = useState<string | null>(null);
 
   // Carousel scroll-state
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -158,8 +154,6 @@ export function RecensiesSection({ shows, favorites, onToggleFav }: Props) {
     });
   };
 
-  const expandedFeatured = expandedShowId ? featured.find(f => f.show.id === expandedShowId) : null;
-
   return (
     <section id="recensies" className="mb-12 sm:mb-16">
       <div
@@ -183,28 +177,22 @@ export function RecensiesSection({ shows, favorites, onToggleFav }: Props) {
               {featured.map(({ show, quotes }) => {
                 const photoBg = photoBgForShow(show.id);
                 const isOpenReviews = expandedReviews.has(show.id);
-                const isActive = expandedShowId === show.id;
                 const visible = isOpenReviews ? quotes : quotes.slice(0, INITIAL_QUOTES);
                 return (
                   <div
                     key={show.id}
                     className="shrink-0 snap-start w-[88%] sm:w-[calc((100%-1.5rem)/2)] flex flex-col gap-4"
                   >
-                    {/* Brede landscape-card — klik = openklappen onder de carousel */}
-                    <button
-                      type="button"
-                      onClick={() => setExpandedShowId(prev => prev === show.id ? null : show.id)}
-                      className={`group relative block overflow-hidden rounded-2xl text-left transition-transform ${
-                        isActive ? "scale-[1.01]" : "hover:scale-[1.01]"
-                      }`}
+                    {/* Foto-card — niet klikbaar, statisch */}
+                    <div
+                      className="relative overflow-hidden rounded-2xl"
                       style={{ background: photoBg }}
-                      aria-label={`Open ${show.titel}`}
                     >
                       <div className="relative aspect-[3/2]">
                         {show.foto_url && (
                           <img
                             src={show.foto_url}
-                            alt=""
+                            alt={show.titel}
                             className="absolute inset-0 block h-full w-full object-cover"
                           />
                         )}
@@ -223,10 +211,13 @@ export function RecensiesSection({ shows, favorites, onToggleFav }: Props) {
                           </div>
                         )}
                       </div>
-                    </button>
+                    </div>
 
-                    {/* Recensies onder de card, geen los vlak */}
-                    <div className="space-y-4">
+                    {/* Recensies-vlak (beige) onder de foto */}
+                    <div
+                      className="rounded-2xl p-4 sm:p-5 space-y-3"
+                      style={{ background: PANEL_BG }}
+                    >
                       {visible.map((q, i) => (
                         <QuoteRow key={i} quote={q} />
                       ))}
@@ -234,12 +225,23 @@ export function RecensiesSection({ shows, favorites, onToggleFav }: Props) {
                         <button
                           type="button"
                           onClick={() => toggleReviews(show.id)}
-                          className="text-xs font-medium text-white hover:underline underline-offset-2"
+                          className="text-xs font-medium text-ink hover:underline underline-offset-2"
                         >
                           {isOpenReviews
                             ? "Minder recensies"
                             : `+${quotes.length - INITIAL_QUOTES} meer recensies`}
                         </button>
+                      )}
+                      {show.ticket_url && (
+                        <a
+                          href={show.ticket_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="block pt-3 border-t border-white/70 text-xs font-medium text-ink hover:underline underline-offset-2 inline-flex items-center gap-1"
+                        >
+                          Naar de voorstelling op {show.gezelschap_display}
+                          <ExternalLink size={11} />
+                        </a>
                       )}
                     </div>
                   </div>
@@ -271,17 +273,6 @@ export function RecensiesSection({ shows, favorites, onToggleFav }: Props) {
             </>
           )}
         </div>
-
-        {/* Volledige opengeklapte card onder de carousel — over de hele breedte */}
-        {expandedFeatured && (
-          <ShowDetailPanel
-            show={expandedFeatured.show}
-            venues={expandedFeatured.show.venues}
-            isFavorite={favorites.has(expandedFeatured.show.id)}
-            onClose={() => setExpandedShowId(null)}
-            onToggleFav={() => onToggleFav(expandedFeatured.show.id)}
-          />
-        )}
       </div>
     </section>
   );

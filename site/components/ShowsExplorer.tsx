@@ -284,7 +284,14 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   return (
     <>
-      <RecensiesSection shows={shows} favorites={favorites} onToggleFav={toggleFav} />
+      <RecensiesSection shows={shows} />
+
+      <PlanSection
+        shows={shows}
+        festivals={festivals}
+        favorites={favorites}
+        onToggleFav={toggleFav}
+      />
 
       <section id="voorstellingen">
       <div
@@ -465,12 +472,6 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
-      <PlanSection
-        shows={shows}
-        festivals={festivals}
-        favorites={favorites}
-        onToggleFav={toggleFav}
-      />
       <VoordeelSection />
 
       {/* Gezelschappen + Theaters — paired side-by-side op desktop, gelijke hoogte */}
