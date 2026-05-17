@@ -119,8 +119,16 @@ export const shows: Show[] = [
     ],
     korte_samenvatting: "Een moeder krijgt een brief van de Belastingdienst en haar leven valt om.",
     lange_samenvatting: "Eerst gelooft niemand haar, daarna gelooft haar partner haar ook niet meer. Een onterechte beschuldiging van fraude duwt een gezin uit elkaar terwijl de overheid ondoordringbaar blijft. Over wat onrecht doet met een mens, en wat er over blijft als alles wegvalt.",
-    regisseur: "", based_on: "Verhaal van Euripides", foto_url: "",
-    english_friendly: false, english_friendly_detail: "",
+    regisseur: "Angelo Ormskerk", based_on: "Medea van Euripides",
+    foto_url: "https://www.toneelschuurproducties.nl/assets/stills/medea/Medea-toeslag-12-%C2%A9-Sanne-Peper.jpg",
+    foto_urls: [
+      "https://www.toneelschuurproducties.nl/assets/stills/medea/Medea-toeslag-12-%C2%A9-Sanne-Peper.jpg",
+      "https://www.toneelschuurproducties.nl/assets/stills/medea/Medea-toeslag-14-%C2%A9-Sanne-Peper.jpg",
+      "https://www.toneelschuurproducties.nl/assets/stills/medea/Medea-toeslag-09-%C2%A9-Sanne-Peper.jpg",
+      "https://www.toneelschuurproducties.nl/assets/stills/medea/Medea-toeslag-07-%C2%A9-Sanne-Peper.jpg"
+    ],
+    foto_credit: "Sanne Peper",
+    english_friendly: true, english_friendly_detail: "Live boventiteling in Nederlands en Engels",
     categorieen: ["Pijn", "Veerkracht", "Hoop"],
     ticket_url: "https://www.toneelschuurproducties.nl/medea",
     interesting_because: "Het toeslagenschandaal gespiegeld aan een Griekse tragedie. Geen woedend pamflet maar een zwaar geladen verhaal van onrecht én veerkracht."

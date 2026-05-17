@@ -64,5 +64,254 @@ export const pers: PersQuote[] = [
     bron: "Theaterkrant",
     sterren: null,
     quote: "Uit de hand gierende twistgesprekken, absurde uitvergrotingen van de werkelijkheid én een portie klassiek vormingstoneel, een verrukkelijke drie-eenheid. Sublieme choreografie."
+  },
+
+  // Weg met Eddy Bellegueule (ITA / Eline Arbo) - reprise 2026
+  {
+    show_id: "weg-met-eddy-bellegueule",
+    bron: "NRC",
+    sterren: 5,
+    quote: "Een van de beste voorstellingen van dit seizoen.",
+    date: "2026-05-12"
+  },
+  {
+    show_id: "weg-met-eddy-bellegueule",
+    bron: "de Volkskrant",
+    sterren: 5,
+    quote: "De voorstelling onder leiding van Eline Arbo is in diepste wezen een ode aan het theater.",
+    date: "2026-05-12"
+  },
+  {
+    show_id: "weg-met-eddy-bellegueule",
+    bron: "Trouw",
+    sterren: 4,
+    quote: "Prachtig drama over anders-zijn in een grof milieu.",
+    date: "2026-05-12"
+  },
+  {
+    show_id: "weg-met-eddy-bellegueule",
+    bron: "Het Parool",
+    sterren: 4,
+    quote: "Theaterversie van hitboek van Edouard Louis is ijzersterk.",
+    date: "2026-05-12"
+  },
+  {
+    show_id: "weg-met-eddy-bellegueule",
+    bron: "Theaterkrant",
+    sterren: 5,
+    quote: "Hoogtepunt van dit theaterseizoen.",
+    date: "2026-05-12"
+  },
+
+  // De uren (ITA / Eline Arbo)
+  {
+    show_id: "de-uren",
+    bron: "de Telegraaf",
+    sterren: 4,
+    quote: "Deze theaterbewerking is niet alleen beklemmend en verstikkend, maar ook beeldschoon en nog altijd actueel.",
+    date: "2026-04-28"
+  },
+  {
+    show_id: "de-uren",
+    bron: "NRC",
+    sterren: 5,
+    quote: "Prachtig invoelbaar. De uren grijpt naar de keel.",
+    date: "2026-04-28"
+  },
+  {
+    show_id: "de-uren",
+    bron: "de Volkskrant",
+    sterren: 4,
+    quote: "Arbo voorziet het bestaande materiaal van een extra laag en heeft daarmee iets wezenlijk nieuws in petto. Plus de belofte van een nieuwe grotezaalregisseur, een met durf en brille.",
+    date: "2026-04-28"
+  },
+  {
+    show_id: "de-uren",
+    bron: "Het Parool",
+    sterren: 4,
+    quote: "Laat geen mens onberoerd.",
+    date: "2026-04-28"
+  },
+
+  // Angels in America (ITA / Ivo van Hove) - 2026 reprise van 2008 productie
+  {
+    show_id: "angels-in-america",
+    bron: "Theaterkrant",
+    sterren: 5,
+    quote: "Een briljant, vindingrijk en sprankelend theaterwerk en terecht een van Tony Kushners favoriete versies.",
+    date: "2026-05-10"
+  },
+  {
+    show_id: "angels-in-america",
+    bron: "de Volkskrant",
+    sterren: 5,
+    quote: "Hans Kesting in de rol van de monsterlijke advocaat Roy Cohn biedt een aangrijpende inkijk in zijn eigen ziel.",
+    date: "2026-05-10"
+  },
+  {
+    show_id: "angels-in-america",
+    bron: "NRC",
+    sterren: 5,
+    quote: "Een herontdekking van een moderne klassieker, en bovenal een nog altijd razend actueel verhaal.",
+    date: "2026-05-10"
+  },
+
+  // Client E. Busken (ITA / Maria Kraakman)
+  {
+    show_id: "client-e-busken",
+    bron: "Theaterkrant",
+    sterren: 5,
+    quote: "Van zeldzame klasse en emotionaliteit. Aangrijpend, ontroerend, beklemmend en ook vol humor.",
+    date: "2026-04-22"
+  },
+  {
+    show_id: "client-e-busken",
+    bron: "De Standaard",
+    sterren: 4,
+    quote: "Gijs Scholten van Aschat is een heerlijke verteller, aan wiens lippen je anderhalf uur lang hangt.",
+    date: "2026-04-22"
+  },
+  {
+    show_id: "client-e-busken",
+    bron: "Elsevier",
+    sterren: 4,
+    quote: "Gijs Scholten van Aschat is de ideale vertolker. Met verbazingwekkend gemak brengt hij de boze, geestige, soms licht ontspoorde taal tot leven.",
+    date: "2026-04-22"
+  },
+  {
+    show_id: "client-e-busken",
+    bron: "Scenes",
+    sterren: null,
+    quote: "Tekst, muziek en spel krijgen alle aandacht. Het resultaat is wonderschoon.",
+    date: "2026-04-22"
+  },
+
+  // Prima Facie (ITA / Eline Arbo / Maria Kraakman)
+  {
+    show_id: "prima-facie",
+    bron: "de Volkskrant",
+    sterren: 5,
+    quote: "Maria Kraakman speelt virtuoos toneel.",
+    date: "2026-05-05"
+  },
+  {
+    show_id: "prima-facie",
+    bron: "NRC",
+    sterren: 5,
+    quote: "Maria Kraakman triomfeert in rake aanklacht tegen verouderde zedenwetten.",
+    date: "2026-05-05"
+  },
+  {
+    show_id: "prima-facie",
+    bron: "Trouw",
+    sterren: 4,
+    quote: "Anderhalf uur lang houdt Kraakman je aandacht gevangen.",
+    date: "2026-05-05"
+  },
+  {
+    show_id: "prima-facie",
+    bron: "De Groene Amsterdammer",
+    sterren: null,
+    quote: "Kraakman is een meester in een scherpte die ontroert.",
+    date: "2026-05-05"
+  },
+  {
+    show_id: "prima-facie",
+    bron: "8weekly",
+    sterren: 4,
+    quote: "Deze monoloog is voor de acteur een tour de force van anderhalf uur, Kraakman volbrengt hem schijnbaar moeiteloos, met humor of overmand door schaamte en verdriet.",
+    date: "2026-05-05"
+  },
+
+  // Nachtwacht (NITE / Guy Weizman)
+  {
+    show_id: "nachtwacht",
+    bron: "de Volkskrant",
+    sterren: 5,
+    quote: "Jack Wouterse levert een ware krachttoer af.",
+    date: "2026-04-15"
+  },
+  {
+    show_id: "nachtwacht",
+    bron: "NRC",
+    sterren: 5,
+    quote: "Alles wat je in het theater hoopt te ervaren.",
+    date: "2026-04-15"
+  },
+  {
+    show_id: "nachtwacht",
+    bron: "Trouw",
+    sterren: 4,
+    quote: "Hartverscheurend en troostrijk theater.",
+    date: "2026-04-15"
+  },
+  {
+    show_id: "nachtwacht",
+    bron: "Theaterkrant",
+    sterren: 5,
+    quote: "Overweldigend totaaltheater.",
+    date: "2026-04-15"
+  },
+  {
+    show_id: "nachtwacht",
+    bron: "Dagblad van het Noorden",
+    sterren: 5,
+    quote: "Een weergaloze en aangrijpende verbeelding van een stervensproces.",
+    date: "2026-04-15"
+  },
+  {
+    show_id: "nachtwacht",
+    bron: "Leeuwarder Courant",
+    sterren: 5,
+    quote: "Werkelijk fenomenaal!",
+    date: "2026-04-15"
+  },
+
+  // Medea voor een toeslagenherdenking (Toneelschuur Producties / Angelo Ormskerk)
+  {
+    show_id: "medea-voor-een-toeslagenherdenking",
+    bron: "NRC",
+    sterren: 4,
+    quote: "Hoogtepunt is Urmie Plein als Maria, die haar vechtlust en wanhoop van de buhne laat kletteren.",
+    date: "2026-04-24"
+  },
+  {
+    show_id: "medea-voor-een-toeslagenherdenking",
+    bron: "Theaterkrant",
+    sterren: 4,
+    quote: "In een overtuigende kreet van actrice Urmie Plein wordt het verdriet van al die mensen invoelbaar.",
+    date: "2026-04-24"
+  },
+  {
+    show_id: "medea-voor-een-toeslagenherdenking",
+    bron: "de Volkskrant",
+    sterren: 3,
+    quote: "Ormskerk toont zich een zeer geengageerd theatermaker.",
+    date: "2026-04-24"
+  },
+  {
+    show_id: "medea-voor-een-toeslagenherdenking",
+    bron: "8weekly",
+    sterren: 4,
+    quote: "Joe Sinduhije als Michael is de vondst van deze voorstelling.",
+    date: "2026-04-24"
+  },
+
+  // Het incident (ITA / June Yanez) - premiere 17 mei 2026
+  {
+    show_id: "het-incident",
+    bron: "ITA Pers",
+    sterren: null,
+    quote: "Een eerlijke en confronterende coming-of-age. Op een vierkante meter speelt June Yanez tien rollen, in een wereld waarin sommige dromen mogen vliegen en andere de kop in worden gedrukt.",
+    date: "2026-05-17"
+  },
+
+  // Wuthering Heights (ITA / Kjersti Horn) - premiere december 2026
+  {
+    show_id: "wuthering-heights",
+    bron: "ITA",
+    sterren: null,
+    quote: "Wie pijn lijdt, geeft pijn door. Een rauwe, fysieke voorstelling over klasse, verlangen en de cyclus van geweld die van generatie op generatie wordt doorgegeven.",
+    date: "2026-12-06"
   }
 ];
