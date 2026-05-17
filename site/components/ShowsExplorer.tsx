@@ -293,7 +293,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         onToggleFav={toggleFav}
       />
 
-      <section id="voorstellingen">
+      <section id="voorstellingen" className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
         style={{ background: "#FFE600" }}

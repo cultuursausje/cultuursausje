@@ -90,15 +90,15 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
               size={11}
               className={idx < (quote.sterren ?? 0)
                 ? "fill-[#E5B53A] stroke-[#E5B53A]"
-                : "stroke-line"}
+                : "stroke-white/30"}
             />
           ))}
         </div>
       )}
-      <p className="text-sm italic text-ink-soft leading-relaxed">
+      <p className="text-sm italic text-white leading-relaxed">
         &ldquo;{quote.quote}&rdquo;
       </p>
-      <div className="mt-0.5 text-[11px] text-ink-muted inline-flex items-center gap-1">
+      <div className="mt-0.5 text-[11px] text-white/70 inline-flex items-center gap-1">
         {quote.bron}
         {quote.date && (
           <>
@@ -106,7 +106,7 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
             <span className="lowercase">{formatShortDate(quote.date)}</span>
           </>
         )}
-        {quote.url && <ExternalLink size={9} className="text-ink-faint" />}
+        {quote.url && <ExternalLink size={9} className="text-white/60" />}
       </div>
     </>
   );
@@ -213,11 +213,21 @@ export function RecensiesSection({ shows }: Props) {
                       </div>
                     </div>
 
-                    {/* Recensies-vlak (beige) onder de foto */}
-                    <div
-                      className="rounded-2xl p-4 sm:p-5 space-y-3"
-                      style={{ background: PANEL_BG }}
-                    >
+                    {/* Link naar voorstelling — boven de recensies */}
+                    {show.ticket_url && (
+                      <a
+                        href={show.ticket_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-sm font-medium text-white hover:underline underline-offset-2"
+                      >
+                        Naar de voorstelling op {show.gezelschap_display}
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
+
+                    {/* Recensies direct op de paarse achtergrond, geen vlak */}
+                    <div className="space-y-4">
                       {visible.map((q, i) => (
                         <QuoteRow key={i} quote={q} />
                       ))}
@@ -225,23 +235,12 @@ export function RecensiesSection({ shows }: Props) {
                         <button
                           type="button"
                           onClick={() => toggleReviews(show.id)}
-                          className="text-xs font-medium text-ink hover:underline underline-offset-2"
+                          className="text-xs font-medium text-white hover:underline underline-offset-2"
                         >
                           {isOpenReviews
                             ? "Minder recensies"
                             : `+${quotes.length - INITIAL_QUOTES} meer recensies`}
                         </button>
-                      )}
-                      {show.ticket_url && (
-                        <a
-                          href={show.ticket_url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="block pt-3 border-t border-white/70 text-xs font-medium text-ink hover:underline underline-offset-2 inline-flex items-center gap-1"
-                        >
-                          Naar de voorstelling op {show.gezelschap_display}
-                          <ExternalLink size={11} />
-                        </a>
                       )}
                     </div>
                   </div>
