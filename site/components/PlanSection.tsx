@@ -242,6 +242,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                 datesWithShows={datesWithShows}
                 lang={lang}
                 onSelect={d => { setDate(d); setDateOpen(false); }}
+                onClose={() => setDateOpen(false)}
               />
             )}
           </div>
@@ -424,9 +425,10 @@ interface CalendarProps {
   datesWithShows: Set<string>;
   lang: Lang;
   onSelect: (iso: string) => void;
+  onClose: () => void;
 }
 
-function CalendarPopover({ value, datesWithShows, lang, onSelect }: CalendarProps) {
+function CalendarPopover({ value, datesWithShows, lang, onSelect, onClose }: CalendarProps) {
   const initial = value ? new Date(value + "T12:00:00") : new Date();
   const [viewYear, setViewYear] = useState(initial.getFullYear());
   const [viewMonth, setViewMonth] = useState(initial.getMonth());
@@ -454,7 +456,21 @@ function CalendarPopover({ value, datesWithShows, lang, onSelect }: CalendarProp
   };
 
   return (
-    <div className="absolute left-0 top-full z-50 mt-2 w-72 rounded-2xl border border-line bg-white p-3 shadow-xl">
+    <>
+      {/* Donker overlay achter de kalender, alleen op mobiel. Tap = sluiten. */}
+      <div
+        className="fixed inset-0 z-40 bg-black/40 sm:hidden"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className="
+          z-50 rounded-2xl border border-line bg-white p-3 shadow-xl
+          fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(20rem,calc(100vw-2rem))]
+          sm:absolute sm:left-0 sm:top-full sm:translate-x-0 sm:translate-y-0 sm:mt-2 sm:w-72
+        "
+        onClick={e => e.stopPropagation()}
+      >
       <div className="mb-2 flex items-center justify-between">
         <button type="button" onClick={prevMonth} className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-[#F8F6EF]" aria-label="Vorige maand">
           <ChevronLeft size={14} />
@@ -508,6 +524,7 @@ function CalendarPopover({ value, datesWithShows, lang, onSelect }: CalendarProp
           );
         })}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

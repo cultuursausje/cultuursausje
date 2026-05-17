@@ -473,7 +473,7 @@ export const festivals: Festival[] = [
   {
     id: "o-festival",
     naam: "O. Festival",
-    periode: "Eind mei – begin juni",
+    periode: "Mei – Juni",
     plaats: "Rotterdam",
     beschrijving: "Internationaal festival voor opera, muziektheater en performance in Rotterdam. Grensverleggend werk op bijzondere plekken in de stad, van werven tot werkplaatsen.",
     beschrijving_en: "International festival for opera, music theatre and performance in Rotterdam. Boundary-pushing work in unusual places across the city, from shipyards to workshops.",
@@ -603,7 +603,7 @@ export const festivals: Festival[] = [
   {
     id: "spring-utrecht",
     naam: "SPRING Performing Arts Festival",
-    periode: "Eind mei",
+    periode: "Mei",
     plaats: "Utrecht",
     beschrijving: "Internationaal festival voor hedendaagse podiumkunsten in Utrecht. Tien dagen vernieuwend werk uit binnen- en buitenland, op grote en kleine podia én op locatie.",
     beschrijving_en: "International festival for contemporary performing arts in Utrecht. Ten days of innovative work from home and abroad, on large and small stages as well as on location.",

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import type { Gezelschap } from "@/types";
-import { useT } from "@/lib/i18n";
+import { useT, useLang, translateGezelschapType } from "@/lib/i18n";
 
 interface Props {
   gezelschappen: Gezelschap[];
@@ -41,6 +41,7 @@ const INITIAL_CITY_COUNT = 2;
 
 export function GezelschappenSection({ gezelschappen }: Props) {
   const t = useT();
+  const { lang } = useLang();
   const grouped = groupByCity(gezelschappen);
   const [expanded, setExpanded] = useState(false);
   const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
@@ -80,7 +81,7 @@ export function GezelschappenSection({ gezelschappen }: Props) {
                       {g.naam}
                       <ExternalLink size={12} className="text-white/70" />
                     </a>
-                    <div className="mt-0.5 text-xs text-white/75">{g.type}</div>
+                    <div className="mt-0.5 text-xs text-white/75">{translateGezelschapType(g.type, lang)}</div>
                   </div>
                 ))}
               </div>

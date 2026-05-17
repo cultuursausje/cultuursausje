@@ -68,8 +68,8 @@ const T = {
     en: "Companies & collectives"
   },
   "section.gezelschappen.subtitle": {
-    nl: "De grootste theatergezelschappen en theatercollectieven van Nederland.",
-    en: "The biggest theatre companies and collectives in the Netherlands."
+    nl: "De grootste theatergezelschappen en theatercollectieven.",
+    en: "The biggest theatre companies and collectives."
   },
   "section.theaters.title": {
     nl: "Theaters",
@@ -279,6 +279,22 @@ export function translatePeriode(periode: string, lang: Lang): string {
     );
   }
   return out;
+}
+
+/** Vertaalt het Nederlandse `type`-label van een gezelschap naar Engels.
+ *  De typen zijn een beperkte set; alles dat we niet herkennen valt terug
+ *  op de NL-versie. */
+const GEZELSCHAP_TYPE_NL_TO_EN: Record<string, string> = {
+  "Rijksgesubsidieerd theatergezelschap": "State-subsidised theatre company",
+  "Theatercollectief": "Theatre collective",
+  "Theatercollectief (muziektheater)": "Theatre collective (music theatre)",
+  "Productiehuis": "Production house",
+  "Productiehuis (interdisciplinair hiphop/urban)": "Production house (interdisciplinary hip-hop/urban)"
+};
+
+export function translateGezelschapType(type: string, lang: Lang): string {
+  if (lang === "nl") return type;
+  return GEZELSCHAP_TYPE_NL_TO_EN[type] ?? type;
 }
 
 type Key = keyof typeof T;
