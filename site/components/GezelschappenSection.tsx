@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import type { Gezelschap } from "@/types";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   gezelschappen: Gezelschap[];
@@ -39,22 +40,23 @@ function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
 const INITIAL_CITY_COUNT = 2;
 
 export function GezelschappenSection({ gezelschappen }: Props) {
+  const t = useT();
   const grouped = groupByCity(gezelschappen);
   const [expanded, setExpanded] = useState(false);
   const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
   const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section id="gezelschappen" className="mt-20 sm:mt-24 lg:h-full">
+    <section id="gezelschappen" className="mt-20 sm:mt-24">
       <div
-        className="flex flex-col rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10 lg:h-full"
+        className="rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10"
         style={{ background: "#2D4DEB" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
-          Gezelschappen & collectieven
+          {t("section.gezelschappen.title")}
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/80">
-          De grootste theatergezelschappen en theatercollectieven van Nederland.
+          {t("section.gezelschappen.subtitle")}
         </p>
 
         <div className="space-y-10">
@@ -87,7 +89,7 @@ export function GezelschappenSection({ gezelschappen }: Props) {
         </div>
 
         {hasMore && (
-          <div className="mt-auto pt-8 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <button
               onClick={() => setExpanded(v => !v)}
               className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"

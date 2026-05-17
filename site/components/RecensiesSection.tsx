@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Star, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   shows: ShowDisplay[];
@@ -120,6 +121,7 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
 }
 
 export function RecensiesSection({ shows }: Props) {
+  const t = useT();
   const featured = pickFeatured(shows);
   const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set());
 
@@ -161,10 +163,10 @@ export function RecensiesSection({ shows }: Props) {
         style={{ background: "#5C2D9B" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
-          Niet te missen voorstellingen
+          {t("section.recensies.title")}
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/80">
-          Voorstellingen met de meeste buzz dit seizoen, gemeten aan lovende recensies en uitverkochte speelperiodes.
+          {t("section.recensies.subtitle")}
         </p>
 
         <div className="relative">

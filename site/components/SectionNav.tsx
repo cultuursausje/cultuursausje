@@ -1,34 +1,38 @@
-/**
- * Navigatie-links bovenaan de pagina — één label per sectie, met
- * verticale streep ertussen. Klikt naar de overeenkomstige #anchor.
- */
+"use client";
+
+import { useT } from "@/lib/i18n";
+import { LanguageSwitch } from "./LanguageSwitch";
 
 const NAV_ITEMS = [
-  { label: "Niet te missen", anchor: "recensies" },
-  { label: "Plan", anchor: "plan" },
-  { label: "Voorstellingen", anchor: "voorstellingen" },
-  { label: "Festivals", anchor: "festivals" },
-  { label: "Voordeel", anchor: "voordeel" },
-  { label: "Gezelschappen", anchor: "gezelschappen" },
-  { label: "Theaters", anchor: "theaters" }
-];
+  { tKey: "nav.recensies", anchor: "recensies" },
+  { tKey: "nav.plan", anchor: "plan" },
+  { tKey: "nav.voorstellingen", anchor: "voorstellingen" },
+  { tKey: "nav.festivals", anchor: "festivals" },
+  { tKey: "nav.voordeel", anchor: "voordeel" },
+  { tKey: "nav.gezelschappen", anchor: "gezelschappen" },
+  { tKey: "nav.theaters", anchor: "theaters" }
+] as const;
 
 export function SectionNav() {
+  const t = useT();
   return (
-    <nav className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-bold text-ink sm:text-base sm:gap-x-4">
-      {NAV_ITEMS.map((item, i) => (
-        <span key={item.anchor} className="flex items-center gap-x-3 sm:gap-x-4">
-          {i > 0 && (
-            <span className="text-ink-faint/70" aria-hidden="true">|</span>
-          )}
-          <a
-            href={`#${item.anchor}`}
-            className="hover:underline underline-offset-4 transition-colors"
-          >
-            {item.label}
-          </a>
-        </span>
-      ))}
+    <nav className="mb-6 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm font-bold text-ink sm:text-base sm:gap-x-4">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4">
+        {NAV_ITEMS.map((item, i) => (
+          <span key={item.anchor} className="flex items-center gap-x-3 sm:gap-x-4">
+            {i > 0 && (
+              <span className="text-ink-faint/70" aria-hidden="true">|</span>
+            )}
+            <a
+              href={`#${item.anchor}`}
+              className="hover:underline underline-offset-4 transition-colors"
+            >
+              {t(item.tKey)}
+            </a>
+          </span>
+        ))}
+      </div>
+      <LanguageSwitch />
     </nav>
   );
 }

@@ -38,19 +38,21 @@ export function pillForMonth(
   const periodEnd = end > monthEnd ? monthEnd : end;
 
   const monthName = MONTH_NAMES_SHORT[monthIdx];
+  const monthCap = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+  const monthFullCap = MONTH_NAMES[monthIdx].charAt(0).toUpperCase() + MONTH_NAMES[monthIdx].slice(1);
 
   // hele maand
   if (
     periodStart.getDate() === 1 &&
     periodEnd.getDate() === monthEnd.getDate()
   ) {
-    return `hele ${MONTH_NAMES[monthIdx]}`;
+    return `Hele ${monthFullCap}`;
   }
 
   if (periodStart.getDate() === periodEnd.getDate()) {
-    return `${periodStart.getDate()} ${monthName}`;
+    return `${periodStart.getDate()} ${monthCap}`;
   }
-  return `${periodStart.getDate()}–${periodEnd.getDate()} ${monthName}`;
+  return `${periodStart.getDate()}–${periodEnd.getDate()} ${monthCap}`;
 }
 
 /**

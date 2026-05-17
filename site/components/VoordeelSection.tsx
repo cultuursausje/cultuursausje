@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { useT } from "@/lib/i18n";
 
 interface VoordeelTip {
   naam: string;
@@ -20,6 +21,7 @@ const VOORDEEL_TIPS: VoordeelTip[] = [
 const INITIAL_COUNT = 8;
 
 export function VoordeelSection() {
+  const t = useT();
   const [expanded, setExpanded] = useState(false);
   const visible = expanded ? VOORDEEL_TIPS : VOORDEEL_TIPS.slice(0, INITIAL_COUNT);
   const hasMore = VOORDEEL_TIPS.length > INITIAL_COUNT;
@@ -31,10 +33,10 @@ export function VoordeelSection() {
         style={{ background: "#FF3B7C" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
-          Met voordeel naar theater
+          {t("section.voordeel.title")}
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/70">
-          Passen, regelingen en kortingsopties om voordeliger naar het theater te gaan.
+          {t("section.voordeel.subtitle")}
         </p>
 
         <div className="grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">

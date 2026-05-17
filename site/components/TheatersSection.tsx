@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ExternalLink, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import type { Theater } from "@/types";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   /** Alle theaters voor in de lijst, gegroepeerd per stad. */
@@ -46,25 +47,26 @@ function mapsLinkForTheater(theater: string, stad: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater + ", " + stad)}`;
 }
 
-const INITIAL_CITY_COUNT = 4;
+const INITIAL_CITY_COUNT = 3;
 
 export function TheatersSection({ theaters }: Props) {
+  const t = useT();
   const grouped = groupByCity(theaters);
   const [expanded, setExpanded] = useState(false);
   const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
   const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section id="theaters" className="mt-20 sm:mt-24 lg:h-full">
+    <section id="theaters" className="mt-20 sm:mt-24">
       <div
-        className="flex flex-col rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10 lg:h-full"
+        className="rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10"
         style={{ background: "#C7DC2D" }}
       >
         <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
-          Theaters
+          {t("section.theaters.title")}
         </h2>
         <p className="mb-8 max-w-xl text-sm text-ink-soft">
-          Plekken waar de voorstellingen spelen.
+          {t("section.theaters.subtitle")}
         </p>
 
         <div className="space-y-10">
@@ -104,7 +106,7 @@ export function TheatersSection({ theaters }: Props) {
         </div>
 
         {hasMore && (
-          <div className="mt-auto pt-8 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <button
               onClick={() => setExpanded(v => !v)}
               className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"

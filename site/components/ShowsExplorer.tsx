@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
+import { useT } from "@/lib/i18n";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
 import { PlanSection } from "./PlanSection";
@@ -46,6 +47,7 @@ interface MonthGroup {
 }
 
 export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, festivals }: Props) {
+  const t = useT();
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [flipped, setFlipped] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -300,10 +302,10 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       >
       {/* Sectietitel + filter chips */}
       <h2 className="font-display mb-2 text-3xl text-ink tracking-tight sm:text-4xl">
-        Alle voorstellingen
+        {t("section.voorstellingen.title")}
       </h2>
       <p className="mb-6 text-sm text-ink-soft sm:text-base">
-        Welke stad wil je zien? Standaard: Amsterdam. Selecteer er meer of een andere.
+        {t("section.voorstellingen.subtitle")}
       </p>
 
       <div className="mb-8 flex flex-wrap items-center gap-2 sm:mb-10">
@@ -474,9 +476,9 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <FestivalsSection festivals={festivals} shows={filteredShows} />
       <VoordeelSection />
 
-      {/* Gezelschappen + Theaters — paired side-by-side op desktop, gelijke hoogte.
-          Op mobiel stapelen ze met hun normale mt-20 ertussen (geen extra grid-gap). */}
-      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-stretch">
+      {/* Gezelschappen + Theaters — paired side-by-side op desktop met natuurlijke
+          hoogtes (geen stretch). Op mobiel stapelen ze met hun normale mt-20. */}
+      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
         <GezelschappenSection gezelschappen={allGezelschappen} />
         <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       </div>

@@ -5,6 +5,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink } from "lucide-rea
 import type { Festival, ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
 import { ShowDetailPanel } from "./ShowCard";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   shows: ShowDisplay[];
@@ -47,6 +48,7 @@ function fmtDateLong(iso: string): string {
 }
 
 export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props) {
+  const t = useT();
   const [city, setCity] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [englishOnly, setEnglishOnly] = useState<boolean>(false);
@@ -151,10 +153,10 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
         style={{ background: "#FF8A6E" }}
       >
         <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
-          Plan je theateravond
+          {t("section.plan.title")}
         </h2>
         <p className="mb-6 max-w-xl text-sm text-ink-soft">
-          Kies een stad en datum, eventueel met English friendly, en zie welke voorstellingen of festivals die avond aansluiten.
+          {t("section.plan.subtitle")}
         </p>
 
         <div className="flex flex-wrap items-center gap-2">

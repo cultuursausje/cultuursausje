@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ExternalLink, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Festival, FestivalShow, ShowDisplay } from "@/types";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   festivals: Festival[];
@@ -101,6 +102,7 @@ function sortFestivalsByDate(festivals: Festival[], currentMonth: number): Festi
 }
 
 export function FestivalsSection({ festivals, shows }: Props) {
+  const t = useT();
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
   const [openShowId, setOpenShowId] = useState<string | null>(null);
@@ -159,10 +161,10 @@ export function FestivalsSection({ festivals, shows }: Props) {
         style={{ background: "#FF5722" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
-          Theaterfestivals
+          {t("section.festivals.title")}
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/85">
-          De grootste theaterfestivals van Nederland, met locatietheater, internationale gezelschappen en grensverleggend werk. Klik op een festival voor meer info.
+          {t("section.festivals.subtitle")}
         </p>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
