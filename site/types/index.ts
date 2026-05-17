@@ -115,6 +115,9 @@ export interface Festival {
   periode: string;
   plaats: string;
   beschrijving: string;
+  /** Optionele Engelse vertaling van de beschrijving — gebruikt wanneer
+   *  de taalswitch op EN staat. Valt terug op `beschrijving` als afwezig. */
+  beschrijving_en?: string;
   url: string;
   accent: string; // hex kleur voor de teaser-card
   /** Categoriewoorden die in show.categorieen kunnen voorkomen om koppeling te bepalen */

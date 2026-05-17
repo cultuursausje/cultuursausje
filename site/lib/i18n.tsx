@@ -185,9 +185,14 @@ const MONTH_SHORT_EN = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", 
 const DAY_SHORT_NL = ["zo", "ma", "di", "wo", "do", "vr", "za"];
 const DAY_SHORT_EN = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
+/** Engels: maandnamen beginnen met hoofdletter. NL: lowercase. */
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 export function monthLabelLang(year: number, monthIdx: number, lang: Lang): string {
-  const names = lang === "en" ? MONTH_NAMES_EN : MONTH_NAMES_NL;
-  return `${names[monthIdx]} ${year}`;
+  if (lang === "en") return `${capitalize(MONTH_NAMES_EN[monthIdx])} ${year}`;
+  return `${MONTH_NAMES_NL[monthIdx]} ${year}`;
 }
 
 export function monthShortLang(monthIdx: number, lang: Lang): string {
@@ -232,6 +237,48 @@ export function pillForMonthLang(
     return `${periodStart.getDate()} ${shortCap}`;
   }
   return `${periodStart.getDate()}–${periodEnd.getDate()} ${shortCap}`;
+}
+
+/** Vertaalt Nederlandse maandnamen in vrije tekst (zoals festival-periode
+ *  "Mei – Juni" of "Eind mei – begin juni") naar Engels. Behoudt hoofd/kleine
+ *  letters van de oorspronkelijke tekst per match. */
+const PERIODE_NL_TO_EN_FULL: Record<string, string> = {
+  januari: "January", februari: "February", maart: "March", april: "April",
+  mei: "May", juni: "June", juli: "July", augustus: "August",
+  september: "September", oktober: "October", november: "November", december: "December"
+};
+const PERIODE_NL_TO_EN_SHORT: Record<string, string> = {
+  jan: "Jan", feb: "Feb", mrt: "Mar", apr: "Apr",
+  jun: "Jun", jul: "Jul", aug: "Aug", sep: "Sep",
+  okt: "Oct", nov: "Nov", dec: "Dec"
+  // "mei" en "mar" overlappen — "mei" wordt door FULL afgehandeld
+};
+const PERIODE_PHRASES_NL_TO_EN: Record<string, string> = {
+  eind: "End of", begin: "Early", halverwege: "Mid", medio: "Mid"
+};
+
+export function translatePeriode(periode: string, lang: Lang): string {
+  if (lang === "nl") return periode;
+  let out = periode;
+  // Lange maandnamen (case-insensitive) — match hoofdletter aan eerste letter
+  for (const [nl, en] of Object.entries(PERIODE_NL_TO_EN_FULL)) {
+    out = out.replace(new RegExp(`\\b${nl}\\b`, "gi"), (m) =>
+      m[0] === m[0].toUpperCase() ? en : en.toLowerCase()
+    );
+  }
+  // Korte maandnamen (3 letters)
+  for (const [nl, en] of Object.entries(PERIODE_NL_TO_EN_SHORT)) {
+    out = out.replace(new RegExp(`\\b${nl}\\b`, "gi"), (m) =>
+      m[0] === m[0].toUpperCase() ? en : en.toLowerCase()
+    );
+  }
+  // Beschrijvende woorden
+  for (const [nl, en] of Object.entries(PERIODE_PHRASES_NL_TO_EN)) {
+    out = out.replace(new RegExp(`\\b${nl}\\b`, "gi"), (m) =>
+      m[0] === m[0].toUpperCase() ? en : en.toLowerCase()
+    );
+  }
+  return out;
 }
 
 type Key = keyof typeof T;

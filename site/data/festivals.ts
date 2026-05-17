@@ -7,15 +7,14 @@ export const festivals: Festival[] = [
     periode: "Juni",
     plaats: "Amsterdam",
     beschrijving: "Het oudste en grootste internationale podiumkunstenfestival van Nederland. Toont jaarlijks gerenommeerde internationale gezelschappen en grensverleggend werk.",
+    beschrijving_en: "The oldest and largest international performing arts festival in the Netherlands. Each year showcases renowned international companies and boundary-pushing work.",
     url: "https://www.hollandfestival.nl",
     accent: "#FF3D8B",
     match_keywords: ["holland festival"],
     foto_urls: [
-      "https://picsum.photos/seed/holland-festival-1/1280/720",
-      "https://picsum.photos/seed/holland-festival-2/1280/720",
-      "https://picsum.photos/seed/holland-festival-3/1280/720"
+      "https://www.hollandfestival.nl/media/cache/text_image_2xl/media/2025/berenice/16062025_berenice__copy__elodie_vreeburg__2__1394x930.jpg?b803f8d0"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Elodie Vreeburg"
   },
   {
     id: "julidans",
@@ -23,6 +22,7 @@ export const festivals: Festival[] = [
     periode: "Juli",
     plaats: "Amsterdam",
     beschrijving: "Het grootste festival voor hedendaagse internationale dans in Nederland. Twee weken lang vernieuwende choreografieën.",
+    beschrijving_en: "The largest festival for contemporary international dance in the Netherlands. Two weeks of innovative choreography.",
     url: "https://www.julidans.nl",
     accent: "#9BD43F",
     match_keywords: ["julidans"],
@@ -173,6 +173,7 @@ export const festivals: Festival[] = [
     periode: "Juni",
     plaats: "Terschelling",
     beschrijving: "Tien dagen locatietheater, muziek en beeldende kunst op Terschelling. Het hele Waddeneiland is podium.",
+    beschrijving_en: "Ten days of site-specific theatre, music and visual art on Terschelling. The entire Wadden island becomes the stage.",
     url: "https://www.oerol.nl",
     accent: "#2D4DEB",
     match_keywords: ["oerol"],
@@ -311,6 +312,7 @@ export const festivals: Festival[] = [
     periode: "September",
     plaats: "Amsterdam",
     beschrijving: "De beste Nederlandse en Vlaamse theaterproducties van het afgelopen seizoen, samengebracht in één feestelijk festival.",
+    beschrijving_en: "The best Dutch and Flemish theatre productions of the past season, brought together in one celebratory festival.",
     url: "https://www.tf.nl",
     accent: "#E5B53A",
     match_keywords: ["nederlands theater festival", "ntf"],
@@ -402,15 +404,14 @@ export const festivals: Festival[] = [
     periode: "September",
     plaats: "Amsterdam",
     beschrijving: "Elf dagen vernieuwend, eigenzinnig en internationaal theater door 70+ nieuwe makers in Amsterdam.",
+    beschrijving_en: "Eleven days of innovative, idiosyncratic and international theatre by 70+ emerging makers in Amsterdam.",
     url: "https://www.amsterdamfringefestival.nl",
     accent: "#FF6B35",
     match_keywords: ["amsterdam fringe", "fringe"],
     foto_urls: [
-      "https://picsum.photos/seed/fringe-amsterdam-1/1280/720",
-      "https://picsum.photos/seed/fringe-amsterdam-2/1280/720",
-      "https://picsum.photos/seed/fringe-amsterdam-3/1280/720"
+      "https://amsterdamfringefestival.nl/wp-content/uploads/2025/10/DaddysLittleProblem_FotoAnneliesVerhelst-6-scaled.jpg"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Annelies Verhelst"
   },
   {
     id: "festival-boulevard",
@@ -418,6 +419,7 @@ export const festivals: Festival[] = [
     periode: "Augustus",
     plaats: "'s-Hertogenbosch",
     beschrijving: "Tiendaags festival in Den Bosch met internationaal en Nederlands vernieuwend theater, dans en muziek.",
+    beschrijving_en: "Ten-day festival in Den Bosch featuring innovative international and Dutch theatre, dance and music.",
     url: "https://www.festivalboulevard.nl",
     accent: "#B85FFF",
     match_keywords: ["festival boulevard", "boulevard"],
@@ -434,15 +436,14 @@ export const festivals: Festival[] = [
     periode: "Mei – Juni",
     plaats: "Noord-Holland",
     beschrijving: "Locatie- en straat-theater verspreid over Noord-Holland. Theater op bijzondere plekken, ver weg van de zaal.",
+    beschrijving_en: "Site-specific and street theatre spread across North Holland. Theatre in unusual places, far from the auditorium.",
     url: "https://www.karavaan.nl",
     accent: "#00B4FF",
     match_keywords: ["karavaan"],
     foto_urls: [
-      "https://picsum.photos/seed/karavaan-1/1280/720",
-      "https://picsum.photos/seed/karavaan-2/1280/720",
-      "https://picsum.photos/seed/karavaan-3/1280/720"
+      "https://www.karavaan.nl/wp-content/uploads/2026/01/KF26_Affichebeeld_HART_liggend_2_RGB-1060x596.jpg"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Karavaan Festival"
   },
   {
     id: "o-festival",
@@ -450,6 +451,7 @@ export const festivals: Festival[] = [
     periode: "Eind mei – begin juni",
     plaats: "Rotterdam",
     beschrijving: "Internationaal festival voor opera, muziektheater en performance in Rotterdam. Grensverleggend werk op bijzondere plekken in de stad, van werven tot werkplaatsen.",
+    beschrijving_en: "International festival for opera, music theatre and performance in Rotterdam. Boundary-pushing work in unusual places across the city, from shipyards to workshops.",
     url: "https://o-festival.nl/",
     accent: "#5BB8C2",
     match_keywords: ["o. festival", "o festival", "operadagen", "operadagen rotterdam"],
@@ -567,6 +569,7 @@ export const festivals: Festival[] = [
     periode: "Eind mei",
     plaats: "Utrecht",
     beschrijving: "Internationaal festival voor hedendaagse podiumkunsten in Utrecht. Tien dagen vernieuwend werk uit binnen- en buitenland, op grote en kleine podia én op locatie.",
+    beschrijving_en: "International festival for contemporary performing arts in Utrecht. Ten days of innovative work from home and abroad, on large and small stages as well as on location.",
     url: "https://springutrecht.nl",
     accent: "#9B7EBD",
     match_keywords: ["spring", "spring utrecht", "spring performing arts"],
@@ -714,6 +717,7 @@ export const festivals: Festival[] = [
     periode: "Juni – Augustus",
     plaats: "Rotterdam, Den Haag, Amsterdam, Utrecht",
     beschrijving: "Het enige rondreizende theaterfestival ter wereld. 80+ korte voorstellingen in theatertenten,theater, dans, mime en muziek, ieder zo'n 30 minuten zodat je er meerdere op een avond kan combineren. 's Zomers achtereenvolgens in Rotterdam, Den Haag, Amsterdam en Utrecht.",
+    beschrijving_en: "The only travelling theatre festival in the world. 80+ short performances in circus tents,theatre, dance, mime and music, each about 30 minutes long so you can combine several in one evening. In summer it travels in succession through Rotterdam, The Hague, Amsterdam and Utrecht.",
     url: "https://deparade.nl",
     accent: "#FF8A33",
     match_keywords: ["de parade", "parade"],

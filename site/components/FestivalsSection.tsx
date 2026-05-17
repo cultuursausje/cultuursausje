@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ExternalLink, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Festival, FestivalShow, ShowDisplay } from "@/types";
-import { useT } from "@/lib/i18n";
+import { useT, useLang, translatePeriode } from "@/lib/i18n";
 
 interface Props {
   festivals: Festival[];
@@ -103,6 +103,7 @@ function sortFestivalsByDate(festivals: Festival[], currentMonth: number): Festi
 
 export function FestivalsSection({ festivals, shows }: Props) {
   const t = useT();
+  const { lang } = useLang();
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
   const [openShowId, setOpenShowId] = useState<string | null>(null);
@@ -188,7 +189,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
                   <div className="text-xs font-semibold uppercase tracking-widest opacity-90">
-                    {f.periode} · {f.plaats}
+                    {translatePeriode(f.periode, lang)} · {f.plaats}
                   </div>
                   <div>
                     <div className="text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
@@ -252,7 +253,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
                     <div className="absolute inset-0 flex items-end p-6 sm:p-8 text-white">
                       <div>
                         <div className="text-xs font-semibold uppercase tracking-widest opacity-80">
-                          {open.periode} · {open.plaats}
+                          {translatePeriode(open.periode, lang)} · {open.plaats}
                         </div>
                         <div className="mt-1 text-2xl font-medium tracking-tight sm:text-3xl">
                           {open.naam}
@@ -270,7 +271,9 @@ export function FestivalsSection({ festivals, shows }: Props) {
             </div>
 
             <div className="p-6 sm:p-8">
-              <p className="text-sm text-ink-soft leading-relaxed">{open.beschrijving}</p>
+              <p className="text-sm text-ink-soft leading-relaxed">
+                {lang === "en" && open.beschrijving_en ? open.beschrijving_en : open.beschrijving}
+              </p>
               {open.url && (
                 <a
                   href={open.url}

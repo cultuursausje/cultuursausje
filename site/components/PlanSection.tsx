@@ -5,7 +5,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink } from "lucide-rea
 import type { Festival, ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
 import { ShowDetailPanel } from "./ShowCard";
-import { useT, useLang, monthLabelLang, monthShortLang, type Lang } from "@/lib/i18n";
+import { useT, useLang, monthLabelLang, monthShortLang, translatePeriode, type Lang } from "@/lib/i18n";
 
 interface Props {
   shows: ShowDisplay[];
@@ -71,18 +71,43 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
   const cities = useMemo(() => {
     const set = new Set<string>();
     shows.forEach(s => s.venues.forEach(v => v.theater_stad && set.add(v.theater_stad)));
+    // Ook steden waar festivals plaatsvinden meenemen — `f.plaats` kan een
+    // enkele stad zijn ("Amsterdam") of een lijst ("Rotterdam, Den Haag, ...").
+    festivals.forEach(f => {
+      f.plaats.split(/[,/]/).forEach(part => {
+        const stad = part.trim();
+        if (stad) set.add(stad);
+      });
+    });
     return Array.from(set).sort((a, b) =>
       a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
     );
-  }, [shows]);
+  }, [shows, festivals]);
 
   const datesWithShows = useMemo(() => {
     const set = new Set<string>();
     shows.forEach(s => s.venues.forEach(v => {
       if (v.theater_stad === city) v.speeldata.forEach(d => set.add(d));
     }));
+    // Voor festivals weten we de exacte dagen niet — alleen de maand-range.
+    // Markeer alle dagen van de gedekte maanden voor de geselecteerde stad,
+    // zodat de gebruiker iets te kiezen heeft op de kalender.
+    if (city) {
+      const cityLower = city.toLowerCase();
+      const year = new Date().getFullYear();
+      festivals.forEach(f => {
+        if (!f.plaats.toLowerCase().includes(cityLower)) return;
+        const { start, end } = parsePeriode(f.periode);
+        for (let m = start; m <= end; m++) {
+          const daysInMonth = new Date(year, m, 0).getDate();
+          for (let d = 1; d <= daysInMonth; d++) {
+            set.add(`${year}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`);
+          }
+        }
+      });
+    }
     return set;
-  }, [shows, city]);
+  }, [shows, festivals, city]);
 
   const showResults = useMemo(() => {
     if (!date) return [];
@@ -337,7 +362,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                               {f.naam}
                             </div>
                             <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
-                              {f.periode} · {f.plaats}
+                              {translatePeriode(f.periode, lang)} · {f.plaats}
                             </div>
                           </div>
                           {hero && f.foto_credit && (
