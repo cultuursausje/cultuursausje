@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { ChevronDown, Heart } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
@@ -531,30 +531,6 @@ interface ShowCarouselProps {
 function ShowCarousel({
   items, expandedKey, favorites, selectedCities, viewMonth, onSelect, onToggleFav
 }: ShowCarouselProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [edge, setEdge] = useState({ atStart: true, atEnd: false });
-
-  const updateEdge = () => {
-    const el = ref.current;
-    if (!el) return;
-    setEdge({
-      atStart: el.scrollLeft <= 0,
-      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1
-    });
-  };
-
-  useEffect(() => {
-    const t = setTimeout(updateEdge, 50);
-    return () => clearTimeout(t);
-  }, [items.length]);
-
-  const scrollByCards = (dir: -1 | 1) => {
-    const el = ref.current;
-    if (!el) return;
-    const cardWidth = 176 + 12; // w-44 + gap-3
-    el.scrollBy({ left: dir * cardWidth * 2, behavior: "smooth" });
-  };
-
   const expandedItem = items.find(it => it.key === expandedKey);
   const cityResolvedVenues = expandedItem
     ? (() => {
@@ -568,49 +544,19 @@ function ShowCarousel({
   return (
     <div>
       <div className="relative">
-        <div
-          ref={ref}
-          onScroll={updateEdge}
-          className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
-        >
-          <div className="flex gap-3 snap-x snap-mandatory pb-2">
-            {items.map(({ show, pill, key }) => (
-              <SmallShowCard
-                key={key}
-                show={show}
-                pill={pill}
-                isFavorite={favorites.has(show.id)}
-                isActive={expandedKey === key}
-                onSelect={() => onSelect(key)}
-                onToggleFav={() => onToggleFav(show.id)}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {items.map(({ show, pill, key }) => (
+            <SmallShowCard
+              key={key}
+              show={show}
+              pill={pill}
+              isFavorite={favorites.has(show.id)}
+              isActive={expandedKey === key}
+              onSelect={() => onSelect(key)}
+              onToggleFav={() => onToggleFav(show.id)}
+            />
+          ))}
         </div>
-
-        {/* Pijltjes — alleen tonen als er meer is dan zichtbaar */}
-        {items.length > 2 && (
-          <>
-            <button
-              type="button"
-              onClick={() => scrollByCards(-1)}
-              disabled={edge.atStart}
-              className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-              aria-label="Vorige voorstellingen"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByCards(1)}
-              disabled={edge.atEnd}
-              className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-              aria-label="Volgende voorstellingen"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </>
-        )}
       </div>
 
       {expandedItem && (

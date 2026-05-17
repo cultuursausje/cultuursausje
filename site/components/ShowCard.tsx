@@ -29,11 +29,11 @@ export function SmallShowCard({
   const hasPhoto = !!show.foto_url;
 
   return (
-    <div className="relative shrink-0 snap-start w-40 sm:w-44">
+    <div className="relative w-full">
       <button
         type="button"
         onClick={onSelect}
-        className={`relative block w-full aspect-[3/4] overflow-hidden rounded-2xl text-left transition-all ${
+        className={`relative block w-full aspect-[4/5] overflow-hidden rounded-2xl text-left transition-all ${
           isActive
             ? "ring-2 ring-ink scale-[1.02]"
             : "hover:scale-[1.02] hover:-rotate-[0.6deg]"
