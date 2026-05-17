@@ -214,24 +214,13 @@ export function ShowDetailPanel({
               )}
             </div>
 
-            {/* Close + heart op de foto */}
+            {/* Close op de foto */}
             <button
               onClick={onClose}
               className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition-colors"
               aria-label="Sluiten"
             >
               <X size={16} />
-            </button>
-            <button
-              onClick={onToggleFav}
-              className="absolute top-3 right-13 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 shadow-sm hover:bg-white transition-colors"
-              style={{ right: "3.25rem" }}
-              aria-label="Favoriet"
-            >
-              <Heart
-                size={15}
-                className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
-              />
             </button>
 
             {/* Foto-navigatie bij meerdere foto's */}
@@ -275,7 +264,7 @@ export function ShowDetailPanel({
 
         {/* Content-area met padding */}
         <div className="relative p-4 sm:p-5">
-        {/* Close + heart + pills wanneer er GEEN foto is */}
+        {/* Close + pills wanneer er GEEN foto is */}
         {photos.length === 0 && (
           <>
             <button
@@ -285,17 +274,7 @@ export function ShowDetailPanel({
             >
               <X size={14} />
             </button>
-            <button
-              onClick={onToggleFav}
-              className="absolute top-3 right-12 z-20 flex h-7 w-7 items-center justify-center rounded-full hover:bg-line transition-colors"
-              aria-label="Favoriet"
-            >
-              <Heart
-                size={14}
-                className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
-              />
-            </button>
-            <div className="flex flex-wrap items-center gap-1.5 mb-2 pr-20">
+            <div className="flex flex-wrap items-center gap-1.5 mb-2 pr-12">
               <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft capitalize">
                 {genre}
               </span>
@@ -333,6 +312,33 @@ export function ShowDetailPanel({
           <p className="mt-3 text-sm text-ink-soft leading-relaxed">
             {fullDescription}
           </p>
+        )}
+
+        {/* Inline recensies — max 3, minimalistisch, geen los vlak */}
+        {show.pers_quotes.length > 0 && (
+          <div className="mt-5 space-y-3">
+            {show.pers_quotes.slice(0, 3).map((p, i) => (
+              <div key={i}>
+                {p.sterren !== null && (
+                  <div className="mb-1 flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <Star
+                        key={idx}
+                        size={11}
+                        className={idx < (p.sterren ?? 0)
+                          ? "fill-[#E5B53A] stroke-[#E5B53A]"
+                          : "stroke-line"}
+                      />
+                    ))}
+                  </div>
+                )}
+                <p className="text-sm italic text-ink-soft leading-relaxed">
+                  &ldquo;{p.quote}&rdquo;
+                </p>
+                <div className="mt-0.5 text-[11px] text-ink-muted">{p.bron}</div>
+              </div>
+            ))}
+          </div>
         )}
 
         {/* Speeldata */}
@@ -441,36 +447,6 @@ export function ShowDetailPanel({
         </div>
       </div>
 
-      {/* Recensies-paneel */}
-      {show.pers_quotes.length > 0 && (
-        <div
-          className="rounded-2xl p-4 sm:p-5"
-          style={{ background: PANEL_BG }}
-        >
-          <h4 className="mb-3 text-xs font-medium uppercase tracking-widest text-ink-muted">
-            Recensies
-          </h4>
-          <div className="space-y-2">
-            {show.pers_quotes.map((p, i) => (
-              <div key={i} className="rounded-xl bg-white/70 p-3">
-                {p.sterren !== null && (
-                  <div className="mb-1 flex gap-0.5">
-                    {Array.from({ length: 5 }).map((_, idx) => (
-                      <Star
-                        key={idx}
-                        size={12}
-                        className={idx < (p.sterren ?? 0) ? "fill-[#E5B53A] stroke-[#E5B53A]" : "stroke-line"}
-                      />
-                    ))}
-                  </div>
-                )}
-                <p className="text-xs italic text-ink-soft leading-relaxed sm:text-sm">&ldquo;{p.quote}&rdquo;</p>
-                <div className="mt-1 text-[10px] text-ink-muted">— {p.bron}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Media-paneel */}
       {show.media_links.length > 0 && (

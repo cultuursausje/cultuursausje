@@ -93,10 +93,10 @@ export function RecensiesSection({ shows }: Props) {
         style={{ background: "#5C2D9B" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
-          Net binnen, recensies
+          Niet te missen voorstellingen
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/80">
-          Recensies van voorstellingen die nu spelen, of van aankomende reprises met hoge waarderingen.
+          Voorstellingen met de meeste buzz dit seizoen, gemeten aan lovende recensies en doorlopende uitverkochte speelperiodes.
         </p>
 
         <div className="grid gap-5 lg:grid-cols-2">
