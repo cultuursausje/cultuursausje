@@ -40,27 +40,20 @@ section[id] {
 }
 
 /* Cultuursausje-zegel onderaan de pagina — rust standaard licht gekanteld
- * naar rechts. Bij hover: lichte wiebel + scherpe witte TL-gloed alsof
- * iemand 'm net heeft aangeklikt. */
+ * naar rechts. Bij hover: subtiele beweging (zelfde stijl als de cards
+ * elders op de pagina) + scherpe gele TL-gloed. */
 .bottle-sticker {
   transform: rotate(7deg);
-  transition: filter 250ms ease-out;
+  transition: transform 300ms ease-out, filter 250ms ease-out;
   will-change: transform, filter;
 }
 .bottle-sticker:hover {
-  animation: bottle-wiggle 0.7s ease-in-out infinite;
+  transform: rotate(5.8deg) scale(1.02);
   filter:
-    drop-shadow(0 0 2px #ffffff)
-    drop-shadow(0 0 4px #ffffff)
-    drop-shadow(0 0 10px rgba(255, 255, 255, 0.95))
-    drop-shadow(0 0 18px rgba(255, 255, 255, 0.7));
-}
-@keyframes bottle-wiggle {
-  0%   { transform: rotate(7deg) translateY(0); }
-  25%  { transform: rotate(3deg)  translateY(-2px); }
-  50%  { transform: rotate(11deg) translateY(0); }
-  75%  { transform: rotate(5deg)  translateY(-1px); }
-  100% { transform: rotate(7deg)  translateY(0); }
+    drop-shadow(0 0 2px #FFEB00)
+    drop-shadow(0 0 4px #FFEB00)
+    drop-shadow(0 0 10px rgba(255, 235, 0, 0.95))
+    drop-shadow(0 0 18px rgba(255, 235, 0, 0.7));
 }
 
 /* Subtiele grain — niet meer dan een hint van textuur */
