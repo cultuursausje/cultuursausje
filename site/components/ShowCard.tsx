@@ -153,6 +153,7 @@ export function ShowDetailPanel({
     : show.foto_url ? [show.foto_url] : [];
   const [photoIdx, setPhotoIdx] = useState(0);
   const photoCarRef = useRef<HTMLDivElement>(null);
+  const [reviewsExpanded, setReviewsExpanded] = useState(false);
 
   const scrollToPhoto = (idx: number) => {
     if (!photoCarRef.current) return;
@@ -314,30 +315,53 @@ export function ShowDetailPanel({
           </p>
         )}
 
-        {/* Inline recensies — max 3, minimalistisch, geen los vlak */}
+        {/* Inline recensies — max 2 standaard, "Meer" voor de rest */}
         {show.pers_quotes.length > 0 && (
           <div className="mt-5 space-y-3">
-            {show.pers_quotes.slice(0, 3).map((p, i) => (
-              <div key={i}>
-                {p.sterren !== null && (
-                  <div className="mb-1 flex gap-0.5">
-                    {Array.from({ length: 5 }).map((_, idx) => (
-                      <Star
-                        key={idx}
-                        size={11}
-                        className={idx < (p.sterren ?? 0)
-                          ? "fill-[#E5B53A] stroke-[#E5B53A]"
-                          : "stroke-line"}
-                      />
-                    ))}
+            {(reviewsExpanded ? show.pers_quotes : show.pers_quotes.slice(0, 2)).map((p, i) => {
+              const inner = (
+                <>
+                  {p.sterren !== null && (
+                    <div className="mb-1 flex gap-0.5">
+                      {Array.from({ length: 5 }).map((_, idx) => (
+                        <Star
+                          key={idx}
+                          size={11}
+                          className={idx < (p.sterren ?? 0)
+                            ? "fill-[#E5B53A] stroke-[#E5B53A]"
+                            : "stroke-line"}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-sm italic text-ink-soft leading-relaxed">
+                    &ldquo;{p.quote}&rdquo;
+                  </p>
+                  <div className="mt-0.5 text-[11px] text-ink-muted inline-flex items-center gap-1">
+                    {p.bron}
+                    {p.url && <ExternalLink size={9} className="text-ink-faint" />}
                   </div>
-                )}
-                <p className="text-sm italic text-ink-soft leading-relaxed">
-                  &ldquo;{p.quote}&rdquo;
-                </p>
-                <div className="mt-0.5 text-[11px] text-ink-muted">{p.bron}</div>
-              </div>
-            ))}
+                </>
+              );
+              return p.url ? (
+                <a key={i} href={p.url} target="_blank" rel="noreferrer" className="block group cursor-pointer hover:opacity-80 transition-opacity">
+                  {inner}
+                </a>
+              ) : (
+                <div key={i}>{inner}</div>
+              );
+            })}
+            {show.pers_quotes.length > 2 && (
+              <button
+                type="button"
+                onClick={() => setReviewsExpanded(v => !v)}
+                className="text-xs font-medium text-ink hover:underline underline-offset-2"
+              >
+                {reviewsExpanded
+                  ? "Minder recensies"
+                  : `+${show.pers_quotes.length - 2} meer recensies`}
+              </button>
+            )}
           </div>
         )}
 

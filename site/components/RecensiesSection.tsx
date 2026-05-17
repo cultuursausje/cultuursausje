@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
@@ -11,20 +12,18 @@ interface Props {
 const WINDOW_DAYS = 14;
 const MIN_SOURCES = 3;
 const HIGH_STAR = 4;
+const INITIAL_QUOTES = 2;
 
 interface Featured {
   show: ShowDisplay;
   quotes: ShowDisplay["pers_quotes"];
 }
 
-/** Selecteer shows met recensies. Primair: 3+ unieke bronnen binnen 14 dagen.
- *  Fallback: aankomende voorstellingen met 3+ hoog-gewaardeerde recensies
- *  (reprise-quotes uit een eerdere productie). */
 function pickFeatured(shows: ShowDisplay[]): Featured[] {
   const now = Date.now();
   const cutoff = now - WINDOW_DAYS * 24 * 60 * 60 * 1000;
 
-  // Primaire selectie — recente recensies
+  // Primair — recente recensies (≤14 dagen)
   const recent = shows
     .map(show => {
       const r = show.pers_quotes.filter(q => {
@@ -35,8 +34,7 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
       const sources = new Set(r.map(q => q.bron));
       if (sources.size < MIN_SOURCES) return null;
       const perBron = new Map<string, ShowDisplay["pers_quotes"][number]>();
-      [...r]
-        .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())
+      [...r].sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())
         .forEach(q => { if (!perBron.has(q.bron)) perBron.set(q.bron, q); });
       const quotes = Array.from(perBron.values());
       const mostRecentMs = Math.max(...quotes.map(q => new Date(q.date!).getTime()));
@@ -50,7 +48,7 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     return recent.map(({ show, quotes }) => ({ show, quotes }));
   }
 
-  // Fallback — aankomende reprises met hoog gewaardeerde recensies
+  // Fallback — aankomende voorstellingen met hoge waarderingen (reprise-quotes)
   const fallback = shows
     .filter(s => {
       const endMs = new Date(s.speelperiode_end).getTime();
@@ -80,11 +78,63 @@ function formatShortDate(iso: string): string {
   return `${d} ${months[m - 1]}`;
 }
 
+interface QuoteProps {
+  quote: ShowDisplay["pers_quotes"][number];
+}
+
+function QuoteRow({ quote }: QuoteProps) {
+  const inner = (
+    <>
+      {quote.sterren !== null && (
+        <div className="mb-1 flex gap-0.5">
+          {Array.from({ length: 5 }).map((_, idx) => (
+            <Star
+              key={idx}
+              size={11}
+              className={idx < (quote.sterren ?? 0)
+                ? "fill-[#E5B53A] stroke-[#E5B53A]"
+                : "stroke-white/30"}
+            />
+          ))}
+        </div>
+      )}
+      <p className="text-sm italic text-white leading-relaxed">
+        &ldquo;{quote.quote}&rdquo;
+      </p>
+      <div className="mt-0.5 text-[11px] text-white/70 inline-flex items-center gap-1">
+        {quote.bron}
+        {quote.date && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span className="lowercase">{formatShortDate(quote.date)}</span>
+          </>
+        )}
+        {quote.url && <ExternalLink size={9} className="text-white/60" />}
+      </div>
+    </>
+  );
+  return quote.url ? (
+    <a href={quote.url} target="_blank" rel="noreferrer" className="block hover:opacity-80 transition-opacity">
+      {inner}
+    </a>
+  ) : (
+    <div>{inner}</div>
+  );
+}
+
 export function RecensiesSection({ shows }: Props) {
   const featured = pickFeatured(shows);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-  // Geen kandidaten met 3+ recente bronnen — sectie helemaal verbergen
   if (featured.length === 0) return null;
+
+  const toggleExpanded = (id: string) => {
+    setExpanded(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
 
   return (
     <section id="recensies" className="mb-12 sm:mb-16">
@@ -99,20 +149,22 @@ export function RecensiesSection({ shows }: Props) {
           Voorstellingen met de meeste buzz dit seizoen, gemeten aan lovende recensies en doorlopende uitverkochte speelperiodes.
         </p>
 
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
           {featured.map(({ show, quotes }) => {
             const photoBg = photoBgForShow(show.id);
+            const isOpen = expanded.has(show.id);
+            const visible = isOpen ? quotes : quotes.slice(0, INITIAL_QUOTES);
             return (
-              <div
-                key={show.id}
-                className="flex flex-col gap-3 sm:flex-row sm:gap-4"
-              >
-                {/* Card links — foto met titel-overlay */}
-                <div className="relative w-full shrink-0 sm:w-36 md:w-40">
-                  <div
-                    className="relative w-full aspect-[3/4] overflow-hidden rounded-2xl"
-                    style={{ background: photoBg }}
-                  >
+              <div key={show.id} className="flex flex-col gap-4">
+                {/* Brede card bovenin, landscape verhouding */}
+                <a
+                  href={show.ticket_url || "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group relative block overflow-hidden rounded-2xl transition-transform hover:scale-[1.01]"
+                  style={{ background: photoBg }}
+                >
+                  <div className="relative aspect-[3/2]">
                     {show.foto_url && (
                       <img
                         src={show.foto_url}
@@ -121,69 +173,38 @@ export function RecensiesSection({ shows }: Props) {
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 text-white">
-                      <div className="text-sm font-medium leading-tight line-clamp-2">
+                    <div className="absolute bottom-3 left-4 right-4 text-white">
+                      <div className="text-xl font-medium leading-tight sm:text-2xl">
                         {show.titel}
                       </div>
-                      <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
+                      <div className="mt-0.5 text-xs text-white/85 leading-tight">
                         {show.gezelschap_display}
                       </div>
                     </div>
                     {show.foto_credit && (
-                      <div className="absolute bottom-1 right-2 z-10 text-[9px] text-white/70 leading-none pointer-events-none">
+                      <div className="absolute bottom-1.5 right-2.5 z-10 text-[9px] text-white/70 leading-none pointer-events-none">
                         © {show.foto_credit}
                       </div>
                     )}
                   </div>
-                  {show.ticket_url && (
-                    <a
-                      href={show.ticket_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-2 inline-flex items-center gap-1 text-[11px] text-white/85 hover:text-white underline-offset-2 hover:underline"
-                    >
-                      Naar voorstelling
-                      <ExternalLink size={10} />
-                    </a>
-                  )}
-                </div>
+                </a>
 
-                {/* Recensies-box rechts */}
-                <div
-                  className="flex-1 rounded-2xl p-4 sm:p-5"
-                  style={{ background: "#F1EFE8" }}
-                >
-                  <div className="space-y-3">
-                    {quotes.map((q, i) => (
-                      <div key={i} className={i > 0 ? "border-t border-white/70 pt-3" : ""}>
-                        {q.sterren !== null && (
-                          <div className="mb-1 flex gap-0.5">
-                            {Array.from({ length: 5 }).map((_, idx) => (
-                              <Star
-                                key={idx}
-                                size={11}
-                                className={idx < (q.sterren ?? 0)
-                                  ? "fill-[#E5B53A] stroke-[#E5B53A]"
-                                  : "stroke-line"}
-                              />
-                            ))}
-                          </div>
-                        )}
-                        <p className="text-xs italic text-ink-soft leading-relaxed sm:text-sm">
-                          &ldquo;{q.quote}&rdquo;
-                        </p>
-                        <div className="mt-1 flex items-center gap-2 text-[10px] text-ink-muted">
-                          <span>{q.bron}</span>
-                          {q.date && (
-                            <>
-                              <span aria-hidden="true">·</span>
-                              <span className="lowercase">{formatShortDate(q.date)}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                {/* Recensies eronder, geen los vlak */}
+                <div className="space-y-4">
+                  {visible.map((q, i) => (
+                    <QuoteRow key={i} quote={q} />
+                  ))}
+                  {quotes.length > INITIAL_QUOTES && (
+                    <button
+                      type="button"
+                      onClick={() => toggleExpanded(show.id)}
+                      className="text-xs font-medium text-white hover:underline underline-offset-2"
+                    >
+                      {isOpen
+                        ? "Minder recensies"
+                        : `+${quotes.length - INITIAL_QUOTES} meer recensies`}
+                    </button>
+                  )}
                 </div>
               </div>
             );
