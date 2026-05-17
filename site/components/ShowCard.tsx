@@ -315,10 +315,10 @@ export function ShowDetailPanel({
           </p>
         )}
 
-        {/* Inline recensies — max 2 standaard, "Meer" voor de rest */}
+        {/* Inline recensies — max 1 standaard, "Meer" voor de rest */}
         {show.pers_quotes.length > 0 && (
           <div className="mt-5 space-y-3">
-            {(reviewsExpanded ? show.pers_quotes : show.pers_quotes.slice(0, 2)).map((p, i) => {
+            {(reviewsExpanded ? show.pers_quotes : show.pers_quotes.slice(0, 1)).map((p, i) => {
               const inner = (
                 <>
                   {p.sterren !== null && (
@@ -351,7 +351,7 @@ export function ShowDetailPanel({
                 <div key={i}>{inner}</div>
               );
             })}
-            {show.pers_quotes.length > 2 && (
+            {show.pers_quotes.length > 1 && (
               <button
                 type="button"
                 onClick={() => setReviewsExpanded(v => !v)}
@@ -359,7 +359,7 @@ export function ShowDetailPanel({
               >
                 {reviewsExpanded
                   ? "Minder recensies"
-                  : `+${show.pers_quotes.length - 2} meer recensies`}
+                  : `+${show.pers_quotes.length - 1} meer recensies`}
               </button>
             )}
           </div>
@@ -468,41 +468,37 @@ export function ShowDetailPanel({
             </div>
           ))}
         </div>
+
+        {/* In de media — inline binnen hetzelfde paneel, onder Locatie */}
+        {show.media_links.length > 0 && (
+          <>
+            <h4 className="mt-6 mb-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
+              In de media
+            </h4>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {show.media_links.map((m, i) => (
+                <a
+                  key={i}
+                  href={m.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-xl bg-white/70 p-2.5 hover:bg-white transition-colors"
+                >
+                  {m.type === "video" || m.type === "serie"
+                    ? <Play size={16} className="text-accent-cobalt shrink-0" />
+                    : <Mic size={16} className="text-accent-cobalt shrink-0" />}
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs font-medium text-ink truncate sm:text-sm">{m.titel}</div>
+                    <div className="text-[10px] text-ink-muted capitalize">{m.type}</div>
+                  </div>
+                  <ExternalLink size={12} className="text-ink-faint shrink-0" />
+                </a>
+              ))}
+            </div>
+          </>
+        )}
         </div>
       </div>
-
-
-      {/* Media-paneel */}
-      {show.media_links.length > 0 && (
-        <div
-          className="rounded-2xl p-4 sm:p-5"
-          style={{ background: PANEL_BG }}
-        >
-          <h4 className="mb-3 text-xs font-medium uppercase tracking-widest text-ink-muted">
-            In de media
-          </h4>
-          <div className="grid gap-2 sm:grid-cols-2">
-            {show.media_links.map((m, i) => (
-              <a
-                key={i}
-                href={m.url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-3 rounded-xl bg-white/70 p-2.5 hover:bg-white transition-colors"
-              >
-                {m.type === "video" || m.type === "serie"
-                  ? <Play size={16} className="text-accent-cobalt shrink-0" />
-                  : <Mic size={16} className="text-accent-cobalt shrink-0" />}
-                <div className="min-w-0 flex-1">
-                  <div className="text-xs font-medium text-ink truncate sm:text-sm">{m.titel}</div>
-                  <div className="text-[10px] text-ink-muted capitalize">{m.type}</div>
-                </div>
-                <ExternalLink size={12} className="text-ink-faint shrink-0" />
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

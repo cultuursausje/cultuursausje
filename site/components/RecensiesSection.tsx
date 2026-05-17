@@ -15,7 +15,7 @@ interface Props {
 const WINDOW_DAYS = 14;
 const MIN_SOURCES = 3;
 const HIGH_STAR = 4;
-const INITIAL_QUOTES = 2;
+const INITIAL_QUOTES = 1;
 const MAX_FEATURED = 5;
 
 interface Featured {

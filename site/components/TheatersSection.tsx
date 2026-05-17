@@ -51,9 +51,9 @@ export function TheatersSection({ theaters }: Props) {
   const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section id="theaters" className="mt-20 sm:mt-24">
+    <section id="theaters" className="mt-20 sm:mt-24 h-full">
       <div
-        className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        className="h-full rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
         style={{ background: "#C7DC2D" }}
       >
         <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">

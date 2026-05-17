@@ -51,8 +51,8 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   const [expanded, setExpanded] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Filter state — geen stad standaard geselecteerd
-  const [selectedCities, setSelectedCities] = useState<Set<string>>(() => new Set());
+  // Filter state — Amsterdam standaard geselecteerd
+  const [selectedCities, setSelectedCities] = useState<Set<string>>(() => new Set(["Amsterdam"]));
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
@@ -284,16 +284,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   return (
     <>
-      {/* Niet te missen + Plan — paired side-by-side op desktop */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        <RecensiesSection shows={shows} favorites={favorites} onToggleFav={toggleFav} />
-        <PlanSection
-          shows={shows}
-          festivals={festivals}
-          favorites={favorites}
-          onToggleFav={toggleFav}
-        />
-      </div>
+      <RecensiesSection shows={shows} favorites={favorites} onToggleFav={toggleFav} />
 
       <section id="voorstellingen">
       <div
@@ -474,10 +465,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
+      <PlanSection
+        shows={shows}
+        festivals={festivals}
+        favorites={favorites}
+        onToggleFav={toggleFav}
+      />
       <VoordeelSection />
 
-      {/* Gezelschappen + Theaters — paired side-by-side op desktop */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      {/* Gezelschappen + Theaters — paired side-by-side op desktop, gelijke hoogte */}
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
         <GezelschappenSection gezelschappen={allGezelschappen} />
         <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       </div>
