@@ -127,13 +127,23 @@ export default async function HomePage() {
   return (
     <main className="relative z-10 mx-auto max-w-[1280px] px-6 pb-24 pt-10 sm:px-8 lg:px-12">
       <SectionNav />
-      <header className="mb-10 sm:mb-14">
-        <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
-          Cultuursausje
-        </h1>
-        <p className="mt-2 text-xs text-ink-muted sm:text-sm md:text-base xl:whitespace-nowrap">
-          Theateragenda van Nederland, voorstellingen, festivals, gezelschappen en theaters op één plek.
-        </p>
+      <header className="mb-10 flex items-center gap-4 sm:mb-14 sm:gap-8">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
+            Cultuursausje
+          </h1>
+          <p className="mt-2 text-xs text-ink-muted sm:text-sm md:text-base xl:whitespace-nowrap">
+            Theateragenda van Nederland, voorstellingen, festivals, gezelschappen en theaters op één plek.
+          </p>
+        </div>
+        {/* Flesje — eenmalig zichtbaar bovenaan. mix-blend-multiply maakt
+            de witte achtergrond van de productfoto transparant tegen de pagina. */}
+        <img
+          src="/cultuursausje-bottle.png"
+          alt="Cultuursausje saus-flesje"
+          className="h-28 w-auto shrink-0 sm:h-40 md:h-48 lg:h-56"
+          style={{ mixBlendMode: "multiply" }}
+        />
       </header>
       <ShowsExplorer
         shows={enriched}
