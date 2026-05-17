@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, Heart } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
@@ -300,7 +300,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       </p>
 
       <div className="mb-8 flex flex-wrap items-center gap-2 sm:mb-10">
-        {/* Multi-select city dropdown */}
+        {/* Stad-dropdown — single-select, gelijke stijl als bij Plan */}
         <div ref={cityRef} className="relative">
           <button
             onClick={() => setCityOpen(v => !v)}
@@ -311,76 +311,29 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             }`}
           >
             <span>
-              {selectedCities.size === 0
-                ? "Kies een stad"
-                : selectedCities.size === 1
-                  ? Array.from(selectedCities)[0]
-                  : `${Array.from(selectedCities)[0]} +${selectedCities.size - 1}`}
+              {selectedCities.size === 1 ? Array.from(selectedCities)[0] : "Kies een stad"}
             </span>
             <ChevronDown size={14} />
           </button>
           {cityOpen && (
-            <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border border-line bg-white shadow-xl overflow-hidden flex flex-col">
-              <div className="p-2 border-b border-line">
-                <input
-                  autoFocus
-                  type="text"
-                  value={cityQuery}
-                  onChange={e => setCityQuery(e.target.value)}
-                  placeholder="Zoek een stad..."
-                  className="w-full rounded-lg border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ink/20"
-                />
-              </div>
-              {selectedCities.size > 0 && (
-                <div className="flex items-center justify-between px-3 py-2 border-b border-line text-xs">
-                  <span className="text-ink-muted">{selectedCities.size} geselecteerd</span>
-                  <button
-                    onClick={() => setSelectedCities(new Set())}
-                    className="text-ink-muted hover:text-ink"
-                  >
-                    Wis alle
-                  </button>
-                </div>
-              )}
-              <div className="max-h-64 overflow-y-auto p-2">
-                {filteredCities.length === 0 ? (
-                  <div className="px-3 py-2 text-sm italic text-ink-faint">Geen resultaten</div>
-                ) : (
-                  filteredCities.map(city => {
-                    const isActive = selectedCities.has(city);
-                    const isEnabled = citiesWithShows.has(city);
-                    return (
-                      <button
-                        key={city}
-                        disabled={!isEnabled}
-                        onClick={() => {
-                          if (!isEnabled) return;
-                          setSelectedCities(prev => {
-                            const next = new Set(prev);
-                            if (next.has(city)) next.delete(city);
-                            else next.add(city);
-                            return next;
-                          });
-                        }}
-                        className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
-                          !isEnabled
-                            ? "text-ink-faint cursor-not-allowed opacity-50"
-                            : isActive
-                              ? "bg-[#F1EFE8] text-ink font-medium"
-                              : "text-ink-soft hover:bg-[#F8F6EF]"
-                        }`}
-                      >
-                        <span>{city}</span>
-                        {isActive && isEnabled && (
-                          <span className="text-ink shrink-0" aria-hidden="true">✓</span>
-                        )}
-                        {!isEnabled && (
-                          <span className="text-[10px] text-ink-faint shrink-0">geen</span>
-                        )}
-                      </button>
-                    );
-                  })
-                )}
+            <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-2xl border border-line bg-white shadow-xl overflow-hidden">
+              <div className="max-h-72 overflow-y-auto p-2">
+                {Array.from(citiesWithShows).sort((a, b) => a.localeCompare(b, "nl")).map(city => {
+                  const isActive = selectedCities.has(city);
+                  return (
+                    <button
+                      key={city}
+                      onClick={() => { setSelectedCities(new Set([city])); setCityOpen(false); }}
+                      className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-[#F1EFE8] text-ink font-medium"
+                          : "text-ink-soft hover:bg-[#F8F6EF]"
+                      }`}
+                    >
+                      {city}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -500,10 +453,15 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
-      <PlanSection shows={shows} />
+      <PlanSection
+        shows={shows}
+        festivals={festivals}
+        favorites={favorites}
+        onToggleFav={toggleFav}
+      />
+      <VoordeelSection />
       <GezelschappenSection gezelschappen={allGezelschappen} />
       <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
-      <VoordeelSection />
     </>
   );
 }
@@ -531,6 +489,30 @@ interface ShowCarouselProps {
 function ShowCarousel({
   items, expandedKey, favorites, selectedCities, viewMonth, onSelect, onToggleFav
 }: ShowCarouselProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ atStart: true, atEnd: false });
+
+  const updateEdge = () => {
+    const el = ref.current;
+    if (!el) return;
+    setEdge({
+      atStart: el.scrollLeft <= 0,
+      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1
+    });
+  };
+
+  useEffect(() => {
+    const t = setTimeout(updateEdge, 50);
+    return () => clearTimeout(t);
+  }, [items.length]);
+
+  const scrollByCards = (dir: -1 | 1) => {
+    const el = ref.current;
+    if (!el) return;
+    const cardWidth = 288 + 16; // lg-breedte + gap-4
+    el.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
+  };
+
   const expandedItem = items.find(it => it.key === expandedKey);
   const cityResolvedVenues = expandedItem
     ? (() => {
@@ -544,19 +526,47 @@ function ShowCarousel({
   return (
     <div>
       <div className="relative">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {items.map(({ show, pill, key }) => (
-            <SmallShowCard
-              key={key}
-              show={show}
-              pill={pill}
-              isFavorite={favorites.has(show.id)}
-              isActive={expandedKey === key}
-              onSelect={() => onSelect(key)}
-              onToggleFav={() => onToggleFav(show.id)}
-            />
-          ))}
+        <div
+          ref={ref}
+          onScroll={updateEdge}
+          className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
+        >
+          <div className="flex gap-4 snap-x snap-mandatory pb-2">
+            {items.map(({ show, pill, key }) => (
+              <SmallShowCard
+                key={key}
+                show={show}
+                pill={pill}
+                isFavorite={favorites.has(show.id)}
+                isActive={expandedKey === key}
+                onSelect={() => onSelect(key)}
+                onToggleFav={() => onToggleFav(show.id)}
+              />
+            ))}
+          </div>
         </div>
+        {items.length > 4 && (
+          <>
+            <button
+              type="button"
+              onClick={() => scrollByCards(-1)}
+              disabled={edge.atStart}
+              className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
+              aria-label="Vorige voorstellingen"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCards(1)}
+              disabled={edge.atEnd}
+              className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
+              aria-label="Volgende voorstellingen"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </>
+        )}
       </div>
 
       {expandedItem && (

@@ -8,9 +8,9 @@ const NAV_ITEMS = [
   { label: "Voorstellingen", anchor: "voorstellingen" },
   { label: "Festivals", anchor: "festivals" },
   { label: "Plan", anchor: "plan" },
+  { label: "Voordeel", anchor: "voordeel" },
   { label: "Gezelschappen", anchor: "gezelschappen" },
-  { label: "Theaters", anchor: "theaters" },
-  { label: "Voordeel", anchor: "voordeel" }
+  { label: "Theaters", anchor: "theaters" }
 ];
 
 export function SectionNav() {

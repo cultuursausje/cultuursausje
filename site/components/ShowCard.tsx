@@ -29,7 +29,7 @@ export function SmallShowCard({
   const hasPhoto = !!show.foto_url;
 
   return (
-    <div className="relative w-full">
+    <div className="relative shrink-0 snap-start w-44 sm:w-52 md:w-60 lg:w-72">
       <button
         type="button"
         onClick={onSelect}
@@ -59,6 +59,13 @@ export function SmallShowCard({
             {show.gezelschap_display}
           </div>
         </div>
+
+        {/* Copyright rechtsonder */}
+        {hasPhoto && (
+          <div className="absolute bottom-1 right-2 z-10 text-[9px] text-white/70 leading-none pointer-events-none">
+            © {show.foto_credit || show.gezelschap_display}
+          </div>
+        )}
       </button>
 
       {/* Datum-pill linksboven — neutrale stijl */}
@@ -326,11 +333,6 @@ export function ShowDetailPanel({
           <p className="mt-3 text-sm text-ink-soft leading-relaxed">
             {fullDescription}
           </p>
-        )}
-        {show.based_on && (
-          <div className="mt-2 text-xs text-ink-muted italic">
-            Op basis van {show.based_on}
-          </div>
         )}
 
         {/* Speeldata */}
