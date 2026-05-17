@@ -131,7 +131,7 @@ export default async function HomePage() {
         <h1 className="text-5xl font-medium tracking-tight text-ink sm:text-6xl">
           Cultuursausje
         </h1>
-        <p className="mt-2 whitespace-nowrap text-xs text-ink-muted sm:text-sm md:text-base">
+        <p className="mt-2 text-xs text-ink-muted sm:text-sm md:text-base xl:whitespace-nowrap">
           Theateragenda van Nederland, voorstellingen, festivals, gezelschappen en theaters op één plek.
         </p>
       </header>
