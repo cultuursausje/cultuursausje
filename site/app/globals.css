@@ -6,7 +6,7 @@
   color-scheme: light;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Caveat:wght@400;500;600&display=swap");
 
 html {
   scroll-behavior: smooth;
@@ -30,6 +30,13 @@ section[id] {
 .font-display {
   font-family: "Playfair Display", "Editorial New", Georgia, serif;
   font-style: italic;
+}
+
+/* Handgeschreven citaten tussen secties — subtiel, alsof iemand een briefje
+ * heeft achtergelaten. Caveat is luchtig en goed leesbaar. */
+.font-handwritten {
+  font-family: "Caveat", "Patrick Hand", "Bradley Hand", cursive;
+  font-weight: 500;
 }
 
 /* Subtiele grain — niet meer dan een hint van textuur */

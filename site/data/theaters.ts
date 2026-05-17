@@ -2,6 +2,14 @@ import type { Theater } from "@/types";
 
 export const theaters: Theater[] = [
   {
+    id: "bostheater", naam: "Het Amsterdamse Bostheater", afkorting: "Bostheater",
+    stad: "Amsterdam",
+    url: "https://bostheater.nl",
+    beschrijving: "Openluchttheater in het Amsterdamse Bos. In de zomer programma van theater, jeugdtheater, film en concerten, plus eigen festival Bosfest.",
+    foto_url: "https://bostheater.nl/wp-content/uploads/2026/04/Bosfest_2026-Socials-2-2-scaled.jpg",
+    foto_credit: "Het Amsterdamse Bostheater"
+  },
+  {
     id: "ita", naam: "Internationaal Theater Amsterdam", afkorting: "ITA",
     stad: "Amsterdam",
     url: "https://ita.nl",

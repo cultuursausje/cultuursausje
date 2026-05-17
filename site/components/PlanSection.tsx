@@ -179,9 +179,12 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
           {t("section.plan.subtitle")}
         </p>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Stad-pill */}
+        <div className="flex flex-wrap items-end gap-x-3 gap-y-3">
+          {/* Stap 1 — stad-pill */}
           <div ref={cityRef} className="relative">
+            <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-ink/70">
+              {t("plan.step1")}
+            </div>
             <button
               onClick={() => setCityOpen(v => !v)}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
@@ -223,14 +226,20 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
             )}
           </div>
 
-          {/* Datum-pill */}
+          {/* Stap 2 — datum-pill (alleen actief als stad gekozen is) */}
           <div ref={dateRef} className="relative">
+            <div className={`mb-1 text-[10px] font-semibold uppercase tracking-widest ${city ? "text-ink/70" : "text-ink/35"}`}>
+              {t("plan.step2")}
+            </div>
             <button
               onClick={() => setDateOpen(v => !v)}
+              disabled={!city}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 date
                   ? "bg-ink text-white hover:bg-black"
-                  : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+                  : city
+                    ? "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+                    : "bg-white/60 border border-line/60 text-ink-soft/50 cursor-not-allowed"
               }`}
             >
               {date ? fmtDate(date, lang) : t("filter.pickDate")}
@@ -247,18 +256,23 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
             )}
           </div>
 
-          {/* English friendly toggle */}
-          <button
-            onClick={() => setEnglishOnly(v => !v)}
-            className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              englishOnly
-                ? "bg-ink text-white hover:bg-black"
-                : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
-            }`}
-          >
-            <span aria-hidden="true">🇬🇧</span>
-            English friendly
-          </button>
+          {/* Optioneel — English friendly toggle */}
+          <div>
+            <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-ink/70">
+              {t("plan.optional")}
+            </div>
+            <button
+              onClick={() => setEnglishOnly(v => !v)}
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                englishOnly
+                  ? "bg-ink text-white hover:bg-black"
+                  : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+              }`}
+            >
+              <span aria-hidden="true">🇬🇧</span>
+              English friendly
+            </button>
+          </div>
         </div>
 
         {city && date && (

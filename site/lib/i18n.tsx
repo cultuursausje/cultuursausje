@@ -174,7 +174,12 @@ const T = {
   "plan.withEnglish": {
     nl: "met English friendly",
     en: "with English friendly"
-  }
+  },
+
+  // Plan step labels (subtle wayfinding above the filter pills)
+  "plan.step1": { nl: "Stap 1", en: "Step 1" },
+  "plan.step2": { nl: "Stap 2", en: "Step 2" },
+  "plan.optional": { nl: "Optioneel", en: "Optional" }
 };
 
 // Month and weekday helpers — locale-aware

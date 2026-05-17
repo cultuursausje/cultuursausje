@@ -2,6 +2,24 @@ import type { Festival } from "@/types";
 
 export const festivals: Festival[] = [
   {
+    id: "bosfest",
+    naam: "Bosfest",
+    periode: "Augustus",
+    plaats: "Amsterdam",
+    beschrijving: "Theaterfestival midden in het Amsterdamse Bos. Twee weken lang kleinschalig theater verstopt tussen wortels en bladeren, met het bos niet als decor maar als hoofdrolspeler. Rauw, intiem, muzikaal en fysiek werk van opkomende makers.",
+    beschrijving_en: "Theatre festival in the heart of the Amsterdamse Bos. Two weeks of small-scale theatre hidden among roots and leaves, with the forest not as backdrop but as leading character. Raw, intimate, musical and physical work by emerging makers.",
+    url: "https://bostheater.nl/bosfest/",
+    accent: "#3A7D44",
+    match_keywords: ["bosfest", "bostheater"],
+    foto_urls: [
+      "https://bostheater.nl/wp-content/uploads/2026/04/Bosfest_2026-Socials-2-2-scaled.jpg",
+      "https://bostheater.nl/wp-content/uploads/2025/09/resized_Bosfest-2025-LowRes-Guus-van-der-Aa-68.jpg",
+      "https://bostheater.nl/wp-content/uploads/2025/08/Fluermulder_07__DSC7816-1-scaled.jpg",
+      "https://bostheater.nl/wp-content/uploads/2025/08/Bosfest-PicsByGustav-19.jpg"
+    ],
+    foto_credit: "Guus van der Aa, Fluermulder, PicsByGustav, Bostheater"
+  },
+  {
     id: "holland-festival",
     naam: "Holland Festival",
     periode: "Juni",

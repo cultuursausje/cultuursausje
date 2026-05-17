@@ -10,6 +10,8 @@ import { PlanSection } from "./PlanSection";
 import { VoordeelSection } from "./VoordeelSection";
 import { GezelschappenSection } from "./GezelschappenSection";
 import { TheatersSection } from "./TheatersSection";
+import { InspiringQuote } from "./InspiringQuote";
+import { inspiringQuotes } from "@/data/inspiringQuotes";
 import { loadFavorites, saveFavorites } from "@/lib/favorites";
 import { monthKey } from "@/lib/dates";
 import type { ShowDisplay, Theater, Gezelschap, Festival } from "@/types";
@@ -289,12 +291,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     <>
       <RecensiesSection shows={shows} />
 
+      <InspiringQuote {...inspiringQuotes[0]} />
+
       <PlanSection
         shows={shows}
         festivals={festivals}
         favorites={favorites}
         onToggleFav={toggleFav}
       />
+
+      <InspiringQuote {...inspiringQuotes[1]} />
 
       <section id="voorstellingen" className="mt-20 sm:mt-24">
       <div
@@ -473,9 +479,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       </div>
       </section>
 
+      <InspiringQuote {...inspiringQuotes[2]} />
+
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
+
+      <InspiringQuote {...inspiringQuotes[3]} />
+
       <VoordeelSection />
+
+      <InspiringQuote {...inspiringQuotes[4]} />
 
       {/* Gezelschappen + Theaters — paired side-by-side op desktop met natuurlijke
           hoogtes (geen stretch). Op mobiel stapelen ze met hun normale mt-20. */}
@@ -483,6 +496,9 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         <GezelschappenSection gezelschappen={allGezelschappen} />
         <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       </div>
+
+      <InspiringQuote {...inspiringQuotes[5]} />
+      <InspiringQuote {...inspiringQuotes[6]} />
     </>
   );
 }
