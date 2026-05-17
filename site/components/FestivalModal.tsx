@@ -218,7 +218,7 @@ export function FestivalModal({ festival, shows, onClose }: Props) {
                               {s.type}
                             </span>
                             {s.english_friendly && (
-                              <span className="rounded-full bg-[#EAF3DE] px-2 py-0.5 text-[10px] font-bold text-[#173404] inline-flex items-center gap-1">
+                              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink inline-flex items-center gap-1">
                                 <span aria-hidden="true">🇬🇧</span>
                               </span>
                             )}

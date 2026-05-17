@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ExternalLink, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import type { Theater } from "@/types";
 import { useT } from "@/lib/i18n";
+import { isNotBelgianCity } from "@/lib/locations";
 
 interface Props {
   /** Alle theaters voor in de lijst, gegroepeerd per stad. */
@@ -51,7 +52,11 @@ const INITIAL_CITY_COUNT = 3;
 
 export function TheatersSection({ theaters }: Props) {
   const t = useT();
-  const grouped = groupByCity(theaters);
+  // Theaters in Belgische steden (bv. NTGent in Gent) verschijnen niet in
+  // de Theaters-sectie — Cultuursausje richt zich op het Nederlandse
+  // theaterlandschap.
+  const nlTheaters = theaters.filter(th => isNotBelgianCity(th.stad));
+  const grouped = groupByCity(nlTheaters);
   const [expanded, setExpanded] = useState(false);
   const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
   const hasMore = grouped.length > INITIAL_CITY_COUNT;

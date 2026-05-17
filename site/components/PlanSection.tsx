@@ -7,6 +7,7 @@ import { photoBgForShow } from "@/lib/colors";
 import { ShowDetailPanel } from "./ShowCard";
 import { FestivalModal } from "./FestivalModal";
 import { useT, useLang, monthLabelLang, monthShortLang, translatePeriode, type Lang } from "@/lib/i18n";
+import { isNotBelgianCity } from "@/lib/locations";
 
 interface Props {
   shows: ShowDisplay[];
@@ -84,9 +85,12 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
         if (stad) set.add(stad);
       });
     });
-    return Array.from(set).sort((a, b) =>
-      a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
-    );
+    // Belgische steden eruit filteren — Cultuursausje is NL-only.
+    return Array.from(set)
+      .filter(isNotBelgianCity)
+      .sort((a, b) =>
+        a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
+      );
   }, [shows, festivals]);
 
   const datesWithShows = useMemo(() => {

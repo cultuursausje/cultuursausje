@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
 import { useT, useLang, monthLabelLang, pillForMonthLang } from "@/lib/i18n";
+import { isNotBelgianCity } from "@/lib/locations";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
 import { PlanSection } from "./PlanSection";
@@ -79,11 +80,12 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   // Steden waar daadwerkelijk voorstellingen plaatsvinden — bepaalt welke
   // items in de dropdown klikbaar zijn. Bron: alle venues per show.
+  // Belgische steden worden uitgesloten: Cultuursausje richt zich op NL.
   const citiesWithShows = useMemo(() => {
     const set = new Set<string>();
     shows.forEach(s => {
       s.venues.forEach(v => {
-        if (v.theater_stad) set.add(v.theater_stad);
+        if (v.theater_stad && isNotBelgianCity(v.theater_stad)) set.add(v.theater_stad);
       });
     });
     return set;
@@ -417,10 +419,10 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           </div>
         </div>
       ) : monthsForNav.length === 0 ? (
-        <div className="rounded-3xl bg-white p-10 text-center text-ink-muted">
+        <div className="px-2 py-6 text-center text-ink-soft">
           {hasActiveFilter ? (
             <>
-              {t("empty.noShowsFilters")}
+              <div className="text-base text-ink">{t("empty.noShowsFilters")}</div>
               <button
                 onClick={clearAllFilters}
                 className="block mx-auto mt-3 text-sm text-ink underline-offset-2 underline hover:no-underline"
@@ -429,7 +431,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
               </button>
             </>
           ) : (
-            t("empty.noShowsMonth")
+            <div className="text-base text-ink">{t("empty.noShowsMonth")}</div>
           )}
         </div>
       ) : showFavoritesOnly ? (
