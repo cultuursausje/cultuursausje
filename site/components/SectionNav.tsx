@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { label: "Recensies", anchor: "recensies" },
   { label: "Voorstellingen", anchor: "voorstellingen" },
   { label: "Festivals", anchor: "festivals" },
+  { label: "Plan", anchor: "plan" },
   { label: "Gezelschappen", anchor: "gezelschappen" },
   { label: "Theaters", anchor: "theaters" },
   { label: "Voordeel", anchor: "voordeel" }

@@ -222,7 +222,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
           onClick={() => setOpenId(null)}
         >
           <div
-            className="mx-auto my-0 min-h-screen w-full bg-white sm:my-8 sm:min-h-0 sm:max-w-3xl sm:rounded-3xl sm:overflow-hidden"
+            className="mx-auto my-0 min-h-screen w-full max-w-full overflow-hidden bg-white sm:my-8 sm:min-h-0 sm:max-w-3xl sm:rounded-3xl"
             onClick={e => e.stopPropagation()}
           >
             <div className="relative">

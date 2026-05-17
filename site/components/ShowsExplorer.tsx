@@ -5,6 +5,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
+import { PlanSection } from "./PlanSection";
 import { VoordeelSection } from "./VoordeelSection";
 import { GezelschappenSection } from "./GezelschappenSection";
 import { TheatersSection } from "./TheatersSection";
@@ -499,6 +500,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
+      <PlanSection shows={shows} />
       <GezelschappenSection gezelschappen={allGezelschappen} />
       <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       <VoordeelSection />
