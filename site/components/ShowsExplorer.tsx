@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Heart, Instagram } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
 import { useT, useLang, monthLabelLang, pillForMonthLang } from "@/lib/i18n";
 import { isNotBelgianCity } from "@/lib/locations";
@@ -511,13 +511,23 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Cultuursausje-zegel — onderaan de pagina, lichtjes naar rechts
           gekanteld. Bij hover een subtiele beweging + scherpe gele
-          TL-gloed (bottle-sticker class in globals.css). */}
-      <div className="mt-2 mb-2 flex justify-center">
+          TL-gloed (bottle-sticker class in globals.css). Daarnaast een
+          link naar Instagram. */}
+      <div className="mt-2 mb-2 flex items-center justify-center gap-4 sm:gap-6">
         <img
           src="/cultuursausje-bottle.png"
           alt="Cultuursausje"
           className="bottle-sticker w-40 sm:w-48"
         />
+        <a
+          href="https://instagram.com/cultuursausje"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Cultuursausje op Instagram"
+          className="inline-flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-ink text-white"
+        >
+          <Instagram size={22} strokeWidth={2} />
+        </a>
       </div>
     </>
   );
