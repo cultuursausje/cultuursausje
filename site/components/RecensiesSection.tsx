@@ -74,13 +74,6 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
   return combined.slice(0, MAX_FEATURED);
 }
 
-function formatShortDate(iso: string, lang: Lang): string {
-  const [, m, d] = iso.split("-").map(Number);
-  const monthsNl = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
-  const monthsEn = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-  return `${d} ${(lang === "en" ? monthsEn : monthsNl)[m - 1]}`;
-}
-
 function QuoteRow({ quote, lang }: { quote: ShowDisplay["pers_quotes"][number]; lang: Lang }) {
   const inner = (
     <>
@@ -102,12 +95,6 @@ function QuoteRow({ quote, lang }: { quote: ShowDisplay["pers_quotes"][number]; 
       </p>
       <div className="mt-0.5 text-[11px] text-white/70 inline-flex items-center gap-1">
         {quote.bron}
-        {quote.date && (
-          <>
-            <span aria-hidden="true">·</span>
-            <span className="lowercase">{formatShortDate(quote.date, lang)}</span>
-          </>
-        )}
         {quote.url && <ExternalLink size={9} className="text-white/60" />}
       </div>
     </>
