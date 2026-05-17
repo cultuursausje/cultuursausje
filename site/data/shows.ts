@@ -9,6 +9,7 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-16", speelperiode_end: "2026-06-06",
     speeldata: ["2026-05-16", "2026-05-17", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23"],
     tour: [
+      { theater_id: "schuur-haarlem", speeldata: ["2026-05-28", "2026-05-29"] },
       { theater_id: "chasse-breda", speeldata: ["2026-06-02", "2026-06-03"] }
     ],
     korte_samenvatting: "Een jongen die niet past in het dorp waar hij opgroeit en daarom z'n eigen leven moet uitvinden.",
@@ -25,8 +26,15 @@ export const shows: Show[] = [
     id: "de-dood-van-benny-simons",
     titel: "De dood van Benny Simons",
     gezelschap_id: "orkater", gezelschap: "Orkater",
-    theater_id: "delamar", theater: "DeLaMar", extra_theaters: ["bellevue"],
-    speelperiode_start: "2026-05-14", speelperiode_end: "2026-05-29",
+    theater_id: "delamar", theater: "DeLaMar", extra_theaters: [],
+    speelperiode_start: "2026-05-28", speelperiode_end: "2026-09-05",
+    speeldata: ["2026-09-04", "2026-09-05"],
+    tour: [
+      { theater_id: "bellevue", speeldata: ["2026-05-28", "2026-05-29"] },
+      { theater_id: "chasse-breda", speeldata: ["2026-05-30"] },
+      { theater_id: "verkadefabriek", speeldata: ["2026-05-31"] },
+      { theater_id: "stadsschouwburg-utrecht", speeldata: ["2026-09-03"] }
+    ],
     korte_samenvatting: "Een jongen bezweek onder wat een man hoort te zijn; zijn familie blijft achter met de vraag waarom.",
     lange_samenvatting: "Benny is dood en zijn familie weet niet hoe verder. Hij groeide op met verwachtingen die hij niet aankon, en die verwachtingen waren niet alleen van hem. Een muziektheatervoorstelling over wat we van zonen vragen, wat ouders doorgeven zonder het te weten, en hoe je rouwt om iemand die je nooit echt kende.",
     regisseur: "", based_on: "",
@@ -103,7 +111,12 @@ export const shows: Show[] = [
     id: "medea-voor-een-toeslagenherdenking", titel: "Medea voor een Toeslagenherdenking",
     gezelschap_id: "toneelschuur-producties", gezelschap: "Toneelschuur Producties",
     theater_id: "bijlmer-parktheater", theater: "Bijlmer Parktheater", extra_theaters: [],
-    speelperiode_start: "2026-05-23", speelperiode_end: "2026-05-24",
+    speelperiode_start: "2026-05-22", speelperiode_end: "2026-05-31",
+    speeldata: ["2026-05-23", "2026-05-24"],
+    tour: [
+      { theater_id: "verkadefabriek", speeldata: ["2026-05-22"] },
+      { theater_id: "schuur-haarlem", speeldata: ["2026-05-29", "2026-05-30", "2026-05-31"] }
+    ],
     korte_samenvatting: "Een moeder krijgt een brief van de Belastingdienst en haar leven valt om.",
     lange_samenvatting: "Eerst gelooft niemand haar, daarna gelooft haar partner haar ook niet meer. Een onterechte beschuldiging van fraude duwt een gezin uit elkaar terwijl de overheid ondoordringbaar blijft. Over wat onrecht doet met een mens, en wat er over blijft als alles wegvalt.",
     regisseur: "", based_on: "Verhaal van Euripides", foto_url: "",
@@ -407,6 +420,11 @@ export const shows: Show[] = [
       "2027-01-07", "2027-01-08", "2027-01-09", "2027-01-10",
       "2027-01-13", "2027-01-14", "2027-01-15", "2027-01-16", "2027-01-17"
     ],
+    tour: [
+      { theater_id: "stadsschouwburg-utrecht", speeldata: ["2027-01-21", "2027-01-22"] },
+      { theater_id: "spot-groningen", speeldata: ["2027-01-26", "2027-01-27"] },
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2027-02-17", "2027-02-18"] }
+    ],
     korte_samenvatting: "Wie als kind vernederd is, geeft die vernedering vaak ongevraagd door.",
     lange_samenvatting: "Heathcliff wordt als vondeling opgenomen in een familie die hem nooit echt accepteert, en als hij rijk en machtig terugkeert, gaat het niet meer om liefde maar om wraak. Een rauwe, fysieke voorstelling over klasse, vernedering en de keten van geweld die van ouder op kind wordt doorgegeven. Geen romantisch verhaal, maar wel een onvergetelijk.",
     regisseur: "Kjersti Horn", based_on: "Boek van Emily Brontë",
@@ -421,9 +439,14 @@ export const shows: Show[] = [
     id: "r2d2-or-not-2b2", titel: "R2D2_or_not_2B2",
     gezelschap_id: "de-warme-winkel", gezelschap: "De Warme Winkel",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2027-02-16", speelperiode_end: "2027-04-24",
+    speelperiode_start: "2027-02-17", speelperiode_end: "2027-04-16",
     tour: [
-      { theater_id: "chasse-breda", speeldata: ["2027-03-25"] }
+      { theater_id: "stadsschouwburg-utrecht", speeldata: ["2027-03-11"] },
+      { theater_id: "spot-groningen", speeldata: ["2027-03-18"] },
+      { theater_id: "leidse-schouwburg", speeldata: ["2027-03-24"] },
+      { theater_id: "chasse-breda", speeldata: ["2027-03-25"] },
+      { theater_id: "ntgent", speeldata: ["2027-03-26"] },
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2027-04-08", "2027-04-09"] }
     ],
     korte_samenvatting: "Een groep robots probeert Hamlet te spelen en vraagt zich af wat mens-zijn ook alweer was.",
     lange_samenvatting: "Stofzuigers, bionische honden en androids in existentiële crisis nemen het theater over en stuntelen door een groot toneelstuk. Ze zoeken naar gevoel, twijfel en betekenis bij personages die hen vreemd zijn, terwijl ze zichzelf voortdurend onderbreken. Geestig en onverwacht aangrijpend over wat ons mensen onderscheidt — als dat nog iets is.",
@@ -515,6 +538,11 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2027-03-02", speelperiode_end: "2027-05-15",
     speeldata: ["2027-04-23", "2027-04-24", "2027-04-25"],
+    tour: [
+      { theater_id: "spot-groningen", speeldata: ["2027-03-02", "2027-03-03", "2027-03-05", "2027-03-06", "2027-03-09", "2027-03-10", "2027-03-12", "2027-03-13"] },
+      { theater_id: "stadsschouwburg-haarlem", speeldata: ["2027-03-24", "2027-03-25"] },
+      { theater_id: "stadsschouwburg-utrecht", speeldata: ["2027-05-03"] }
+    ],
     korte_samenvatting: "Een gezin om het ziekbed van vader, en de oude rolverdeling die plotseling weer in volle hevigheid terug is.",
     lange_samenvatting: "Vader is stervende, en zijn kinderen zitten bij hem terwijl ze zich allemaal heimelijk afvragen hoe ze van hem af komen. Een grote cast van muzikanten, dansers en acteurs maakt er een fysieke en muzikale voorstelling van waarin een hartslag een ritme wordt. Over zorg, afhankelijkheid en hoe je iemand mens laat blijven in de laatste fase van zijn leven.",
     regisseur: "Guy Weizman", based_on: "",
@@ -564,7 +592,8 @@ export const shows: Show[] = [
     id: "orkater-en-ze-maakte-een-kind", titel: "En ze maakte een kind",
     gezelschap_id: "orkater", gezelschap: "Orkater",
     theater_id: "meervaart", theater: "Meervaart", extra_theaters: [],
-    speelperiode_start: "2026-05-17", speelperiode_end: "2026-06-20",
+    speelperiode_start: "2026-06-19", speelperiode_end: "2026-06-20",
+    speeldata: [],
     korte_samenvatting: "Een vrouw probeert moeder-zijn en kunstenaarschap in één leven te laten passen.",
     lange_samenvatting: "Meral Polat staat alleen op het podium en zingt, praat en denkt na over wat het betekent om een kind te baren in een wereld waarin moeders nauwelijks plek krijgen in de kunsten. Een muzikale solo over het scheppen, het zorgen en het verlangen om gezien te worden als beide. Sarah Sluimer schreef een rauwe tekst die de Volkskrant vijf sterren gaf.",
     regisseur: "Nita Kersten", based_on: "",
@@ -593,8 +622,13 @@ export const shows: Show[] = [
   {
     id: "orkater-woiski-vs-woiski", titel: "Woiski vs. Woiski",
     gezelschap_id: "orkater", gezelschap: "Orkater & Bijlmer Parktheater",
-    theater_id: "bijlmer-parktheater", theater: "Bijlmer Parktheater", extra_theaters: ["ita", "theater-rotterdam-venue"],
+    theater_id: "bijlmer-parktheater", theater: "Bijlmer Parktheater", extra_theaters: [],
     speelperiode_start: "2026-11-10", speelperiode_end: "2026-12-03",
+    speeldata: ["2026-11-10", "2026-11-11", "2026-11-12"],
+    tour: [
+      { theater_id: "ita", speeldata: ["2026-11-14", "2026-11-15"] },
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-01"] }
+    ],
     korte_samenvatting: "Een vader en zoon met dezelfde muzikale droom, en heel veel ruimte tussen hen in.",
     lange_samenvatting: "Het eerste deel van de Suriname-Trilogie volgt twee generaties van de muzikale familie Woiski, van Paramaribo en Amsterdam in de jaren dertig tot vijftig. Wat geef je door, wat houd je voor jezelf, en wat verlies je onderweg. Swingend en schrijnend tegelijk.",
     regisseur: "Geert Lageveen", based_on: "",
@@ -608,8 +642,13 @@ export const shows: Show[] = [
   {
     id: "orkater-de-gliphoeve", titel: "De Gliphoeve",
     gezelschap_id: "orkater", gezelschap: "Orkater & Bijlmer Parktheater",
-    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: ["bijlmer-parktheater", "theater-rotterdam-venue"],
+    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-11-19", speelperiode_end: "2026-12-13",
+    speeldata: ["2026-11-19", "2026-11-20", "2026-11-21"],
+    tour: [
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-08"] },
+      { theater_id: "bijlmer-parktheater", speeldata: ["2026-12-10", "2026-12-11", "2026-12-12"] }
+    ],
     korte_samenvatting: "Een gekraakte flat in de Bijlmer wordt een tweede thuis voor wie net is aangekomen.",
     lange_samenvatting: "Het tweede deel van de Suriname-Trilogie speelt zich af in de jaren zeventig in flat De Gliphoeve in Amsterdam-Zuidoost, gekraakt door Surinaamse nieuwkomers. Over woningnood, samenhorigheid en wat het kost om ergens opnieuw te beginnen. Een familiekroniek met live muziek.",
     regisseur: "Geert Lageveen", based_on: "",
@@ -623,8 +662,12 @@ export const shows: Show[] = [
   {
     id: "orkater-stepping-stones", titel: "Stepping Stones",
     gezelschap_id: "orkater", gezelschap: "Orkater / Bijlmer Parktheater",
-    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: ["theater-rotterdam-venue"],
+    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-11-25", speelperiode_end: "2026-12-19",
+    speeldata: ["2026-11-25", "2026-11-26", "2026-11-27"],
+    tour: [
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-15"] }
+    ],
     korte_samenvatting: "Drie generaties Surinaamse Nederlanders zoeken uit wat ze van elkaar willen meenemen.",
     lange_samenvatting: "Het slotstuk van de Suriname-Trilogie volgt drie generaties van één familie en stelt de vraag wat ouders en kinderen aan elkaar doorgeven, soms zonder het door te hebben. Een muzikale familievoorstelling die bij Trouw vijf sterren kreeg. Een ode aan struikelen en weer opstaan.",
     regisseur: "Geert Lageveen", based_on: "",
@@ -638,8 +681,9 @@ export const shows: Show[] = [
   {
     id: "de-warme-winkel-gundhi", titel: "Gundhi",
     gezelschap_id: "de-warme-winkel", gezelschap: "De Warme Winkel & Schauspielhaus Bochum",
-    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: ["stadsschouwburg-haarlem", "ntgent", "stadsschouwburg-utrecht", "theater-rotterdam-venue", "chasse-breda", "leidse-schouwburg", "spot-groningen"],
-    speelperiode_start: "2026-05-18", speelperiode_end: "2026-05-29",
+    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
+    speelperiode_start: "2026-05-29", speelperiode_end: "2026-05-29",
+    speeldata: [],
     korte_samenvatting: "Een gewapende yoga-groep stelt zich serieus de vraag of geweldloosheid nog te verdedigen is.",
     lange_samenvatting: "Na hun ochtendritueel houden de leden van Gundhi hun internationale achterban een spiegel voor: kunnen idealen vandaag nog zonder geweld worden bereikt? Een avond vol satire, sterke teksten en een geliefde Indiase historische figuur op de achtergrond. Een coproductie met Schauspielhaus Bochum, eerder geselecteerd voor het Berliner Theatertreffen.",
     regisseur: "Vincent Riebeek", based_on: "",
@@ -653,8 +697,13 @@ export const shows: Show[] = [
   {
     id: "het-zuidelijk-toneel-saved-game", titel: "Saved Game",
     gezelschap_id: "het-zuidelijk-toneel", gezelschap: "Het Zuidelijk Toneel & Peter Seynaeve",
-    theater_id: "chasse-breda", theater: "Chassé Theater", extra_theaters: ["de-nieuwe-vorst", "verkadefabriek"],
+    theater_id: "chasse-breda", theater: "Chassé Theater", extra_theaters: [],
     speelperiode_start: "2026-05-23", speelperiode_end: "2026-05-30",
+    speeldata: ["2026-05-23"],
+    tour: [
+      { theater_id: "de-nieuwe-vorst", speeldata: ["2026-05-28"] },
+      { theater_id: "verkadefabriek", speeldata: ["2026-05-30"] }
+    ],
     korte_samenvatting: "Een moeder logt in op het gameaccount van haar overleden zoon en weigert eruit te komen.",
     lange_samenvatting: "Julia Ghysels speelt alle personages in deze solo over rouw, schuld en troost. Een moeder die haar zoon verloor door eigen toedoen bouwt een monument in haar tuin en duikt steeds dieper in de virtuele wereld waarin hij nog bestaat. Licht absurdistisch, pijnlijk grappig, en helend op een manier die niemand had verwacht.",
     regisseur: "Peter Seynaeve", based_on: "God Jr. van Dennis Cooper",
@@ -684,8 +733,17 @@ export const shows: Show[] = [
   {
     id: "nite-oersoep", titel: "Oersoep",
     gezelschap_id: "nite", gezelschap: "NITE",
-    theater_id: "spot-groningen", theater: "SPOT Stadsschouwburg Groningen", extra_theaters: ["ita", "chasse-breda", "stadsschouwburg-utrecht", "leidse-schouwburg", "stadsschouwburg-haarlem", "theater-rotterdam-venue"],
-    speelperiode_start: "2026-10-22", speelperiode_end: "2026-12-18",
+    theater_id: "spot-groningen", theater: "SPOT Stadsschouwburg Groningen", extra_theaters: [],
+    speelperiode_start: "2026-10-22", speelperiode_end: "2026-12-12",
+    speeldata: ["2026-10-22", "2026-10-23", "2026-10-24", "2026-11-04", "2026-11-05", "2026-11-06", "2026-12-09", "2026-12-10", "2026-12-11"],
+    tour: [
+      { theater_id: "chasse-breda", speeldata: ["2026-11-13"] },
+      { theater_id: "stadsschouwburg-utrecht", speeldata: ["2026-11-24"] },
+      { theater_id: "leidse-schouwburg", speeldata: ["2026-11-26"] },
+      { theater_id: "ita", speeldata: ["2026-11-28", "2026-11-29"] },
+      { theater_id: "stadsschouwburg-haarlem", speeldata: ["2026-12-02"] },
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-12"] }
+    ],
     korte_samenvatting: "Wat zou jij doen als je nieuw leven brengt in een uitgeputte wereld?",
     lange_samenvatting: "Na de geboorte van haar kind gaat een vrouw de wereld in op zoek naar verbinding, en raakt ze verstrikt in liefde, seks, verlies en verdoving. Met livemuziek van K.O. Brass bouwt regisseur Rebekka Nilsson een hedendaags requiem dat geboorte en rouw samenbrengt. Geïnspireerd op de roman van Bregje Hofstede en de Matthäus-Passion.",
     regisseur: "Rebekka Nilsson", based_on: "Roman van Bregje Hofstede",
@@ -699,9 +757,12 @@ export const shows: Show[] = [
   {
     id: "toneelschuur-cabaret-siberia", titel: "Cabaret Siberia",
     gezelschap_id: "toneelschuur-producties", gezelschap: "Toneelschuur Producties",
-    theater_id: "bellevue", theater: "Theater Bellevue", extra_theaters: ["schuur-haarlem"],
-    speelperiode_start: "2026-06-23", speelperiode_end: "2026-09-16",
-    speeldata: ["2026-06-23", "2026-06-24", "2026-06-26", "2026-06-27"],
+    theater_id: "bellevue", theater: "Theater Bellevue", extra_theaters: [],
+    speelperiode_start: "2026-06-23", speelperiode_end: "2026-06-27",
+    speeldata: ["2026-06-23", "2026-06-24"],
+    tour: [
+      { theater_id: "schuur-haarlem", speeldata: ["2026-06-26", "2026-06-27"] }
+    ],
     korte_samenvatting: "Twee artiesten worden gedeporteerd naar Siberië en blijven kunst maken omdat ze niet anders kunnen.",
     lange_samenvatting: "Twee beroemde entertainers staan op het podium terwijl de dreiging om hen heen aanzwelt, tot ze plotseling in een Siberisch werkkamp belanden. Wat blijft er over van een artiest zonder publiek? Een poëtische, magisch-realistische voorstelling met live boventiteling, waarin Agnes Laura Kumpina laat zien dat kunst ook overleven kan zijn.",
     regisseur: "Agnes Laura Kumpina", based_on: "Cabaret Siberia van Lauris Gundars",
@@ -715,8 +776,17 @@ export const shows: Show[] = [
   {
     id: "toneelschuur-mystiek-lichaam", titel: "Mystiek lichaam",
     gezelschap_id: "toneelschuur-producties", gezelschap: "Toneelschuur Producties",
-    theater_id: "schuur-haarlem", theater: "De Schuur", extra_theaters: ["de-nieuwe-vorst", "theater-rotterdam-venue", "chasse-breda", "verkadefabriek", "spot-groningen", "bellevue", "leidse-schouwburg"],
+    theater_id: "schuur-haarlem", theater: "De Schuur", extra_theaters: [],
     speelperiode_start: "2026-10-03", speelperiode_end: "2026-11-22",
+    speeldata: ["2026-10-03", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-11-20", "2026-11-21", "2026-11-22"],
+    tour: [
+      { theater_id: "de-nieuwe-vorst", speeldata: ["2026-10-15"] },
+      { theater_id: "theater-rotterdam-venue", speeldata: ["2026-11-04"] },
+      { theater_id: "chasse-breda", speeldata: ["2026-11-05"] },
+      { theater_id: "verkadefabriek", speeldata: ["2026-11-06"] },
+      { theater_id: "spot-groningen", speeldata: ["2026-11-07"] },
+      { theater_id: "bellevue", speeldata: ["2026-11-12", "2026-11-13", "2026-11-14"] }
+    ],
     korte_samenvatting: "Een conservatieve weduwnaar, zijn zwangere dochter en zijn doodzieke zoon in één huis.",
     lange_samenvatting: "Vader Gijselhart woont op de vervallen Doornenhof, samen met zijn volwassen kinderen die hij nauwelijks verdraagt. Dochter Prul is ongehuwd zwanger van een Joodse man, zoon Leendert keert ziek terug uit New York. Een groteske, soms rauw-komische familievoorstelling die laat zien hoe je elkaar verliest terwijl je nog steeds van elkaar houdt.",
     regisseur: "Koen Verheijden", based_on: "Roman van Frans Kellendonk",
