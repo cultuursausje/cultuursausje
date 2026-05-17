@@ -136,13 +136,12 @@ export default async function HomePage() {
             Theateragenda van Nederland, voorstellingen, festivals, gezelschappen en theaters op één plek.
           </p>
         </div>
-        {/* Flesje — eenmalig zichtbaar bovenaan. mix-blend-multiply maakt
-            de witte achtergrond van de productfoto transparant tegen de pagina. */}
+        {/* Flesje — eenmalig zichtbaar bovenaan, SVG met transparante
+            achtergrond. Kantelt subtiel bij hover. */}
         <img
-          src="/cultuursausje-bottle.png"
+          src="/cultuursausje-bottle.svg"
           alt="Cultuursausje saus-flesje"
-          className="h-28 w-auto shrink-0 sm:h-40 md:h-48 lg:h-56"
-          style={{ mixBlendMode: "multiply" }}
+          className="h-28 w-auto shrink-0 transition-transform duration-500 ease-out hover:-rotate-[14deg] sm:h-40 md:h-48 lg:h-56"
         />
       </header>
       <ShowsExplorer
