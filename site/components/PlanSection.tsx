@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Festival, ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
 import { ShowDetailPanel } from "./ShowCard";
+import { FestivalModal } from "./FestivalModal";
 import { useT, useLang, monthLabelLang, monthShortLang, translatePeriode, type Lang } from "@/lib/i18n";
 
 interface Props {
@@ -50,6 +51,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
   const [cityOpen, setCityOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
   const [expandedShowId, setExpandedShowId] = useState<string | null>(null);
+  const [openFestivalId, setOpenFestivalId] = useState<string | null>(null);
 
   const cityRef = useRef<HTMLDivElement>(null);
   const dateRef = useRef<HTMLDivElement>(null);
@@ -65,8 +67,11 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
     return () => { clearTimeout(tt); document.removeEventListener("click", handler); };
   }, [cityOpen, dateOpen]);
 
-  // Reset expanded show wanneer filters wijzigen
-  useEffect(() => { setExpandedShowId(null); }, [city, date, englishOnly]);
+  // Reset expanded show + open festival wanneer filters wijzigen
+  useEffect(() => {
+    setExpandedShowId(null);
+    setOpenFestivalId(null);
+  }, [city, date, englishOnly]);
 
   const cities = useMemo(() => {
     const set = new Set<string>();
@@ -166,7 +171,10 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
     el.scrollBy({ left: dir * 304, behavior: "smooth" });
   };
 
+  const openFestival = openFestivalId ? festivalResults.find(f => f.id === openFestivalId) : null;
+
   return (
+    <>
     <section id="plan" className="mt-20 sm:mt-24">
       <div
         className="rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
@@ -346,16 +354,15 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                     );
                   })}
 
-                  {/* Festival-cards — externe link naar festival-site */}
+                  {/* Festival-cards — openen dezelfde modal als in de Theaterfestivals-sectie */}
                   {festivalResults.map(f => {
                     const hero = f.foto_urls?.[0];
                     return (
-                      <a
+                      <button
                         key={f.id}
-                        href={f.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group relative shrink-0 snap-start w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)] overflow-hidden rounded-2xl transition-transform hover:scale-[1.02] hover:-rotate-[0.6deg]"
+                        type="button"
+                        onClick={() => setOpenFestivalId(f.id)}
+                        className="group relative shrink-0 snap-start w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)] overflow-hidden rounded-2xl text-left transition-transform hover:scale-[1.02] hover:-rotate-[0.6deg]"
                         style={{ background: f.accent }}
                       >
                         <div className="relative aspect-[4/5]">
@@ -386,7 +393,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                             </div>
                           )}
                         </div>
-                      </a>
+                      </button>
                     );
                   })}
                     </div>
@@ -431,6 +438,15 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
         )}
       </div>
     </section>
+
+    {openFestival && (
+      <FestivalModal
+        festival={openFestival}
+        shows={shows}
+        onClose={() => setOpenFestivalId(null)}
+      />
+    )}
+    </>
   );
 }
 
