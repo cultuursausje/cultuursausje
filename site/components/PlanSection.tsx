@@ -47,7 +47,7 @@ function fmtDateLong(iso: string): string {
 }
 
 export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props) {
-  const [city, setCity] = useState<string>("Amsterdam");
+  const [city, setCity] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [englishOnly, setEnglishOnly] = useState<boolean>(false);
   const [cityOpen, setCityOpen] = useState(false);
@@ -162,14 +162,26 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
           <div ref={cityRef} className="relative">
             <button
               onClick={() => setCityOpen(v => !v)}
-              className="flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-black transition-colors"
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                city
+                  ? "bg-ink text-white hover:bg-black"
+                  : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
+              }`}
             >
-              {city}
+              {city || "Kies een stad"}
               <ChevronDown size={14} />
             </button>
             {cityOpen && (
               <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-2xl border border-line bg-white shadow-xl overflow-hidden">
                 <div className="max-h-72 overflow-y-auto p-2">
+                  <button
+                    onClick={() => { setCity(""); setCityOpen(false); setDate(""); }}
+                    className={`w-full text-left px-3 py-2 text-sm rounded-lg italic transition-colors ${
+                      !city ? "bg-[#F1EFE8] text-ink font-medium" : "text-ink-soft hover:bg-[#F8F6EF]"
+                    }`}
+                  >
+                    Geen
+                  </button>
                   {cities.map(c => {
                     const active = c === city;
                     return (

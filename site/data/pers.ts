@@ -63,7 +63,8 @@ export const pers: PersQuote[] = [
     show_id: "judith-westbroek-zoekt-een-kamer",
     bron: "Theaterkrant",
     sterren: null,
-    quote: "Uit de hand gierende twistgesprekken, absurde uitvergrotingen van de werkelijkheid én een portie klassiek vormingstoneel, een verrukkelijke drie-eenheid. Sublieme choreografie."
+    quote: "Uit de hand gierende twistgesprekken, absurde uitvergrotingen van de werkelijkheid én een portie klassiek vormingstoneel, een verrukkelijke drie-eenheid. Sublieme choreografie.",
+    url: "https://www.theaterkrant.nl/recensie/myrte-siebinga-zoekt-een-kamer/de-warme-winkel/"
   },
 
   // Weg met Eddy Bellegueule (ITA / Eline Arbo) - reprise 2026
@@ -100,7 +101,8 @@ export const pers: PersQuote[] = [
     bron: "Theaterkrant",
     sterren: 5,
     quote: "Hoogtepunt van dit theaterseizoen.",
-    date: "2026-05-12"
+    date: "2026-05-12",
+    url: "https://www.theaterkrant.nl/recensie/weg-met-eddy-bellegueule/toneelschuur-producties-eline-arbo/"
   },
 
   // De uren (ITA / Eline Arbo)
@@ -162,7 +164,8 @@ export const pers: PersQuote[] = [
     bron: "Theaterkrant",
     sterren: 5,
     quote: "Van zeldzame klasse en emotionaliteit. Aangrijpend, ontroerend, beklemmend en ook vol humor.",
-    date: "2026-04-22"
+    date: "2026-04-22",
+    url: "https://www.theaterkrant.nl/recensie/client-e-busken/internationaal-theater-amsterdam/"
   },
   {
     show_id: "client-e-busken",
@@ -183,7 +186,8 @@ export const pers: PersQuote[] = [
     bron: "Scenes",
     sterren: null,
     quote: "Tekst, muziek en spel krijgen alle aandacht. Het resultaat is wonderschoon.",
-    date: "2026-04-22"
+    date: "2026-04-22",
+    url: "https://www.scenes.nu/recensies/machtig-taalbouwwerk-uitmuntend-vertolkt"
   },
 
   // Prima Facie (ITA / Eline Arbo / Maria Kraakman)
@@ -220,7 +224,8 @@ export const pers: PersQuote[] = [
     bron: "8weekly",
     sterren: 4,
     quote: "Deze monoloog is voor de acteur een tour de force van anderhalf uur, Kraakman volbrengt hem schijnbaar moeiteloos, met humor of overmand door schaamte en verdriet.",
-    date: "2026-05-05"
+    date: "2026-05-05",
+    url: "https://8weekly.nl/recensie/hoe-seksueel-onrecht-een-sterke-vrouw-breekt/"
   },
 
   // Nachtwacht (NITE / Guy Weizman)
@@ -250,7 +255,8 @@ export const pers: PersQuote[] = [
     bron: "Theaterkrant",
     sterren: 5,
     quote: "Overweldigend totaaltheater.",
-    date: "2026-04-15"
+    date: "2026-04-15",
+    url: "https://www.theaterkrant.nl/recensie/nachtwacht/nite/"
   },
   {
     show_id: "nachtwacht",
@@ -280,7 +286,8 @@ export const pers: PersQuote[] = [
     bron: "Theaterkrant",
     sterren: 4,
     quote: "In een overtuigende kreet van actrice Urmie Plein wordt het verdriet van al die mensen invoelbaar.",
-    date: "2026-04-24"
+    date: "2026-04-24",
+    url: "https://www.theaterkrant.nl/recensie/medea-voor-een-toeslagenherdenking/toneelschuur-producties-internationaal-theater-amsterdam/"
   },
   {
     show_id: "medea-voor-een-toeslagenherdenking",
@@ -294,7 +301,8 @@ export const pers: PersQuote[] = [
     bron: "8weekly",
     sterren: 4,
     quote: "Joe Sinduhije als Michael is de vondst van deze voorstelling.",
-    date: "2026-04-24"
+    date: "2026-04-24",
+    url: "https://8weekly.nl/recensie/een-verkeerd-vinkje-kan-een-leven-verwoesten/"
   },
 
   // Het incident (ITA / June Yanez) - premiere 17 mei 2026

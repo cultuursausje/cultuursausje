@@ -51,8 +51,8 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   const [expanded, setExpanded] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Filter state — meerdere steden mogelijk, Amsterdam standaard geselecteerd
-  const [selectedCities, setSelectedCities] = useState<Set<string>>(() => new Set(["Amsterdam"]));
+  // Filter state — geen stad standaard geselecteerd
+  const [selectedCities, setSelectedCities] = useState<Set<string>>(() => new Set());
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedTheaters, setSelectedTheaters] = useState<Set<string>>(new Set());
   const [selectedGezelschappen, setSelectedGezelschappen] = useState<Set<string>>(new Set());
@@ -284,7 +284,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   return (
     <>
-      <RecensiesSection shows={shows} />
+      {/* Niet te missen + Plan — paired side-by-side op desktop */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <RecensiesSection shows={shows} favorites={favorites} onToggleFav={toggleFav} />
+        <PlanSection
+          shows={shows}
+          festivals={festivals}
+          favorites={favorites}
+          onToggleFav={toggleFav}
+        />
+      </div>
 
       <section id="voorstellingen">
       <div
@@ -318,6 +327,16 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           {cityOpen && (
             <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-2xl border border-line bg-white shadow-xl overflow-hidden">
               <div className="max-h-72 overflow-y-auto p-2">
+                <button
+                  onClick={() => { setSelectedCities(new Set()); setCityOpen(false); }}
+                  className={`w-full text-left px-3 py-2 text-sm rounded-lg italic transition-colors ${
+                    selectedCities.size === 0
+                      ? "bg-[#F1EFE8] text-ink font-medium"
+                      : "text-ink-soft hover:bg-[#F8F6EF]"
+                  }`}
+                >
+                  Geen
+                </button>
                 {Array.from(citiesWithShows).sort((a, b) =>
                   a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
                 ).map(city => {
@@ -455,15 +474,13 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {/* Extra secties — staan altijd onderaan de pagina, ongeacht stad-selectie */}
       <FestivalsSection festivals={festivals} shows={filteredShows} />
-      <PlanSection
-        shows={shows}
-        festivals={festivals}
-        favorites={favorites}
-        onToggleFav={toggleFav}
-      />
       <VoordeelSection />
-      <GezelschappenSection gezelschappen={allGezelschappen} />
-      <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
+
+      {/* Gezelschappen + Theaters — paired side-by-side op desktop */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <GezelschappenSection gezelschappen={allGezelschappen} />
+        <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
+      </div>
     </>
   );
 }
