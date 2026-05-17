@@ -22,6 +22,7 @@ interface CarouselItem {
   foto_url?: string;
   foto_credit?: string;
   korte_omschrijving?: string;
+  korte_omschrijving_en?: string;
   url?: string;
 }
 
@@ -48,6 +49,7 @@ function festivalShowToItem(v: FestivalShow): CarouselItem {
     foto_url: v.foto_url,
     foto_credit: v.foto_credit,
     korte_omschrijving: v.korte_omschrijving,
+    korte_omschrijving_en: v.korte_omschrijving_en,
     url: v.url
   };
 }
@@ -400,7 +402,9 @@ export function FestivalsSection({ festivals, shows }: Props) {
                       </div>
                       {openShow.korte_omschrijving && (
                         <p className="mt-3 text-sm text-ink-soft leading-relaxed">
-                          {openShow.korte_omschrijving}
+                          {lang === "en" && openShow.korte_omschrijving_en
+                            ? openShow.korte_omschrijving_en
+                            : openShow.korte_omschrijving}
                         </p>
                       )}
                       {openShow.url && (

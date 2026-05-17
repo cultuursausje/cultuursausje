@@ -110,7 +110,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
   }, [shows, festivals, city]);
 
   const showResults = useMemo(() => {
-    if (!date) return [];
+    if (!date || !city) return [];
     return shows
       .filter(s => {
         if (englishOnly && !s.english_friendly) return false;
@@ -123,8 +123,8 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
   }, [shows, city, date, englishOnly]);
 
   const festivalResults = useMemo(() => {
-    if (!date) return [];
-    const [yStr, mStr] = date.split("-");
+    if (!date || !city) return [];
+    const [, mStr] = date.split("-");
     const month = parseInt(mStr, 10);
     const cityLower = city.toLowerCase();
     return festivals.filter(f => {
@@ -260,7 +260,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
           </button>
         </div>
 
-        {date && (
+        {city && date && (
           <div className="mt-6">
             {totalResults === 0 ? (
               <div className="py-4 text-sm text-ink-soft">

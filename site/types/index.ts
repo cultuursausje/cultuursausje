@@ -105,6 +105,9 @@ export interface FestivalShow {
   foto_credit?: string;
   /** Korte tekst die in het detail-paneel verschijnt — waarom interessant. */
   korte_omschrijving?: string;
+  /** Optionele Engelse vertaling van `korte_omschrijving` — gebruikt wanneer
+   *  de taalswitch op EN staat. Valt terug op NL als afwezig. */
+  korte_omschrijving_en?: string;
   /** Link naar de voorstelling op de festival-website. */
   url: string;
 }
