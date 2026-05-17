@@ -70,6 +70,9 @@ export interface PersQuote {
   /** Publicatiedatum van de recensie (ISO YYYY-MM-DD). Gebruikt om
    *  "Net binnen"-uitlichtingen te bepalen (afgelopen 14 dagen). */
   date?: string;
+  /** Optionele directe link naar het artikel op de website van de krant
+   *  / het tijdschrift. Maakt de recensie klikbaar als ingevuld. */
+  url?: string;
 }
 
 export interface MediaLink {
