@@ -450,15 +450,116 @@ export const festivals: Festival[] = [
     periode: "Eind mei – begin juni",
     plaats: "Rotterdam",
     beschrijving: "Internationaal festival voor opera, muziektheater en performance in Rotterdam. Grensverleggend werk op bijzondere plekken in de stad, van werven tot werkplaatsen.",
-    url: "https://ofestival.nl",
+    url: "https://o-festival.nl/",
     accent: "#5BB8C2",
     match_keywords: ["o. festival", "o festival", "operadagen", "operadagen rotterdam"],
     foto_urls: [
-      "https://picsum.photos/seed/o-festival-1/1280/720",
-      "https://picsum.photos/seed/o-festival-2/1280/720",
-      "https://picsum.photos/seed/o-festival-3/1280/720"
+      "https://o-festival.nl/wp-content/uploads/2025/06/Ofestival_27052025_RosaQuistPhotography_0038-scaled.jpg",
+      "https://o-festival.nl/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-12-at-11.27.32-e1765816945300-900x553.jpeg"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Rosa Quist Photography, O. Festival",
+    voorstellingen: [
+      {
+        id: "o-festival-remachine",
+        titel: "REMACHINE",
+        gezelschap: "Jefta van Dinther",
+        type: "dans",
+        english_friendly: true,
+        korte_omschrijving: "Dansers navigeren over onstabiele grond in een hypergemachiniseerde omgeving. Een meditatie over arbeid en ritueel, met krachtige zanglijnen van componiste Anna von Hausswolff.",
+        url: "https://o-festival.nl/voorstelling/remachine/"
+      },
+      {
+        id: "o-festival-mystica",
+        titel: "Mystica",
+        gezelschap: "MOVEDBYMATTER & Muziektheater Transparant",
+        type: "muziek",
+        english_friendly: true,
+        korte_omschrijving: "Betoverend ritueel waarin zwevende haarhangers en koorzangers samen zoeken naar verbinding. Circus en muziektheater ontmoeten elkaar op teksten van middeleeuwse mystica.",
+        url: "https://o-festival.nl/voorstelling/mystica/"
+      },
+      {
+        id: "o-festival-sexodus",
+        titel: "SEXODUS",
+        gezelschap: "Naomi Velissariou / Theater Utrecht",
+        type: "toneel",
+        korte_omschrijving: "Een actrice op de drempel van haar veertigste vecht tegen de dwingende schoonheidsidealen. Een rauwe wraakfantasie tegen een systeem dat floreert bij vrouwelijke onzekerheid.",
+        url: "https://o-festival.nl/voorstelling/sexodus-theater-utrecht-naomi-v/"
+      },
+      {
+        id: "o-festival-tradwives",
+        titel: "TRADWIVES de musical",
+        gezelschap: "Club Satelliet",
+        type: "muziek",
+        korte_omschrijving: "Een niet-zo-traditionele comedy musical over traditionele vrouwen. Scherpe satire en pompende muziek sleuren je uit je bubbel.",
+        url: "https://o-festival.nl/voorstelling/tradwives-de-musical/"
+      },
+      {
+        id: "o-festival-50cent-beckett",
+        titel: "50cent & Beckett",
+        gezelschap: "Productiehuis FLOW / Y.M.P. & Titus Muizelaar",
+        type: "toneel",
+        korte_omschrijving: "Een storytellers-duo bouwt op teksten van 50 Cent en Samuel Beckett een associatief jazz-stuk. Ode aan een turbulente vriendschap die alle conventies overstijgt.",
+        url: "https://o-festival.nl/voorstelling/50cent-beckett/"
+      },
+      {
+        id: "o-festival-big-fat-trojan-wedding",
+        titel: "Big Fat Trojan Wedding",
+        gezelschap: "Collectief Aqueerius",
+        type: "muziek",
+        korte_omschrijving: "Spektakelmusical in een partytent. Griekse mythologie met een hedendaagse queer twist, meer drama dan de Trojaanse Oorlog maar dan met betere outfits.",
+        url: "https://o-festival.nl/voorstelling/big-fat-trojan-wedding/"
+      },
+      {
+        id: "o-festival-pretty-privilege",
+        titel: "Pretty Privilege",
+        gezelschap: "Collectief Teder",
+        type: "muziek",
+        korte_omschrijving: "Feministische muziektheatervoorstelling over schoonheidsdruk en sociale positie. Met meerstemmige zang, saxofoon en elektronische beats.",
+        url: "https://o-festival.nl/voorstelling/pretty-privilege/"
+      },
+      {
+        id: "o-festival-metropolis-2126",
+        titel: "Metropolis 2126",
+        gezelschap: "O. Festival / Rajiv Bhagwanbali",
+        type: "anders",
+        korte_omschrijving: "Futuristische wandeling door de wereld over 100 jaar. Drie dagen lang verschillende toekomstscenario's op vijf locaties in het Rotterdam Central District.",
+        url: "https://o-festival.nl/voorstelling/metropolis-2126/"
+      },
+      {
+        id: "o-festival-noise",
+        titel: "NOISE",
+        gezelschap: "Club Gewalt / Neuköllner Oper Berlin",
+        type: "muziek",
+        english_friendly: true,
+        korte_omschrijving: "Lecture opera die begint als zelfhulp en eindigt in een cathartische onderdompeling in noise. Hoe stem je je zintuigen af onder de constante ruis van onheilstijdingen?",
+        url: "https://o-festival.nl/voorstelling/noise/"
+      },
+      {
+        id: "o-festival-an-elegy",
+        titel: "An Elegy",
+        gezelschap: "Studio Vacuüm / NKK NXT",
+        type: "muziek",
+        korte_omschrijving: "Muzikale performance in het Kralingse Bos. Stem, adem en percussie versmelten met wind, zand en gras tot een levend muzikaal schilderij.",
+        url: "https://o-festival.nl/voorstelling/an-elegy-studio-vacuum/"
+      },
+      {
+        id: "o-festival-modraniht",
+        titel: "MODRANIHT. Songs of Winter War",
+        gezelschap: "Opera Aperta (Kyiv)",
+        type: "muziek",
+        english_friendly: true,
+        korte_omschrijving: "Theatraal ritueel tegen duistere krachten. Hoe maak je opera in tijden van oorlog? Een nieuwe opera in de vorm van rizomatisch theater.",
+        url: "https://o-festival.nl/voorstelling/modraniht-songs-of-winter-war/"
+      },
+      {
+        id: "o-festival-aisa-demeter",
+        titel: "Aisa Demeter",
+        gezelschap: "Orkater / Anne-Fay Kops",
+        type: "muziek",
+        korte_omschrijving: "Moderne muzikale mythe over de kracht van woede, met intense zang, Caribische samples en diepe baslijnen.",
+        url: "https://o-festival.nl/voorstelling/aisa-demeter/"
+      }
+    ]
   },
   {
     id: "spring-utrecht",
@@ -470,27 +571,142 @@ export const festivals: Festival[] = [
     accent: "#9B7EBD",
     match_keywords: ["spring", "spring utrecht", "spring performing arts"],
     foto_urls: [
-      "https://picsum.photos/seed/spring-utrecht-1/1280/720",
-      "https://picsum.photos/seed/spring-utrecht-2/1280/720",
-      "https://picsum.photos/seed/spring-utrecht-3/1280/720"
+      "https://springutrecht.nl/app/uploads/2025/05/wasted-land-opening-spring-23-mei-Allard-Willemse-1-1920x1080.jpg",
+      "https://springutrecht.nl/app/uploads/2025/06/20250531-SPRING-Festival-005-┬⌐-Alex-Heuvink-1920x1080.jpg",
+      "https://springutrecht.nl/app/uploads/2025/06/spring-2025-ekko-viktor-szeri-fatigue-22-1920x1080.jpg"
     ],
-    foto_credit: "Placeholder via Lorem Picsum"
-  },
-  {
-    id: "festival-ad-werf",
-    naam: "Festival a/d Werf",
-    periode: "Mei",
-    plaats: "Utrecht",
-    beschrijving: "Festival voor nieuwe makers en jong talent in Utrecht. Voorstellingen vaak op bijzondere locaties in en rond de stad.",
-    url: "https://www.festivalaandewerf.nl",
-    accent: "#FF6FA8",
-    match_keywords: ["festival a/d werf", "festival aan de werf"],
-    foto_urls: [
-      "https://picsum.photos/seed/werf-utrecht-1/1280/720",
-      "https://picsum.photos/seed/werf-utrecht-2/1280/720",
-      "https://picsum.photos/seed/werf-utrecht-3/1280/720"
-    ],
-    foto_credit: "Placeholder via Lorem Picsum"
+    foto_credit: "Allard Willemse, Alex Heuvink, SPRING Festival",
+    voorstellingen: [
+      {
+        id: "spring-utrecht-klei",
+        titel: "Klei",
+        gezelschap: "Schweigman& i.c.w. Zoro Feigl & HIIIT",
+        type: "dans",
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/signal-2025-10-21-114118-1080x1080.jpeg",
+        foto_credit: "Schweigman&",
+        korte_omschrijving: "In een onvoorspelbaar landschap van tien ton klei zoeken performers en slagwerkers naar de oeroude connectie tussen mens en aarde. Een uitnodiging om terug te gaan naar de essentie.",
+        url: "https://springutrecht.nl/programma/klei/"
+      },
+      {
+        id: "spring-utrecht-lilith-aeon",
+        titel: "LILITH.AEON",
+        gezelschap: "AΦE",
+        type: "dans",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/2-1080x1080.png",
+        foto_credit: "AΦE",
+        korte_omschrijving: "Een meeslepende ervaring die dans en AI mengt. Het publiek beweegt zich rond een enorme LED-kubus, waarbij hun bewegingen vorm geven aan de performance van een virtueel wezen.",
+        url: "https://springutrecht.nl/programma/lilith-aeon/"
+      },
+      {
+        id: "spring-utrecht-giselle-a-summary",
+        titel: "Giselle: A Summary",
+        gezelschap: "Hana Sakai x Toshiki Okada",
+        type: "dans",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/Giselle1128_3120-©HATORI-Naoshi-1-1080x1080.jpg",
+        foto_credit: "Hatori Naoshi",
+        korte_omschrijving: "Voormalig eerste soliste van het Nationaal Ballet van Japan danst de romantische klassieker terwijl zij het persona van een YouTuber aanneemt. Ballet vermengt zich met humor en speels commentaar.",
+        url: "https://springutrecht.nl/programma/giselle-a-summary/"
+      },
+      {
+        id: "spring-utrecht-islandbar",
+        titel: "IsLand Bar",
+        gezelschap: "orangcosong & guests",
+        type: "anders",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/03/Website-omslag-met-ASEF-1080x1080.png",
+        foto_credit: "orangcosong",
+        korte_omschrijving: "Een storytelling performance in Utrechtse cafés. Aan de bar serveren migranten je een persoonlijke cocktail, gemixt met hun eigen geschiedenis en identiteit.",
+        url: "https://springutrecht.nl/programma/islandbar/"
+      },
+      {
+        id: "spring-utrecht-shrine",
+        titel: "SHRINE",
+        gezelschap: "Khadija El Kharraz Alami",
+        type: "toneel",
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/Dit-beeld-willen-ze-als-campagnebeeld-gebruiken-1080x1080.jpg",
+        foto_credit: "Khadija El Kharraz Alami",
+        korte_omschrijving: "Een meeslepende voorstelling over rouw, woede en radicaal verzet. De moegestreden dochter zoekt toevlucht bij de Jinns, niet-menselijke wezens in een parallelle wereld.",
+        url: "https://springutrecht.nl/programma/shrine/"
+      },
+      {
+        id: "spring-utrecht-everything-must-go",
+        titel: "Everything Must Go",
+        gezelschap: "Forced Entertainment",
+        type: "toneel",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/Everything-Must-Go-v2-Forced-Entertainment-1080x1080.jpg",
+        foto_credit: "Forced Entertainment",
+        korte_omschrijving: "Laat op de avond proberen zes mensen zich vast te houden aan hun menselijkheid, maar de stemmen die je hoort zijn niet die van henzelf. Met lipsynchronisatie en AI.",
+        url: "https://springutrecht.nl/programma/everything-must-go/"
+      },
+      {
+        id: "spring-utrecht-do-not-go-gentle",
+        titel: "Do not go gentle into that good night",
+        gezelschap: "Dries Verhoeven",
+        type: "anders",
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/DSC8285_1536x1004-1080x1080.jpg",
+        foto_credit: "Dries Verhoeven",
+        korte_omschrijving: "Terwijl de wereld in elkaar stort, herleeft het activisme. Met deze interventie onderzoekt Dries Verhoeven de esthetiek van verzet. Kan een artistieke uiting verandering brengen?",
+        url: "https://springutrecht.nl/programma/do-not-go-gentle-into-that-good-night/"
+      },
+      {
+        id: "spring-utrecht-sweat-anthem",
+        titel: "SWEAT (anthem)",
+        gezelschap: "Milla Koistinen & DANCE ON Ensemble",
+        type: "dans",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/3J0A5366-Edit-3-1080x1080.jpg",
+        foto_credit: "DANCE ON Ensemble",
+        korte_omschrijving: "Onderzoek naar veerkracht en uithoudingsvermogen, waarbij vastberadenheid een stille vorm van protest wordt. Een lofzang op verzet en vreugde.",
+        url: "https://springutrecht.nl/programma/sweat-anthem/"
+      },
+      {
+        id: "spring-utrecht-sweet-spot",
+        titel: "Sweet Spot",
+        gezelschap: "Harald Beharie",
+        type: "dans",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/Harald-Baharie-Presentatie-1080x1080.png",
+        foto_credit: "Harald Beharie",
+        korte_omschrijving: "Zes performers trekken je mee in een rusteloze wervelwind van dans en geluid. Geïnspireerd door Noorse volksmythen, met de indringende klanken van de Hardanger-viool.",
+        url: "https://springutrecht.nl/programma/sweet-spot/"
+      },
+      {
+        id: "spring-utrecht-radio-vinci-park",
+        titel: "Radio Vinci Park",
+        gezelschap: "Théo Mercier & François Chaignaud",
+        type: "dans",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/Radio-Vinci-Park-©Erwan-Fichou-4-1-1080x1080.jpg",
+        foto_credit: "Erwan Fichou",
+        korte_omschrijving: "In een verborgen industriële ruimte ontvouwt zich een koortsachtig ritueel tussen mens en machine. Choreograaf François Chaignaud, een motorstuntman en een klavecinist versmelten.",
+        url: "https://springutrecht.nl/programma/radio-vinci-park/"
+      },
+      {
+        id: "spring-utrecht-asses-masses",
+        titel: "asses.masses",
+        gezelschap: "Patrick Blenkarn + Milton Lim",
+        type: "anders",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/02/3D_asses.masses_AstralPlane_Photo_PatrickBlenkarnMiltonLim-1080x1080.png",
+        foto_credit: "Patrick Blenkarn & Milton Lim",
+        korte_omschrijving: "Een 7+ uur durende videogame, live in het theater, waar toeschouwers om de beurt een kudde werkloze ezels door een post-industriële wereld leiden.",
+        url: "https://springutrecht.nl/programma/asses-masses/"
+      },
+      {
+        id: "spring-utrecht-ridden",
+        titel: "RIDDEN",
+        gezelschap: "Leu Wijee & Mio Ishida",
+        type: "dans",
+        english_friendly: true,
+        foto_url: "https://springutrecht.nl/app/uploads/2026/03/No.1_-©-Basir-Yang-Miller_Tainan-Arts-Festival-2025-1080x1080.jpg",
+        foto_credit: "Basir Yang Miller",
+        korte_omschrijving: "Een zintuiglijke voorstelling die schommelt tussen ritueel, sport en een bandoptreden. Onderzoek naar de relatie tussen mens en omgeving na een ramp.",
+        url: "https://springutrecht.nl/programma/ridden/"
+      }
+    ]
   },
   {
     id: "de-parade",
