@@ -157,7 +157,7 @@ export const shows: Show[] = [
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Persoonlijke ambities", "Maakbaarheid", "Macht"],
     ticket_url: "https://ita.nl/nl/voorstellingen/de-architect/3936941/",
-    interesting_because: "Ibsen-bewerking over de prijs van succes en wat een nieuwe ontmoeting bij je losmaakt. Loopt het hele seizoen — moeilijk te missen."
+    interesting_because: "Ibsen-bewerking over de prijs van succes en wat een nieuwe ontmoeting bij je losmaakt. Loopt het hele seizoen,moeilijk te missen."
   },
   {
     id: "the-actor", titel: "The Actor",
@@ -449,7 +449,7 @@ export const shows: Show[] = [
       { theater_id: "theater-rotterdam-venue", speeldata: ["2027-04-08", "2027-04-09"] }
     ],
     korte_samenvatting: "Een groep robots probeert Hamlet te spelen en vraagt zich af wat mens-zijn ook alweer was.",
-    lange_samenvatting: "Stofzuigers, bionische honden en androids in existentiële crisis nemen het theater over en stuntelen door een groot toneelstuk. Ze zoeken naar gevoel, twijfel en betekenis bij personages die hen vreemd zijn, terwijl ze zichzelf voortdurend onderbreken. Geestig en onverwacht aangrijpend over wat ons mensen onderscheidt — als dat nog iets is.",
+    lange_samenvatting: "Stofzuigers, bionische honden en androids in existentiële crisis nemen het theater over en stuntelen door een groot toneelstuk. Ze zoeken naar gevoel, twijfel en betekenis bij personages die hen vreemd zijn, terwijl ze zichzelf voortdurend onderbreken. Geestig en onverwacht aangrijpend over wat ons mensen onderscheidt,als dat nog iets is.",
     regisseur: "Rosie Sommers, Ward Weemhoff, Marieke de Zwaan (eindregie Bianca van der Schoot)",
     based_on: "Hamlet van Shakespeare",
     foto_url: "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_15-731x1024.jpg",
@@ -570,7 +570,7 @@ export const shows: Show[] = [
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Rechtspraak", "Seksueel misbruik", "Patriarchaat"],
     ticket_url: "https://ita.nl/nl/voorstellingen/prima-facie/3675691/",
-    interesting_because: "Solo over een strafrechtadvocate die met haar eigen denken botst — bekroond stuk dat Nederlandse Toneeljury raakte. Engels boventiteld op zaterdagen."
+    interesting_because: "Solo over een strafrechtadvocate die met haar eigen denken botst,bekroond stuk dat Nederlandse Toneeljury raakte. Engels boventiteld op zaterdagen."
   },
   {
     id: "orkater-aisa-demeter", titel: "Aisa Demeter",

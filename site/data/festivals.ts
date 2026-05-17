@@ -140,7 +140,7 @@ export const festivals: Festival[] = [
         english_friendly: true,
         foto_url: "https://julidans.nl/img/singles/25.jpg",
         foto_credit: "S-E-D",
-        korte_omschrijving: "Nodigt uit om te voelen: verdriet en schoonheid tegelijk, en de kracht om — midden in verlies — te blijven bewegen.",
+        korte_omschrijving: "Nodigt uit om te voelen: verdriet en schoonheid tegelijk, en de kracht om,midden in verlies,te blijven bewegen.",
         url: "https://julidans.nl/nl/voorstellingen/delay-the-sadness/5210789/"
       },
       {
@@ -319,7 +319,7 @@ export const festivals: Festival[] = [
       "https://tf.nl/wp-content/uploads/2026/02/Lage-Landen-Liefde-2025-Mark-Bolk-600x360.jpg",
       "https://tf.nl/wp-content/uploads/2026/04/Farnoosh-en-Tobias-foto-door-Jaap-Kroon-600x360.jpg"
     ],
-    foto_credit: "Mark Bolk, Jaap Kroon — Nederlands Theater Festival",
+    foto_credit: "Mark Bolk, Jaap Kroon,Nederlands Theater Festival",
     voorstellingen: [
       {
         id: "ntf-schopenhauer",
@@ -328,7 +328,7 @@ export const festivals: Festival[] = [
         type: "toneel",
         foto_url: "https://tf.nl/wp-content/uploads/2025/06/Schopenhauer_Het-Zuidelijk-Toneel_Sofie-Knijff_liggend-webres-scaled.jpg",
         foto_credit: "Sofie Knijff",
-        korte_omschrijving: "Toegankelijk en sprankelend filosofisch theater rond Arthur Schopenhauer: waarom leven lijden is — en hoe je je daarvan kunt bevrijden.",
+        korte_omschrijving: "Toegankelijk en sprankelend filosofisch theater rond Arthur Schopenhauer: waarom leven lijden is,en hoe je je daarvan kunt bevrijden.",
         url: "https://tf.nl/programma/schopenhauer/"
       },
       {
@@ -426,7 +426,7 @@ export const festivals: Festival[] = [
       "https://media.festivalboulevard.nl/media/20250815_plein_kimvanderweerden_000_1.jpg?guid=243427f7-1b1c-4efa-bfa8-ed31d368e7c8",
       "https://media.festivalboulevard.nl/media/20250815_plein_kimvanderweerden_000_6.jpg?guid=f3cf6421-7669-473b-810b-fd111f5c1d75"
     ],
-    foto_credit: "Karin Jonkers, Kim van der Weerden — Theaterfestival Boulevard"
+    foto_credit: "Karin Jonkers, Kim van der Weerden,Theaterfestival Boulevard"
   },
   {
     id: "karavaan",
@@ -497,7 +497,7 @@ export const festivals: Festival[] = [
     naam: "De Parade",
     periode: "Juni – Augustus",
     plaats: "Rotterdam, Den Haag, Amsterdam, Utrecht",
-    beschrijving: "Het enige rondreizende theaterfestival ter wereld. 80+ korte voorstellingen in theatertenten — theater, dans, mime en muziek, ieder zo'n 30 minuten zodat je er meerdere op een avond kan combineren. 's Zomers achtereenvolgens in Rotterdam, Den Haag, Amsterdam en Utrecht.",
+    beschrijving: "Het enige rondreizende theaterfestival ter wereld. 80+ korte voorstellingen in theatertenten,theater, dans, mime en muziek, ieder zo'n 30 minuten zodat je er meerdere op een avond kan combineren. 's Zomers achtereenvolgens in Rotterdam, Den Haag, Amsterdam en Utrecht.",
     url: "https://deparade.nl",
     accent: "#FF8A33",
     match_keywords: ["de parade", "parade"],
@@ -505,11 +505,11 @@ export const festivals: Festival[] = [
       "https://deparade.nl/wp-content/uploads/2026/05/Parade-Rotterdam-2026-Erik-van-t-hof-1-1920x1280.jpg",
       "https://deparade.nl/wp-content/uploads/2026/05/Screenshot-2026-05-13-at-09.48.34.png"
     ],
-    foto_credit: "Erik van 't Hof — De Parade",
+    foto_credit: "Erik van 't Hof,De Parade",
     voorstellingen: [
       {
         id: "de-parade-ashton-brothers-25-jaar",
-        titel: "Ashton Brothers — 25 jaar Parade",
+        titel: "Ashton Brothers,25 jaar Parade",
         gezelschap: "Ashton Brothers",
         type: "anders",
         english_friendly: true,
@@ -567,7 +567,7 @@ export const festivals: Festival[] = [
         type: "toneel",
         foto_url: "https://deparade.nl/wp-content/uploads/2026/05/thumbnail-Laura-500x400.jpg",
         foto_credit: "Laura van Dolron",
-        korte_omschrijving: "Stand-up Philosophy — hartverscheurend en hilarisch.",
+        korte_omschrijving: "Stand-up Philosophy,hartverscheurend en hilarisch.",
         url: "https://deparade.nl/programma/laura-van-dolron-liefhebben/"
       },
       {

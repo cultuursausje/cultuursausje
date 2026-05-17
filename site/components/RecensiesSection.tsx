@@ -10,36 +10,34 @@ interface Props {
 
 const WINDOW_DAYS = 14;
 const MIN_SOURCES = 3;
+const HIGH_STAR = 4;
 
-/** Selecteer shows die in de afgelopen 14 dagen drie of meer recensies
- *  van verschillende bronnen hebben gekregen. Sorteer op recentste
- *  recensie eerst. Max 2 shows uitlichten. */
-function pickFeatured(shows: ShowDisplay[]): Array<{
+interface Featured {
   show: ShowDisplay;
   quotes: ShowDisplay["pers_quotes"];
-  mostRecentMs: number;
-}> {
+}
+
+/** Selecteer shows met recensies. Primair: 3+ unieke bronnen binnen 14 dagen.
+ *  Fallback: aankomende voorstellingen met 3+ hoog-gewaardeerde recensies
+ *  (reprise-quotes uit een eerdere productie). */
+function pickFeatured(shows: ShowDisplay[]): Featured[] {
   const now = Date.now();
   const cutoff = now - WINDOW_DAYS * 24 * 60 * 60 * 1000;
 
-  const candidates = shows
+  // Primaire selectie — recente recensies
+  const recent = shows
     .map(show => {
-      // Pak alleen recensies met een geldige datum binnen het venster
-      const recent = show.pers_quotes.filter(q => {
+      const r = show.pers_quotes.filter(q => {
         if (!q.date) return false;
         const t = new Date(q.date).getTime();
         return Number.isFinite(t) && t >= cutoff && t <= now;
       });
-      // Tel unieke bronnen
-      const sources = new Set(recent.map(q => q.bron));
+      const sources = new Set(r.map(q => q.bron));
       if (sources.size < MIN_SOURCES) return null;
-      // Pak één recensie per unieke bron (recentste)
       const perBron = new Map<string, ShowDisplay["pers_quotes"][number]>();
-      [...recent]
+      [...r]
         .sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())
-        .forEach(q => {
-          if (!perBron.has(q.bron)) perBron.set(q.bron, q);
-        });
+        .forEach(q => { if (!perBron.has(q.bron)) perBron.set(q.bron, q); });
       const quotes = Array.from(perBron.values());
       const mostRecentMs = Math.max(...quotes.map(q => new Date(q.date!).getTime()));
       return { show, quotes, mostRecentMs };
@@ -48,7 +46,32 @@ function pickFeatured(shows: ShowDisplay[]): Array<{
     .sort((a, b) => b.mostRecentMs - a.mostRecentMs)
     .slice(0, 2);
 
-  return candidates;
+  if (recent.length > 0) {
+    return recent.map(({ show, quotes }) => ({ show, quotes }));
+  }
+
+  // Fallback — aankomende reprises met hoog gewaardeerde recensies
+  const fallback = shows
+    .filter(s => {
+      const endMs = new Date(s.speelperiode_end).getTime();
+      return Number.isFinite(endMs) && endMs >= now;
+    })
+    .map(show => {
+      const highRated = show.pers_quotes.filter(q => (q.sterren ?? 0) >= HIGH_STAR);
+      const sources = new Set(highRated.map(q => q.bron));
+      if (sources.size < MIN_SOURCES) return null;
+      const perBron = new Map<string, ShowDisplay["pers_quotes"][number]>();
+      highRated.forEach(q => { if (!perBron.has(q.bron)) perBron.set(q.bron, q); });
+      const quotes = Array.from(perBron.values());
+      const avgStars = quotes.reduce((s, q) => s + (q.sterren ?? 0), 0) / quotes.length;
+      const premiereMs = new Date(show.speelperiode_start).getTime();
+      return { show, quotes, avgStars, premiereMs };
+    })
+    .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; avgStars: number; premiereMs: number } => c !== null)
+    .sort((a, b) => b.avgStars - a.avgStars || a.premiereMs - b.premiereMs)
+    .slice(0, 2);
+
+  return fallback.map(({ show, quotes }) => ({ show, quotes }));
 }
 
 function formatShortDate(iso: string): string {
@@ -70,10 +93,10 @@ export function RecensiesSection({ shows }: Props) {
         style={{ background: "#5C2D9B" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
-          Net binnen — recensies
+          Net binnen, recensies
         </h2>
         <p className="mb-8 max-w-xl text-sm text-white/80">
-          Voorstellingen die in de afgelopen twee weken door minstens drie verschillende bronnen zijn gerecenseerd.
+          Recensies van voorstellingen die nu spelen, of van aankomende reprises met hoge waarderingen.
         </p>
 
         <div className="grid gap-5 lg:grid-cols-2">
@@ -150,7 +173,7 @@ export function RecensiesSection({ shows }: Props) {
                           &ldquo;{q.quote}&rdquo;
                         </p>
                         <div className="mt-1 flex items-center gap-2 text-[10px] text-ink-muted">
-                          <span>— {q.bron}</span>
+                          <span>{q.bron}</span>
                           {q.date && (
                             <>
                               <span aria-hidden="true">·</span>

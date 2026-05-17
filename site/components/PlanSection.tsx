@@ -74,7 +74,9 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
   const cities = useMemo(() => {
     const set = new Set<string>();
     shows.forEach(s => s.venues.forEach(v => v.theater_stad && set.add(v.theater_stad)));
-    return Array.from(set).sort((a, b) => a.localeCompare(b, "nl"));
+    return Array.from(set).sort((a, b) =>
+      a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
+    );
   }, [shows]);
 
   const datesWithShows = useMemo(() => {
@@ -121,6 +123,27 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
     return { year: y, monthIdx: m - 1 };
   })() : undefined;
 
+  // Carousel scroll-state voor pijltjes
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ atStart: true, atEnd: false });
+  const updateEdge = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    setEdge({
+      atStart: el.scrollLeft <= 0,
+      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1
+    });
+  };
+  useEffect(() => {
+    const t = setTimeout(updateEdge, 50);
+    return () => clearTimeout(t);
+  }, [totalResults]);
+  const scrollByCards = (dir: -1 | 1) => {
+    const el = carouselRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * 304, behavior: "smooth" });
+  };
+
   return (
     <section id="plan" className="mt-20 sm:mt-24">
       <div
@@ -131,7 +154,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
           Plan je theateravond
         </h2>
         <p className="mb-6 max-w-xl text-sm text-ink-soft">
-          Kies een stad en datum — eventueel met English friendly — en zie welke voorstellingen of festivals die avond aansluiten.
+          Kies een stad en datum, eventueel met English friendly, en zie welke voorstellingen of festivals die avond aansluiten.
         </p>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -211,7 +234,13 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                <div className="relative">
+                  <div
+                    ref={carouselRef}
+                    onScroll={updateEdge}
+                    className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
+                  >
+                    <div className="flex gap-4 snap-x snap-mandatory pb-2 w-full">
                   {/* Voorstelling-cards — click-to-expand */}
                   {showResults.map(({ show, venue }) => {
                     const photoBg = photoBgForShow(show.id);
@@ -221,9 +250,9 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                         key={show.id}
                         type="button"
                         onClick={() => setExpandedShowId(prev => prev === show.id ? null : show.id)}
-                        className={`group relative block overflow-hidden rounded-2xl text-left transition-all ${
+                        className={`group relative shrink-0 snap-start w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)] overflow-hidden rounded-2xl text-left transition-all ${
                           isActive
-                            ? "ring-2 ring-ink scale-[1.02]"
+                            ? "scale-[1.02]"
                             : "hover:scale-[1.02] hover:-rotate-[0.6deg]"
                         }`}
                         style={{ background: photoBg }}
@@ -276,7 +305,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                         href={f.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="group relative block overflow-hidden rounded-2xl transition-transform hover:scale-[1.02] hover:-rotate-[0.6deg]"
+                        className="group relative shrink-0 snap-start w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)] overflow-hidden rounded-2xl transition-transform hover:scale-[1.02] hover:-rotate-[0.6deg]"
                         style={{ background: f.accent }}
                       >
                         <div className="relative aspect-[4/5]">
@@ -310,6 +339,30 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                       </a>
                     );
                   })}
+                    </div>
+                  </div>
+                  {totalResults > 4 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => scrollByCards(-1)}
+                        disabled={edge.atStart}
+                        className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
+                        aria-label="Vorige"
+                      >
+                        <ChevronLeft size={18} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => scrollByCards(1)}
+                        disabled={edge.atEnd}
+                        className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
+                        aria-label="Volgende"
+                      >
+                        <ChevronRight size={18} />
+                      </button>
+                    </>
+                  )}
                 </div>
 
                 {expandedShow && (

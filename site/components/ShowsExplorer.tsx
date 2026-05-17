@@ -318,7 +318,9 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           {cityOpen && (
             <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-2xl border border-line bg-white shadow-xl overflow-hidden">
               <div className="max-h-72 overflow-y-auto p-2">
-                {Array.from(citiesWithShows).sort((a, b) => a.localeCompare(b, "nl")).map(city => {
+                {Array.from(citiesWithShows).sort((a, b) =>
+                  a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
+                ).map(city => {
                   const isActive = selectedCities.has(city);
                   return (
                     <button
@@ -346,7 +348,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
           >
             <ChevronDown size={14} className="rotate-90" />
-            <span className="capitalize">Terug naar {prevMonth.label}</span>
+            <span>Terug naar {prevMonth.label}</span>
           </button>
         )}
         {nextMonth && (
@@ -354,7 +356,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             onClick={() => setCurrentMonthIndex(i => Math.min(monthsForNav.length - 1, i + 1))}
             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
           >
-            <span className="capitalize">Toon {nextMonth.label}</span>
+            <span>Toon {nextMonth.label}</span>
             <ChevronDown size={14} className="-rotate-90" />
           </button>
         )}
@@ -426,7 +428,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       ) : currentMonth ? (
         <div>
           <h3 className="font-display mb-4 text-3xl text-ink tracking-tight sm:text-4xl">
-            {currentMonth.label}
+            {currentMonth.label.charAt(0).toUpperCase() + currentMonth.label.slice(1)}
           </h3>
           {currentMonthShows.length === 0 ? (
             <div className="px-2 py-6 text-center">
@@ -531,7 +533,7 @@ function ShowCarousel({
           onScroll={updateEdge}
           className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
         >
-          <div className="flex gap-4 snap-x snap-mandatory pb-2">
+          <div className="flex gap-4 snap-x snap-mandatory pb-2 w-full">
             {items.map(({ show, pill, key }) => (
               <SmallShowCard
                 key={key}

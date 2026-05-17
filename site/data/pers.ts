@@ -13,7 +13,7 @@ export const pers: PersQuote[] = [
     show_id: "r2d2-or-not-2b2",
     bron: "Die Deutsche Bühne",
     sterren: null,
-    quote: "Perversie, pijn en poëzie — is dat niet waar het leven om draait? Met entertainment en een geslaagde ondermijning van de werkelijkheid stelt De Warme Winkel precies deze vraag."
+    quote: "Perversie, pijn en poëzie, is dat niet waar het leven om draait? Met entertainment en een geslaagde ondermijning van de werkelijkheid stelt De Warme Winkel precies deze vraag."
   },
   {
     show_id: "r2d2-or-not-2b2",
@@ -63,6 +63,6 @@ export const pers: PersQuote[] = [
     show_id: "judith-westbroek-zoekt-een-kamer",
     bron: "Theaterkrant",
     sterren: null,
-    quote: "Uit de hand gierende twistgesprekken, absurde uitvergrotingen van de werkelijkheid én een portie klassiek vormingstoneel — een verrukkelijke drie-eenheid. Sublieme choreografie."
+    quote: "Uit de hand gierende twistgesprekken, absurde uitvergrotingen van de werkelijkheid én een portie klassiek vormingstoneel, een verrukkelijke drie-eenheid. Sublieme choreografie."
   }
 ];

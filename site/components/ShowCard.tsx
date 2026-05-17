@@ -29,13 +29,13 @@ export function SmallShowCard({
   const hasPhoto = !!show.foto_url;
 
   return (
-    <div className="relative shrink-0 snap-start w-44 sm:w-52 md:w-60 lg:w-72">
+    <div className="relative shrink-0 snap-start w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
       <button
         type="button"
         onClick={onSelect}
         className={`relative block w-full aspect-[4/5] overflow-hidden rounded-2xl text-left transition-all ${
           isActive
-            ? "ring-2 ring-ink scale-[1.02]"
+            ? "scale-[1.02]"
             : "hover:scale-[1.02] hover:-rotate-[0.6deg]"
         }`}
         style={{ background: photoBg }}
