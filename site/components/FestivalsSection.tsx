@@ -73,8 +73,16 @@ const MONTHS_NL: Record<string, number> = {
 
 function parsePeriode(periode: string): { start: number; end: number } {
   const parts = periode.toLowerCase().split(/[–-]/).map(s => s.trim());
-  const start = MONTHS_NL[parts[0]] ?? 12;
-  const end = parts[1] ? (MONTHS_NL[parts[1]] ?? start) : start;
+  // Zoek de eerste maand-naam binnen het deel — vangt ook varianten als
+  // "eind mei", "begin juni", "halverwege juli" af.
+  const findMonth = (text: string): number => {
+    for (const [name, num] of Object.entries(MONTHS_NL)) {
+      if (text.includes(name)) return num;
+    }
+    return 12;
+  };
+  const start = findMonth(parts[0]);
+  const end = parts[1] ? findMonth(parts[1]) : start;
   return { start, end };
 }
 

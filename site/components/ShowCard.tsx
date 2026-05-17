@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef, useState } from "react";
 import {
   Heart, X,
-  Play, Mic, ExternalLink, Star
+  Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
@@ -139,6 +140,25 @@ export function ShowDetailPanel({
     .filter(Boolean)
     .join(" ");
 
+  // Foto-carousel boven titel
+  const photos = show.foto_urls && show.foto_urls.length > 0
+    ? show.foto_urls
+    : show.foto_url ? [show.foto_url] : [];
+  const [photoIdx, setPhotoIdx] = useState(0);
+  const photoCarRef = useRef<HTMLDivElement>(null);
+
+  const scrollToPhoto = (idx: number) => {
+    if (!photoCarRef.current) return;
+    const w = photoCarRef.current.clientWidth;
+    photoCarRef.current.scrollTo({ left: idx * w, behavior: "smooth" });
+  };
+  const onPhotoScroll = () => {
+    if (!photoCarRef.current) return;
+    const w = photoCarRef.current.clientWidth;
+    const i = Math.round(photoCarRef.current.scrollLeft / w);
+    if (i !== photoIdx) setPhotoIdx(i);
+  };
+
   return (
     <div className="mt-4 space-y-3">
       {/* Alles-in-één-paneel: pills + titel + gezelschap + beschrijving + speeldata + locatie */}
@@ -163,6 +183,71 @@ export function ShowDetailPanel({
             className={isFavorite ? "fill-[#FF3D8B] stroke-[#FF3D8B]" : "stroke-ink-soft"}
           />
         </button>
+
+        {/* Foto-carousel boven titel */}
+        {photos.length > 0 && (
+          <div className="relative mb-4 -mt-1">
+            <div
+              ref={photoCarRef}
+              onScroll={onPhotoScroll}
+              className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide rounded-xl"
+            >
+              {photos.map((url, i) => (
+                <div
+                  key={i}
+                  className="snap-center shrink-0 w-full relative h-44 sm:h-56 md:h-60"
+                  style={{ minWidth: "100%", background: "#1B2A4E" }}
+                >
+                  <img
+                    src={url}
+                    alt=""
+                    className="absolute inset-0 block h-full w-full object-cover"
+                  />
+                  {show.foto_credit && (
+                    <div className="absolute bottom-2 right-3 z-10 text-[10px] text-white/85 leading-none pointer-events-none">
+                      © {show.foto_credit}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            {photos.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => scrollToPhoto(Math.max(0, photoIdx - 1))}
+                  disabled={photoIdx === 0}
+                  className="absolute top-1/2 left-2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+                  aria-label="Vorige foto"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToPhoto(Math.min(photos.length - 1, photoIdx + 1))}
+                  disabled={photoIdx === photos.length - 1}
+                  className="absolute top-1/2 right-2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm hover:bg-white transition disabled:opacity-30 disabled:cursor-not-allowed"
+                  aria-label="Volgende foto"
+                >
+                  <ChevronRight size={16} />
+                </button>
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1">
+                  {photos.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => scrollToPhoto(i)}
+                      className={`h-1 rounded-full transition-all ${
+                        i === photoIdx ? "w-4 bg-white" : "w-1 bg-white/60 hover:bg-white/90"
+                      }`}
+                      aria-label={`Foto ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
 
         {/* Pills */}
         <div className="flex flex-wrap items-center gap-1.5 mb-2 pr-20">
@@ -267,11 +352,11 @@ export function ShowDetailPanel({
           </a>
         )}
 
-        {/* Locatie */}
+        {/* Locatie — bij 2+ venues naast elkaar in een grid op desktop */}
         <h4 className="mt-6 mb-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
           {venues.length > 1 ? "Locaties" : "Locatie"}
         </h4>
-        <div className="space-y-4">
+        <div className={venues.length > 1 ? "grid gap-4 sm:grid-cols-2" : "space-y-4"}>
           {venues.map(v => (
             <div key={`loc-${v.theater_id}`}>
               <div className="mb-2 text-sm">
@@ -290,7 +375,7 @@ export function ShowDetailPanel({
                 )}
                 <span className="ml-1 text-ink-muted">· {v.theater_stad}</span>
               </div>
-              <div className="rounded-xl overflow-hidden aspect-[16/9] sm:max-w-md">
+              <div className={`rounded-xl overflow-hidden aspect-[16/9] ${venues.length === 1 ? "sm:max-w-md" : ""}`}>
                 <iframe
                   src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
                   className="w-full h-full"
