@@ -116,5 +116,20 @@ export const gezelschappen: Gezelschap[] = [
     beschrijving: "Amsterdams productiehuis sinds 1971. Interdisciplinair hiphop- en urban-theater met sociaal-maatschappelijke projecten.",
     logo_url: `${CDN}/c8e627a4-fd7b-4457-b900-4e63972a1230/RAN+inc.png`,
     logo_credit: "RIGHTABOUTNOW INC."
+  },
+  {
+    id: "de-hoe", naam: "DE HOE", afkorting: "DE HOE",
+    type: "Theatercollectief", stad: "Antwerpen", url: "https://www.dehoe.be/",
+    beschrijving: "Vlaams collectief van speel- en denkdieren. Eigenzinnige, gelaagde voorstellingen die het komische en het filosofische verweven."
+  },
+  {
+    id: "veenfabriek", naam: "De Veenfabriek", afkorting: "Veenfabriek",
+    type: "Theatercollectief (muziektheater)", stad: "Leiden", url: "https://www.veenfabriek.nl/",
+    beschrijving: "Leids muziektheatergezelschap dat actueel en betrokken werk maakt. Voorstellingen vol live muziek, eten en gesprek."
+  },
+  {
+    id: "collectief-mamm", naam: "Collectief MAMM", afkorting: "MAMM",
+    type: "Theatercollectief", stad: "Amsterdam", url: "https://collectiefmamm.com/",
+    beschrijving: "Amsterdams dans- en theatercollectief. Toegankelijk, fysiek werk over alledaagse thema's, voor jong en oud publiek."
   }
 ];

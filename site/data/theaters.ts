@@ -117,5 +117,83 @@ export const theaters: Theater[] = [
     stad: "Castricum",
     url: "https://www.karavaan.nl",
     beschrijving: "Theaterfestival in Noord-Holland met voorstellingen op bijzondere locaties."
+  },
+  {
+    id: "theater-rotterdam-venue", naam: "Theater Rotterdam", afkorting: "Theater Rotterdam",
+    stad: "Rotterdam",
+    url: "https://www.theaterrotterdam.nl",
+    beschrijving: "Het stadstheater van Rotterdam aan het Schouwburgplein en daarnaast op locatie."
+  },
+  {
+    id: "verkadefabriek", naam: "Verkadefabriek", afkorting: "Verkadefabriek",
+    stad: "'s-Hertogenbosch",
+    url: "https://www.verkadefabriek.nl",
+    beschrijving: "Theater en filmhuis in een voormalige koekjesfabriek in Den Bosch."
+  },
+  {
+    id: "stadsschouwburg-haarlem", naam: "Stadsschouwburg Haarlem", afkorting: "SS Haarlem",
+    stad: "Haarlem",
+    url: "https://stadsschouwburghaarlem.nl",
+    beschrijving: "Hoofdpodium voor toneel en muziek in het centrum van Haarlem."
+  },
+  {
+    id: "stadsschouwburg-utrecht", naam: "Stadsschouwburg Utrecht", afkorting: "SS Utrecht",
+    stad: "Utrecht",
+    url: "https://stadsschouwburg-utrecht.nl",
+    beschrijving: "Het stadstheater van Utrecht — toneel, dans en muziektheater op verschillende zalen."
+  },
+  {
+    id: "leidse-schouwburg", naam: "Leidse Schouwburg", afkorting: "Leidse Schouwburg",
+    stad: "Leiden",
+    url: "https://leidseschouwburg-stadsgehoorzaal.nl",
+    beschrijving: "Het oude stadstheater van Leiden, sinds 1705 in gebruik."
+  },
+  {
+    id: "spot-groningen", naam: "SPOT Stadsschouwburg Groningen", afkorting: "SPOT",
+    stad: "Groningen",
+    url: "https://www.spotgroningen.nl",
+    beschrijving: "Het podiumcentrum van Groningen — theater, dans en muziek in twee zalen."
+  },
+  {
+    id: "de-nieuwe-vorst", naam: "De Nieuwe Vorst", afkorting: "De Nieuwe Vorst",
+    stad: "Tilburg",
+    url: "https://denieuwevorst.nl",
+    beschrijving: "Vlakkevloertheater in Tilburg met focus op vernieuwend werk."
+  },
+  {
+    id: "schauspielhaus-bochum", naam: "Schauspielhaus Bochum", afkorting: "Schauspielhaus",
+    stad: "Bochum",
+    url: "https://www.schauspielhausbochum.de",
+    beschrijving: "Grote Duitse stadsschouwburg in Bochum, onder leiding van Johan Simons."
+  },
+  {
+    id: "ntgent", naam: "NTGent", afkorting: "NTGent",
+    stad: "Gent",
+    url: "https://www.ntgent.be",
+    beschrijving: "Het stadstheater van Gent — onder leiding wisselend tussen internationale regisseurs."
+  },
+  {
+    id: "spot-walhalla", naam: "Werkplaats Walhalla", afkorting: "Walhalla",
+    stad: "Rotterdam",
+    url: "https://walhallakatendrecht.nl",
+    beschrijving: "Theater op Katendrecht met een lange traditie van bijzonder werk."
+  },
+  {
+    id: "rdm-rotterdam", naam: "RDM Onderzeebootloods", afkorting: "RDM",
+    stad: "Rotterdam",
+    url: "https://www.rdmrotterdam.nl",
+    beschrijving: "Industriële locatie aan de Maas, vaak gebruikt voor grootschalig locatietheater."
+  },
+  {
+    id: "schuur-haarlem", naam: "De Schuur", afkorting: "Schuur",
+    stad: "Haarlem",
+    url: "https://www.schuur.nl",
+    beschrijving: "Theater en bioscoop, hoofdbase van Toneelschuur Producties."
+  },
+  {
+    id: "theater-rotterdam-schouwburg", naam: "Theater Rotterdam Schouwburg", afkorting: "TR Schouwburg",
+    stad: "Rotterdam",
+    url: "https://www.theaterrotterdam.nl",
+    beschrijving: "De grote schouwburgzaal aan het Schouwburgplein."
   }
 ];

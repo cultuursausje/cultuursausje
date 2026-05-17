@@ -445,6 +445,38 @@ export const festivals: Festival[] = [
     foto_credit: "Placeholder via Lorem Picsum"
   },
   {
+    id: "o-festival",
+    naam: "O. Festival",
+    periode: "Eind mei – begin juni",
+    plaats: "Rotterdam",
+    beschrijving: "Internationaal festival voor opera, muziektheater en performance in Rotterdam. Grensverleggend werk op bijzondere plekken in de stad, van werven tot werkplaatsen.",
+    url: "https://ofestival.nl",
+    accent: "#5BB8C2",
+    match_keywords: ["o. festival", "o festival", "operadagen", "operadagen rotterdam"],
+    foto_urls: [
+      "https://picsum.photos/seed/o-festival-1/1280/720",
+      "https://picsum.photos/seed/o-festival-2/1280/720",
+      "https://picsum.photos/seed/o-festival-3/1280/720"
+    ],
+    foto_credit: "Placeholder via Lorem Picsum"
+  },
+  {
+    id: "spring-utrecht",
+    naam: "SPRING Performing Arts Festival",
+    periode: "Eind mei",
+    plaats: "Utrecht",
+    beschrijving: "Internationaal festival voor hedendaagse podiumkunsten in Utrecht. Tien dagen vernieuwend werk uit binnen- en buitenland, op grote en kleine podia én op locatie.",
+    url: "https://springutrecht.nl",
+    accent: "#9B7EBD",
+    match_keywords: ["spring", "spring utrecht", "spring performing arts"],
+    foto_urls: [
+      "https://picsum.photos/seed/spring-utrecht-1/1280/720",
+      "https://picsum.photos/seed/spring-utrecht-2/1280/720",
+      "https://picsum.photos/seed/spring-utrecht-3/1280/720"
+    ],
+    foto_credit: "Placeholder via Lorem Picsum"
+  },
+  {
     id: "festival-ad-werf",
     naam: "Festival a/d Werf",
     periode: "Mei",
