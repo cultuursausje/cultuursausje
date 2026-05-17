@@ -7,7 +7,8 @@ import {
 } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
-import { englishDays, formatDateNL } from "@/lib/dates";
+import { englishDays } from "@/lib/dates";
+import { useT, useLang, formatDateLang } from "@/lib/i18n";
 
 const PANEL_BG = "#F1EFE8";
 
@@ -121,6 +122,8 @@ function mapsLinkUrl(theater: string, stad: string): string {
 export function ShowDetailPanel({
   show, isFavorite, venues: cityVenues, viewMonth, onClose, onToggleFav
 }: DetailProps) {
+  const t = useT();
+  const { lang } = useLang();
   const enDays = englishDays(show.english_friendly, show.english_friendly_detail);
 
   // Filter venues op de actieve maand én filter de datums binnen elke venue.
@@ -335,7 +338,7 @@ export function ShowDetailPanel({
                     </div>
                   )}
                   <p className="text-sm italic text-ink-soft leading-relaxed">
-                    &ldquo;{p.quote}&rdquo;
+                    &ldquo;{lang === "en" && p.quote_en ? p.quote_en : p.quote}&rdquo;
                   </p>
                   <div className="mt-0.5 text-[11px] text-ink-muted inline-flex items-center gap-1">
                     {p.bron}
@@ -358,8 +361,10 @@ export function ShowDetailPanel({
                 className="text-xs font-medium text-ink hover:underline underline-offset-2"
               >
                 {reviewsExpanded
-                  ? "Minder recensies"
-                  : `+${show.pers_quotes.length - 1} meer recensies`}
+                  ? t("button.lessReviews")
+                  : (lang === "en"
+                      ? `+${show.pers_quotes.length - 1} more reviews`
+                      : `+${show.pers_quotes.length - 1} meer recensies`)}
               </button>
             )}
           </div>
@@ -367,7 +372,7 @@ export function ShowDetailPanel({
 
         {/* Speeldata */}
         <h4 className="mt-6 mb-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
-          Speeldata
+          {t("show.speeldata")}
         </h4>
         <div className="space-y-3">
           {venues.map(v => {
@@ -389,7 +394,7 @@ export function ShowDetailPanel({
                         const isEn = enDays.has(d.getDay());
                         return (
                           <div key={j} className="flex items-center gap-1 text-xs text-ink-soft sm:text-sm">
-                            <span className="lowercase">{formatDateNL(d)}</span>
+                            <span className="lowercase">{formatDateLang(d, lang)}</span>
                             {isEn && (
                               <span aria-hidden="true" className="text-xs leading-none">🇬🇧</span>
                             )}
@@ -399,13 +404,13 @@ export function ShowDetailPanel({
                     </div>
                     {overflow > 0 && (
                       <div className="mt-1.5 text-[11px] text-ink-muted">
-                        + {overflow} meer — zie link hieronder
+                        + {overflow} {t("detail.moreViaLink")}
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="text-[11px] text-ink-faint italic">
-                    Speeldata via de link hieronder
+                    {t("detail.datesViaLink")}
                   </div>
                 )}
               </div>
@@ -419,14 +424,14 @@ export function ShowDetailPanel({
             rel="noreferrer"
             className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-ink hover:underline underline-offset-2 sm:text-sm"
           >
-            Naar de voorstelling op {show.gezelschap_display}
+            {t("button.toShow")} {show.gezelschap_display}
             <ExternalLink size={12} />
           </a>
         )}
 
         {/* Locatie — bij 2+ venues naast elkaar in een grid op desktop */}
         <h4 className="mt-6 mb-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
-          {venues.length > 1 ? "Locaties" : "Locatie"}
+          {venues.length > 1 ? t("show.locaties") : t("show.locatie")}
         </h4>
         <div className={venues.length > 1 ? "grid gap-4 sm:grid-cols-2" : "space-y-4"}>
           {venues.map(v => (
@@ -463,7 +468,7 @@ export function ShowDetailPanel({
                 rel="noreferrer"
                 className="mt-1.5 inline-flex items-center gap-1 text-[11px] text-ink-muted hover:text-ink underline-offset-2 hover:underline"
               >
-                Open in Google Maps <ExternalLink size={11} />
+                {t("button.openMaps")} <ExternalLink size={11} />
               </a>
             </div>
           ))}
@@ -473,7 +478,7 @@ export function ShowDetailPanel({
         {show.media_links.length > 0 && (
           <>
             <h4 className="mt-6 mb-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
-              In de media
+              {t("show.inDeMedia")}
             </h4>
             <div className="grid gap-2 sm:grid-cols-2">
               {show.media_links.map((m, i) => (

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
-import { useT } from "@/lib/i18n";
+import { useT, useLang, monthLabelLang, pillForMonthLang } from "@/lib/i18n";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
 import { PlanSection } from "./PlanSection";
@@ -11,7 +11,7 @@ import { VoordeelSection } from "./VoordeelSection";
 import { GezelschappenSection } from "./GezelschappenSection";
 import { TheatersSection } from "./TheatersSection";
 import { loadFavorites, saveFavorites } from "@/lib/favorites";
-import { monthLabel, monthKey, pillForMonth } from "@/lib/dates";
+import { monthKey } from "@/lib/dates";
 import type { ShowDisplay, Theater, Gezelschap, Festival } from "@/types";
 
 // Grotere Nederlandse theater-steden — zodat de dropdown ook steden bevat
@@ -48,6 +48,7 @@ interface MonthGroup {
 
 export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, festivals }: Props) {
   const t = useT();
+  const { lang } = useLang();
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [flipped, setFlipped] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -202,7 +203,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         return {
           year: b.year,
           monthIdx: b.monthIdx,
-          label: monthLabel(b.year, b.monthIdx),
+          label: monthLabelLang(b.year, b.monthIdx, lang),
           shows: sorted.map(({ show, days }) => {
             const uniqueSorted = Array.from(new Set(days)).sort((a, b) => a - b);
             const minD = uniqueSorted[0];
@@ -210,12 +211,12 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             const mm = String(b.monthIdx + 1).padStart(2, "0");
             const minIso = `${b.year}-${mm}-${String(minD).padStart(2, "0")}`;
             const maxIso = `${b.year}-${mm}-${String(maxD).padStart(2, "0")}`;
-            const pill = pillForMonth(minIso, maxIso, b.year, b.monthIdx) ?? `${minD} ${b.monthIdx}`;
+            const pill = pillForMonthLang(minIso, maxIso, b.year, b.monthIdx, lang) ?? `${minD} ${b.monthIdx}`;
             return { show, pill };
           })
         };
       });
-  }, [filteredShowsForNav, selectedCities]);
+  }, [filteredShowsForNav, selectedCities, lang]);
 
   // Eén maand tegelijk zichtbaar — gebruiker navigeert met prev/next
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
@@ -250,12 +251,12 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         const minIso = allDates[0];
         const maxIso = allDates[allDates.length - 1];
         const [y, m] = minIso.split("-").map(Number);
-        const pill = pillForMonth(minIso, maxIso, y, m - 1) ?? "";
+        const pill = pillForMonthLang(minIso, maxIso, y, m - 1, lang) ?? "";
         return { show, pill, sortKey: minIso };
       })
       .sort((a, b) => a.sortKey.localeCompare(b.sortKey))
       .map(({ show, pill }) => ({ show, pill }));
-  }, [showFavoritesOnly, filteredShowsForNav, favorites]);
+  }, [showFavoritesOnly, filteredShowsForNav, favorites, lang]);
 
   const toggleFav = (id: string) => {
     setFavorites(prev => {
@@ -320,7 +321,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             }`}
           >
             <span>
-              {selectedCities.size === 1 ? Array.from(selectedCities)[0] : "Kies een stad"}
+              {selectedCities.size === 1 ? Array.from(selectedCities)[0] : t("filter.pickCity")}
             </span>
             <ChevronDown size={14} />
           </button>
@@ -335,7 +336,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
                       : "text-ink-soft hover:bg-[#F8F6EF]"
                   }`}
                 >
-                  Geen
+                  {t("filter.none")}
                 </button>
                 {Array.from(citiesWithShows).sort((a, b) =>
                   a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
@@ -367,7 +368,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
           >
             <ChevronDown size={14} className="rotate-90" />
-            <span>Terug naar {prevMonth.label}</span>
+            <span>{t("carousel.prevMonth")} {prevMonth.label}</span>
           </button>
         )}
         {nextMonth && (
@@ -375,7 +376,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             onClick={() => setCurrentMonthIndex(i => Math.min(monthsForNav.length - 1, i + 1))}
             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-ink-soft hover:bg-[#F8F6EF] transition-colors"
           >
-            <span>Toon {nextMonth.label}</span>
+            <span>{t("carousel.nextMonth")} {nextMonth.label}</span>
             <ChevronDown size={14} className="-rotate-90" />
           </button>
         )}
@@ -404,34 +405,34 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
       {selectedCities.size === 0 ? (
         <div className="px-2 py-6 text-center">
-          <div className="text-base text-ink">Je hebt nog geen stad gekozen.</div>
+          <div className="text-base text-ink">{t("empty.noCity.title")}</div>
           <div className="mt-2 text-sm text-ink-soft">
-            Klik hierboven op de stad-knop om een stad te selecteren.
+            {t("empty.noCity.subtitle")}
           </div>
         </div>
       ) : monthsForNav.length === 0 ? (
         <div className="rounded-3xl bg-white p-10 text-center text-ink-muted">
           {hasActiveFilter ? (
             <>
-              Geen voorstellingen die aan je filters voldoen.
+              {t("empty.noShowsFilters")}
               <button
                 onClick={clearAllFilters}
                 className="block mx-auto mt-3 text-sm text-ink underline-offset-2 underline hover:no-underline"
               >
-                Wis alle filters
+                {t("empty.clearFilters")}
               </button>
             </>
           ) : (
-            "Geen voorstellingen om te tonen."
+            t("empty.noShowsMonth")
           )}
         </div>
       ) : showFavoritesOnly ? (
         // Favorieten-view: alle gelikte shows in één carousel, zonder maand-kop.
         allFavoritedShows.length === 0 ? (
           <div className="px-2 py-6 text-center">
-            <div className="text-base text-ink">Je hebt nog geen voorstellingen geliked.</div>
+            <div className="text-base text-ink">{t("empty.noFavorites.title")}</div>
             <div className="mt-2 text-sm text-ink-soft">
-              Klik op het hartje op een kaart om 'm op te slaan.
+              {t("empty.noFavorites.subtitle")}
             </div>
           </div>
         ) : (
@@ -451,7 +452,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           </h3>
           {currentMonthShows.length === 0 ? (
             <div className="px-2 py-6 text-center">
-              <div className="text-base text-ink">Geen voorstellingen in deze maand.</div>
+              <div className="text-base text-ink">{t("empty.noShowsMonth")}</div>
             </div>
           ) : (
             <ShowCarousel

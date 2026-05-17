@@ -79,24 +79,24 @@ export function TheatersSection({ theaters }: Props) {
                 {city}
               </h3>
               <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
-                {list.map(t => (
-                  <div key={t.id}>
+                {list.map(th => (
+                  <div key={th.id}>
                     <a
-                      href={t.url}
+                      href={th.url}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
                     >
-                      {t.naam}
+                      {th.naam}
                       <ExternalLink size={12} className="text-ink-soft" />
                     </a>
                     <a
-                      href={mapsLinkForTheater(t.naam, t.stad)}
+                      href={mapsLinkForTheater(th.naam, th.stad)}
                       target="_blank"
                       rel="noreferrer"
-                      className="ml-3 inline-flex items-center gap-1 text-xs text-ink-soft hover:text-ink underline-offset-2 hover:underline"
+                      className="mt-0.5 inline-flex items-center gap-1 text-xs text-ink-soft hover:text-ink underline-offset-2 hover:underline"
                     >
-                      <MapPin size={11} /> Op de kaart
+                      <MapPin size={11} /> {t("theater.onMap")}
                     </a>
                   </div>
                 ))}
@@ -111,7 +111,7 @@ export function TheatersSection({ theaters }: Props) {
               onClick={() => setExpanded(v => !v)}
               className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
             >
-              {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
+              {expanded ? <>{t("button.less")} <ChevronUp size={14} /></> : <>{t("button.seeMore")} <ChevronDown size={14} /></>}
             </button>
           </div>
         )}

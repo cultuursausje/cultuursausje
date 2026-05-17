@@ -142,11 +142,97 @@ const T = {
     nl: "Voorstellingen tijdens dit festival",
     en: "Shows during this festival"
   },
+  "festival.toWebsite": {
+    nl: "Naar festival-website",
+    en: "Go to festival website"
+  },
+  "festival.pill": { nl: "Festival", en: "Festival" },
 
   // Carousel navigation
   "carousel.prevMonth": { nl: "Terug naar", en: "Back to" },
-  "carousel.nextMonth": { nl: "Toon", en: "Show" }
+  "carousel.nextMonth": { nl: "Toon", en: "Show" },
+
+  // Theater
+  "theater.onMap": { nl: "Op de kaart", en: "On the map" },
+
+  // Detail panel labels
+  "detail.datesViaLink": {
+    nl: "Speeldata via de link hieronder",
+    en: "Dates via the link below"
+  },
+  "detail.moreViaLink": {
+    nl: "meer, zie link hieronder",
+    en: "more, see link below"
+  },
+
+  // Plan section result message (composed)
+  "plan.noResultsFor": {
+    nl: "Geen voorstellingen of festivals gevonden voor",
+    en: "No shows or festivals found for"
+  },
+  "plan.on": { nl: "op", en: "on" },
+  "plan.withEnglish": {
+    nl: "met English friendly",
+    en: "with English friendly"
+  }
 };
+
+// Month and weekday helpers — locale-aware
+const MONTH_NAMES_NL = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+const MONTH_NAMES_EN = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const MONTH_SHORT_NL = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+const MONTH_SHORT_EN = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const DAY_SHORT_NL = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+const DAY_SHORT_EN = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+export function monthLabelLang(year: number, monthIdx: number, lang: Lang): string {
+  const names = lang === "en" ? MONTH_NAMES_EN : MONTH_NAMES_NL;
+  return `${names[monthIdx]} ${year}`;
+}
+
+export function monthShortLang(monthIdx: number, lang: Lang): string {
+  return (lang === "en" ? MONTH_SHORT_EN : MONTH_SHORT_NL)[monthIdx];
+}
+
+export function dayShortLang(weekday: number, lang: Lang): string {
+  return (lang === "en" ? DAY_SHORT_EN : DAY_SHORT_NL)[weekday];
+}
+
+export function formatDateLang(d: Date, lang: Lang): string {
+  return `${dayShortLang(d.getDay(), lang)} ${d.getDate()} ${monthShortLang(d.getMonth(), lang)}`;
+}
+
+/** Lang-aware pill: "9–14 May" of "9–14 mei", "Hele juni" of "Whole June". */
+export function pillForMonthLang(
+  startISO: string,
+  endISO: string,
+  year: number,
+  monthIdx: number,
+  lang: Lang
+): string | null {
+  const [sy, sm, sd] = startISO.split("-").map(Number);
+  const [ey, em, ed] = endISO.split("-").map(Number);
+  const start = new Date(sy, sm - 1, sd);
+  const end = new Date(ey, em - 1, ed);
+  const monthStart = new Date(year, monthIdx, 1);
+  const monthEnd = new Date(year, monthIdx + 1, 0);
+  if (end < monthStart || start > monthEnd) return null;
+
+  const periodStart = start < monthStart ? monthStart : start;
+  const periodEnd = end > monthEnd ? monthEnd : end;
+  const short = monthShortLang(monthIdx, lang);
+  const shortCap = short.charAt(0).toUpperCase() + short.slice(1);
+  const full = (lang === "en" ? MONTH_NAMES_EN : MONTH_NAMES_NL)[monthIdx];
+  const fullCap = full.charAt(0).toUpperCase() + full.slice(1);
+
+  if (periodStart.getDate() === 1 && periodEnd.getDate() === monthEnd.getDate()) {
+    return lang === "en" ? `Whole ${fullCap}` : `Hele ${fullCap}`;
+  }
+  if (periodStart.getDate() === periodEnd.getDate()) {
+    return `${periodStart.getDate()} ${shortCap}`;
+  }
+  return `${periodStart.getDate()}–${periodEnd.getDate()} ${shortCap}`;
+}
 
 type Key = keyof typeof T;
 

@@ -5,7 +5,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink } from "lucide-rea
 import type { Festival, ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
 import { ShowDetailPanel } from "./ShowCard";
-import { useT } from "@/lib/i18n";
+import { useT, useLang, monthLabelLang, monthShortLang, type Lang } from "@/lib/i18n";
 
 interface Props {
   shows: ShowDisplay[];
@@ -13,12 +13,6 @@ interface Props {
   favorites: Set<string>;
   onToggleFav: (id: string) => void;
 }
-
-const MONTH_NAMES = [
-  "januari", "februari", "maart", "april", "mei", "juni",
-  "juli", "augustus", "september", "oktober", "november", "december"
-];
-const SHORT_MONTHS = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 
 const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
@@ -38,17 +32,18 @@ function parsePeriode(periode: string): { start: number; end: number } {
   return { start, end };
 }
 
-function fmtDate(iso: string): string {
-  const [y, m, d] = iso.split("-").map(Number);
-  return `${d} ${SHORT_MONTHS[m - 1]}`;
+function fmtDate(iso: string, lang: Lang): string {
+  const [, m, d] = iso.split("-").map(Number);
+  return `${d} ${monthShortLang(m - 1, lang)}`;
 }
-function fmtDateLong(iso: string): string {
+function fmtDateLong(iso: string, lang: Lang): string {
   const [y, m, d] = iso.split("-").map(Number);
-  return `${d} ${MONTH_NAMES[m - 1]}`;
+  return `${d} ${monthLabelLang(y, m - 1, lang).split(" ")[0]}`;
 }
 
 export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props) {
   const t = useT();
+  const { lang } = useLang();
   const [city, setCity] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [englishOnly, setEnglishOnly] = useState<boolean>(false);
@@ -170,7 +165,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                   : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
               }`}
             >
-              {city || "Kies een stad"}
+              {city || t("filter.pickCity")}
               <ChevronDown size={14} />
             </button>
             {cityOpen && (
@@ -182,7 +177,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                       !city ? "bg-[#F1EFE8] text-ink font-medium" : "text-ink-soft hover:bg-[#F8F6EF]"
                     }`}
                   >
-                    Geen
+                    {t("filter.none")}
                   </button>
                   {cities.map(c => {
                     const active = c === city;
@@ -213,13 +208,14 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                   : "bg-white border border-line text-ink-soft hover:bg-[#F8F6EF]"
               }`}
             >
-              {date ? fmtDate(date) : "Kies een datum"}
+              {date ? fmtDate(date, lang) : t("filter.pickDate")}
               <ChevronDown size={14} />
             </button>
             {dateOpen && (
               <CalendarPopover
                 value={date}
                 datesWithShows={datesWithShows}
+                lang={lang}
                 onSelect={d => { setDate(d); setDateOpen(false); }}
               />
             )}
@@ -243,8 +239,8 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
           <div className="mt-6">
             {totalResults === 0 ? (
               <div className="py-4 text-sm text-ink-soft">
-                Geen voorstellingen of festivals gevonden voor {city} op {fmtDateLong(date)}
-                {englishOnly ? " met English friendly" : ""}.
+                {t("plan.noResultsFor")} {city} {t("plan.on")} {fmtDateLong(date, lang)}
+                {englishOnly ? ` ${t("plan.withEnglish")}` : ""}.
               </div>
             ) : (
               <>
@@ -333,7 +329,7 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
                           <div className="pointer-events-none absolute top-2 left-2 flex flex-wrap gap-1">
                             <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
-                              Festival
+                              {t("festival.pill")}
                             </span>
                           </div>
                           <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 text-white">
@@ -401,10 +397,11 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
 interface CalendarProps {
   value: string;
   datesWithShows: Set<string>;
+  lang: Lang;
   onSelect: (iso: string) => void;
 }
 
-function CalendarPopover({ value, datesWithShows, onSelect }: CalendarProps) {
+function CalendarPopover({ value, datesWithShows, lang, onSelect }: CalendarProps) {
   const initial = value ? new Date(value + "T12:00:00") : new Date();
   const [viewYear, setViewYear] = useState(initial.getFullYear());
   const [viewMonth, setViewMonth] = useState(initial.getMonth());
@@ -438,14 +435,17 @@ function CalendarPopover({ value, datesWithShows, onSelect }: CalendarProps) {
           <ChevronLeft size={14} />
         </button>
         <span className="text-sm font-medium text-ink capitalize">
-          {MONTH_NAMES[viewMonth]} {viewYear}
+          {monthLabelLang(viewYear, viewMonth, lang)}
         </span>
         <button type="button" onClick={nextMonth} className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-[#F8F6EF]" aria-label="Volgende maand">
           <ChevronRight size={14} />
         </button>
       </div>
       <div className="grid grid-cols-7 gap-1 mb-1">
-        {["ma", "di", "wo", "do", "vr", "za", "zo"].map(d => (
+        {(lang === "en"
+          ? ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+          : ["ma", "di", "wo", "do", "vr", "za", "zo"]
+        ).map(d => (
           <div key={d} className="text-center text-[10px] font-medium uppercase tracking-wider text-ink-faint">
             {d}
           </div>

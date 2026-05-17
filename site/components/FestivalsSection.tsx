@@ -212,7 +212,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
               onClick={() => setExpanded(v => !v)}
               className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
             >
-              {expanded ? <>Minder <ChevronUp size={14} /></> : <>Bekijk meer <ChevronDown size={14} /></>}
+              {expanded ? <>{t("button.less")} <ChevronUp size={14} /></> : <>{t("button.seeMore")} <ChevronDown size={14} /></>}
             </button>
           </div>
         )}
@@ -278,17 +278,17 @@ export function FestivalsSection({ festivals, shows }: Props) {
                   rel="noreferrer"
                   className="mt-4 inline-flex items-center gap-1.5 text-xs text-ink-muted hover:text-ink underline-offset-2 underline"
                 >
-                  Naar festival-website <ExternalLink size={11} />
+                  {t("festival.toWebsite")} <ExternalLink size={11} />
                 </a>
               )}
             </div>
             <div className="border-t border-line p-6 sm:p-8">
               <h4 className="mb-4 text-xs font-medium uppercase tracking-widest text-ink-muted">
-                Voorstellingen tijdens dit festival
+                {t("festival.voorstellingenTijdens")}
               </h4>
               {items.length === 0 ? (
                 <p className="text-sm text-ink-muted italic">
-                  Programma volgt — kijk op {open.naam} voor de actuele lijn-up.
+                  {t("festival.programmaVolgt")} {open.naam}.
                 </p>
               ) : (
                 <>
@@ -407,7 +407,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
                           rel="noreferrer"
                           className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-ink hover:underline underline-offset-2"
                         >
-                          Naar de voorstelling op {open.naam}
+                          {t("button.toShow")} {open.naam}
                           <ExternalLink size={11} />
                         </a>
                       )}

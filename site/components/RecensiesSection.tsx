@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Star, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
-import { useT } from "@/lib/i18n";
+import { useT, useLang, type Lang } from "@/lib/i18n";
 
 interface Props {
   shows: ShowDisplay[];
@@ -74,13 +74,14 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
   return combined.slice(0, MAX_FEATURED);
 }
 
-function formatShortDate(iso: string): string {
-  const [y, m, d] = iso.split("-").map(Number);
-  const months = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
-  return `${d} ${months[m - 1]}`;
+function formatShortDate(iso: string, lang: Lang): string {
+  const [, m, d] = iso.split("-").map(Number);
+  const monthsNl = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+  const monthsEn = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+  return `${d} ${(lang === "en" ? monthsEn : monthsNl)[m - 1]}`;
 }
 
-function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
+function QuoteRow({ quote, lang }: { quote: ShowDisplay["pers_quotes"][number]; lang: Lang }) {
   const inner = (
     <>
       {quote.sterren !== null && (
@@ -97,14 +98,14 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
         </div>
       )}
       <p className="text-sm italic text-white leading-relaxed">
-        &ldquo;{quote.quote}&rdquo;
+        &ldquo;{lang === "en" && quote.quote_en ? quote.quote_en : quote.quote}&rdquo;
       </p>
       <div className="mt-0.5 text-[11px] text-white/70 inline-flex items-center gap-1">
         {quote.bron}
         {quote.date && (
           <>
             <span aria-hidden="true">·</span>
-            <span className="lowercase">{formatShortDate(quote.date)}</span>
+            <span className="lowercase">{formatShortDate(quote.date, lang)}</span>
           </>
         )}
         {quote.url && <ExternalLink size={9} className="text-white/60" />}
@@ -122,6 +123,7 @@ function QuoteRow({ quote }: { quote: ShowDisplay["pers_quotes"][number] }) {
 
 export function RecensiesSection({ shows }: Props) {
   const t = useT();
+  const { lang } = useLang();
   const featured = pickFeatured(shows);
   const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set());
 
@@ -223,7 +225,7 @@ export function RecensiesSection({ shows }: Props) {
                         rel="noreferrer"
                         className="inline-flex items-center gap-1 text-sm font-medium text-white hover:underline underline-offset-2"
                       >
-                        Naar de voorstelling op {show.gezelschap_display}
+                        {t("button.toShow")} {show.gezelschap_display}
                         <ExternalLink size={12} />
                       </a>
                     )}
@@ -231,7 +233,7 @@ export function RecensiesSection({ shows }: Props) {
                     {/* Recensies direct op de paarse achtergrond, geen vlak */}
                     <div className="space-y-4">
                       {visible.map((q, i) => (
-                        <QuoteRow key={i} quote={q} />
+                        <QuoteRow key={i} quote={q} lang={lang} />
                       ))}
                       {quotes.length > INITIAL_QUOTES && (
                         <button
@@ -240,8 +242,10 @@ export function RecensiesSection({ shows }: Props) {
                           className="text-xs font-medium text-white hover:underline underline-offset-2"
                         >
                           {isOpenReviews
-                            ? "Minder recensies"
-                            : `+${quotes.length - INITIAL_QUOTES} meer recensies`}
+                            ? t("button.lessReviews")
+                            : (lang === "en"
+                                ? `+${quotes.length - INITIAL_QUOTES} more reviews`
+                                : `+${quotes.length - INITIAL_QUOTES} meer recensies`)}
                         </button>
                       )}
                     </div>
