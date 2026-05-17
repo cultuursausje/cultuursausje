@@ -493,13 +493,20 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <InspiringQuote {...inspiringQuotes[4]} />
 
       {/* Gezelschappen + Theaters — paired side-by-side op desktop met natuurlijke
-          hoogtes (geen stretch). Op mobiel stapelen ze met hun normale mt-20. */}
+          hoogtes (geen stretch). Op mobiel stapelen ze met hun normale mt-20.
+          Wanneer ze gestapeld zijn (< lg) verschijnt er een quote tussen de
+          twee secties; op desktop staan beide quotes onderaan. */}
       <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
         <GezelschappenSection gezelschappen={allGezelschappen} />
+        <div className="lg:hidden">
+          <InspiringQuote {...inspiringQuotes[5]} />
+        </div>
         <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       </div>
 
-      <InspiringQuote {...inspiringQuotes[5]} />
+      <div className="hidden lg:block">
+        <InspiringQuote {...inspiringQuotes[5]} />
+      </div>
       <InspiringQuote {...inspiringQuotes[6]} />
     </>
   );
