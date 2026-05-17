@@ -27,7 +27,9 @@ function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
     m.set(g.stad, arr);
   });
   return Array.from(m.entries())
-    .sort(([a], [b]) => a.localeCompare(b, "nl"))
+    .sort(([a], [b]) =>
+      a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
+    )
     .map(([city, list]) => [
       city,
       [...list].sort((x, y) => x.naam.localeCompare(y.naam, "nl"))
@@ -43,9 +45,9 @@ export function GezelschappenSection({ gezelschappen }: Props) {
   const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section id="gezelschappen" className="mt-20 sm:mt-24 h-full">
+    <section id="gezelschappen" className="mt-20 sm:mt-24 lg:h-full">
       <div
-        className="h-full rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        className="flex flex-col rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10 lg:h-full"
         style={{ background: "#2D4DEB" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
@@ -85,7 +87,7 @@ export function GezelschappenSection({ gezelschappen }: Props) {
         </div>
 
         {hasMore && (
-          <div className="mt-8 flex justify-center">
+          <div className="mt-auto pt-8 flex justify-center">
             <button
               onClick={() => setExpanded(v => !v)}
               className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"

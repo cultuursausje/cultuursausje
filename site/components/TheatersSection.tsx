@@ -29,9 +29,13 @@ function groupByCity(items: Theater[]): Array<[string, Theater[]]> {
     arr.push(t);
     m.set(t.stad, arr);
   });
-  // Sorteer per stad alfabetisch + items binnen elke stad alfabetisch
+  // Sorteer per stad alfabetisch + items binnen elke stad alfabetisch.
+  // Steden die met een leesteken beginnen (bv. 's-Hertogenbosch) sorteren
+  // op hun eerste letter (dus onder S).
   return Array.from(m.entries())
-    .sort(([a], [b]) => a.localeCompare(b, "nl"))
+    .sort(([a], [b]) =>
+      a.replace(/^[^a-zA-Z]+/, "").localeCompare(b.replace(/^[^a-zA-Z]+/, ""), "nl")
+    )
     .map(([city, list]) => [
       city,
       [...list].sort((x, y) => x.naam.localeCompare(y.naam, "nl"))
@@ -42,7 +46,7 @@ function mapsLinkForTheater(theater: string, stad: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater + ", " + stad)}`;
 }
 
-const INITIAL_CITY_COUNT = 2;
+const INITIAL_CITY_COUNT = 4;
 
 export function TheatersSection({ theaters }: Props) {
   const grouped = groupByCity(theaters);
@@ -51,9 +55,9 @@ export function TheatersSection({ theaters }: Props) {
   const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
-    <section id="theaters" className="mt-20 sm:mt-24 h-full">
+    <section id="theaters" className="mt-20 sm:mt-24 lg:h-full">
       <div
-        className="h-full rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+        className="flex flex-col rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10 lg:h-full"
         style={{ background: "#C7DC2D" }}
       >
         <h2 className="font-display mb-3 text-3xl text-ink tracking-tight sm:text-4xl">
@@ -100,7 +104,7 @@ export function TheatersSection({ theaters }: Props) {
         </div>
 
         {hasMore && (
-          <div className="mt-8 flex justify-center">
+          <div className="mt-auto pt-8 flex justify-center">
             <button
               onClick={() => setExpanded(v => !v)}
               className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"

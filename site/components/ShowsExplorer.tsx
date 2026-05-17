@@ -474,8 +474,9 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <FestivalsSection festivals={festivals} shows={filteredShows} />
       <VoordeelSection />
 
-      {/* Gezelschappen + Theaters — paired side-by-side op desktop, gelijke hoogte */}
-      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+      {/* Gezelschappen + Theaters — paired side-by-side op desktop, gelijke hoogte.
+          Op mobiel stapelen ze met hun normale mt-20 ertussen (geen extra grid-gap). */}
+      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-stretch">
         <GezelschappenSection gezelschappen={allGezelschappen} />
         <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       </div>
