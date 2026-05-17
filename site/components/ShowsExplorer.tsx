@@ -509,17 +509,15 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       </div>
       <InspiringQuote {...inspiringQuotes[6]} />
 
-      {/* Cultuursausje-zegel — onderaan de pagina, lichtjes gekanteld
-          alsof het een sticker is die iemand er even heeft opgeplakt. */}
+      {/* Cultuursausje-zegel — onderaan de pagina, lichtjes naar rechts
+          gekanteld alsof het een sticker is die iemand er even heeft
+          opgeplakt. */}
       <div className="mt-12 mb-16 flex justify-center">
         <img
           src="/cultuursausje-bottle.png"
           alt="Cultuursausje"
-          className="w-20 sm:w-24 transition-transform duration-500 hover:rotate-0 hover:scale-105"
-          style={{
-            transform: "rotate(-7deg)",
-            filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.18)) drop-shadow(0 2px 4px rgba(0,0,0,0.12))"
-          }}
+          className="w-40 sm:w-48 transition-transform duration-500 hover:rotate-0 hover:scale-105"
+          style={{ transform: "rotate(7deg)" }}
         />
       </div>
     </>
