@@ -102,13 +102,6 @@ function genreOfShow(show: ShowDisplay): string {
   return show.categorieen.some(c => c.toLowerCase().includes("dans")) ? "dans" : "toneel";
 }
 
-function themesOfShow(show: ShowDisplay): string[] {
-  const excluded = new Set(["dans", "holland festival", "julidans"]);
-  return show.categorieen
-    .filter(c => !excluded.has(c.toLowerCase()))
-    .slice(0, 2);
-}
-
 function mapsEmbedUrl(theater: string, stad: string): string {
   const q = stad ? `${theater}, ${stad}` : theater;
   return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
@@ -142,11 +135,15 @@ export function ShowDetailPanel({
     }).sort((a, b) => a.getTime() - b.getTime());
 
   const genre = genreOfShow(show);
-  const themes = themesOfShow(show);
+
+  // Beschrijving als één paragraaf — hook + samenvatting samengevoegd, niet vet
+  const fullDescription = [show.interesting_because, show.lange_samenvatting]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className="mt-4 space-y-3">
-      {/* Header-paneel: titel, theater · gezelschap, beschrijving */}
+      {/* Header-paneel: pills, titel, gezelschap, beschrijving */}
       <div
         className="relative rounded-2xl p-4 sm:p-5"
         style={{ background: PANEL_BG }}
@@ -173,14 +170,6 @@ export function ShowDetailPanel({
           <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft capitalize">
             {genre}
           </span>
-          {themes.map((t, i) => (
-            <span
-              key={i}
-              className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft"
-            >
-              {t}
-            </span>
-          ))}
           {show.english_friendly && (
             <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-ink-soft inline-flex items-center gap-1">
               <span aria-hidden="true">🇬🇧</span>
@@ -193,24 +182,6 @@ export function ShowDetailPanel({
           {show.titel}
         </h3>
         <div className="mt-1 text-xs text-ink-muted sm:text-sm">
-          {venues.map((v, i) => (
-            <span key={v.theater_id}>
-              {i > 0 && " · "}
-              {v.theater_url ? (
-                <a
-                  href={v.theater_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-ink underline-offset-2 hover:underline"
-                >
-                  {v.theater_afkorting}
-                </a>
-              ) : (
-                v.theater_afkorting
-              )}
-            </span>
-          ))}
-          {" · "}
           {show.gezelschap_url ? (
             <a
               href={show.gezelschap_url}
@@ -225,67 +196,74 @@ export function ShowDetailPanel({
           )}
         </div>
 
-        {(show.interesting_because || show.lange_samenvatting) && (
-          <div className="mt-3">
-            {show.interesting_because && (
-              <p className="text-sm font-medium text-ink leading-relaxed mb-2">
-                {show.interesting_because}
-              </p>
-            )}
-            {show.lange_samenvatting && (
-              <p className="text-sm text-ink-soft leading-relaxed">
-                {show.lange_samenvatting}
-              </p>
-            )}
-            {show.based_on && (
-              <div className="mt-2 text-xs text-ink-muted italic">
-                Op basis van {show.based_on}
-              </div>
-            )}
+        {fullDescription && (
+          <p className="mt-3 text-sm text-ink-soft leading-relaxed">
+            {fullDescription}
+          </p>
+        )}
+        {show.based_on && (
+          <div className="mt-2 text-xs text-ink-muted italic">
+            Op basis van {show.based_on}
           </div>
         )}
       </div>
 
-      {/* Tickets-paneel */}
+      {/* Speeldata + locatie gecombineerd in één paneel */}
       <div
         className="rounded-2xl p-4 sm:p-5"
         style={{ background: PANEL_BG }}
       >
-        <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
+        <div className="mb-3 flex items-start justify-between gap-3 flex-wrap">
           <h4 className="text-xs font-medium uppercase tracking-widest text-ink-muted">
-            Tickets
+            Speeldata
           </h4>
           {show.ticket_url && (
             <a
               href={show.ticket_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-ink px-3 py-1.5 text-xs font-medium text-white hover:bg-black transition-colors sm:text-sm"
+              className="inline-flex items-center gap-1 text-xs font-medium text-ink hover:underline underline-offset-2 sm:text-sm"
             >
-              Naar tickets
+              Naar de voorstelling op {show.gezelschap_display}
               <ExternalLink size={12} />
             </a>
           )}
         </div>
 
-        <div className="space-y-3">
-          {venues.map(v => {
+        <div className="space-y-5">
+          {venues.map((v, i) => {
             const dates = parseDates(v.speeldata);
             const MAX = 18;
             const visible = dates.slice(0, MAX);
             const overflow = dates.length - visible.length;
             return (
-              <div key={v.theater_id}>
-                <div className="mb-1 text-[11px] font-bold text-ink uppercase tracking-wider">
-                  {v.theater_naam} <span className="font-normal text-ink-muted">· {v.theater_stad}</span>
+              <div key={v.theater_id} className={i > 0 ? "border-t border-white/70 pt-5" : ""}>
+                {/* Theater-naam met link naar website */}
+                <div className="mb-2 text-sm">
+                  {v.theater_url ? (
+                    <a
+                      href={v.theater_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 font-bold text-ink hover:underline underline-offset-2"
+                    >
+                      {v.theater_naam}
+                      <ExternalLink size={11} className="text-ink-soft" />
+                    </a>
+                  ) : (
+                    <span className="font-bold text-ink">{v.theater_naam}</span>
+                  )}
+                  <span className="ml-1 text-ink-muted">· {v.theater_stad}</span>
                 </div>
+
+                {/* Datums */}
                 {visible.length > 0 ? (
                   <>
                     <div className="grid grid-cols-2 gap-x-3 gap-y-1 sm:grid-cols-3 md:grid-cols-4">
-                      {visible.map((d, i) => {
+                      {visible.map((d, j) => {
                         const isEn = enDays.has(d.getDay());
                         return (
-                          <div key={i} className="flex items-center justify-between text-xs text-ink-soft sm:text-sm">
+                          <div key={j} className="flex items-center justify-between text-xs text-ink-soft sm:text-sm">
                             <span className="lowercase">{formatDateNL(d)}</span>
                             {isEn && (
                               <span
@@ -301,15 +279,35 @@ export function ShowDetailPanel({
                     </div>
                     {overflow > 0 && (
                       <div className="mt-1.5 text-[11px] text-ink-muted">
-                        + {overflow} meer — controleer de ticketlink
+                        + {overflow} meer — controleer de link hierboven
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="text-[11px] text-ink-faint italic">
-                    Speeldata via de ticketlink
+                    Speeldata via de link hierboven
                   </div>
                 )}
+
+                {/* Compactere maps view — beperkt in breedte op desktop */}
+                <div className="mt-3 rounded-xl overflow-hidden aspect-[16/9] sm:max-w-md">
+                  <iframe
+                    src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
+                    className="w-full h-full"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
+                  />
+                </div>
+                <a
+                  href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1.5 inline-flex items-center gap-1 text-[11px] text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+                >
+                  Open in Google Maps <ExternalLink size={11} />
+                </a>
               </div>
             );
           })}
@@ -346,43 +344,6 @@ export function ShowDetailPanel({
           </div>
         </div>
       )}
-
-      {/* Locatie-paneel */}
-      <div
-        className="rounded-2xl p-4 sm:p-5"
-        style={{ background: PANEL_BG }}
-      >
-        <h4 className="mb-3 text-xs font-medium uppercase tracking-widest text-ink-muted">
-          {venues.length > 1 ? "Locaties" : "Locatie"}
-        </h4>
-        <div className="space-y-4">
-          {venues.map((v, i) => (
-            <div key={v.theater_id} className={i > 0 ? "border-t border-white/70 pt-4" : ""}>
-              <div className="mb-2 text-xs text-ink-muted sm:text-sm">
-                {v.theater_naam} · {v.theater_stad}
-              </div>
-              <div className="rounded-xl overflow-hidden aspect-[16/9]">
-                <iframe
-                  src={mapsEmbedUrl(v.theater_naam, v.theater_stad)}
-                  className="w-full h-full"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`Kaart ${v.theater_naam}, ${v.theater_stad}`}
-                />
-              </div>
-              <a
-                href={mapsLinkUrl(v.theater_naam, v.theater_stad)}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-1.5 inline-flex items-center gap-1 text-[11px] text-ink-muted hover:text-ink underline-offset-2 hover:underline"
-              >
-                Open in Google Maps <ExternalLink size={11} />
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* Media-paneel */}
       {show.media_links.length > 0 && (
