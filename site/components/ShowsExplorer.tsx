@@ -510,9 +510,9 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <InspiringQuote {...inspiringQuotes[6]} />
 
       {/* Cultuursausje-zegel — onderaan de pagina, lichtjes naar rechts
-          gekanteld. Bij hover wiebelt 'ie en krijgt een scherpe witte
+          gekanteld. Bij hover een subtiele beweging + scherpe gele
           TL-gloed (bottle-sticker class in globals.css). */}
-      <div className="mt-6 mb-8 flex justify-center">
+      <div className="mt-2 mb-2 flex justify-center">
         <img
           src="/cultuursausje-bottle.png"
           alt="Cultuursausje"
