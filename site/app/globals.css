@@ -56,6 +56,7 @@ section[id] {
     drop-shadow(0 0 18px rgba(255, 235, 0, 0.7));
 }
 
+
 /* Subtiele grain — niet meer dan een hint van textuur */
 .grain {
   position: relative;
