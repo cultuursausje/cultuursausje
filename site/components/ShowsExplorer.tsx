@@ -8,7 +8,7 @@ import { VoordeelSection } from "./VoordeelSection";
 import { GezelschappenSection } from "./GezelschappenSection";
 import { TheatersSection } from "./TheatersSection";
 import { loadFavorites, saveFavorites } from "@/lib/favorites";
-import { monthsToShow, monthLabel, monthKey, pillForMonth } from "@/lib/dates";
+import { monthLabel, monthKey, pillForMonth } from "@/lib/dates";
 import type { ShowDisplay, Theater, Gezelschap, Festival } from "@/types";
 
 // Grotere Nederlandse theater-steden — zodat de dropdown ook steden bevat
@@ -152,25 +152,66 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       : filteredShowsForNav;
   }, [filteredShowsForNav, showFavoritesOnly, favorites]);
 
-  // Maanden voor navigatie — gebaseerd op stad/theater/gezelschap, ONGEACHT favorites,
-  // zodat de pills stabiel blijven als je het hartje aan/uit zet
+  // Maanden voor navigatie — opgebouwd uit de echte venue-speeldata van elke show,
+  // gefilterd op de geselecteerde steden. Een show verschijnt alleen in een maand
+  // als minstens één van zijn venues (in een geselecteerde stad) speeldata in die
+  // maand heeft.
   const monthsForNav: MonthGroup[] = useMemo(() => {
-    const list = monthsToShow(filteredShowsForNav);
-    return list.map(({ year, monthIdx }) => {
-      const items = filteredShowsForNav
-        .map(show => {
-          const pill = pillForMonth(show.speelperiode_start, show.speelperiode_end, year, monthIdx);
-          return pill ? { show, pill } : null;
-        })
-        .filter((x): x is { show: ShowDisplay; pill: string } => x !== null)
-        .sort((a, b) => a.show.speelperiode_start.localeCompare(b.show.speelperiode_start));
-      return {
-        year, monthIdx,
-        label: monthLabel(year, monthIdx),
-        shows: items
-      };
-    }).filter(g => g.shows.length > 0);
-  }, [filteredShowsForNav]);
+    type Bucket = { year: number; monthIdx: number; entries: { show: ShowDisplay; days: number[] }[] };
+    const buckets = new Map<string, Bucket>();
+
+    filteredShowsForNav.forEach(show => {
+      // Verzamel dagen per "YYYY-MM" uit de venues binnen de stad-selectie
+      const perMonth = new Map<string, number[]>();
+      show.venues.forEach(v => {
+        if (selectedCities.size > 0 && !selectedCities.has(v.theater_stad)) return;
+        v.speeldata.forEach(d => {
+          if (typeof d !== "string" || d.length < 10) return;
+          const ym = d.slice(0, 7);
+          const day = parseInt(d.slice(8, 10), 10);
+          if (Number.isNaN(day)) return;
+          const arr = perMonth.get(ym) ?? [];
+          arr.push(day);
+          perMonth.set(ym, arr);
+        });
+      });
+
+      perMonth.forEach((days, ym) => {
+        const year = parseInt(ym.slice(0, 4), 10);
+        const monthIdx = parseInt(ym.slice(5, 7), 10) - 1;
+        const bucket = buckets.get(ym) ?? { year, monthIdx, entries: [] };
+        bucket.entries.push({ show, days });
+        buckets.set(ym, bucket);
+      });
+    });
+
+    // Verbergen wat in het verleden ligt (maand < huidige maand van vandaag)
+    const today = new Date();
+    const curY = today.getFullYear();
+    const curM = today.getMonth();
+
+    return Array.from(buckets.values())
+      .filter(b => b.year > curY || (b.year === curY && b.monthIdx >= curM))
+      .sort((a, b) => a.year - b.year || a.monthIdx - b.monthIdx)
+      .map(b => {
+        const sorted = [...b.entries].sort((x, y) => Math.min(...x.days) - Math.min(...y.days));
+        return {
+          year: b.year,
+          monthIdx: b.monthIdx,
+          label: monthLabel(b.year, b.monthIdx),
+          shows: sorted.map(({ show, days }) => {
+            const uniqueSorted = Array.from(new Set(days)).sort((a, b) => a - b);
+            const minD = uniqueSorted[0];
+            const maxD = uniqueSorted[uniqueSorted.length - 1];
+            const mm = String(b.monthIdx + 1).padStart(2, "0");
+            const minIso = `${b.year}-${mm}-${String(minD).padStart(2, "0")}`;
+            const maxIso = `${b.year}-${mm}-${String(maxD).padStart(2, "0")}`;
+            const pill = pillForMonth(minIso, maxIso, b.year, b.monthIdx) ?? `${minD} ${b.monthIdx}`;
+            return { show, pill };
+          })
+        };
+      });
+  }, [filteredShowsForNav, selectedCities]);
 
   // Eén maand tegelijk zichtbaar — gebruiker navigeert met prev/next
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
@@ -197,11 +238,19 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
     return filteredShowsForNav
       .filter(s => favorites.has(s.id))
       .map(show => {
-        const [y, m] = show.speelperiode_start.split("-").map(Number);
-        const pill = pillForMonth(show.speelperiode_start, show.speelperiode_end, y, m - 1) ?? "";
-        return { show, pill };
+        // Pak alle speeldata uit alle venues (zonder city-filter voor favorieten)
+        const allDates = show.venues.flatMap(v => v.speeldata).filter(d => typeof d === "string" && d.length >= 10).sort();
+        if (allDates.length === 0) {
+          return { show, pill: "", sortKey: show.speelperiode_start || "9999-99" };
+        }
+        const minIso = allDates[0];
+        const maxIso = allDates[allDates.length - 1];
+        const [y, m] = minIso.split("-").map(Number);
+        const pill = pillForMonth(minIso, maxIso, y, m - 1) ?? "";
+        return { show, pill, sortKey: minIso };
       })
-      .sort((a, b) => a.show.speelperiode_start.localeCompare(b.show.speelperiode_start));
+      .sort((a, b) => a.sortKey.localeCompare(b.sortKey))
+      .map(({ show, pill }) => ({ show, pill }));
   }, [showFavoritesOnly, filteredShowsForNav, favorites]);
 
   const toggleFav = (id: string) => {
