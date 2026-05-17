@@ -514,20 +514,20 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           TL-gloed (bottle-sticker class in globals.css). Daarnaast een
           link naar Instagram. */}
       <div className="mt-2 mb-2 flex items-center justify-center gap-4 sm:gap-6">
-        <img
-          src="/cultuursausje-bottle.png"
-          alt="Cultuursausje"
-          className="bottle-sticker w-40 sm:w-48"
-        />
         <a
           href="https://instagram.com/cultuursausje"
           target="_blank"
           rel="noreferrer"
           aria-label="Cultuursausje op Instagram"
-          className="inline-flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-ink text-white"
+          className="text-ink"
         >
-          <Instagram size={22} strokeWidth={2} />
+          <Instagram size={28} strokeWidth={2} />
         </a>
+        <img
+          src="/cultuursausje-bottle.png"
+          alt="Cultuursausje"
+          className="bottle-sticker w-40 sm:w-48"
+        />
       </div>
     </>
   );
