@@ -39,6 +39,30 @@ section[id] {
   font-weight: 500;
 }
 
+/* Cultuursausje-zegel onderaan de pagina — rust standaard licht gekanteld
+ * naar rechts. Bij hover: lichte wiebel + scherpe witte TL-gloed alsof
+ * iemand 'm net heeft aangeklikt. */
+.bottle-sticker {
+  transform: rotate(7deg);
+  transition: filter 250ms ease-out;
+  will-change: transform, filter;
+}
+.bottle-sticker:hover {
+  animation: bottle-wiggle 0.7s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 2px #ffffff)
+    drop-shadow(0 0 4px #ffffff)
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 18px rgba(255, 255, 255, 0.7));
+}
+@keyframes bottle-wiggle {
+  0%   { transform: rotate(7deg) translateY(0); }
+  25%  { transform: rotate(3deg)  translateY(-2px); }
+  50%  { transform: rotate(11deg) translateY(0); }
+  75%  { transform: rotate(5deg)  translateY(-1px); }
+  100% { transform: rotate(7deg)  translateY(0); }
+}
+
 /* Subtiele grain — niet meer dan een hint van textuur */
 .grain {
   position: relative;
