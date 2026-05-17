@@ -195,5 +195,126 @@ export const theaters: Theater[] = [
     stad: "Rotterdam",
     url: "https://www.theaterrotterdam.nl",
     beschrijving: "De grote schouwburgzaal aan het Schouwburgplein."
+  },
+  // Grote schouwburgen in andere steden — vaak tour-stops van rijksgesubsidieerde gezelschappen
+  {
+    id: "koninklijke-schouwburg-den-haag", naam: "Koninklijke Schouwburg", afkorting: "Koninklijke Schouwburg",
+    stad: "Den Haag",
+    url: "https://www.hnt.nl",
+    beschrijving: "De grootste en oudste schouwburg van Den Haag, thuisbasis van Het Nationale Theater."
+  },
+  {
+    id: "theater-aan-het-spui", naam: "Theater aan het Spui", afkorting: "Spui",
+    stad: "Den Haag",
+    url: "https://www.theateraanhetspui.nl",
+    beschrijving: "Theater voor hedendaags en grensverleggend werk, vlakbij het Binnenhof."
+  },
+  {
+    id: "parktheater-eindhoven", naam: "Parktheater Eindhoven", afkorting: "Parktheater",
+    stad: "Eindhoven",
+    url: "https://www.parktheater.nl",
+    beschrijving: "Het grote schouwburg-complex van Eindhoven, met meerdere zalen."
+  },
+  {
+    id: "theater-aan-de-parade", naam: "Theater aan de Parade", afkorting: "Parade",
+    stad: "'s-Hertogenbosch",
+    url: "https://www.theateraandeparade.nl",
+    beschrijving: "Het hoofdpodium van Den Bosch, midden in het centrum."
+  },
+  {
+    id: "schouwburg-concertzaal-tilburg", naam: "Schouwburg & Concertzaal Tilburg", afkorting: "Schouwburg Tilburg",
+    stad: "Tilburg",
+    url: "https://www.theatersnltilburg.nl",
+    beschrijving: "De grootste podiumvoorziening van Tilburg, deel van Theaters Tilburg."
+  },
+  {
+    id: "theater-aan-het-vrijthof", naam: "Theater aan het Vrijthof", afkorting: "Vrijthof",
+    stad: "Maastricht",
+    url: "https://www.theateraanhetvrijthof.nl",
+    beschrijving: "De stadsschouwburg van Maastricht, aan het Vrijthof."
+  },
+  {
+    id: "stadsschouwburg-de-harmonie", naam: "Stadsschouwburg De Harmonie", afkorting: "De Harmonie",
+    stad: "Leeuwarden",
+    url: "https://www.harmonie.nl",
+    beschrijving: "Het grote podium van Leeuwarden, thuisbasis van Tryater."
+  },
+  {
+    id: "theater-flint-amersfoort", naam: "Theater Flint", afkorting: "Flint",
+    stad: "Amersfoort",
+    url: "https://www.flint.nl",
+    beschrijving: "De stadsschouwburg van Amersfoort."
+  },
+  {
+    id: "de-lieve-vrouw", naam: "De Lieve Vrouw", afkorting: "Lieve Vrouw",
+    stad: "Amersfoort",
+    url: "https://lievevrouw.nl",
+    beschrijving: "Klein theater & filmhuis in het centrum van Amersfoort."
+  },
+  {
+    id: "orpheus-apeldoorn", naam: "Orpheus", afkorting: "Orpheus",
+    stad: "Apeldoorn",
+    url: "https://www.orpheus.nl",
+    beschrijving: "Stadstheater van Apeldoorn met grote en kleine zaal."
+  },
+  {
+    id: "wilminktheater-enschede", naam: "Wilminktheater en Muziekcentrum", afkorting: "Wilminktheater",
+    stad: "Enschede",
+    url: "https://www.wilminktheater.nl",
+    beschrijving: "Het grootste theater van Twente, midden in Enschede."
+  },
+  {
+    id: "schouwburg-hengelo", naam: "Schouwburg Hengelo", afkorting: "Schouwburg Hengelo",
+    stad: "Hengelo",
+    url: "https://www.schouwburghengelo.nl",
+    beschrijving: "Het stadstheater van Hengelo."
+  },
+  {
+    id: "lawei-drachten", naam: "De Lawei", afkorting: "Lawei",
+    stad: "Drachten",
+    url: "https://www.lawei.nl",
+    beschrijving: "Het grote podium van Friesland-Zuid, recent verbouwd."
+  },
+  {
+    id: "corrosia-almere", naam: "Corrosia", afkorting: "Corrosia",
+    stad: "Almere",
+    url: "https://corrosia.nl",
+    beschrijving: "Theater en filmhuis in Almere-Haven."
+  },
+  {
+    id: "theater-de-veste", naam: "Theater de Veste", afkorting: "de Veste",
+    stad: "Delft",
+    url: "https://www.theaterdeveste.nl",
+    beschrijving: "Stadstheater van Delft."
+  },
+  {
+    id: "theater-de-vest-alkmaar", naam: "Theater De Vest", afkorting: "De Vest",
+    stad: "Alkmaar",
+    url: "https://www.theaterdevest.nl",
+    beschrijving: "Het stadstheater van Alkmaar."
+  },
+  {
+    id: "theater-kikker-utrecht", naam: "Theater Kikker", afkorting: "Kikker",
+    stad: "Utrecht",
+    url: "https://theaterkikker.nl",
+    beschrijving: "Vlakke-vloer-theater voor jonge makers en eigenzinnig werk."
+  },
+  {
+    id: "theater-ins-blau", naam: "Theater Ins Blau", afkorting: "Ins Blau",
+    stad: "Leiden",
+    url: "https://theaterinsblau.nl",
+    beschrijving: "Theater voor opkomende makers en experimenteel werk in Leiden."
+  },
+  {
+    id: "luxor-rotterdam", naam: "Luxor Theater", afkorting: "Luxor",
+    stad: "Rotterdam",
+    url: "https://www.luxortheater.nl",
+    beschrijving: "Het grote musical- en theaterpodium aan de Maas."
+  },
+  {
+    id: "schouwburg-amstelveen", naam: "Schouwburg Amstelveen", afkorting: "Amstelveen",
+    stad: "Amstelveen",
+    url: "https://www.schouwburgamstelveen.nl",
+    beschrijving: "Het stadstheater van Amstelveen."
   }
 ];
