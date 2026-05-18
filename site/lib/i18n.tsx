@@ -207,8 +207,8 @@ const T = {
     en: "Are you a rights holder and would prefer your photo or quote not appear here? Send a DM to"
   },
   "footer.optOutAfter": {
-    nl: "en ik haal 'm direct weg.",
-    en: "and I'll remove it right away."
+    nl: "en 'ie wordt direct weggehaald.",
+    en: "and it'll be removed right away."
   }
 };
 
