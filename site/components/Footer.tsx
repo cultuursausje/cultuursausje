@@ -3,8 +3,9 @@
 import { useT } from "@/lib/i18n";
 
 /**
- * Footer onderaan de pagina. Bescheiden en klein: alleen de essentiële
- * praktische info (disclaimer, copyright, foto-credit) op de natuurlijke
+ * Footer onderaan de pagina, onder een dunne horizontale lijn.
+ * Bescheiden en klein: alleen de essentiële praktische info
+ * (disclaimer, foto-credit, copyright) op de natuurlijke
  * pagina-achtergrond, zonder gekleurd vlak.
  */
 export function Footer() {
@@ -12,11 +13,11 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-4">
-      <div className="mx-auto max-w-2xl px-6 py-10 text-center text-[11px] leading-relaxed text-ink-faint sm:py-12 sm:text-xs">
+    <footer className="mt-24 border-t border-line pt-6 text-xs leading-relaxed text-ink-faint">
+      <div className="mx-auto max-w-2xl space-y-2 text-center">
         <p>{t("footer.disclaimer")}</p>
-        <p className="mt-3">© {year} Cultuursausje</p>
-        <p className="mt-1">{t("footer.photoCredit")}</p>
+        <p>{t("footer.photoCredit")}</p>
+        <p>© {year} Cultuursausje</p>
       </div>
     </footer>
   );
