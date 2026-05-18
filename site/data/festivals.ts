@@ -177,6 +177,7 @@ export const festivals: Festival[] = [
         foto_credit: "Blandine Soulage",
         korte_omschrijving: "F*cking Future laat orde en discipline wankelen.",
         korte_omschrijving_en: "F*cking Future sends order and discipline reeling.",
+        speeldata: ["2026-07-02", "2026-07-03"],
         url: "https://julidans.nl/nl/voorstellingen/f-cking-future/5210761/"
       },
       {
@@ -189,6 +190,7 @@ export const festivals: Festival[] = [
         foto_credit: "Pinelopi Gerasimou",
         korte_omschrijving: "Een energieke en eigenzinnige rollercoaster van beeld en beweging. Over vooruitgang, uitputting en het wankelen van de belofte op een toekomst.",
         korte_omschrijving_en: "An energetic, idiosyncratic rollercoaster of image and movement. About progress, exhaustion and the faltering promise of a future.",
+        speeldata: ["2026-07-03", "2026-07-04"],
         url: "https://julidans.nl/nl/voorstellingen/its-the-end-of-the-amusement-phase/5210842/"
       },
       {
@@ -201,6 +203,7 @@ export const festivals: Festival[] = [
         foto_credit: "Alwin Poiana",
         korte_omschrijving: "Twee radicale danswerelden ontmoeten elkaar in een zinderend speelveld waar verschil geen grens vormt, maar de motor van nieuwe beweging.",
         korte_omschrijving_en: "Two radical dance worlds collide on a sizzling playing field where difference isn't a boundary but the engine of new movement.",
+        speeldata: ["2026-07-03", "2026-07-05"],
         url: "https://julidans.nl/nl/voorstellingen/l-a-v-a/5210903/"
       },
       {
@@ -213,6 +216,7 @@ export const festivals: Festival[] = [
         foto_credit: "Ruben Vuaran",
         korte_omschrijving: "In deze hypnotische choreografie reageren lichamen, ritme en ruimte voortdurend op elkaar en word je langzaam meegetrokken in de cadans.",
         korte_omschrijving_en: "In this hypnotic choreography, bodies, rhythm and space respond to one another non-stop, slowly pulling you into the cadence.",
+        speeldata: ["2026-07-04", "2026-07-05"],
         url: "https://julidans.nl/nl/voorstellingen/shiraz/5210864/"
       },
       {
@@ -225,6 +229,7 @@ export const festivals: Festival[] = [
         foto_credit: "Kwadwo Amfo",
         korte_omschrijving: "Een gedanst manifest voor vrede, in co-creatie met inheemse kunstenaars uit Noord-Amerika.",
         korte_omschrijving_en: "A danced manifesto for peace, co-created with Indigenous artists from North America.",
+        speeldata: ["2026-07-04", "2026-07-05"],
         url: "https://julidans.nl/nl/voorstellingen/room-in-our-house/5210897/"
       },
       {
@@ -237,6 +242,7 @@ export const festivals: Festival[] = [
         foto_credit: "Faso Danse Théâtre",
         korte_omschrijving: "De blues als fysiek archief van verzet. Coulibaly eert zijn roots en toont dat folklore springlevend is, en open voor vernieuwing.",
         korte_omschrijving_en: "The blues as a physical archive of resistance. Coulibaly honours his roots and shows that folklore is very much alive and open to reinvention.",
+        speeldata: ["2026-07-05", "2026-07-06"],
         url: "https://julidans.nl/nl/voorstellingen/back-to-kidal/5210801/"
       },
       {
@@ -249,6 +255,7 @@ export const festivals: Festival[] = [
         foto_credit: "Danny Willems",
         korte_omschrijving: "Een lichaam in het oog van de storm.",
         korte_omschrijving_en: "A body in the eye of the storm.",
+        speeldata: ["2026-07-07", "2026-07-08"],
         url: "https://julidans.nl/nl/voorstellingen/tempest/5210830/"
       },
       {
@@ -261,6 +268,7 @@ export const festivals: Festival[] = [
         foto_credit: "Mats Bäcker",
         korte_omschrijving: "Aangrijpend danstheater over verzet, geweten en de prijs die een individu betaalt wanneer het zich tegen de macht keert. In de geest van Pina Bausch.",
         korte_omschrijving_en: "Gripping dance theatre about resistance, conscience and the price an individual pays when standing up to power. In the spirit of Pina Bausch.",
+        speeldata: ["2026-07-08", "2026-07-09"],
         url: "https://julidans.nl/nl/voorstellingen/antigone/5210807/"
       },
       {
@@ -273,6 +281,7 @@ export const festivals: Festival[] = [
         foto_credit: "Laurent Philippe",
         korte_omschrijving: "Twee iconische lichamen, twee schijnbaar onverenigbare tradities. Flamenco en performance botsen in een speels duel van ritme, stilte en fysieke spanning.",
         korte_omschrijving_en: "Two iconic bodies, two seemingly irreconcilable traditions. Flamenco and performance collide in a playful duel of rhythm, silence and physical tension.",
+        speeldata: ["2026-07-08", "2026-07-09"],
         url: "https://julidans.nl/nl/voorstellingen/ri-te/5210870/"
       },
       {
@@ -285,6 +294,7 @@ export const festivals: Festival[] = [
         foto_credit: "S-E-D",
         korte_omschrijving: "Nodigt uit om te voelen: verdriet en schoonheid tegelijk, en de kracht om,midden in verlies,te blijven bewegen.",
         korte_omschrijving_en: "An invitation to feel grief and beauty at once, and the strength to keep moving in the midst of loss.",
+        speeldata: ["2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14"],
         url: "https://julidans.nl/nl/voorstellingen/delay-the-sadness/5210789/"
       },
       {
@@ -297,6 +307,7 @@ export const festivals: Festival[] = [
         foto_credit: "Cecilia Gaeta",
         korte_omschrijving: "Drie performers verweven gebarentaal en dans tot één vloeiende bewegingstaal.",
         korte_omschrijving_en: "Three performers weave sign language and dance into a single fluid movement vocabulary.",
+        speeldata: ["2026-07-11", "2026-07-12"],
         url: "https://julidans.nl/nl/voorstellingen/mercury-rising/5210876/"
       },
       {
@@ -309,6 +320,7 @@ export const festivals: Festival[] = [
         foto_credit: "Thaïs Breton",
         korte_omschrijving: "Wat als folklore niet bewaard wordt, maar leeft? Een diepe duik langs mythe, geheugen en vurige Zuid-Amerikaanse ritmes.",
         korte_omschrijving_en: "What if folklore isn't preserved but alive? A deep dive through myth, memory and fiery South American rhythms.",
+        speeldata: ["2026-07-12", "2026-07-13"],
         url: "https://julidans.nl/nl/voorstellingen/último-helecho/5210813/"
       }
     ]
@@ -338,6 +350,7 @@ export const festivals: Festival[] = [
         foto_credit: "Ben van Duin",
         korte_omschrijving: "Met beeldende, fysieke comedy toont Bambie de absurde complexiteit van hedendaags natuurbeheer.",
         korte_omschrijving_en: "With visual, physical comedy, Bambie reveals the absurd complexity of contemporary nature management.",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://oerol.nl/programma/bambie-gaat-tot-de-bodem/"
       },
       {
@@ -349,6 +362,7 @@ export const festivals: Festival[] = [
         foto_credit: "Lin Woldendorp",
         korte_omschrijving: "Betoverend muziektheater dat je liefdeskruid in de ogen strooit en wakker schudt. Over dromen, dwarsliggen en (n)iets durven doen.",
         korte_omschrijving_en: "Enchanting music theatre that sprinkles love potion in your eyes and shakes you awake. About dreams, dissent and daring to do (nothing).",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://oerol.nl/programma/pucks-midzomernachtsdroom/"
       },
       {
@@ -360,6 +374,7 @@ export const festivals: Festival[] = [
         foto_credit: "Sacha Muller",
         korte_omschrijving: "Katrien van Beurden speelt deze onewomanshow: een waargebeurd verhaal dat je niet hoeft te geloven. Over overleven en overlevers, met muziek van Remy van Kesteren.",
         korte_omschrijving_en: "Katrien van Beurden performs this one-woman show: a true story you don't have to believe. About surviving and survivors, with music by Remy van Kesteren.",
+        speeldata: ["2026-06-19"],
         url: "https://oerol.nl/programma/harlekino/"
       },
       {
@@ -371,6 +386,7 @@ export const festivals: Festival[] = [
         foto_credit: "Cello Octet Amsterdam",
         korte_omschrijving: "De honderdjarige Magda viert samen met de muziek van klimaatactivist en componist Ryuichi Sakamoto haar laatste uur. Wat mag er niet mee haar graf in?",
         korte_omschrijving_en: "Hundred-year-old Magda celebrates her final hour alongside the music of climate activist and composer Ryuichi Sakamoto. What must not go to the grave with her?",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-18", "2026-06-19", "2026-06-20"],
         url: "https://oerol.nl/programma/coda/"
       },
       {
@@ -382,6 +398,7 @@ export const festivals: Festival[] = [
         foto_credit: "De Grote Kutshow",
         korte_omschrijving: "Een educatieve en muzikale voorstelling met vernieuwende seksuele voorlichting voor jong én oud. Hier maakt waarschuwing eindelijk plaats voor plezier.",
         korte_omschrijving_en: "An educational, musical show offering a fresh take on sex education for young and old. Here, warnings finally make way for pleasure.",
+        speeldata: ["2026-06-17"],
         url: "https://oerol.nl/programma/de-grote-kutshow/"
       },
       {
@@ -393,6 +410,7 @@ export const festivals: Festival[] = [
         foto_credit: "Danstheater AYA",
         korte_omschrijving: "Jezelf zijn, jezelf verliezen, jezelf weer vinden. Een groep dansers neemt je mee op een gezamenlijke reis om het alledaagse te ontstijgen.",
         korte_omschrijving_en: "Being yourself, losing yourself, finding yourself again. A group of dancers takes you on a shared journey to rise above the everyday.",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-16", "2026-06-17", "2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://oerol.nl/programma/spiral/"
       },
       {
@@ -404,6 +422,7 @@ export const festivals: Festival[] = [
         foto_credit: "Bowie Verschuuren",
         korte_omschrijving: "Op een open plek in het dennenbos dansen vijf figuren een wereld tevoorschijn waarin verleden en toekomst samenvallen.",
         korte_omschrijving_en: "In a clearing in the pine forest, five figures dance into being a world where past and future collide.",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://oerol.nl/programma/chronos/"
       },
       {
@@ -415,6 +434,7 @@ export const festivals: Festival[] = [
         foto_credit: "Nicole Beutler Projects",
         korte_omschrijving: "Een gedanst manifest voor vrede, in co-creatie met inheemse kunstenaars uit Noord-Amerika.",
         korte_omschrijving_en: "A danced manifesto for peace, co-created with Indigenous artists from North America.",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://oerol.nl/programma/room-in-our-house/"
       },
       {
@@ -426,6 +446,7 @@ export const festivals: Festival[] = [
         foto_credit: "Remy van Kesteren",
         korte_omschrijving: "Virtuoze harp, elektronica en lichtkunst in het donkere landschap. Een totaalervaring op het eiland.",
         korte_omschrijving_en: "Virtuoso harp, electronics and light art set in the dark landscape. A total experience on the island.",
+        speeldata: ["2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20"],
         url: "https://oerol.nl/programma/threads/"
       },
       {
@@ -437,6 +458,7 @@ export const festivals: Festival[] = [
         foto_credit: "Monki Business",
         korte_omschrijving: "Vier acrobaten verbeelden de wildste toekomstdromen op een klimtoestel van zeven meter hoog. Een uitnodiging om vooruit te kijken en samen te durven fantaseren.",
         korte_omschrijving_en: "Four acrobats conjure the wildest dreams of the future on a seven-metre climbing frame. An invitation to look ahead and dare to imagine together.",
+        speeldata: ["2026-06-13", "2026-06-14", "2026-06-16", "2026-06-17", "2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://oerol.nl/programma/uitkijkers/"
       },
       {
@@ -449,6 +471,7 @@ export const festivals: Festival[] = [
         foto_credit: "Chloe Loftus Dance",
         korte_omschrijving: "Een adembenemende luchtdans en ode aan gelijkheid en empowerment, die wereldwijd harten verovert.",
         korte_omschrijving_en: "A breathtaking aerial dance and ode to equality and empowerment that is winning hearts worldwide.",
+        speeldata: ["2026-06-18", "2026-06-19", "2026-06-20"],
         url: "https://oerol.nl/programma/the-air-between-us/"
       },
       {
@@ -460,6 +483,7 @@ export const festivals: Festival[] = [
         foto_credit: "Tom Lanoye / Behoud de Begeerte",
         korte_omschrijving: "Exclusief voor Oerol brengt performer Tom Lanoye 'zijn' Reinaard in de vorm van een feuilleton: vijf afleveringen van elk een uur.",
         korte_omschrijving_en: "Exclusively for Oerol, performer Tom Lanoye presents 'his' Reynard as a serial: five hour-long episodes.",
+        speeldata: ["2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18"],
         url: "https://oerol.nl/programma/reinaard/"
       }
     ]
@@ -628,6 +652,7 @@ export const festivals: Festival[] = [
         english_friendly: true,
         korte_omschrijving: "Dansers navigeren over onstabiele grond in een hypergemachiniseerde omgeving. Een meditatie over arbeid en ritueel, met krachtige zanglijnen van componiste Anna von Hausswolff.",
         korte_omschrijving_en: "Dancers navigate unstable ground in a hyper-mechanised environment. A meditation on labour and ritual, with powerful vocal lines by composer Anna von Hausswolff.",
+        speeldata: ["2026-05-22"],
         url: "https://o-festival.nl/voorstelling/remachine/"
       },
       {
@@ -638,6 +663,7 @@ export const festivals: Festival[] = [
         english_friendly: true,
         korte_omschrijving: "Betoverend ritueel waarin zwevende haarhangers en koorzangers samen zoeken naar verbinding. Circus en muziektheater ontmoeten elkaar op teksten van middeleeuwse mystica.",
         korte_omschrijving_en: "An enchanting ritual where suspended hair-hangers and choir singers search together for connection. Circus and music theatre meet on texts by medieval mystics.",
+        speeldata: ["2026-05-24", "2026-05-25"],
         url: "https://o-festival.nl/voorstelling/mystica/"
       },
       {
@@ -656,6 +682,7 @@ export const festivals: Festival[] = [
         type: "muziek",
         korte_omschrijving: "Een niet-zo-traditionele comedy musical over traditionele vrouwen. Scherpe satire en pompende muziek sleuren je uit je bubbel.",
         korte_omschrijving_en: "A not-so-traditional comedy musical about traditional women. Sharp satire and pumping music drag you out of your bubble.",
+        speeldata: ["2026-05-29"],
         url: "https://o-festival.nl/voorstelling/tradwives-de-musical/"
       },
       {
@@ -665,6 +692,7 @@ export const festivals: Festival[] = [
         type: "toneel",
         korte_omschrijving: "Een storytellers-duo bouwt op teksten van 50 Cent en Samuel Beckett een associatief jazz-stuk. Ode aan een turbulente vriendschap die alle conventies overstijgt.",
         korte_omschrijving_en: "A storytelling duo builds an associative jazz piece on texts by 50 Cent and Samuel Beckett. An ode to a turbulent friendship that transcends every convention.",
+        speeldata: ["2026-05-23", "2026-05-24", "2026-05-25"],
         url: "https://o-festival.nl/voorstelling/50cent-beckett/"
       },
       {
@@ -674,6 +702,7 @@ export const festivals: Festival[] = [
         type: "muziek",
         korte_omschrijving: "Spektakelmusical in een partytent. Griekse mythologie met een hedendaagse queer twist, meer drama dan de Trojaanse Oorlog maar dan met betere outfits.",
         korte_omschrijving_en: "A spectacle musical in a party tent. Greek mythology with a contemporary queer twist, more drama than the Trojan War but with better outfits.",
+        speeldata: ["2026-05-29", "2026-05-30"],
         url: "https://o-festival.nl/voorstelling/big-fat-trojan-wedding/"
       },
       {
@@ -683,6 +712,7 @@ export const festivals: Festival[] = [
         type: "muziek",
         korte_omschrijving: "Feministische muziektheatervoorstelling over schoonheidsdruk en sociale positie. Met meerstemmige zang, saxofoon en elektronische beats.",
         korte_omschrijving_en: "A feminist music theatre piece about beauty pressure and social standing. With polyphonic vocals, saxophone and electronic beats.",
+        speeldata: ["2026-05-23", "2026-05-24"],
         url: "https://o-festival.nl/voorstelling/pretty-privilege/"
       },
       {
@@ -692,6 +722,7 @@ export const festivals: Festival[] = [
         type: "anders",
         korte_omschrijving: "Futuristische wandeling door de wereld over 100 jaar. Drie dagen lang verschillende toekomstscenario's op vijf locaties in het Rotterdam Central District.",
         korte_omschrijving_en: "A futuristic walk through the world a hundred years from now. Three days of different future scenarios at five locations across the Rotterdam Central District.",
+        speeldata: ["2026-05-24", "2026-05-25"],
         url: "https://o-festival.nl/voorstelling/metropolis-2126/"
       },
       {
@@ -702,6 +733,7 @@ export const festivals: Festival[] = [
         english_friendly: true,
         korte_omschrijving: "Lecture opera die begint als zelfhulp en eindigt in een cathartische onderdompeling in noise. Hoe stem je je zintuigen af onder de constante ruis van onheilstijdingen?",
         korte_omschrijving_en: "A lecture opera that starts as self-help and ends in a cathartic immersion in noise. How do you attune your senses under the constant hum of bad news?",
+        speeldata: ["2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31"],
         url: "https://o-festival.nl/voorstelling/noise/"
       },
       {
@@ -711,6 +743,7 @@ export const festivals: Festival[] = [
         type: "muziek",
         korte_omschrijving: "Muzikale performance in het Kralingse Bos. Stem, adem en percussie versmelten met wind, zand en gras tot een levend muzikaal schilderij.",
         korte_omschrijving_en: "A musical performance in the Kralingse Bos. Voice, breath and percussion merge with wind, sand and grass into a living musical painting.",
+        speeldata: ["2026-05-30", "2026-05-31"],
         url: "https://o-festival.nl/voorstelling/an-elegy-studio-vacuum/"
       },
       {
@@ -721,6 +754,7 @@ export const festivals: Festival[] = [
         english_friendly: true,
         korte_omschrijving: "Theatraal ritueel tegen duistere krachten. Hoe maak je opera in tijden van oorlog? Een nieuwe opera in de vorm van rizomatisch theater.",
         korte_omschrijving_en: "A theatrical ritual against dark forces. How do you make opera in times of war? A new opera in the form of rhizomatic theatre.",
+        speeldata: ["2026-05-26"],
         url: "https://o-festival.nl/voorstelling/modraniht-songs-of-winter-war/"
       },
       {
@@ -730,6 +764,7 @@ export const festivals: Festival[] = [
         type: "muziek",
         korte_omschrijving: "Moderne muzikale mythe over de kracht van woede, met intense zang, Caribische samples en diepe baslijnen.",
         korte_omschrijving_en: "A modern musical myth about the power of rage, with intense vocals, Caribbean samples and deep basslines.",
+        speeldata: ["2026-05-29", "2026-05-30"],
         url: "https://o-festival.nl/voorstelling/aisa-demeter/"
       }
     ]
@@ -761,6 +796,7 @@ export const festivals: Festival[] = [
         foto_credit: "Schweigman&",
         korte_omschrijving: "In een onvoorspelbaar landschap van tien ton klei zoeken performers en slagwerkers naar de oeroude connectie tussen mens en aarde. Een uitnodiging om terug te gaan naar de essentie.",
         korte_omschrijving_en: "In an unpredictable landscape of ten tonnes of clay, performers and percussionists search for the primal connection between humans and the earth. An invitation to return to the essence.",
+        speeldata: ["2026-05-15", "2026-05-16", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23"],
         url: "https://springutrecht.nl/programma/klei/"
       },
       {
@@ -773,6 +809,7 @@ export const festivals: Festival[] = [
         foto_credit: "AΦE",
         korte_omschrijving: "Een meeslepende ervaring die dans en AI mengt. Het publiek beweegt zich rond een enorme LED-kubus, waarbij hun bewegingen vorm geven aan de performance van een virtueel wezen.",
         korte_omschrijving_en: "An immersive experience that blends dance and AI. The audience moves around a huge LED cube, their movements shaping the performance of a virtual being.",
+        speeldata: ["2026-05-21", "2026-05-22", "2026-05-23"],
         url: "https://springutrecht.nl/programma/lilith-aeon/"
       },
       {
@@ -785,6 +822,7 @@ export const festivals: Festival[] = [
         foto_credit: "Hatori Naoshi",
         korte_omschrijving: "Voormalig eerste soliste van het Nationaal Ballet van Japan danst de romantische klassieker terwijl zij het persona van een YouTuber aanneemt. Ballet vermengt zich met humor en speels commentaar.",
         korte_omschrijving_en: "A former principal soloist of the National Ballet of Japan dances the romantic classic while slipping into the persona of a YouTuber. Ballet meets humour and playful commentary.",
+        speeldata: ["2026-05-21"],
         url: "https://springutrecht.nl/programma/giselle-a-summary/"
       },
       {
@@ -797,6 +835,7 @@ export const festivals: Festival[] = [
         foto_credit: "orangcosong",
         korte_omschrijving: "Een storytelling performance in Utrechtse cafés. Aan de bar serveren migranten je een persoonlijke cocktail, gemixt met hun eigen geschiedenis en identiteit.",
         korte_omschrijving_en: "A storytelling performance in Utrecht cafés. At the bar, migrants serve you a personal cocktail mixed with their own history and identity.",
+        speeldata: ["2026-05-21", "2026-05-22", "2026-05-23"],
         url: "https://springutrecht.nl/programma/islandbar/"
       },
       {
@@ -809,6 +848,7 @@ export const festivals: Festival[] = [
         foto_credit: "Khadija El Kharraz Alami",
         korte_omschrijving: "Een meeslepende voorstelling over rouw, woede en radicaal verzet. De moegestreden dochter zoekt toevlucht bij de Jinns, niet-menselijke wezens in een parallelle wereld.",
         korte_omschrijving_en: "An immersive piece about grief, rage and radical resistance. The battle-weary daughter takes refuge with the Jinn, non-human beings in a parallel world.",
+        speeldata: ["2026-05-17"],
         url: "https://springutrecht.nl/programma/shrine/"
       },
       {
@@ -821,6 +861,7 @@ export const festivals: Festival[] = [
         foto_credit: "Forced Entertainment",
         korte_omschrijving: "Laat op de avond proberen zes mensen zich vast te houden aan hun menselijkheid, maar de stemmen die je hoort zijn niet die van henzelf. Met lipsynchronisatie en AI.",
         korte_omschrijving_en: "Late at night, six people try to hold on to their humanity, but the voices you hear aren't their own. Featuring lip-sync and AI.",
+        speeldata: ["2026-05-23"],
         url: "https://springutrecht.nl/programma/everything-must-go/"
       },
       {
@@ -833,6 +874,7 @@ export const festivals: Festival[] = [
         foto_credit: "Dries Verhoeven",
         korte_omschrijving: "Terwijl de wereld in elkaar stort, herleeft het activisme. Met deze interventie onderzoekt Dries Verhoeven de esthetiek van verzet. Kan een artistieke uiting verandering brengen?",
         korte_omschrijving_en: "As the world falls apart, activism is reawakening. With this intervention, Dries Verhoeven explores the aesthetics of resistance. Can an artistic gesture bring change?",
+        speeldata: ["2026-05-23"],
         url: "https://springutrecht.nl/programma/do-not-go-gentle-into-that-good-night/"
       },
       {
@@ -845,6 +887,7 @@ export const festivals: Festival[] = [
         foto_credit: "DANCE ON Ensemble",
         korte_omschrijving: "Onderzoek naar veerkracht en uithoudingsvermogen, waarbij vastberadenheid een stille vorm van protest wordt. Een lofzang op verzet en vreugde.",
         korte_omschrijving_en: "An exploration of resilience and stamina, where determination becomes a quiet form of protest. A hymn to resistance and joy.",
+        speeldata: ["2026-05-15"],
         url: "https://springutrecht.nl/programma/sweat-anthem/"
       },
       {
@@ -857,6 +900,7 @@ export const festivals: Festival[] = [
         foto_credit: "Harald Beharie",
         korte_omschrijving: "Zes performers trekken je mee in een rusteloze wervelwind van dans en geluid. Geïnspireerd door Noorse volksmythen, met de indringende klanken van de Hardanger-viool.",
         korte_omschrijving_en: "Six performers pull you into a restless whirlwind of dance and sound. Inspired by Norwegian folk myths, with the haunting tones of the Hardanger fiddle.",
+        speeldata: ["2026-05-16", "2026-05-17"],
         url: "https://springutrecht.nl/programma/sweet-spot/"
       },
       {
@@ -869,6 +913,7 @@ export const festivals: Festival[] = [
         foto_credit: "Erwan Fichou",
         korte_omschrijving: "In een verborgen industriële ruimte ontvouwt zich een koortsachtig ritueel tussen mens en machine. Choreograaf François Chaignaud, een motorstuntman en een klavecinist versmelten.",
         korte_omschrijving_en: "Inside a hidden industrial space, a feverish ritual unfolds between human and machine. Choreographer François Chaignaud, a motorcycle stuntman and a harpsichordist merge into one.",
+        speeldata: ["2026-05-16", "2026-05-17"],
         url: "https://springutrecht.nl/programma/radio-vinci-park/"
       },
       {
@@ -881,6 +926,7 @@ export const festivals: Festival[] = [
         foto_credit: "Patrick Blenkarn & Milton Lim",
         korte_omschrijving: "Een 7+ uur durende videogame, live in het theater, waar toeschouwers om de beurt een kudde werkloze ezels door een post-industriële wereld leiden.",
         korte_omschrijving_en: "A 7+ hour video game, live on stage, in which audience members take turns guiding a herd of unemployed donkeys through a post-industrial world.",
+        speeldata: ["2026-05-16", "2026-05-17"],
         url: "https://springutrecht.nl/programma/asses-masses/"
       },
       {
@@ -893,6 +939,7 @@ export const festivals: Festival[] = [
         foto_credit: "Basir Yang Miller",
         korte_omschrijving: "Een zintuiglijke voorstelling die schommelt tussen ritueel, sport en een bandoptreden. Onderzoek naar de relatie tussen mens en omgeving na een ramp.",
         korte_omschrijving_en: "A sensory performance that swings between ritual, sport and a band gig. An exploration of the relationship between people and their environment in the aftermath of disaster.",
+        speeldata: ["2026-05-16", "2026-05-17"],
         url: "https://springutrecht.nl/programma/ridden/"
       }
     ]
@@ -923,6 +970,7 @@ export const festivals: Festival[] = [
         foto_credit: "Ashton Brothers",
         korte_omschrijving: "Verbluffend totaaltheater van de Ashton Brothers, dit jaar 25 jaar op de Parade.",
         korte_omschrijving_en: "Stunning total theatre from the Ashton Brothers, this year celebrating 25 years at the Parade.",
+        speeldata: ["2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18"],
         url: "https://deparade.nl/programma/ashton-brothers-ashton-brothers-25-jaar-parade/"
       },
       {
@@ -935,6 +983,7 @@ export const festivals: Festival[] = [
         foto_credit: "Conny Janssen Danst",
         korte_omschrijving: "Feestelijke publieksfavoriet over dromen, verleidingskunsten en arbeidsvitaminen.",
         korte_omschrijving_en: "A festive audience favourite about dreams, the art of seduction and the joy of work.",
+        speeldata: ["2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23"],
         url: "https://deparade.nl/programma/conny-janssen-danst-manoeuvres/"
       },
       {
@@ -947,6 +996,7 @@ export const festivals: Festival[] = [
         foto_credit: "Jakop Ahlbom Company",
         korte_omschrijving: "Fysiek, absurdistisch theater met een vleugje illusionisme.",
         korte_omschrijving_en: "Physical, absurdist theatre with a touch of illusionism.",
+        speeldata: ["2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18"],
         url: "https://deparade.nl/programma/jakop-ahlbom-company-desillusionist/"
       },
       {
@@ -958,6 +1008,7 @@ export const festivals: Festival[] = [
         foto_credit: "Ellen ten Damme",
         korte_omschrijving: "Een meezing-show, met onder andere Oudgrieks.",
         korte_omschrijving_en: "A sing-along show, with a touch of Ancient Greek thrown in.",
+        speeldata: ["2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29"],
         url: "https://deparade.nl/programma/ellen-ten-damme-ellen-ten-dammes-club-medusa/"
       },
       {
@@ -969,6 +1020,7 @@ export const festivals: Festival[] = [
         foto_credit: "Het Zuidelijk Toneel",
         korte_omschrijving: "Over bila's, burn-outs en bedrijfsborrels.",
         korte_omschrijving_en: "About one-on-ones, burnouts and company drinks.",
+        speeldata: ["2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30"],
         url: "https://deparade.nl/programma/het-zuidelijk-toneel-boomer-galore/"
       },
       {
@@ -980,6 +1032,8 @@ export const festivals: Festival[] = [
         foto_credit: "Laura van Dolron",
         korte_omschrijving: "Stand-up Philosophy,hartverscheurend en hilarisch.",
         korte_omschrijving_en: "Stand-up Philosophy, heart-wrenching and hilarious.",
+        speeldata: ["2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30"],
+        stad: "Utrecht",
         url: "https://deparade.nl/programma/laura-van-dolron-liefhebben/"
       },
       {
@@ -992,6 +1046,8 @@ export const festivals: Festival[] = [
         foto_credit: "Panama Pictures",
         korte_omschrijving: "Energiek schouwspel dat het virtuoze en het menselijke verbindt.",
         korte_omschrijving_en: "An energetic spectacle that bridges the virtuosic and the human.",
+        speeldata: ["2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29"],
+        stad: "Amsterdam",
         url: "https://deparade.nl/programma/panama-pictures-the-world-turned-upside-down/"
       },
       {
@@ -1004,6 +1060,8 @@ export const festivals: Festival[] = [
         foto_credit: "SLÄPSTICK",
         korte_omschrijving: "Al jaren een terugkerende hit op de Parade: 'Chaplin meets Chopin'. Internationaal gelauwerd, en het dak moet eraf.",
         korte_omschrijving_en: "A returning Parade hit for years: 'Chaplin meets Chopin'. Internationally acclaimed, and guaranteed to raise the roof.",
+        speeldata: ["2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23"],
+        stad: "Utrecht",
         url: "https://deparade.nl/programma/slapstick-slapsticks-scherzo/"
       },
       {
@@ -1015,6 +1073,7 @@ export const festivals: Festival[] = [
         foto_credit: "De Parade",
         korte_omschrijving: "Filmisch en muzikaal theater.",
         korte_omschrijving_en: "Cinematic, musical theatre.",
+        speeldata: ["2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17"],
         url: "https://deparade.nl/programma/wilfried-de-jong-cok-van-vuuren-mist/"
       },
       {
@@ -1027,6 +1086,7 @@ export const festivals: Festival[] = [
         foto_credit: "Gershwin Bonevacia",
         korte_omschrijving: "Poëtisch en meerstemmig: woord, klank en beeld smelten samen tot één.",
         korte_omschrijving_en: "Poetic and polyphonic: word, sound and image melt into one.",
+        speeldata: ["2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-19", "2026-08-20", "2026-08-21"],
         url: "https://deparade.nl/programma/gershwin-bonevacia-gershwins-garden/"
       },
       {
@@ -1038,6 +1098,7 @@ export const festivals: Festival[] = [
         foto_credit: "Orkater",
         korte_omschrijving: "Een moderne muzikale mythe over de kracht van woede, met intense zang, Caribische samples en diepe baslijnen.",
         korte_omschrijving_en: "A modern musical myth about the power of rage, with intense vocals, Caribbean samples and deep basslines.",
+        speeldata: ["2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21"],
         url: "https://deparade.nl/programma/orkater-anne-fay-aisa-demeter/"
       },
       {
@@ -1049,6 +1110,7 @@ export const festivals: Festival[] = [
         foto_credit: "STUKK",
         korte_omschrijving: "Een razendsnelle spionageklucht waarin niets is wat het lijkt.",
         korte_omschrijving_en: "A breakneck spy farce in which nothing is what it seems.",
+        speeldata: ["2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31"],
         url: "https://deparade.nl/programma/stukk-op-spanning/"
       }
     ]
