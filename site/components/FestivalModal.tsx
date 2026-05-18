@@ -62,6 +62,7 @@ function showDisplayToItem(s: ShowDisplay): CarouselItem {
     foto_url: s.foto_url || undefined,
     foto_credit: s.foto_credit,
     korte_omschrijving: s.interesting_because,
+    korte_omschrijving_en: s.interesting_because_en,
     url: s.ticket_url || undefined
   };
 }
@@ -109,11 +110,11 @@ export function FestivalModal({ festival, shows, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/40 backdrop-blur-sm"
+      className="fixed inset-0 z-50 overflow-y-auto bg-[#FAFAF7]/90 backdrop-blur-md"
       onClick={onClose}
     >
       <div
-        className="mx-2 my-4 w-[calc(100%-1rem)] max-w-full overflow-hidden rounded-3xl bg-white sm:mx-auto sm:my-8 sm:w-full sm:max-w-3xl"
+        className="mx-2 my-4 w-[calc(100%-1rem)] max-w-full overflow-hidden rounded-3xl bg-white shadow-2xl sm:mx-auto sm:my-8 sm:w-full sm:max-w-3xl"
         onClick={e => e.stopPropagation()}
       >
         <div className="relative">
