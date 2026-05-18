@@ -13,10 +13,12 @@ export const metadata: Metadata = {
     title: "Cultuursausje",
     statusBarStyle: "default"
   },
-  // App-icon voor iOS home-screen (Apple gebruikt geen manifest)
+  // App-icon voor iOS home-screen (Apple gebruikt geen manifest) +
+  // favicon voor het browser-tabblad
   icons: {
-    icon: "/cultuursausje-bottle.png",
-    apple: "/cultuursausje-bottle.png"
+    icon: "/cultuursausje-icon.png",
+    shortcut: "/cultuursausje-icon.png",
+    apple: "/cultuursausje-icon.png"
   },
   // Optimalisatie voor formaat-deteccie op iOS
   formatDetection: {

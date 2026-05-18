@@ -26,10 +26,16 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["entertainment", "lifestyle", "events"],
     icons: [
       {
-        src: "/cultuursausje-bottle.png",
+        src: "/cultuursausje-icon.png",
         sizes: "any",
         type: "image/png",
         purpose: "any"
+      },
+      {
+        src: "/cultuursausje-icon.png",
+        sizes: "any",
+        type: "image/png",
+        purpose: "maskable"
       }
     ]
   };
