@@ -13,6 +13,7 @@ import { GezelschappenSection } from "./GezelschappenSection";
 import { TheatersSection } from "./TheatersSection";
 import { InspiringQuote } from "./InspiringQuote";
 import { inspiringQuotes } from "@/data/inspiringQuotes";
+import { Footer } from "./Footer";
 import { loadFavorites, saveFavorites } from "@/lib/favorites";
 import { monthKey } from "@/lib/dates";
 import type { ShowDisplay, Theater, Gezelschap, Festival } from "@/types";
@@ -529,6 +530,8 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           className="bottle-sticker w-40 sm:w-48"
         />
       </div>
+
+      <Footer />
     </>
   );
 }
