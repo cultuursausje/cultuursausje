@@ -200,7 +200,7 @@ export function FestivalModal({ festival, shows, onClose }: Props) {
                           onClick={() => setOpenShowId(isOpen ? null : s.id)}
                           className={`snap-start shrink-0 w-40 sm:w-44 relative aspect-[3/4] overflow-hidden rounded-2xl text-left transition-all ${
                             isOpen
-                              ? "ring-2 ring-ink scale-[1.02]"
+                              ? "scale-[1.02]"
                               : "hover:scale-[1.02] hover:-rotate-[0.6deg]"
                           }`}
                           style={{ background: festival.accent }}
