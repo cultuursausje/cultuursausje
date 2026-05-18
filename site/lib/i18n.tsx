@@ -187,7 +187,25 @@ const T = {
   // Plan step labels (subtle wayfinding above the filter pills)
   "plan.step1": { nl: "Stap 1", en: "Step 1" },
   "plan.step2": { nl: "Stap 2", en: "Step 2" },
-  "plan.optional": { nl: "Optioneel", en: "Optional" }
+  "plan.optional": { nl: "Optioneel", en: "Optional" },
+
+  // Footer
+  "footer.mission": {
+    nl: "De theateragenda van Nederland, samengesteld voor wie van theater houdt.",
+    en: "The theatre agenda for the Netherlands, curated for people who love theatre."
+  },
+  "footer.disclaimer": {
+    nl: "Speeldata en beschikbaarheid kunnen wijzigen — check altijd de actuele info bij het theater.",
+    en: "Dates and availability can change — always check the latest info with the venue."
+  },
+  "footer.principle": {
+    nl: "Geen advertenties, geen commissies. We tonen wat we zelf de moeite waard vinden.",
+    en: "No ads, no commissions. We feature what we find worthwhile ourselves."
+  },
+  "footer.photoCredit": {
+    nl: "Foto's blijven het auteursrecht van de fotografen en theaters.",
+    en: "Photographs remain copyrighted to their photographers and venues."
+  }
 };
 
 // Month and weekday helpers — locale-aware
