@@ -142,6 +142,14 @@ const T = {
     nl: "Voorstellingen tijdens dit festival",
     en: "Shows during this festival"
   },
+  "festival.voorstellingenOpDag": {
+    nl: "Voorstellingen op",
+    en: "Shows on"
+  },
+  "festival.noShowsOnDay": {
+    nl: "Geen specifieke voorstellingen bekend voor deze dag — kijk op de festivalwebsite voor het actuele programma.",
+    en: "No specific shows known for this day — check the festival website for the current programme."
+  },
   "festival.toWebsite": {
     nl: "Naar festival-website",
     en: "Go to festival website"
