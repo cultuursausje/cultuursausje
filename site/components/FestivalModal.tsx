@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Festival, FestivalShow, ShowDisplay } from "@/types";
-import { useT, useLang, translatePeriode, formatDateLang } from "@/lib/i18n";
+import { useT, useLang, translatePeriode } from "@/lib/i18n";
 
 /** Genormaliseerde shape voor de carousel-kaartjes — voedt zowel
  *  festival-eigen programma als de keyword-match-fallback. */
@@ -27,13 +27,6 @@ interface Props {
   /** Shows uit de eigen agenda — voor de keyword-match fallback wanneer
    *  het festival geen eigen `voorstellingen`-lijst heeft. */
   shows: ShowDisplay[];
-  /** Optioneel: filter voorstellingen op een specifieke datum (ISO
-   *  YYYY-MM-DD). Aangezet door Plan-je-avond. Festival-eigen
-   *  voorstellingen worden dan getoond aan de hand van hun `speeldata`. */
-  viewDate?: string;
-  /** Optioneel: filter voorstellingen op stad — voor festivals die in
-   *  meerdere steden spelen (De Parade, Karavaan). */
-  viewCity?: string;
   onClose: () => void;
 }
 
@@ -84,7 +77,7 @@ function showDisplayToItem(s: ShowDisplay): CarouselItem {
  * (festival-cards in resultaten). De component beheert zijn eigen interne
  * state (welke voorstelling is uitgeklapt + carousel-scroll-edge).
  */
-export function FestivalModal({ festival, shows, viewDate, viewCity, onClose }: Props) {
+export function FestivalModal({ festival, shows, onClose }: Props) {
   const t = useT();
   const { lang } = useLang();
   const [openShowId, setOpenShowId] = useState<string | null>(null);
@@ -93,38 +86,12 @@ export function FestivalModal({ festival, shows, viewDate, viewCity, onClose }: 
 
   // Bron voor de carousel: festival-eigen programma valt terug op keyword-match
   // tegen onze eigen agenda als 'voorstellingen' niet ingevuld is.
-  const allItems: CarouselItem[] =
+  const items: CarouselItem[] =
     festival.voorstellingen && festival.voorstellingen.length > 0
       ? festival.voorstellingen.map(festivalShowToItem)
       : showsForFestival(festival, shows).map(showDisplayToItem);
 
-  // Wanneer Plan-je-avond een datum heeft doorgegeven, schakelen we de
-  // dag-modus aan: kopje + bericht passen zich aan op die dag.
-  const dayFilterActive = !!viewDate;
-  // De feitelijke filtering kan alleen als er speeldata zijn ingevuld.
-  // Anders weten we de exacte dagen niet en is "alles tonen" minder
-  // misleidend dan "niets".
-  const hasAnySpeeldata = allItems.some(it => it.speeldata && it.speeldata.length > 0);
-  const items: CarouselItem[] = (dayFilterActive && hasAnySpeeldata)
-    ? allItems.filter(it => {
-        // Datum moet matchen
-        const dateMatch = it.speeldata?.includes(viewDate!) ?? false;
-        if (!dateMatch) return false;
-        // Stad moet matchen wanneer beide bekend zijn (voor reizende festivals)
-        if (viewCity && it.stad && it.stad !== viewCity) return false;
-        return true;
-      })
-    : allItems;
-
   const openShow = openShowId ? items.find(s => s.id === openShowId) : null;
-
-  // Geformatteerde datum voor in het kopje
-  const viewDateLabel = viewDate
-    ? (() => {
-        const [y, m, d] = viewDate.split("-").map(Number);
-        return formatDateLang(new Date(y, m - 1, d), lang);
-      })()
-    : null;
 
   const updateScrollEdge = () => {
     const el = carouselRef.current;
@@ -214,15 +181,11 @@ export function FestivalModal({ festival, shows, viewDate, viewCity, onClose }: 
         </div>
         <div className="border-t border-line p-6 sm:p-8">
           <h4 className="mb-4 text-xs font-medium uppercase tracking-widest text-ink-muted">
-            {dayFilterActive && viewDateLabel
-              ? `${t("festival.voorstellingenOpDag")} ${viewDateLabel}`
-              : t("festival.voorstellingenTijdens")}
+            {t("festival.voorstellingenTijdens")}
           </h4>
           {items.length === 0 ? (
             <p className="text-sm text-ink-muted italic">
-              {dayFilterActive
-                ? t("festival.noShowsOnDay")
-                : `${t("festival.programmaVolgt")} ${festival.naam}.`}
+              {t("festival.programmaVolgt")} {festival.naam}.
             </p>
           ) : (
             <>

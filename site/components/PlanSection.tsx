@@ -447,8 +447,6 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
       <FestivalModal
         festival={openFestival}
         shows={shows}
-        viewDate={date}
-        viewCity={city}
         onClose={() => setOpenFestivalId(null)}
       />
     )}
