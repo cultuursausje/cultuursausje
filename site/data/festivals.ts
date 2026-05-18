@@ -32,7 +32,107 @@ export const festivals: Festival[] = [
     foto_urls: [
       "https://www.hollandfestival.nl/media/cache/text_image_2xl/media/2025/berenice/16062025_berenice__copy__elodie_vreeburg__2__1394x930.jpg?b803f8d0"
     ],
-    foto_credit: "Elodie Vreeburg"
+    foto_credit: "Elodie Vreeburg",
+    voorstellingen: [
+      {
+        id: "holland-festival-a-trial",
+        titel: "A Trial — after An Enemy of the People",
+        gezelschap: "Christiane Jatahy / Wagner Moura",
+        type: "toneel",
+        english_friendly: true,
+        korte_omschrijving: "Hedendaagse herinterpretatie van Ibsens 'Een vijand van het volk' door regisseur Christiane Jatahy, met Golden Globe-winnaar Wagner Moura in de hoofdrol. Coproductie van Holland Festival, Edinburgh International Festival en Festival d'Avignon.",
+        korte_omschrijving_en: "Contemporary reinterpretation of Ibsen's An Enemy of the People by director Christiane Jatahy, starring Golden Globe winner Wagner Moura. A co-production of Holland Festival, Edinburgh International Festival and Festival d'Avignon.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-and-now-i-know-what-love-is",
+        titel: "And Now I Know What Love Is",
+        gezelschap: "Blackhaine",
+        type: "dans",
+        english_friendly: true,
+        korte_omschrijving: "De Britse popmuzikant en choreograaf Blackhaine maakt een performance in de voormalige Bijlmerbajes.",
+        korte_omschrijving_en: "British pop musician and choreographer Blackhaine creates a performance in the former Bijlmerbajes prison.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-atomic-joy",
+        titel: "Atomic Joy",
+        gezelschap: "Ana Pi",
+        type: "dans",
+        english_friendly: true,
+        korte_omschrijving: "Een nieuwe choreografie van de Braziliaans-Franse Ana Pi.",
+        korte_omschrijving_en: "A new choreography by Brazilian-French Ana Pi.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-mirage",
+        titel: "Mirage",
+        gezelschap: "Damien Jalet / Kohei Nawa / Ballet du Grand Théâtre de Genève",
+        type: "dans",
+        english_friendly: true,
+        korte_omschrijving: "Samenwerking tussen choreograaf Damien Jalet en beeldend kunstenaar Kohei Nawa met het Ballet du Grand Théâtre de Genève.",
+        korte_omschrijving_en: "Collaboration between choreographer Damien Jalet and visual artist Kohei Nawa with Ballet du Grand Théâtre de Genève.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-we-are-the-house",
+        titel: "We Are The House",
+        gezelschap: "Tomoko Mukaiyama",
+        type: "dans",
+        english_friendly: true,
+        korte_omschrijving: "Multidisciplinair werk van pianiste en performance-kunstenaar Tomoko Mukaiyama.",
+        korte_omschrijving_en: "Multidisciplinary work by pianist and performance artist Tomoko Mukaiyama.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-lacrima",
+        titel: "LACRIMA",
+        gezelschap: "Caroline Guiela Nguyen / Théâtre national de Strasbourg",
+        type: "toneel",
+        english_friendly: true,
+        korte_omschrijving: "Theatervoorstelling van Caroline Guiela Nguyen bij het Théâtre national de Strasbourg.",
+        korte_omschrijving_en: "Theatre production by Caroline Guiela Nguyen at Théâtre national de Strasbourg.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-masters-of-movement",
+        titel: "Masters of Movement",
+        gezelschap: "Het Nationale Ballet",
+        type: "dans",
+        english_friendly: true,
+        korte_omschrijving: "Het Nationale Ballet brengt werk van choreografen David Dawson, Krzysztof Pastor en Alexei Ratmansky.",
+        korte_omschrijving_en: "Dutch National Ballet performs works by choreographers David Dawson, Krzysztof Pastor and Alexei Ratmansky.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-holobiont",
+        titel: "Holobiont",
+        gezelschap: "Boogaerdt/VanderSchoot",
+        type: "toneel",
+        korte_omschrijving: "Een queerrave, een collectief ritueel en een anarchistische speeltuin in één, waarin performers hun lichamen inzetten om te spelen met identiteit, fluiditeit en het binaire mensbeeld.",
+        korte_omschrijving_en: "A queer rave, a collective ritual and an anarchic playground in one, where performers use their bodies to play with identity, fluidity and the binary view of humanity.",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-a-possibility",
+        titel: "A Possibility",
+        gezelschap: "Germaine Kruip",
+        type: "toneel",
+        english_friendly: true,
+        korte_omschrijving: "Nieuw theaterwerk waarin Germaine Kruip perceptie en geluid onderzoekt. Te zien in Amsterdam (13–15 juni) en bij PLT Theater Heerlen (25–26 juni).",
+        korte_omschrijving_en: "New theatre work in which Germaine Kruip explores perception and sound. Showing in Amsterdam (13–15 June) and at PLT Theater Heerlen (25–26 June).",
+        url: "https://hollandfestival.nl/nl/programma"
+      },
+      {
+        id: "holland-festival-jord",
+        titel: "JÖRĐ",
+        gezelschap: "DEGASTEN",
+        type: "toneel",
+        korte_omschrijving: "Vijftien jonge spelers van het Amsterdamse gezelschap DEGASTEN maken een performance geïnspireerd door het werk van Hildur Guðnadóttir.",
+        korte_omschrijving_en: "Fifteen young performers from Amsterdam company DEGASTEN create a performance inspired by the work of Hildur Guðnadóttir.",
+        url: "https://hollandfestival.nl/nl/programma"
+      }
+    ]
   },
   {
     id: "julidans",
