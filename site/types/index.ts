@@ -114,6 +114,15 @@ export interface FestivalShow {
   /** Optionele Engelse vertaling van `korte_omschrijving` — gebruikt wanneer
    *  de taalswitch op EN staat. Valt terug op NL als afwezig. */
   korte_omschrijving_en?: string;
+  /** Speeldata waarop deze voorstelling op het festival te zien is (ISO
+   *  YYYY-MM-DD). Gebruikt om voorstellingen te filteren op een specifieke
+   *  dag, bijvoorbeeld vanuit Plan-je-avond. Als niet ingevuld, valt de UI
+   *  terug op de festival-periode zonder per-dag filtering. */
+  speeldata?: string[];
+  /** Stad waar deze specifieke voorstelling speelt — relevant voor
+   *  rondreizende festivals (bv. De Parade in Rotterdam/Den Haag/Amsterdam/
+   *  Utrecht of Karavaan op meerdere plekken in Noord-Holland). */
+  stad?: string;
   /** Link naar de voorstelling op de festival-website. */
   url: string;
 }
