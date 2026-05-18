@@ -191,16 +191,12 @@ const T = {
 
   // Footer
   "footer.mission": {
-    nl: "De theateragenda van Nederland, samengesteld voor wie van theater houdt.",
-    en: "The theatre agenda for the Netherlands, curated for people who love theatre."
+    nl: "De theateragenda van Nederland, samengesteld om theater als verbindende culturele ervaring zo toegankelijk mogelijk te maken voor iedereen.",
+    en: "The theatre agenda for the Netherlands, curated to make theatre as a connecting cultural experience accessible to everyone."
   },
   "footer.disclaimer": {
-    nl: "Speeldata en beschikbaarheid kunnen wijzigen — check altijd de actuele info bij het theater.",
-    en: "Dates and availability can change — always check the latest info with the venue."
-  },
-  "footer.principle": {
-    nl: "Geen advertenties, geen commissies. We tonen wat we zelf de moeite waard vinden.",
-    en: "No ads, no commissions. We feature what we find worthwhile ourselves."
+    nl: "Speeldata en beschikbaarheid kunnen wijzigen. Check altijd de actuele info bij het theater.",
+    en: "Dates and availability can change. Always check the latest info with the venue."
   },
   "footer.photoCredit": {
     nl: "Foto's blijven het auteursrecht van de fotografen en theaters.",
