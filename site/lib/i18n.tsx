@@ -9,8 +9,8 @@ export type Lang = "nl" | "en";
 const T = {
   // Header
   "header.subtitle": {
-    nl: "Theateragenda van Nederland, voorstellingen, festivals, gezelschappen en theaters op één plek.",
-    en: "Dutch theatre agenda: shows, festivals, companies and venues in one place."
+    nl: "De theateragenda van Nederland: voorstellingen, festivals, gezelschappen en theaters op één plek.",
+    en: "The theatre agenda for the Netherlands: shows, festivals, companies and venues all in one place."
   },
 
   // Navigation
@@ -36,16 +36,16 @@ const T = {
     en: "Plan your evening"
   },
   "section.plan.subtitle": {
-    nl: "Kies een stad en datum, eventueel met English friendly, en zie welke voorstellingen of festivals die avond aansluiten.",
-    en: "Pick a city and date, optionally with English friendly, and see which shows or festivals are on."
+    nl: "Kies een stad en datum, en ontdek welke voorstellingen en festivals er die avond te zien zijn. English friendly is optioneel.",
+    en: "Pick a city and date, and discover which shows and festivals are on that evening. English friendly is optional."
   },
   "section.voorstellingen.title": {
     nl: "Alle voorstellingen",
     en: "All shows"
   },
   "section.voorstellingen.subtitle": {
-    nl: "Welke stad wil je zien? Standaard: Amsterdam. Selecteer er meer of een andere.",
-    en: "Which city do you want to see? Default: Amsterdam. Select another or pick none."
+    nl: "In welke stad wil je theater zien? Standaard staat Amsterdam aan. Klik op de stad-knop om te wisselen.",
+    en: "In which city do you want to see theatre? Amsterdam is selected by default. Click the city button to switch."
   },
   "section.festivals.title": {
     nl: "Theaterfestivals",
