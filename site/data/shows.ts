@@ -13,14 +13,17 @@ export const shows: Show[] = [
       { theater_id: "chasse-breda", speeldata: ["2026-06-02", "2026-06-03"] }
     ],
     korte_samenvatting: "Een jongen die niet past in het dorp waar hij opgroeit en daarom z'n eigen leven moet uitvinden.",
+    korte_samenvatting_en: "A boy who doesn't fit in the village where he's growing up, and so has to invent a life of his own.",
     lange_samenvatting: "Eddy is anders dan de jongens om hem heen: hij houdt van lezen, van praten, van jongens. In een dorp waar dat onveilig is, en in een gezin dat hem niet ziet, moet hij kiezen tussen blijven of weglopen. Over hoe het voelt om de plek waar je vandaan komt achter je te laten.",
+    lange_samenvatting_en: "Eddy is different from the boys around him: he loves reading, talking, and other boys. In a village where that isn't safe, and a family that doesn't see him, he has to choose between staying or running away. About what it feels like to leave the place you come from behind.",
     regisseur: "Eline Arbo", based_on: "Boek van Édouard Louis",
     foto_url: "https://ita.nl/img/singles/WMEB_DMBLSM_14-11-2024_3077-bewerkt_1-2.jpg?w=1200&h=630&fit=crop-50-50",
     foto_credit: "ITA",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Seksualiteit", "Klasse", "Identiteit"],
     ticket_url: "https://ita.nl/nl/voorstellingen/weg-met-eddy-bellegueule/3886968/",
-    interesting_because: "Een rauwe coming-of-age in regie van Eline Arbo. Voor wie houdt van eerlijke, persoonlijke verhalen over loskomen van waar je vandaan komt."
+    interesting_because: "Een rauwe coming-of-age in regie van Eline Arbo. Voor wie houdt van eerlijke, persoonlijke verhalen over loskomen van waar je vandaan komt.",
+    interesting_because_en: "A raw coming-of-age directed by Eline Arbo. For anyone who loves honest, personal stories about breaking away from where you come from."
   },
   {
     id: "de-dood-van-benny-simons",
@@ -36,13 +39,16 @@ export const shows: Show[] = [
       { theater_id: "stadsschouwburg-utrecht", speeldata: ["2026-09-03"] }
     ],
     korte_samenvatting: "Een jongen bezweek onder wat een man hoort te zijn; zijn familie blijft achter met de vraag waarom.",
+    korte_samenvatting_en: "A boy buckled under what a man is supposed to be; his family is left with the question why.",
     lange_samenvatting: "Benny is dood en zijn familie weet niet hoe verder. Hij groeide op met verwachtingen die hij niet aankon, en die verwachtingen waren niet alleen van hem. Een muziektheatervoorstelling over wat we van zonen vragen, wat ouders doorgeven zonder het te weten, en hoe je rouwt om iemand die je nooit echt kende.",
+    lange_samenvatting_en: "Benny is dead and his family doesn't know how to move on. He grew up with expectations he couldn't carry, and those expectations weren't just his own. A music theatre production about what we ask of sons, what parents pass on without knowing, and how to grieve someone you never really knew.",
     regisseur: "", based_on: "",
     foto_url: "https://images.squarespace-cdn.com/content/v1/664268bf61d9c829d28a522a/1739665228764-DHTLS0GO2OSVY35XGAKB/Orkater_De-dood-van-Benny-Simons.jpg",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Intergenerationeel trauma", "Masculiniteit", "Rouw"],
     ticket_url: "https://orkater.nl/voorstelling/de-dood-van-benny-simons",
-    interesting_because: "Muziektheater dat schurkt aan zware thema's zonder zwaar te worden. Voor wie van Orkaters mix van live muziek en confronterend spel houdt."
+    interesting_because: "Muziektheater dat schurkt aan zware thema's zonder zwaar te worden. Voor wie van Orkaters mix van live muziek en confronterend spel houdt.",
+    interesting_because_en: "Music theatre that brushes up against heavy themes without becoming heavy itself. For fans of Orkater's mix of live music and confronting performance."
   },
   {
     id: "het-incident", titel: "Het incident",
@@ -54,14 +60,17 @@ export const shows: Show[] = [
       { theater_id: "bijlmer-parktheater", speeldata: ["2026-06-10", "2026-06-11"] }
     ],
     korte_samenvatting: "Vijftien jaar oud, grote bek, kleine wereld: Guadalupe heeft op school al een toekomst toebedeeld gekregen.",
+    korte_samenvatting_en: "Fifteen years old, big mouth, small world: Guadalupe has already been handed a future at school.",
     lange_samenvatting: "Guadalupe is bijna zestien, heeft een keiharde humor en een veel zachter hart dan ze laat zien. Op één vierkante meter spelen tien personages uit haar leven door elkaar: leraren die haar al hebben afgeschreven, klasgenoten met meer kansen, familie die haar wel ziet. Over opgroeien in een wereld die al voor je heeft besloten wat je kunt.",
+    lange_samenvatting_en: "Guadalupe is almost sixteen, with razor-sharp humour and a much softer heart than she lets on. On a single square metre, ten characters from her life collide: teachers who've already written her off, classmates with more chances, family who actually see her. About growing up in a world that's already decided what you're capable of.",
     regisseur: "Zephyr Brüggen", based_on: "",
     foto_url: "https://ita.nl/img/singles/HI_16x9.jpg?w=1200&h=630&fit=crop-50-50",
     foto_credit: "ITA",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Ongelijkheid", "Onderwijs", "Verbeelding"],
     ticket_url: "https://ita.nl/nl/voorstellingen/het-incident/4022548/",
-    interesting_because: "Solo-performance over kansenongelijkheid, met humor en bravoure. Voor wie geprikkeld wordt door verhalen die het systeem fileren via één scherp personage."
+    interesting_because: "Solo-performance over kansenongelijkheid, met humor en bravoure. Voor wie geprikkeld wordt door verhalen die het systeem fileren via één scherp personage.",
+    interesting_because_en: "Solo performance about inequality of opportunity, full of humour and bravado. For anyone who likes stories that dissect the system through one sharp character."
   },
   {
     id: "oom-wanja", titel: "Oom Wanja",
@@ -70,14 +79,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-20", speelperiode_end: "2026-05-24",
     speeldata: ["2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24"],
     korte_samenvatting: "Wat als je beste jaren al voorbij zijn en je het niet hebt gemerkt?",
+    korte_samenvatting_en: "What if your best years are already behind you, and you didn't even notice?",
     lange_samenvatting: "Een familie op een afgelegen landgoed beseft dat ze decennia voor iemand hebben opgeofferd die hun bewondering niet waard was. Wanneer hij voorstelt het huis te verkopen, knapt iets. Over verspilde tijd, en de stille rouw die daarbij hoort.",
+    lange_samenvatting_en: "A family on a remote estate realises they've spent decades sacrificing for someone who never deserved their admiration. When he suggests selling the house, something snaps. About wasted time, and the quiet grief that comes with it.",
     regisseur: "", based_on: "Uncle Vanya van Anton Tsjechov",
     foto_url: "https://img.toneelgroepmaastricht.nl/RpM3w1p-R5SOZ0UV8mhmAqKe-TJahPhq2DoNAiCfqWs/c:1920:900:fp:0.5:0.33/s:1920:900:1/aHR0cHM6Ly93d3cudG9uZWVsZ3JvZXBtYWFzdHJpY2h0Lm5sLy9jbXNfZmlsZXMvc3lzdGVtL2ltYWdlcy9pbWcxMjQyM19vcmlnLmpwZw",
     foto_credit: "Toneelgroep Maastricht",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Gemiste kansen", "Verlangens"],
     ticket_url: "https://www.toneelgroepmaastricht.nl/agenda/317/topacteurs-in-tragikomedie-over-mislukte-levens/oom-wanja",
-    interesting_because: "Klassieke Tsjechov door Maastrichts topgezelschap. Voor wie houdt van verhalen waarin niemand krijgt wat 'ie wil maar iedereen toch blijft doorleven."
+    interesting_because: "Klassieke Tsjechov door Maastrichts topgezelschap. Voor wie houdt van verhalen waarin niemand krijgt wat 'ie wil maar iedereen toch blijft doorleven.",
+    interesting_because_en: "Classic Chekhov by Maastricht's top company. For anyone who loves stories where nobody gets what they want but everybody keeps on living anyway."
   },
   {
     id: "villa-europa", titel: "Villa Europa",
@@ -86,14 +98,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-21", speelperiode_end: "2026-05-22",
     speeldata: ["2026-05-21", "2026-05-22"],
     korte_samenvatting: "Wat verlies je als de wereld die je kende langzaam verdwijnt?",
+    korte_samenvatting_en: "What do you lose when the world you knew slowly disappears?",
     lange_samenvatting: "Twee nerds proberen grip te krijgen op een Europa dat zichzelf eerder is kwijtgeraakt, en op een schrijver die dat van dichtbij zag gebeuren. Een eigenzinnige avond over cultuur, beschaving, en het ongemakkelijke gevoel dat we dat nu opnieuw meemaken.",
+    lange_samenvatting_en: "Two nerds try to get a grip on a Europe that already lost itself once, and on a writer who watched it happen up close. A wilfully idiosyncratic evening about culture, civilisation, and the uneasy feeling that we're living through it all again.",
     regisseur: "", based_on: "Boek van Stefan Zweig (De wereld van gisteren)",
     foto_url: "https://dewarmewinkel.nl/cms/wp-content/uploads/2025/03/Villa-Europa_DeWarmeWinkel-%C2%A9Sofie-Knijff-1680x1120.jpg",
     foto_credit: "Sofie Knijff",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Maatschappij", "Europa"],
     ticket_url: "https://dewarmewinkel.nl/voorstellingen/villa-europa-2025/",
-    interesting_because: "Twee nerds en een Oostenrijkse intellectueel uit 1920. De Warme Winkel zoals je 'm wilt: eigenwijs, slim, met liefde voor cultuur die bijna ten onder is."
+    interesting_because: "Twee nerds en een Oostenrijkse intellectueel uit 1920. De Warme Winkel zoals je 'm wilt: eigenwijs, slim, met liefde voor cultuur die bijna ten onder is.",
+    interesting_because_en: "Two nerds and an Austrian intellectual from 1920. De Warme Winkel at their best: stubborn, smart, in love with a culture that's almost gone."
   },
   {
     id: "this-will-not-end-well", titel: "This will not end well",
@@ -102,14 +117,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-21", speelperiode_end: "2026-05-23",
     speeldata: ["2026-05-21", "2026-05-22", "2026-05-23"],
     korte_samenvatting: "Een band in repetitie, waarin de camera de sfeer kantelt en niemand meer weet wie zichzelf is.",
+    korte_samenvatting_en: "A band in rehearsal, where a camera tips the mood and nobody knows who they really are anymore.",
     lange_samenvatting: "De noiseband Distortion Klub repeteert volgens hun credo: alles wat geluid maakt is een instrument. Wanneer een van hen de anderen begint te filmen en te bevragen, vervaagt de grens tussen wie ze zijn en wie ze willen zijn. Over de honger naar gezien worden, en wat dat met je doet.",
+    lange_samenvatting_en: "Noise band Distortion Klub rehearses by their credo: anything that makes sound is an instrument. When one of them starts filming and interrogating the others, the line between who they are and who they want to be blurs. About the hunger to be seen, and what it does to you.",
     regisseur: "Suze Milius", based_on: "",
     foto_url: "https://www.hzt.nl/prod/media/campagnebeeld-this-will-not-end-well-liggend-ingezoomd.jpeg?guid=e1df3478-e7bf-4ef2-9bb7-6315723f940d&width=400&height=400",
     foto_credit: "Sofie Knijff",
     english_friendly: true, english_friendly_detail: "Afwisselend Nederlands en Engels gesproken",
     categorieen: ["Identiteit", "Onzekerheid", "Erkenning"],
     ticket_url: "https://www.hzt.nl/nl/agenda/this-will-not-end-well",
-    interesting_because: "Een muzikale ontleding van wat we voor elkaar over hebben in een groep. Voor wie van Sarah Moeremans' vervreemdende stijl houdt."
+    interesting_because: "Een muzikale ontleding van wat we voor elkaar over hebben in een groep. Voor wie van Sarah Moeremans' vervreemdende stijl houdt.",
+    interesting_because_en: "A musical dissection of what we're willing to give up for each other in a group. For fans of Sarah Moeremans' alienating style."
   },
   {
     id: "medea-voor-een-toeslagenherdenking", titel: "Medea voor een Toeslagenherdenking",
@@ -122,7 +140,9 @@ export const shows: Show[] = [
       { theater_id: "schuur-haarlem", speeldata: ["2026-05-29", "2026-05-30", "2026-05-31"] }
     ],
     korte_samenvatting: "Een moeder krijgt een brief van de Belastingdienst en haar leven valt om.",
+    korte_samenvatting_en: "A mother gets a letter from the tax office, and her life topples over.",
     lange_samenvatting: "Eerst gelooft niemand haar, daarna gelooft haar partner haar ook niet meer. Een onterechte beschuldiging van fraude duwt een gezin uit elkaar terwijl de overheid ondoordringbaar blijft. Over wat onrecht doet met een mens, en wat er over blijft als alles wegvalt.",
+    lange_samenvatting_en: "First nobody believes her, then her partner stops believing her too. A wrongful accusation of fraud pries a family apart while the state remains impenetrable. About what injustice does to a person, and what's left when everything falls away.",
     regisseur: "Angelo Ormskerk", based_on: "Medea van Euripides",
     foto_url: "https://www.toneelschuurproducties.nl/assets/stills/medea/Medea-toeslag-12-%C2%A9-Sanne-Peper.jpg",
     foto_urls: [
@@ -135,7 +155,8 @@ export const shows: Show[] = [
     english_friendly: true, english_friendly_detail: "Live boventiteling in Nederlands en Engels",
     categorieen: ["Pijn", "Veerkracht", "Hoop"],
     ticket_url: "https://www.toneelschuurproducties.nl/medea",
-    interesting_because: "Het toeslagenschandaal gespiegeld aan een Griekse tragedie. Geen woedend pamflet maar een zwaar geladen verhaal van onrecht én veerkracht."
+    interesting_because: "Het toeslagenschandaal gespiegeld aan een Griekse tragedie. Geen woedend pamflet maar een zwaar geladen verhaal van onrecht én veerkracht.",
+    interesting_because_en: "The Dutch childcare benefits scandal mirrored against a Greek tragedy. Not an angry pamphlet, but a heavily loaded story of injustice and resilience."
   },
   {
     id: "operation-hellfire", titel: "Operation Hellfire",
@@ -144,14 +165,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-24", speelperiode_end: "2026-05-25",
     speeldata: ["2026-05-24", "2026-05-25"],
     korte_samenvatting: "Wat als Den Haag een Amerikaanse oud-president arresteert en de wereld op scherp komt te staan?",
+    korte_samenvatting_en: "What if The Hague arrests a former American president and the world goes on high alert?",
     lange_samenvatting: "Het Internationaal Strafhof doet iets wat niemand voor mogelijk hield, en plotseling staat Nederland in het oog van een storm. Politici, militairen en diplomaten moeten beslissen hoe ver ze gaan voor het idee van internationaal recht. Een politieke thriller die te dicht bij de werkelijkheid komt om comfortabel te zijn.",
+    lange_samenvatting_en: "The International Criminal Court does what nobody thought possible, and suddenly the Netherlands is at the centre of a storm. Politicians, military leaders and diplomats have to decide how far they'll go for the idea of international law. A political thriller that hits too close to reality to be comfortable.",
     regisseur: "", based_on: "",
     foto_url: "https://img.hnt.nl/E2IPZvusM1LelerwaxEcqb_jrylyVtaBkHzjCdZ1QIA/c:4000:1874:nowe:0:1399/s:1920:900:1/aHR0cHM6Ly93d3cuaG50Lm5sLy9jbXNfZmlsZXMvc3lzdGVtL2ltYWdlcy9pbWc4MjUwMF9vcmlnLmpwZw",
     foto_credit: "Het Nationale Theater",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Internationaal recht", "Machtspolitiek"],
     ticket_url: "https://www.hnt.nl/nl/voorstellingen/operation-hellfire-5ysk",
-    interesting_because: "Politiek-spannende fictie met morele dilemma's die té echt voelen. Voor wie de actualiteit op het podium scherper wil zien dan in de krant."
+    interesting_because: "Politiek-spannende fictie met morele dilemma's die té echt voelen. Voor wie de actualiteit op het podium scherper wil zien dan in de krant.",
+    interesting_because_en: "Politically charged fiction with moral dilemmas that feel too real. For anyone who wants current events sharper on stage than in the paper."
   },
   {
     id: "de-architect", titel: "De Architect",
@@ -164,14 +188,17 @@ export const shows: Show[] = [
       "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14"
     ],
     korte_samenvatting: "Een vrouw aan de top, een jongere vrouw aan de deur, en de stille angst dat het hier ophoudt.",
+    korte_samenvatting_en: "A woman at the top, a younger woman at the door, and the quiet fear that this is where it ends.",
     lange_samenvatting: "Sela is een gevierde architect, hard gewerkt en hard gerend. Dan stapt de jonge Hilde haar leven binnen, vol verwachtingen die Sela ooit zelf had. Wat begint als bewondering kantelt naar iets gevaarlijkers. Over wat het kost om te blijven staan bovenaan, en wat je verloren bent toen je daar aankwam.",
+    lange_samenvatting_en: "Sela is a celebrated architect who's worked hard and run hard. Then young Hilde walks into her life, full of the expectations Sela once had herself. What starts as admiration tips into something more dangerous. About what it costs to stay on top, and what you lost on the way there.",
     regisseur: "Rebecca Frecknall", based_on: "Bouwmeester Solness van Henrik Ibsen",
     foto_url: "https://ita.nl/img/singles/DA_VP_FABIAN-CALIS_18-02-2025_-1265-bewerkt-16x9.jpg?w=1200&h=630&fit=crop-43.8-3.87",
     foto_credit: "Fabian Calis",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Persoonlijke ambities", "Maakbaarheid", "Macht"],
     ticket_url: "https://ita.nl/nl/voorstellingen/de-architect/3936941/",
-    interesting_because: "Ibsen-bewerking over de prijs van succes en wat een nieuwe ontmoeting bij je losmaakt. Loopt het hele seizoen,moeilijk te missen."
+    interesting_because: "Ibsen-bewerking over de prijs van succes en wat een nieuwe ontmoeting bij je losmaakt. Loopt het hele seizoen,moeilijk te missen.",
+    interesting_because_en: "Ibsen adaptation about the price of success and what a new encounter pries loose in you. Runs all season, hard to miss."
   },
   {
     id: "the-actor", titel: "The Actor",
@@ -179,7 +206,9 @@ export const shows: Show[] = [
     theater_id: "frascati", theater: "Frascati", extra_theaters: [],
     speelperiode_start: "2026-05-28", speelperiode_end: "2026-05-30",
     korte_samenvatting: "Een acteur staat alleen op het toneel en kijkt terug op de keuzes die hij liever vergeet.",
+    korte_samenvatting_en: "An actor stands alone on stage and looks back at the choices he'd rather forget.",
     lange_samenvatting: "Florian Myjer vraagt zich hardop af waar zijn macht ophield en zijn verantwoordelijkheid begon. In een leeg theater pelt hij zijn eigen verleden af, en de momenten waarop hij wegkeek of meedeed. Een solo over schuld, posities, en wat je tegen jezelf moet zeggen om verder te kunnen.",
+    lange_samenvatting_en: "Florian Myjer asks out loud where his power ended and his responsibility began. In an empty theatre he peels back his own past, and the moments when he looked away or joined in. A solo about guilt, positions, and what you have to tell yourself to keep going.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Grensoverschrijdend gedrag"],
@@ -191,7 +220,9 @@ export const shows: Show[] = [
     theater_id: "", theater: "Amsterdamse Bostheater", extra_theaters: [],
     speelperiode_start: "2026-06-02", speelperiode_end: "2026-07-11",
     korte_samenvatting: "Drie kinderen in een hechte gemeenschap, en één van hen begint hardop andere vragen te stellen.",
+    korte_samenvatting_en: "Three children in a tight-knit community, and one of them starts asking different questions out loud.",
     lange_samenvatting: "In het 17e-eeuwse Amsterdam groeien Bento en zijn zussen Rebecca en Miriam op tussen joodse vluchtelingen die net iets hebben opgebouwd. Wanneer Bento God en traditie ter discussie stelt, dwingt hij zijn zussen elk een eigen kant te kiezen. Een musical over geloven, twijfelen en wat het kost om je familie tegen te spreken.",
+    lange_samenvatting_en: "In 17th-century Amsterdam, Bento and his sisters Rebecca and Miriam grow up among Jewish refugees who have only just built something. When Bento starts questioning God and tradition, his sisters are forced to pick a side. A musical about believing, doubting, and what it costs to talk back to your family.",
     regisseur: "Guy Weizman", based_on: "Het leven van Baruch Spinoza",
     foto_url: "https://nite.nl/wp-content/uploads/2026/02/NITE_SPINOZA_NIEUW_SHOTBYHALIE_16x9-scaled.jpg",
     foto_urls: ["https://nite.nl/wp-content/uploads/2026/02/NITE_SPINOZA_CAST_BTS_May-06-2026__HA_8915Rating_3_SHOTBY_HALIE-1500x1001.jpg"],
@@ -206,7 +237,9 @@ export const shows: Show[] = [
     theater_id: "frascati", theater: "Frascati", extra_theaters: ["karavaan-castricum", "chasse-breda"],
     speelperiode_start: "2026-06-04", speelperiode_end: "2026-06-17",
     korte_samenvatting: "Een vrouw zit vast in het zand en doet alsof het een mooie dag is.",
+    korte_samenvatting_en: "A woman is stuck in the sand and pretends it's a beautiful day.",
     lange_samenvatting: "Winnie zit tot haar middel ingegraven en is vastberaden er een fijne dag van te maken. Ze praat, kamt haar haar, zoekt in haar tas, en blijft praten omdat stoppen iets ergers betekent. Een buitenvoorstelling die zwart, grappig en ongemakkelijk laat zien hoe we doen alsof het wel goed komt.",
+    lange_samenvatting_en: "Winnie is buried up to her waist and determined to make it a lovely day. She talks, combs her hair, rummages in her bag, and keeps talking because stopping would mean something worse. An outdoor production, dark, funny and uncomfortable, that shows how we pretend everything will be fine.",
     regisseur: "", based_on: "Stuk van Samuel Beckett",
     foto_url: "https://staging.doodpaard.nl/wp-content/uploads/2025/06/Happy-Days-poster-web-734x1024.jpg",
     english_friendly: false, english_friendly_detail: "",
@@ -218,7 +251,8 @@ export const shows: Show[] = [
       "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13",
       "2026-06-16", "2026-06-17"
     ],
-    interesting_because: "Beckett op locatie, met zwarte humor en absurdisme. Voor wie houdt van theater dat schuurt en je laat lachen om dingen die eigenlijk vreselijk zijn."
+    interesting_because: "Beckett op locatie, met zwarte humor en absurdisme. Voor wie houdt van theater dat schuurt en je laat lachen om dingen die eigenlijk vreselijk zijn.",
+    interesting_because_en: "Beckett on location, with black humour and absurdism. For anyone who loves theatre that rubs you raw and makes you laugh at things that are actually terrible."
   },
   {
     id: "a-possibility", titel: "A Possibility",
@@ -226,7 +260,9 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-06-13", speelperiode_end: "2026-06-15",
     korte_samenvatting: "Een avond waarin je kijkt naar weinig en daardoor steeds meer ziet.",
+    korte_samenvatting_en: "An evening where you watch very little, and so see more and more.",
     lange_samenvatting: "Op een vrijwel leeg podium veranderen licht, schaduw en geluid de ruimte langzaam onder je ogen. Je wordt uitgenodigd om zelf in te vullen wat je ziet, en al doende merk je hoe je brein verhalen maakt van bijna niets. Een zintuiglijke ervaring, onderdeel van het Holland Festival.",
+    lange_samenvatting_en: "On a near-empty stage, light, shadow and sound slowly change the space before your eyes. You're invited to fill in what you see, and in doing so you notice how your brain makes stories out of almost nothing. A sensory experience, part of the Holland Festival.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: true, english_friendly_detail: "Language no problem",
     categorieen: ["Publieksinterpretatie", "Waarneming", "Holland Festival"],
@@ -238,7 +274,9 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-06-18", speelperiode_end: "2026-06-20",
     korte_samenvatting: "Wat doe je met iemand die de regels van de groep niet wil volgen?",
+    korte_samenvatting_en: "What do you do with someone who refuses to follow the group's rules?",
     lange_samenvatting: "Een Chinees ensemble gaat in op de vraag hoe gemeenschappen omgaan met figuren die ze niet meer willen. Met live spel en video laten ze zien hoe afkeuring werkt: van fluistering tot uitsluiting. Over canceling, schaamte en de moeite die het kost om iemand écht te zien. Onderdeel van het Holland Festival.",
+    lange_samenvatting_en: "A Chinese ensemble digs into how communities deal with figures they no longer want. Through live performance and video, they show how disapproval works: from whispers to exclusion. About cancelling, shame, and the effort it takes to really see someone. Part of the Holland Festival.",
     regisseur: "", based_on: "Stuk Baal van Bertolt Brecht", foto_url: "",
     english_friendly: true, english_friendly_detail: "Nederlandse en Engelse boventiteling",
     categorieen: ["Macht", "Cancelcultuur", "Holland Festival"],
@@ -250,7 +288,9 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-06-19", speelperiode_end: "2026-06-21",
     korte_samenvatting: "Wat je denkt te zien is er even, en dan weer niet.",
+    korte_samenvatting_en: "What you think you see is there for a moment, and then it isn't.",
     lange_samenvatting: "Dansers verschijnen, verdwijnen en veranderen voor je ogen, geïnspireerd door luchtspiegelingen in de woestijn. Een voorstelling die speelt met wat echt is en wat verbeelding, en die je laat voelen hoe vluchtig een lichaam, een moment, een identiteit kan zijn. Onderdeel van het Holland Festival.",
+    lange_samenvatting_en: "Dancers appear, disappear and transform before your eyes, inspired by mirages in the desert. A piece that plays with what is real and what is imagined, and makes you feel how fleeting a body, a moment, an identity can be. Part of the Holland Festival.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: true, english_friendly_detail: "Language no problem",
     categorieen: ["Dans", "Illusie", "Transformatie", "Holland Festival"],
@@ -262,7 +302,9 @@ export const shows: Show[] = [
     theater_id: "meervaart", theater: "Meervaart", extra_theaters: [],
     speelperiode_start: "2026-06-24", speelperiode_end: "2026-06-26",
     korte_samenvatting: "Een koninklijke trouwjurk wordt gemaakt door handen die nooit in beeld komen.",
+    korte_samenvatting_en: "A royal wedding dress is made by hands that never appear on camera.",
     lange_samenvatting: "We volgen ateliers in Parijs en Mumbai waar honderden uren werk in één jurk verdwijnen, en waar de namen van de makers nergens worden genoemd. Over wie zichtbaar is en wie niet, en wat luxe verbergt over de wereld waarin we leven. Onderdeel van het Holland Festival.",
+    lange_samenvatting_en: "We follow ateliers in Paris and Mumbai where hundreds of hours of work disappear into a single dress, and the names of the makers are nowhere to be found. About who is visible and who isn't, and what luxury hides about the world we live in. Part of the Holland Festival.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse en Nederlandse boventiteling",
     categorieen: ["Haute couture", "Ongelijkheid", "Holland Festival"],
@@ -274,7 +316,9 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-06-25", speelperiode_end: "2026-06-28",
     korte_samenvatting: "Een man waarschuwt voor iets dat niemand wil horen, en jij zit op de jury.",
+    korte_samenvatting_en: "Someone warns about something nobody wants to hear, and you're sitting on the jury.",
     lange_samenvatting: "Een vrouw ontdekt dat het water in haar stad vergiftigd is en haar broer wil dat ze haar mond houdt. De voorstelling speelt zich af in een Braziliaanse rechtszaal, en het publiek beslist mee over haar lot. Over de waarheid vertellen als niemand je dankbaar is. Onderdeel van het Holland Festival.",
+    lange_samenvatting_en: "A woman discovers that the water in her city is poisoned, and her brother wants her to keep quiet. The piece is set in a Brazilian courtroom, and the audience helps decide her fate. About telling the truth when nobody thanks you for it. Part of the Holland Festival.",
     regisseur: "", based_on: "Stuk Een vijand van 't volk van Henrik Ibsen", foto_url: "",
     english_friendly: true, english_friendly_detail: "Engelse en Nederlandse boventiteling",
     categorieen: ["Autoritarisme", "Nepnieuws", "Holland Festival"],
@@ -286,7 +330,9 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-06-26", speelperiode_end: "2026-06-27",
     korte_samenvatting: "We zien duizenden beelden per dag, maar wie kijkt er nog echt?",
+    korte_samenvatting_en: "We see thousands of images a day, but who is still really looking?",
     lange_samenvatting: "Dansers en een orkest bouwen samen een wervelende collage van beweging, beeld en muziek die voelt als je telefoon, je tijdlijn, je hoofd op een drukke dag. Een uitbundige avond over wat al die beelden met ons doen, en hoe je nog rust vindt in dat geweld. Onderdeel van het Holland Festival.",
+    lange_samenvatting_en: "Dancers and an orchestra build a swirling collage of movement, image and music that feels like your phone, your feed, your head on a busy day. An exuberant evening about what all those images do to us, and how to find any quiet in the noise. Part of the Holland Festival.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: true, english_friendly_detail: "Language no problem",
     categorieen: ["Dans", "Beeldcultuur", "Holland Festival"],
@@ -298,7 +344,9 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-07-04", speelperiode_end: "2026-07-05",
     korte_samenvatting: "Twee dansers met een gedeeld verleden zoeken een manier om naast elkaar te bestaan.",
+    korte_samenvatting_en: "Two dancers with a shared past look for a way to exist alongside each other.",
     lange_samenvatting: "Geïnspireerd door een eeuwenoud vredesverdrag dansen twee mensen elkaar tegemoet, met een geschiedenis van kolonisatie tussen hen in. Geen mooie woorden over verzoening, maar de moeite om écht ruimte te maken voor de ander. Een fysieke avond over wat vrede vraagt. Onderdeel van Julidans.",
+    lange_samenvatting_en: "Inspired by a centuries-old peace treaty, two people dance towards each other with a history of colonisation between them. No pretty words about reconciliation, just the hard work of actually making room for the other. A physical evening about what peace asks of us. Part of Julidans.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: true, english_friendly_detail: "Language no problem",
     categorieen: ["Dans", "Vrede", "Julidans"],
@@ -310,14 +358,17 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-08-28", speelperiode_end: "2026-08-30",
     korte_samenvatting: "Twee mannen krijgen dezelfde diagnose, en moeten allebei beslissen wie ze willen zijn.",
+    korte_samenvatting_en: "Two men get the same diagnosis, and both have to decide who they want to be.",
     lange_samenvatting: "New York in de jaren tachtig, met een epidemie die de regering liever niet ziet. De flamboyante Prior krijgt te horen dat hij aids heeft, en de keiharde conservatieve advocaat Roy Cohn ook. Wat ze allebei doen met dat nieuws zegt alles over angst, liefde en de moed om jezelf te zijn. Lang, groots theater, met songs van Bowie als enige soundtrack.",
+    lange_samenvatting_en: "New York in the 1980s, with an epidemic the government would rather not see. Flamboyant Prior is told he has AIDS, and so is hard-line conservative lawyer Roy Cohn. What they each do with that news says everything about fear, love and the courage to be yourself. Long, sweeping theatre, scored only by Bowie songs.",
     regisseur: "Ivo van Hove", based_on: "Stuk van Tony Kushner",
     foto_url: "https://ita.nl/img/singles/Angels-in-America-%C2%A9-Fabian-Calis-12_2026-05-11-071944_qadg.jpg?w=1200&h=630&fit=crop-50-50",
     foto_credit: "Fabian Calis",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op zaterdag",
     categorieen: ["Identiteit", "LGBTQ", "Ziekte", "Politiek"],
     ticket_url: "https://ita.nl/nl/voorstellingen/angels-in-america/4028907/",
-    interesting_because: "Een legendarisch Amerikaans stuk in regie van Ivo van Hove. Lang en groots theater over identiteit, ziekte en menselijkheid in de jaren '80."
+    interesting_because: "Een legendarisch Amerikaans stuk in regie van Ivo van Hove. Lang en groots theater over identiteit, ziekte en menselijkheid in de jaren '80.",
+    interesting_because_en: "A legendary American play directed by Ivo van Hove. Long, sweeping theatre about identity, illness and humanity in the 1980s."
   },
   {
     id: "client-e-busken", titel: "Cliënt E. Busken",
@@ -326,14 +377,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-08-31", speelperiode_end: "2026-09-09",
     speeldata: ["2026-08-31", "2026-09-01", "2026-09-06", "2026-09-07", "2026-09-08", "2026-09-09"],
     korte_samenvatting: "Een oude man weigert te praten in het verpleeghuis waar hij niet wil zijn.",
+    korte_samenvatting_en: "An old man refuses to speak in the nursing home he doesn't want to be in.",
     lange_samenvatting: "Busken wordt behandeld als een kleuter en denkt nog als een volwassen man. Naar buiten toe zwijgt hij, maar in zijn hoofd raast een onophoudelijke stroom van herinneringen, scherpe observaties en woede. Een monoloog over hoe het is om er nog te zijn terwijl niemand meer naar je luistert.",
+    lange_samenvatting_en: "Busken is treated like a toddler and still thinks like a grown man. Outwardly he stays silent, but inside his head rages a relentless stream of memories, sharp observations and anger. A monologue about what it's like to still be there when nobody is listening anymore.",
     regisseur: "Maria Kraakman", based_on: "Boek van Jeroen Brouwers",
     foto_url: "https://ita.nl/img/blocks/Cli%C3%ABnt-E.-Busken-%C2%A9-Fabian-Calis-8.jpg?w=1200&h=630&fit=crop-48.03-25.88",
     foto_credit: "Fabian Calis",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Ouderdom", "Taal", "Existentialisme"],
     ticket_url: "https://ita.nl/nl/voorstellingen/cli%C3%ABnt-e.-busken/4028930/",
-    interesting_because: "Een rauwe monoloog over het uiteinde van een leven, naar Jeroen Brouwers' bekroonde boek. Voor wie zware existentiële stof in zijn puurste vorm wil."
+    interesting_because: "Een rauwe monoloog over het uiteinde van een leven, naar Jeroen Brouwers' bekroonde boek. Voor wie zware existentiële stof in zijn puurste vorm wil.",
+    interesting_because_en: "A raw monologue about the tail end of a life, after Jeroen Brouwers' award-winning novel. For those who want heavy existential material in its purest form."
   },
   {
     id: "not-quichot", titel: "Not Quichot",
@@ -341,7 +395,9 @@ export const shows: Show[] = [
     theater_id: "", theater: "Amsterdamse Bostheater", extra_theaters: [],
     speelperiode_start: "2026-09-03", speelperiode_end: "2026-09-06",
     korte_samenvatting: "Zes vrienden vertellen over Q: een idealist die zich misschien net iets te ver weg liet drijven.",
+    korte_samenvatting_en: "Six friends talk about Q: an idealist who maybe drifted just a little too far.",
     lange_samenvatting: "Q is de vriend die altijd nét te hard geloofde in iets, en die vol overgave de wereld in ging om hem beter te maken. Zes mensen halen herinneringen op aan avonturen door bergen, boerenprotesten en brandende bibliotheken. Over idealisme in een tijd waarin niemand meer weet wat echt is.",
+    lange_samenvatting_en: "Q is the friend who always believed in something a touch too hard, and who went out into the world full of conviction to make it better. Six people share memories of adventures through mountains, farmers' protests and burning libraries. About idealism in a time when nobody seems to know what is real anymore.",
     regisseur: "Sarah Moeremans", based_on: "Don Quichot van Miguel de Cervantes",
     foto_url: "https://www.hzt.nl/prod/media/campagnebeeld-not-quichot-liggend.jpg?guid=50b00980-f8cf-4322-8a23-0e6777286171&width=400&height=400",
     foto_credit: "Sofie Knijff",
@@ -355,7 +411,9 @@ export const shows: Show[] = [
     theater_id: "", theater: "Amsterdamse Bostheater", extra_theaters: [],
     speelperiode_start: "2026-09-05", speelperiode_end: "2026-09-11",
     korte_samenvatting: "Stel: er wordt midden in een natuurgebied een kabouterkolonie ontdekt. Wat doen wij dan?",
+    korte_samenvatting_en: "Imagine a colony of gnomes is discovered in the middle of a nature reserve. What do we do?",
     lange_samenvatting: "Het publiek mag een net ontdekte kabouterkolonie van dichtbij observeren, en al kijkend gaat het eigenlijk over ons. Hoe gaan we om met wezens die anders zijn, kleiner zijn, kwetsbaar zijn? Een verwonderlijke buitenvoorstelling, grappig en ontwapenend.",
+    lange_samenvatting_en: "The audience gets to observe a newly discovered colony of gnomes up close, and while watching it turns out to be really about us. How do we treat creatures that are different, smaller, vulnerable? A wondrous outdoor production, funny and disarming.",
     regisseur: "", based_on: "", foto_url: "",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Natuur", "Verwondering", "Sprookje"],
@@ -367,7 +425,9 @@ export const shows: Show[] = [
     theater_id: "frascati", theater: "Frascati", extra_theaters: [],
     speelperiode_start: "2026-09-30", speelperiode_end: "2026-12-18",
     korte_samenvatting: "Britt heeft geen kennis, geen ervaring en geen scrupules, maar wel een mening en gaat de politiek in.",
+    korte_samenvatting_en: "Britt has no knowledge, no experience and no scruples, but plenty of opinions, and she's going into politics.",
     lange_samenvatting: "Britt begint lokaal, want daar zit volgens haar de echte democratie. Geen partijdiscipline, geen morele rem, gewoon doen. Een satirisch stuk dat probeert te onderzoeken hoe je nog gesprek voert met iemand die feiten niet erkent, en wat dat betekent voor onze stad, ons land, ons buurtgesprek.",
+    lange_samenvatting_en: "Britt starts local, because that's where she thinks real democracy lives. No party discipline, no moral brake, just doing it. A satirical piece that tries to figure out how to still talk to someone who won't accept facts, and what that means for our city, our country, the conversation in our neighbourhood.",
     regisseur: "Vincent Rietveld", based_on: "",
     foto_url: "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/03/DWW_Britt-for-President_%C2%A9Lonneke-van-der-Palen_Liggend-1680x1260.jpg",
     english_friendly: false, english_friendly_detail: "",
@@ -378,7 +438,8 @@ export const shows: Show[] = [
       "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10",
       "2026-12-08", "2026-12-09"
     ],
-    interesting_because: "Satirisch en bijtend over lokale politiek en hoe we nog met elkaar in gesprek blijven. De Warme Winkel in topvorm."
+    interesting_because: "Satirisch en bijtend over lokale politiek en hoe we nog met elkaar in gesprek blijven. De Warme Winkel in topvorm.",
+    interesting_because_en: "Satirical and biting on local politics and how we still talk to each other. De Warme Winkel in top form."
   },
   {
     id: "kopenhagen-trilogie", titel: "Kopenhagen Trilogie",
@@ -393,14 +454,17 @@ export const shows: Show[] = [
       "2026-12-20", "2026-12-21"
     ],
     korte_samenvatting: "Een meisje uit een arme arbeiderswijk wil schrijver worden, en betaalt daar bijna alles voor.",
+    korte_samenvatting_en: "A girl from a poor working-class neighbourhood wants to be a writer, and pays almost everything for it.",
     lange_samenvatting: "Tove groeit op in een Kopenhaagse buurt waar je dat soort dromen niet hardop uitspreekt, maar zij schrijft toch. Wat volgt is een leven van roem, liefdes die misgaan, en een verslaving die haar uiteindelijk inhaalt. Een voorstelling over wat ambitie kost, en hoe vrij een vrouw werkelijk was in de twintigste eeuw.",
+    lange_samenvatting_en: "Tove grows up in a Copenhagen neighbourhood where you don't say that kind of dream out loud, but she writes anyway. What follows is a life of fame, loves that fall apart, and an addiction that eventually catches up with her. A piece about what ambition costs, and how free a woman really was in the twentieth century.",
     regisseur: "Eline Arbo", based_on: "Boeken van Tove Ditlevsen",
     foto_url: "https://ita.nl/img/singles/KOPENHAGEN0740_16x9.jpg?w=1200&h=630&fit=crop-50-50",
     foto_credit: "ITA",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen",
     categorieen: ["Persoonlijke ambities", "Mentale gezondheid", "Feminisme", "Verslaving"],
     ticket_url: "https://ita.nl/nl/voorstellingen/de-kopenhagen-trilogie-26-27/4029266/",
-    interesting_because: "Een driedelige bewerking van Tove Ditlevsens beroemde memoires over ambitie, verslaving en zelfdestructie. Voor wie houdt van literaire bewerkingen die niets toedekken."
+    interesting_because: "Een driedelige bewerking van Tove Ditlevsens beroemde memoires over ambitie, verslaving en zelfdestructie. Voor wie houdt van literaire bewerkingen die niets toedekken.",
+    interesting_because_en: "A three-part adaptation of Tove Ditlevsen's famous memoirs on ambition, addiction and self-destruction. For lovers of literary adaptations that don't paper over anything."
   },
   {
     id: "de-uren", titel: "De uren",
@@ -413,14 +477,17 @@ export const shows: Show[] = [
       "2026-11-18", "2026-11-19", "2026-11-20", "2026-11-21", "2026-11-22"
     ],
     korte_samenvatting: "Drie vrouwen, in drie eeuwen, met dezelfde stille vraag: is dit leven van mij?",
+    korte_samenvatting_en: "Three women, in three centuries, with the same quiet question: is this life mine?",
     lange_samenvatting: "In 1923 zit Virginia Woolf vast in een rustig dorp en begint een roman. Dertig jaar later voelt huisvrouw Laura de muren van haar perfecte gezin op zich afkomen. En in New York vraagt Clarissa zich vandaag af of ze de juiste keuzes maakte. Drie levens, een eeuw uit elkaar, en de emancipatie die wel en niet bleek door te zetten.",
+    lange_samenvatting_en: "In 1923, Virginia Woolf is stuck in a quiet village and starts writing a novel. Thirty years later, housewife Laura feels the walls of her perfect family closing in. And in New York today, Clarissa wonders if she made the right choices. Three lives a century apart, and the emancipation that did and didn't quite follow through.",
     regisseur: "Eline Arbo", based_on: "Boek van Michael Cunningham",
     foto_url: "https://ita.nl/img/singles/De-uren-%C2%A9-Dim-Balsem-1.jpg?w=1200&h=630&fit=crop-52.04-36.33",
     foto_credit: "Dim Balsem",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Vrijheid", "Identiteit", "Emancipatie", "Literatuur"],
     ticket_url: "https://ita.nl/nl/voorstellingen/de-uren/4028934/",
-    interesting_because: "Drie vrouwen, drie tijden, één vraag over een authentiek leven. Eline Arbo in haar vertrouwde regie van vrouwen-doorgrondende stukken."
+    interesting_because: "Drie vrouwen, drie tijden, één vraag over een authentiek leven. Eline Arbo in haar vertrouwde regie van vrouwen-doorgrondende stukken.",
+    interesting_because_en: "Three women, three eras, one question about an authentic life. Eline Arbo back in her familiar territory of pieces that dig deep into women's lives."
   },
   {
     id: "wuthering-heights", titel: "Wuthering Heights",
@@ -440,14 +507,17 @@ export const shows: Show[] = [
       { theater_id: "theater-rotterdam-venue", speeldata: ["2027-02-17", "2027-02-18"] }
     ],
     korte_samenvatting: "Wie als kind vernederd is, geeft die vernedering vaak ongevraagd door.",
+    korte_samenvatting_en: "Anyone humiliated as a child often passes that humiliation on without being asked.",
     lange_samenvatting: "Heathcliff wordt als vondeling opgenomen in een familie die hem nooit echt accepteert, en als hij rijk en machtig terugkeert, gaat het niet meer om liefde maar om wraak. Een rauwe, fysieke voorstelling over klasse, vernedering en de keten van geweld die van ouder op kind wordt doorgegeven. Geen romantisch verhaal, maar wel een onvergetelijk.",
+    lange_samenvatting_en: "Heathcliff is taken in as a foundling by a family that never really accepts him, and when he returns rich and powerful, it's no longer about love but about revenge. A raw, physical production about class, humiliation and the chain of violence that gets passed from parent to child. Not a romantic story, but an unforgettable one.",
     regisseur: "Kjersti Horn", based_on: "Boek van Emily Brontë",
     foto_url: "https://ita.nl/img/singles/WH_16x9.jpg?w=1200&h=630&fit=crop-48.91-33.22",
     foto_credit: "ITA",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Liefde", "Macht", "Geweld", "Klasse"],
     ticket_url: "https://ita.nl/nl/voorstellingen/wuthering-heights/4029268/",
-    interesting_because: "Brontës klassieker als rauwe machtsspel-vertelling. Voor wie van Eline Arbo's eerdere bewerkingen (Penthesilea, Vogels) hield."
+    interesting_because: "Brontës klassieker als rauwe machtsspel-vertelling. Voor wie van Eline Arbo's eerdere bewerkingen (Penthesilea, Vogels) hield.",
+    interesting_because_en: "Brontë's classic told as a raw power play. For anyone who loved Eline Arbo's earlier adaptations (Penthesilea, Vogels)."
   },
   {
     id: "r2d2-or-not-2b2", titel: "R2D2_or_not_2B2",
@@ -463,7 +533,9 @@ export const shows: Show[] = [
       { theater_id: "theater-rotterdam-venue", speeldata: ["2027-04-08", "2027-04-09"] }
     ],
     korte_samenvatting: "Een groep robots probeert Hamlet te spelen en vraagt zich af wat mens-zijn ook alweer was.",
+    korte_samenvatting_en: "A group of robots tries to perform Hamlet and wonders what being human was again.",
     lange_samenvatting: "Stofzuigers, bionische honden en androids in existentiële crisis nemen het theater over en stuntelen door een groot toneelstuk. Ze zoeken naar gevoel, twijfel en betekenis bij personages die hen vreemd zijn, terwijl ze zichzelf voortdurend onderbreken. Geestig en onverwacht aangrijpend over wat ons mensen onderscheidt,als dat nog iets is.",
+    lange_samenvatting_en: "Vacuum cleaners, bionic dogs and androids in existential crisis take over the theatre and fumble their way through a great play. They search for feeling, doubt and meaning in characters they don't understand, constantly interrupting themselves. Witty and unexpectedly moving on what sets humans apart, if there's still anything that does.",
     regisseur: "Rosie Sommers, Ward Weemhoff, Marieke de Zwaan (eindregie Bianca van der Schoot)",
     based_on: "Hamlet van Shakespeare",
     foto_url: "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_15-731x1024.jpg",
@@ -488,7 +560,8 @@ export const shows: Show[] = [
       "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_14-1680x1200.jpg",
       "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/02/DWW_R2D2_%C2%A9TobiasKruse_16-1680x1200.jpg"
     ],
-    interesting_because: "Hamlet door robots, satirisch en filosofisch. Voor wie 'wat is mens-zijn' op een onverwachte manier wil onderzoeken."
+    interesting_because: "Hamlet door robots, satirisch en filosofisch. Voor wie 'wat is mens-zijn' op een onverwachte manier wil onderzoeken.",
+    interesting_because_en: "Hamlet by robots, satirical and philosophical. For anyone who wants to look at 'what is being human' from an unexpected angle."
   },
   {
     id: "richard", titel: "Richard",
@@ -501,14 +574,17 @@ export const shows: Show[] = [
       "2027-03-10", "2027-03-11", "2027-03-13"
     ],
     korte_samenvatting: "Naast de man die zich naar de top liegt en moordt, staat de vrouw die hij vermorzelt.",
+    korte_samenvatting_en: "Beside the man who lies and murders his way to the top stands the woman he crushes.",
     lange_samenvatting: "Een gewetenloze figuur baant zich met leugens en geweld een weg naar de macht, terwijl een vrouw in bezet gebied alleen maar in leven probeert te blijven. Het stuk zet de onderdrukker en de onderdrukte naast elkaar op het toneel. Over hoe macht werkt, wie ervoor betaalt, en wat we daar vandaag van zien.",
+    lange_samenvatting_en: "A man without conscience claws his way to power through lies and violence, while a woman in occupied territory is simply trying to stay alive. The piece places the oppressor and the oppressed side by side on stage. About how power works, who pays for it, and what we recognise of that today.",
     regisseur: "Alize Zandwijk", based_on: "Richard III van William Shakespeare",
     foto_url: "https://ita.nl/img/singles/RI_16x9.jpg?w=1200&h=630&fit=crop-17.8-48.03",
     foto_credit: "ITA",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Macht", "Onderdrukking", "Bezetting"],
     ticket_url: "https://ita.nl/nl/voorstellingen/richard/4029251/",
-    interesting_because: "Richard III gespiegeld aan een vrouw onder bezetting. Een ongebruikelijke combinatie die de schade van machtshonger vanaf de andere kant toont."
+    interesting_because: "Richard III gespiegeld aan een vrouw onder bezetting. Een ongebruikelijke combinatie die de schade van machtshonger vanaf de andere kant toont.",
+    interesting_because_en: "Richard III mirrored against a woman under occupation. An unusual combination that shows the damage of power hunger from the other side."
   },
   {
     id: "prophet-song", titel: "Prophet Song",
@@ -521,14 +597,17 @@ export const shows: Show[] = [
       "2027-03-31", "2027-04-01", "2027-04-02", "2027-04-03", "2027-04-04"
     ],
     korte_samenvatting: "Hoe lang duurt het voor je een democratie kwijtraakt, en je er nog steeds woont?",
+    korte_samenvatting_en: "How long does it take to lose a democracy while you're still living in it?",
     lange_samenvatting: "Een nieuwe regering wordt gewoon gekozen, en daarna gaat het stap voor stap mis. Een moeder probeert haar vier kinderen veilig te houden terwijl rechten verdwijnen, mensen verdwijnen, en de buurt zwijgt. Een dystopie die ongemakkelijk dicht bij het nieuws van vandaag zit.",
+    lange_samenvatting_en: "A new government is simply elected, and then step by step things start to slip. A mother tries to keep her four children safe while rights disappear, people disappear, and the neighbourhood stays silent. A dystopia that sits uncomfortably close to today's news.",
     regisseur: "Mina Salehpour", based_on: "Boek van Paul Lynch",
     foto_url: "https://ita.nl/img/singles/Prophet-Song-%C2%A9-Andreas-Schlager-4lr_2026-05-11-071929_jqhf.png?w=1200&h=630&fit=crop-29.39-44.52",
     foto_credit: "Andreas Schlager",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Verdwijnen democratie", "Familie", "Autoritarisme"],
     ticket_url: "https://ita.nl/nl/voorstellingen/prophet-song/4028970/",
-    interesting_because: "Booker Prize-winnend boek over een democratie die wegglijdt naar autoritarisme. Voor wie dystopie als spiegel voor de tijd kan velen."
+    interesting_because: "Booker Prize-winnend boek over een democratie die wegglijdt naar autoritarisme. Voor wie dystopie als spiegel voor de tijd kan velen.",
+    interesting_because_en: "Booker Prize-winning novel about a democracy sliding into authoritarianism. For anyone who can stomach dystopia as a mirror to the times."
   },
   {
     id: "judith-westbroek-zoekt-een-kamer", titel: "Judith Westbroek zoekt een kamer",
@@ -536,7 +615,9 @@ export const shows: Show[] = [
     theater_id: "frascati", theater: "Frascati", extra_theaters: [],
     speelperiode_start: "2027-03-30", speelperiode_end: "2027-05-29",
     korte_samenvatting: "Een hospiteeravond als spiegel voor een land waar nergens meer ruimte voor is.",
+    korte_samenvatting_en: "A flat-share audition as a mirror for a country where there's no room left for anything.",
     lange_samenvatting: "Judith zit in een huiskamer met onbekenden die haar gaan beoordelen op haar woonpotentieel. Een felle, grappige avond over de woningnood, en over alle andere soorten ruimte die op zijn: stikstofruimte, ademruimte, ruimte om iets van je leven te maken. Voor iedereen die ooit ergens met hangende pootjes binnenkwam.",
+    lange_samenvatting_en: "Judith sits in a living room with strangers who are about to judge her on her potential as a housemate. A sharp, funny evening about the housing crisis, and all the other kinds of space that have run out: nitrogen space, breathing space, space to make something of your life. For anyone who ever walked into a room with their tail between their legs.",
     regisseur: "Vincent Rietveld en Bianca van der Schoot", based_on: "",
     foto_url: "https://dewarmewinkel.nl/cms/wp-content/uploads/2026/05/Myrte-Siebinga-zoekt-een-kamer_%C2%A9Sofie-Knijff1-1680x1120.jpg",
     english_friendly: false, english_friendly_detail: "",
@@ -544,7 +625,8 @@ export const shows: Show[] = [
     ticket_url: "https://dewarmewinkel.nl/voorstellingen/judith-westbroek-zoekt-een-kamer/",
     foto_credit: "Sofie Knijff",
     speeldata: ["2027-03-30", "2027-03-31", "2027-04-01"],
-    interesting_because: "Korte, scherpe voorstelling over een hospiteersessie als microkosmos van de woningnood. Snel en bijtend."
+    interesting_because: "Korte, scherpe voorstelling over een hospiteersessie als microkosmos van de woningnood. Snel en bijtend.",
+    interesting_because_en: "Short, sharp piece about a flat-share audition as a microcosm of the housing crisis. Fast and biting."
   },
   {
     id: "nachtwacht", titel: "Nachtwacht",
@@ -558,14 +640,17 @@ export const shows: Show[] = [
       { theater_id: "stadsschouwburg-utrecht", speeldata: ["2027-05-03"] }
     ],
     korte_samenvatting: "Een gezin om het ziekbed van vader, en de oude rolverdeling die plotseling weer in volle hevigheid terug is.",
+    korte_samenvatting_en: "A family around father's sickbed, and the old family roles suddenly back in full force.",
     lange_samenvatting: "Vader is stervende, en zijn kinderen zitten bij hem terwijl ze zich allemaal heimelijk afvragen hoe ze van hem af komen. Een grote cast van muzikanten, dansers en acteurs maakt er een fysieke en muzikale voorstelling van waarin een hartslag een ritme wordt. Over zorg, afhankelijkheid en hoe je iemand mens laat blijven in de laatste fase van zijn leven.",
+    lange_samenvatting_en: "Father is dying, and his children sit beside him while each of them secretly wonders how to be done with him. A large cast of musicians, dancers and actors turns it into a physical, musical piece where a heartbeat becomes a rhythm. About care, dependency, and how you let someone stay a person in the final stretch of their life.",
     regisseur: "Guy Weizman", based_on: "",
     foto_url: "https://nite.nl/wp-content/uploads/2026/04/NITE_NACHTWACHT_2026_CROPS_SHOT_BY_HALIE_16x9-scaled.jpg",
     foto_credit: "Halie",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling",
     categorieen: ["Familie", "Ouderdom", "Zorg", "Sterven"],
     ticket_url: "https://nite.nl/voorstelling/nachtwacht/",
-    interesting_because: "Een gitzwart-grappige familietragedie over loskomen van toebedeelde rollen. NITE's signature mix van fysiek en tekst."
+    interesting_because: "Een gitzwart-grappige familietragedie over loskomen van toebedeelde rollen. NITE's signature mix van fysiek en tekst.",
+    interesting_because_en: "A pitch-black comic family tragedy about breaking free of assigned roles. NITE's signature mix of physicality and text."
   },
   {
     id: "prima-facie", titel: "Prima Facie",
@@ -577,14 +662,17 @@ export const shows: Show[] = [
       "2027-05-26", "2027-05-27", "2027-05-28", "2027-05-29", "2027-05-30"
     ],
     korte_samenvatting: "Een topadvocate weet hoe ze slachtoffers in de getuigenbank onderuithaalt, tot ze er zelf een wordt.",
+    korte_samenvatting_en: "A top lawyer knows how to take victims apart on the witness stand, until she becomes one herself.",
     lange_samenvatting: "Tessa is briljant en hard, en zedenzaken zijn voor haar een spel waarin ze meestal wint. Tot ze op een avond zelf moet aankloppen bij de politie, en alles wat ze weet over de wet plotseling tegen haar werkt. Een solovoorstelling over wat juridisch waar is, wat eerlijk voelt, en het diepe gat daartussen.",
+    lange_samenvatting_en: "Tessa is brilliant and tough, and sexual assault cases are a game she usually wins. Until one night she has to knock on the door at the police station herself, and everything she knows about the law suddenly works against her. A solo about what's legally true, what feels fair, and the deep gap in between.",
     regisseur: "Eline Arbo", based_on: "Stuk van Suzie Miller",
     foto_url: "https://ita.nl/img/blocks/Prima-Facie-ITA-Ensemble-%C2%A9-Fabian-Calis-12.jpg?w=1200&h=630&fit=crop-50-50",
     foto_credit: "Fabian Calis",
     english_friendly: true, english_friendly_detail: "Engelse boventiteling op donderdagen en zaterdagen",
     categorieen: ["Rechtspraak", "Seksueel misbruik", "Patriarchaat"],
     ticket_url: "https://ita.nl/nl/voorstellingen/prima-facie/3675691/",
-    interesting_because: "Solo over een strafrechtadvocate die met haar eigen denken botst,bekroond stuk dat Nederlandse Toneeljury raakte. Engels boventiteld op zaterdagen."
+    interesting_because: "Solo over een strafrechtadvocate die met haar eigen denken botst,bekroond stuk dat Nederlandse Toneeljury raakte. Engels boventiteld op zaterdagen.",
+    interesting_because_en: "Solo about a criminal lawyer colliding with her own thinking, an award-winning play that moved the Dutch theatre jury. English surtitles on Saturdays."
   },
   {
     id: "orkater-aisa-demeter", titel: "Aisa Demeter",
@@ -593,14 +681,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-29", speelperiode_end: "2026-05-30",
     speeldata: ["2026-05-29", "2026-05-30"],
     korte_samenvatting: "Een moeder ziet haar dochter verdwijnen in haar eigen schaduw en moet haar woede onder ogen komen.",
+    korte_samenvatting_en: "A mother watches her daughter disappear into her own shadow and has to face her anger.",
     lange_samenvatting: "Aisa zoekt haar verdwenen dochter terug en stuit op de woede en intuïtie die ze jarenlang heeft weggeduwd. Anne-Fay Kops speelt en zingt een figuur waarin twee oermoeders samenkomen, de een uit de Winti-cultuur, de ander uit de Griekse mythologie. Caribische samples, baslijnen en piano-ballads dragen een verhaal over wat je krijgt als je je woede serieus neemt.",
+    lange_samenvatting_en: "Aisa goes searching for her missing daughter and runs into the anger and intuition she'd pushed away for years. Anne-Fay Kops acts and sings a figure where two primal mothers meet, one from Winti culture, the other from Greek mythology. Caribbean samples, basslines and piano ballads carry a story about what you get when you take your own anger seriously.",
     regisseur: "Khadija El Kharraz Alami", based_on: "",
     foto_url: "https://orkater.nl/images/jcogs_img/cache/orkater_aisademeter_acdb_liggend-1774-1775127128_-_93a80_-_6be983c69cda1af635547c86c05ad7b0b8966b65.webp",
     foto_credit: "Orkater",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Moederschap", "Woede", "Mythologie"],
     ticket_url: "https://orkater.nl/voorstelling/aisa-demeter",
-    interesting_because: "Muziektheater dat woede als kracht omarmt, met Anne-Fay Kops als zingende spil. Te zien op O. Festival, Oerol, Boulevard en Parade."
+    interesting_because: "Muziektheater dat woede als kracht omarmt, met Anne-Fay Kops als zingende spil. Te zien op O. Festival, Oerol, Boulevard en Parade.",
+    interesting_because_en: "Music theatre that embraces anger as power, with Anne-Fay Kops as its singing centre. Playing at O. Festival, Oerol, Boulevard and Parade."
   },
   {
     id: "orkater-en-ze-maakte-een-kind", titel: "En ze maakte een kind",
@@ -609,14 +700,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-06-19", speelperiode_end: "2026-06-20",
     speeldata: [],
     korte_samenvatting: "Een vrouw probeert moeder-zijn en kunstenaarschap in één leven te laten passen.",
+    korte_samenvatting_en: "A woman tries to fit motherhood and being an artist into one life.",
     lange_samenvatting: "Meral Polat staat alleen op het podium en zingt, praat en denkt na over wat het betekent om een kind te baren in een wereld waarin moeders nauwelijks plek krijgen in de kunsten. Een muzikale solo over het scheppen, het zorgen en het verlangen om gezien te worden als beide. Sarah Sluimer schreef een rauwe tekst die de Volkskrant vijf sterren gaf.",
+    lange_samenvatting_en: "Meral Polat stands alone on stage and sings, talks and thinks through what it means to give birth in a world that hardly makes room for mothers in the arts. A musical solo about creating, caring and the longing to be seen as both. Sarah Sluimer wrote a raw text that earned five stars in de Volkskrant.",
     regisseur: "Nita Kersten", based_on: "",
     foto_url: "https://orkater.nl/images/jcogs_img/cache/en_ze_maakte_een_kind_-_bart_grietens-18-web-1711-1757509998-1712-1757510108_-_93a80_-_6be983c69cda1af635547c86c05ad7b0b8966b65.jpg",
     foto_credit: "Bart Grietens",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Moederschap", "Kunstenaarschap", "Feminisme"],
     ticket_url: "https://orkater.nl/voorstelling/en-ze-maakte-een-kind",
-    interesting_because: "Bekroonde muziektheatersolo met Meral Polat, vijf sterren in de Volkskrant. Op tournee deze zomer."
+    interesting_because: "Bekroonde muziektheatersolo met Meral Polat, vijf sterren in de Volkskrant. Op tournee deze zomer.",
+    interesting_because_en: "Award-winning music theatre solo with Meral Polat, five stars in de Volkskrant. On tour this summer."
   },
   {
     id: "orkater-suriname-trilogie", titel: "De Suriname-Trilogie",
@@ -624,14 +718,17 @@ export const shows: Show[] = [
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: ["bijlmer-parktheater", "theater-rotterdam-venue"],
     speelperiode_start: "2026-11-10", speelperiode_end: "2026-12-19",
     korte_samenvatting: "Honderd jaar Surinaams-Nederlandse geschiedenis in drie muziektheatervoorstellingen achter elkaar.",
+    korte_samenvatting_en: "A hundred years of Surinamese-Dutch history in three music theatre productions back to back.",
     lange_samenvatting: "Drie gevierde voorstellingen, één keer als drieluik te zien: Woiski vs. Woiski, De Gliphoeve en Stepping Stones, samen een eeuw geschiedenis van Surinamers in Nederland. Van Paramaribo en Amsterdam in de jaren dertig, via de Bijlmer-flat De Gliphoeve, tot aan de dilemma's van vandaag. Programma rond vijftig jaar Surinaamse onafhankelijkheid.",
+    lange_samenvatting_en: "Three celebrated productions, presented for once as a triptych: Woiski vs. Woiski, De Gliphoeve and Stepping Stones, together a century of Surinamese history in the Netherlands. From Paramaribo and Amsterdam in the 1930s, via the Bijlmer high-rise De Gliphoeve, to today's dilemmas. Programmed around fifty years of Surinamese independence.",
     regisseur: "Geert Lageveen", based_on: "",
     foto_url: "https://orkater.nl/images/jcogs_img/cache/suriname2-1799-1777565786_-_93a80_-_6be983c69cda1af635547c86c05ad7b0b8966b65.webp",
     foto_credit: "Coco Olakunle",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Geschiedenis", "Migratie", "Familie", "Suriname"],
     ticket_url: "https://orkater.nl/voorstelling/de-suriname-trilogie",
-    interesting_because: "Drie bekroonde muziektheaterstukken in twee weken, bij ITA, Bijlmer Parktheater, Theater Rotterdam en HNT. Een unieke kans om de hele trilogie te zien."
+    interesting_because: "Drie bekroonde muziektheaterstukken in twee weken, bij ITA, Bijlmer Parktheater, Theater Rotterdam en HNT. Een unieke kans om de hele trilogie te zien.",
+    interesting_because_en: "Three award-winning music theatre pieces in two weeks, at ITA, Bijlmer Parktheater, Theater Rotterdam and HNT. A rare chance to see the whole trilogy."
   },
   {
     id: "orkater-woiski-vs-woiski", titel: "Woiski vs. Woiski",
@@ -644,14 +741,17 @@ export const shows: Show[] = [
       { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-01"] }
     ],
     korte_samenvatting: "Een vader en zoon met dezelfde muzikale droom, en heel veel ruimte tussen hen in.",
+    korte_samenvatting_en: "A father and son with the same musical dream, and a lot of distance between them.",
     lange_samenvatting: "Het eerste deel van de Suriname-Trilogie volgt twee generaties van de muzikale familie Woiski, van Paramaribo en Amsterdam in de jaren dertig tot vijftig. Wat geef je door, wat houd je voor jezelf, en wat verlies je onderweg. Swingend en schrijnend tegelijk.",
+    lange_samenvatting_en: "The first part of the Suriname Trilogy follows two generations of the musical Woiski family, from Paramaribo and Amsterdam in the 1930s to the 1950s. What do you pass on, what do you keep to yourself, and what do you lose along the way. Swinging and heartbreaking at once.",
     regisseur: "Geert Lageveen", based_on: "",
     foto_url: "https://orkater.nl/images/jcogs_img/cache/2018_woiskivswoiski_2-129-1602769016_-_93a80_-_e075315656aa0325affbdc795bf6c4b94c7d63b1.webp",
     foto_credit: "Orkater",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Familie", "Muziek", "Suriname", "Migratie"],
     ticket_url: "https://orkater.nl/voorstelling/woiski-vs-woiski",
-    interesting_because: "Eerste deel van de Suriname-Trilogie, vier sterren in NRC. Muziektheater dat de geschiedenis van Surinamers in Nederland uitzingt."
+    interesting_because: "Eerste deel van de Suriname-Trilogie, vier sterren in NRC. Muziektheater dat de geschiedenis van Surinamers in Nederland uitzingt.",
+    interesting_because_en: "First part of the Suriname Trilogy, four stars in NRC. Music theatre that sings out the history of Surinamese people in the Netherlands."
   },
   {
     id: "orkater-de-gliphoeve", titel: "De Gliphoeve",
@@ -664,14 +764,17 @@ export const shows: Show[] = [
       { theater_id: "bijlmer-parktheater", speeldata: ["2026-12-10", "2026-12-11", "2026-12-12"] }
     ],
     korte_samenvatting: "Een gekraakte flat in de Bijlmer wordt een tweede thuis voor wie net is aangekomen.",
+    korte_samenvatting_en: "A squatted high-rise in the Bijlmer becomes a second home for people who've just arrived.",
     lange_samenvatting: "Het tweede deel van de Suriname-Trilogie speelt zich af in de jaren zeventig in flat De Gliphoeve in Amsterdam-Zuidoost, gekraakt door Surinaamse nieuwkomers. Over woningnood, samenhorigheid en wat het kost om ergens opnieuw te beginnen. Een familiekroniek met live muziek.",
+    lange_samenvatting_en: "The second part of the Suriname Trilogy is set in the 1970s in the De Gliphoeve high-rise in Amsterdam Southeast, squatted by Surinamese newcomers. About the housing crisis, solidarity, and what it costs to start over somewhere. A family chronicle with live music.",
     regisseur: "Geert Lageveen", based_on: "",
     foto_url: "https://orkater.nl/images/jcogs_img/cache/a2_poster_de_gliphoeve-1235-1664529286_-_93a80_-_e075315656aa0325affbdc795bf6c4b94c7d63b1.webp",
     foto_credit: "Orkater",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Migratie", "Woningnood", "Suriname", "Saamhorigheid"],
     ticket_url: "https://orkater.nl/voorstelling/de-gliphoeve",
-    interesting_because: "Onderbelicht hoofdstuk van de Nederlandse geschiedenis als familiekroniek met muziek. Vier sterren in NRC."
+    interesting_because: "Onderbelicht hoofdstuk van de Nederlandse geschiedenis als familiekroniek met muziek. Vier sterren in NRC.",
+    interesting_because_en: "Under-told chapter of Dutch history as a family chronicle with music. Four stars in NRC."
   },
   {
     id: "orkater-stepping-stones", titel: "Stepping Stones",
@@ -683,14 +786,17 @@ export const shows: Show[] = [
       { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-15"] }
     ],
     korte_samenvatting: "Drie generaties Surinaamse Nederlanders zoeken uit wat ze van elkaar willen meenemen.",
+    korte_samenvatting_en: "Three generations of Surinamese Dutch figure out what they want to take from each other.",
     lange_samenvatting: "Het slotstuk van de Suriname-Trilogie volgt drie generaties van één familie en stelt de vraag wat ouders en kinderen aan elkaar doorgeven, soms zonder het door te hebben. Een muzikale familievoorstelling die bij Trouw vijf sterren kreeg. Een ode aan struikelen en weer opstaan.",
+    lange_samenvatting_en: "The closing piece of the Suriname Trilogy follows three generations of one family and asks what parents and children pass on to each other, sometimes without realising. A musical family piece that earned five stars in Trouw. An ode to stumbling and getting back up.",
     regisseur: "Geert Lageveen", based_on: "",
     foto_url: "https://orkater.nl/images/jcogs_img/cache/stepping_stones_-_fotografie_bas_de_brouwer__naamsvermelding_altijd_verplicht_-63_-_93a80_-_96e610924e1f41ba9c87eae3368e1a7a097af397.webp",
     foto_credit: "Bas de Brouwer",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Familie", "Migratie", "Suriname", "Generaties"],
     ticket_url: "https://orkater.nl/voorstelling/stepping-stones",
-    interesting_because: "Slotdeel van de Suriname-Trilogie, vijf sterren in Trouw. Ontroerende ode aan de kracht van familie over drie generaties."
+    interesting_because: "Slotdeel van de Suriname-Trilogie, vijf sterren in Trouw. Ontroerende ode aan de kracht van familie over drie generaties.",
+    interesting_because_en: "Closing part of the Suriname Trilogy, five stars in Trouw. A moving ode to the strength of family across three generations."
   },
   {
     id: "de-warme-winkel-gundhi", titel: "Gundhi",
@@ -699,14 +805,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-29", speelperiode_end: "2026-05-29",
     speeldata: [],
     korte_samenvatting: "Een gewapende yoga-groep stelt zich serieus de vraag of geweldloosheid nog te verdedigen is.",
+    korte_samenvatting_en: "An armed yoga group seriously asks itself whether non-violence is still defensible.",
     lange_samenvatting: "Na hun ochtendritueel houden de leden van Gundhi hun internationale achterban een spiegel voor: kunnen idealen vandaag nog zonder geweld worden bereikt? Een avond vol satire, sterke teksten en een geliefde Indiase historische figuur op de achtergrond. Een coproductie met Schauspielhaus Bochum, eerder geselecteerd voor het Berliner Theatertreffen.",
+    lange_samenvatting_en: "After their morning ritual, the members of Gundhi hold up a mirror to their international following: can ideals still be reached today without violence? An evening of satire, sharp writing and a beloved Indian historical figure in the background. A coproduction with Schauspielhaus Bochum, previously selected for the Berliner Theatertreffen.",
     regisseur: "Vincent Riebeek", based_on: "",
     foto_url: "https://dewarmewinkel.nl/cms/wp-content/uploads/2025/04/DWW_Gundhi_%C2%A9Victoria-Jung-scaled-e1744644686549.jpg",
     foto_credit: "Victoria Jung",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Pacifisme", "Geweld", "Politiek"],
     ticket_url: "https://dewarmewinkel.nl/voorstellingen/gundhi/",
-    interesting_because: "De Warme Winkel in Duits-Nederlandse coproductie, eerder geselecteerd voor het Berliner Theatertreffen. Bijtende satire over geweldloos verzet vandaag."
+    interesting_because: "De Warme Winkel in Duits-Nederlandse coproductie, eerder geselecteerd voor het Berliner Theatertreffen. Bijtende satire over geweldloos verzet vandaag.",
+    interesting_because_en: "De Warme Winkel in a German-Dutch coproduction, previously selected for the Berliner Theatertreffen. Biting satire on non-violent resistance today."
   },
   {
     id: "het-zuidelijk-toneel-saved-game", titel: "Saved Game",
@@ -719,14 +828,17 @@ export const shows: Show[] = [
       { theater_id: "verkadefabriek", speeldata: ["2026-05-30"] }
     ],
     korte_samenvatting: "Een moeder logt in op het gameaccount van haar overleden zoon en weigert eruit te komen.",
+    korte_samenvatting_en: "A mother logs into her dead son's game account and refuses to log back out.",
     lange_samenvatting: "Julia Ghysels speelt alle personages in deze solo over rouw, schuld en troost. Een moeder die haar zoon verloor door eigen toedoen bouwt een monument in haar tuin en duikt steeds dieper in de virtuele wereld waarin hij nog bestaat. Licht absurdistisch, pijnlijk grappig, en helend op een manier die niemand had verwacht.",
+    lange_samenvatting_en: "Julia Ghysels plays every character in this solo about grief, guilt and consolation. A mother who lost her son through her own doing builds a monument in her garden and dives deeper into the virtual world where he still exists. Lightly absurd, painfully funny, and healing in a way nobody expected.",
     regisseur: "Peter Seynaeve", based_on: "God Jr. van Dennis Cooper",
     foto_url: "https://www.hzt.nl/prod/media/campagnebeeld-saved-game-liggendv2.jpg?guid=bd5aabdf-506b-4c7d-a188-9cad965a0df6&width=4000&height=4000&format=webp",
     foto_credit: "Het Zuidelijk Toneel",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Rouw", "Schuld", "Verlies", "Games"],
     ticket_url: "https://www.hzt.nl/nl/agenda/saved-game",
-    interesting_because: "Solo van Theo d'Or-winnaar Julia Ghysels, geregisseerd door Peter Seynaeve. Voor wie houdt van rauwe verhalen die ook kunnen lachen."
+    interesting_because: "Solo van Theo d'Or-winnaar Julia Ghysels, geregisseerd door Peter Seynaeve. Voor wie houdt van rauwe verhalen die ook kunnen lachen.",
+    interesting_because_en: "Solo by Theo d'Or winner Julia Ghysels, directed by Peter Seynaeve. For anyone who loves raw stories that can still laugh."
   },
   {
     id: "het-zuidelijk-toneel-cafe-brabant", titel: "Café Brabant",
@@ -735,14 +847,17 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-22", speelperiode_end: "2026-05-24",
     speeldata: ["2026-05-22", "2026-05-23", "2026-05-24"],
     korte_samenvatting: "De vaste klanten van een bruin café houden zich vast aan elkaar terwijl de laatste ronde nadert.",
+    korte_samenvatting_en: "The regulars of a traditional Dutch pub hold on to each other as last call draws closer.",
     lange_samenvatting: "Een Brabantse kroeg balanceert op de rand van faillissement en daarmee verdwijnt voor de stamgasten een thuis. Een jonge ondernemer ziet zijn kans om het pand op te kopen, en het wordt de vraag wat verloren gaat als de sfeer een product wordt. Met professionele acteurs, vrijetijdsspelers en de Bredase band JUUK.",
+    lange_samenvatting_en: "A Brabant pub teeters on the edge of bankruptcy, and with it the regulars lose a home. A young entrepreneur sees his chance to buy the building, and the question becomes what gets lost when atmosphere turns into a product. With professional actors, amateur performers and the Breda band JUUK.",
     regisseur: "Jessie L'Herminez", based_on: "",
     foto_url: "https://www.hzt.nl/prod/media/campagnebeeld-cafe-brabant-liggend.jpg?guid=dce2416e-6522-4bad-a562-d41a4a119720&width=4000&height=4000&format=webp",
     foto_credit: "Het Zuidelijk Toneel",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Thuis", "Heimwee", "Gemeenschap"],
     ticket_url: "https://www.hzt.nl/nl/agenda/cafe-brabant",
-    interesting_because: "Een lokale kroeg als microkosmos voor wat we kwijtraken als alles wordt uitgebaat. Met live muziek."
+    interesting_because: "Een lokale kroeg als microkosmos voor wat we kwijtraken als alles wordt uitgebaat. Met live muziek.",
+    interesting_because_en: "A local pub as a microcosm of what we lose when everything is monetised. With live music."
   },
   {
     id: "nite-oersoep", titel: "Oersoep",
@@ -759,14 +874,17 @@ export const shows: Show[] = [
       { theater_id: "theater-rotterdam-venue", speeldata: ["2026-12-12"] }
     ],
     korte_samenvatting: "Wat zou jij doen als je nieuw leven brengt in een uitgeputte wereld?",
+    korte_samenvatting_en: "What would you do if you brought new life into an exhausted world?",
     lange_samenvatting: "Na de geboorte van haar kind gaat een vrouw de wereld in op zoek naar verbinding, en raakt ze verstrikt in liefde, seks, verlies en verdoving. Met livemuziek van K.O. Brass bouwt regisseur Rebekka Nilsson een hedendaags requiem dat geboorte en rouw samenbrengt. Geïnspireerd op de roman van Bregje Hofstede en de Matthäus-Passion.",
+    lange_samenvatting_en: "After the birth of her child, a woman goes out into the world looking for connection, and gets caught up in love, sex, loss and numbing. With live music from K.O. Brass, director Rebekka Nilsson builds a contemporary requiem that brings birth and grief together. Inspired by Bregje Hofstede's novel and the St Matthew Passion.",
     regisseur: "Rebekka Nilsson", based_on: "Roman van Bregje Hofstede",
     foto_url: "https://nite.nl/wp-content/uploads/2026/04/NITE_OERSOEP_16x9_SHOTBYHALIE-scaled.jpg",
     foto_credit: "Halie",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Moederschap", "Klimaat", "Ritueel", "Muziek"],
     ticket_url: "https://nite.nl/voorstelling/oersoep/",
-    interesting_because: "NITE's nieuwe theaterritueel met live blazerssectie van ex-Kyteman-leden. Voor wie van fysiek, muzikaal totaaltheater houdt."
+    interesting_because: "NITE's nieuwe theaterritueel met live blazerssectie van ex-Kyteman-leden. Voor wie van fysiek, muzikaal totaaltheater houdt.",
+    interesting_because_en: "NITE's new theatre ritual with a live brass section of former Kyteman members. For lovers of physical, musical total theatre."
   },
   {
     id: "toneelschuur-cabaret-siberia", titel: "Cabaret Siberia",
@@ -778,14 +896,17 @@ export const shows: Show[] = [
       { theater_id: "schuur-haarlem", speeldata: ["2026-06-26", "2026-06-27"] }
     ],
     korte_samenvatting: "Twee artiesten worden gedeporteerd naar Siberië en blijven kunst maken omdat ze niet anders kunnen.",
+    korte_samenvatting_en: "Two artists are deported to Siberia and keep making art because they can't do anything else.",
     lange_samenvatting: "Twee beroemde entertainers staan op het podium terwijl de dreiging om hen heen aanzwelt, tot ze plotseling in een Siberisch werkkamp belanden. Wat blijft er over van een artiest zonder publiek? Een poëtische, magisch-realistische voorstelling met live boventiteling, waarin Agnes Laura Kumpina laat zien dat kunst ook overleven kan zijn.",
+    lange_samenvatting_en: "Two famous entertainers stand on stage while the threat around them swells, until they suddenly land in a Siberian labour camp. What's left of an artist without an audience? A poetic, magical-realist piece with live surtitles, in which Agnes Laura Kumpina shows that art can also be a way of staying alive.",
     regisseur: "Agnes Laura Kumpina", based_on: "Cabaret Siberia van Lauris Gundars",
     foto_url: "https://www.toneelschuurproducties.nl/assets/img/_1200x630_crop_center-center_82_none/Antigone-06-%C2%A9-Sanne-Peper.jpg",
     foto_credit: "Sanne Peper",
     english_friendly: true, english_friendly_detail: "Live boventiteling in het Nederlands",
     categorieen: ["Kunst", "Onderdrukking", "Overleven"],
     ticket_url: "https://www.toneelschuurproducties.nl/cabaret-siberia-2",
-    interesting_because: "Bekroond regiedebuut van Agnes Laura Kumpina, vier sterren in de Volkskrant en Keuze van de Criticus bij Theaterkrant."
+    interesting_because: "Bekroond regiedebuut van Agnes Laura Kumpina, vier sterren in de Volkskrant en Keuze van de Criticus bij Theaterkrant.",
+    interesting_because_en: "Award-winning directing debut by Agnes Laura Kumpina, four stars in de Volkskrant and Critic's Choice at Theaterkrant."
   },
   {
     id: "toneelschuur-mystiek-lichaam", titel: "Mystiek lichaam",
@@ -802,14 +923,17 @@ export const shows: Show[] = [
       { theater_id: "bellevue", speeldata: ["2026-11-12", "2026-11-13", "2026-11-14"] }
     ],
     korte_samenvatting: "Een conservatieve weduwnaar, zijn zwangere dochter en zijn doodzieke zoon in één huis.",
+    korte_samenvatting_en: "A conservative widower, his pregnant daughter and his gravely ill son under one roof.",
     lange_samenvatting: "Vader Gijselhart woont op de vervallen Doornenhof, samen met zijn volwassen kinderen die hij nauwelijks verdraagt. Dochter Prul is ongehuwd zwanger van een Joodse man, zoon Leendert keert ziek terug uit New York. Een groteske, soms rauw-komische familievoorstelling die laat zien hoe je elkaar verliest terwijl je nog steeds van elkaar houdt.",
+    lange_samenvatting_en: "Father Gijselhart lives on the run-down Doornenhof estate with his grown children, whom he can barely stand. Daughter Prul is unmarried and pregnant by a Jewish man, son Leendert returns ill from New York. A grotesque, sometimes raw-comic family piece that shows how you can lose each other while still loving each other.",
     regisseur: "Koen Verheijden", based_on: "Roman van Frans Kellendonk",
     foto_url: "https://www.toneelschuurproducties.nl/assets/stills/mystiek-lichaam/Mystiek_Lichaam_staand_websize-150-dpi.jpg",
     foto_credit: "Toneelschuur Producties",
     english_friendly: true, english_friendly_detail: "Nederlandse en Engelse boventiteling",
     categorieen: ["Familie", "Polarisatie", "Conservatisme"],
     ticket_url: "https://www.toneelschuurproducties.nl/mystiek-lichaam",
-    interesting_because: "Veertig jaar oude controversiële roman die ineens weer pijnlijk dichtbij voelt. Een familievoorstelling met humor en ongemak in evenwicht."
+    interesting_because: "Veertig jaar oude controversiële roman die ineens weer pijnlijk dichtbij voelt. Een familievoorstelling met humor en ongemak in evenwicht.",
+    interesting_because_en: "A forty-year-old controversial novel that suddenly feels painfully close again. A family piece that balances humour and discomfort."
   },
   {
     id: "wunderbaum-die-kunst-des-deals", titel: "Die kunst des deals",
@@ -818,13 +942,16 @@ export const shows: Show[] = [
     speelperiode_start: "2026-05-29", speelperiode_end: "2026-06-13",
     speeldata: ["2026-05-29", "2026-06-13"],
     korte_samenvatting: "Een ensemble bewerkt het boek van Trump en kijkt wat er gebeurt als je zijn methodes tegen hem inzet.",
+    korte_samenvatting_en: "An ensemble adapts Trump's book and sees what happens when you turn his methods against him.",
     lange_samenvatting: "Op basis van Trumps boek The Art of the Deal bouwt Wunderbaum een wrange, ongemakkelijke komedie met muziek en dans. Persoonlijke nederlagen, politieke aardverschuivingen en het verdwijnen van schaamte schuiven in elkaar. Een avond die laat zien hoe je een wereldbeeld bespeelt door zijn eigen tactieken er bovenuit te tillen.",
+    lange_samenvatting_en: "Based on Trump's book The Art of the Deal, Wunderbaum builds a bitter, uncomfortable comedy with music and dance. Personal defeats, political upheavals and the disappearance of shame slide into one another. An evening that shows how to play a worldview by lifting its own tactics above it.",
     regisseur: "Walter Bart", based_on: "Boek van Donald J. Trump en Tony Schwartz",
     foto_url: "https://wunderbaum.nl/media/pages/projects/die-kunst-des-deals/e8f1ef5f6e-1774963755/sb-die-kunst-des-deals-c-schauspielhaus-bochum-1-1920x.jpg",
     foto_credit: "Schauspielhaus Bochum",
     english_friendly: true, english_friendly_detail: "Duits gesproken, met Engelse boventiteling",
     categorieen: ["Politiek", "Macht", "Satire"],
     ticket_url: "https://wunderbaum.nl/en/projects/die-kunst-des-deals",
-    interesting_because: "Wunderbaum onderzoekt Trumps tactieken door ze als kunst tegen hem in te zetten. Voor wie politiek theater met muziek en dans wil zien."
+    interesting_because: "Wunderbaum onderzoekt Trumps tactieken door ze als kunst tegen hem in te zetten. Voor wie politiek theater met muziek en dans wil zien.",
+    interesting_because_en: "Wunderbaum examines Trump's tactics by using them as art against him. For anyone who wants to see political theatre with music and dance."
   }
 ];

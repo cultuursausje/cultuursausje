@@ -145,8 +145,15 @@ export function ShowDetailPanel({
 
   const genre = genreOfShow(show);
 
-  // Beschrijving als één paragraaf — hook + samenvatting samengevoegd, niet vet
-  const fullDescription = [show.interesting_because, show.lange_samenvatting]
+  // Beschrijving als één paragraaf — hook + samenvatting samengevoegd, niet vet.
+  // Bij EN-toggle pakken we de _en varianten als ze er zijn, anders NL-fallback.
+  const interestingBecause = lang === "en" && show.interesting_because_en
+    ? show.interesting_because_en
+    : show.interesting_because;
+  const langeSamenvatting = lang === "en" && show.lange_samenvatting_en
+    ? show.lange_samenvatting_en
+    : show.lange_samenvatting;
+  const fullDescription = [interestingBecause, langeSamenvatting]
     .filter(Boolean)
     .join(" ");
 

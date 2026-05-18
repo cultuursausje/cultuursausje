@@ -21,7 +21,11 @@ export interface Show {
   speelperiode_start: string; // ISO YYYY-MM-DD
   speelperiode_end: string;   // ISO YYYY-MM-DD
   korte_samenvatting: string;
+  /** Optionele EN-vertaling van `korte_samenvatting`. Fallback naar NL. */
+  korte_samenvatting_en?: string;
   lange_samenvatting: string;
+  /** Optionele EN-vertaling van `lange_samenvatting`. Fallback naar NL. */
+  lange_samenvatting_en?: string;
   regisseur: string;
   based_on: string;
   foto_url: string;
@@ -30,6 +34,8 @@ export interface Show {
   categorieen: string[];
   ticket_url: string;
   interesting_because?: string;
+  /** Optionele EN-vertaling van `interesting_because`. Fallback naar NL. */
+  interesting_because_en?: string;
   foto_credit?: string;
   /** Extra foto's voor de carousel op de uitvergrote card. */
   foto_urls?: string[];
