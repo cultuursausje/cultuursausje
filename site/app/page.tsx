@@ -2,6 +2,7 @@ import { getSiteData } from "@/lib/data";
 import { ShowsExplorer } from "@/components/ShowsExplorer";
 import { SectionNav } from "@/components/SectionNav";
 import { PageHeader } from "@/components/PageHeader";
+import { Footer } from "@/components/Footer";
 import { festivals } from "@/data/festivals";
 import type { ShowDisplay, VenueDisplay } from "@/types";
 import { isOver } from "@/lib/dates";
@@ -138,9 +139,7 @@ export default async function HomePage() {
         allGezelschappen={data.gezelschappen}
         festivals={festivals}
       />
-      <footer className="mt-24 border-t border-line pt-6 text-xs text-ink-faint">
-        Cultuursausje · agenda · {new Date().getFullYear()}
-      </footer>
+      <Footer />
     </main>
   );
 }
