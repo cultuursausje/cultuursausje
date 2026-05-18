@@ -113,7 +113,7 @@ export function FestivalModal({ festival, shows, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className="mx-auto my-0 min-h-screen w-full max-w-full overflow-hidden bg-white sm:my-8 sm:min-h-0 sm:max-w-3xl sm:rounded-3xl"
+        className="mx-2 my-4 w-[calc(100%-1rem)] max-w-full overflow-hidden rounded-3xl bg-white sm:mx-auto sm:my-8 sm:w-full sm:max-w-3xl"
         onClick={e => e.stopPropagation()}
       >
         <div className="relative">
