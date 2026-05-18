@@ -5,7 +5,7 @@ import { useT } from "@/lib/i18n";
 /**
  * Footer onderaan de pagina, onder een dunne horizontale lijn.
  * Bescheiden en klein: alleen de essentiële praktische info
- * (disclaimer, foto-credit, copyright) op de natuurlijke
+ * (disclaimer, foto-credit, opt-out, copyright) op de natuurlijke
  * pagina-achtergrond, zonder gekleurd vlak.
  */
 export function Footer() {
@@ -17,6 +17,18 @@ export function Footer() {
       <div className="mx-auto max-w-2xl space-y-2 text-center">
         <p>{t("footer.disclaimer")}</p>
         <p>{t("footer.photoCredit")}</p>
+        <p>
+          {t("footer.optOutBefore")}{" "}
+          <a
+            href="https://instagram.com/cultuursausje"
+            target="_blank"
+            rel="noreferrer"
+            className="text-ink-muted hover:text-ink underline-offset-2 hover:underline"
+          >
+            @cultuursausje
+          </a>{" "}
+          {t("footer.optOutAfter")}
+        </p>
         <p>© {year} Cultuursausje</p>
       </div>
     </footer>
