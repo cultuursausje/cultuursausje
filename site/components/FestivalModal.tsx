@@ -233,6 +233,11 @@ export function FestivalModal({ festival, shows, onClose }: Props) {
                                 {s.gezelschap}
                               </div>
                             )}
+                            {s.foto_url && s.foto_credit && (
+                              <div className="mt-1 text-[9px] text-white/60 leading-none">
+                                © {s.foto_credit}
+                              </div>
+                            )}
                           </div>
                         </button>
                       );

@@ -394,7 +394,7 @@ export function ShowDetailPanel({
                         const isEn = enDays.has(d.getDay());
                         return (
                           <div key={j} className="flex items-center gap-1 text-xs text-ink-soft sm:text-sm">
-                            <span className="lowercase">{formatDateLang(d, lang)}</span>
+                            <span className={lang === "en" ? "" : "lowercase"}>{formatDateLang(d, lang)}</span>
                             {isEn && (
                               <span aria-hidden="true" className="text-xs leading-none">🇬🇧</span>
                             )}
