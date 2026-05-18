@@ -201,6 +201,14 @@ const T = {
   "footer.photoCredit": {
     nl: "Foto's blijven het auteursrecht van de fotografen en theaters.",
     en: "Photographs remain copyrighted to their photographers and venues."
+  },
+  "footer.optOutBefore": {
+    nl: "Ben je rechthebbende en wil je dat je foto of citaat hier niet staat? Stuur een DM op",
+    en: "Are you a rights holder and would prefer your photo or quote not appear here? Send a DM to"
+  },
+  "footer.optOutAfter": {
+    nl: "en ik haal 'm direct weg.",
+    en: "and I'll remove it right away."
   }
 };
 
