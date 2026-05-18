@@ -313,7 +313,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
       <h2 className="font-display mb-2 text-3xl text-ink tracking-tight sm:text-4xl">
         {t("section.voorstellingen.title")}
       </h2>
-      <p className="mb-6 text-sm text-ink-soft sm:text-base">
+      <p className="mb-6 max-w-xl text-sm text-ink-soft">
         {t("section.voorstellingen.subtitle")}
       </p>
 
