@@ -186,9 +186,9 @@ const T = {
 const MONTH_NAMES_NL = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
 const MONTH_NAMES_EN = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 const MONTH_SHORT_NL = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
-const MONTH_SHORT_EN = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const MONTH_SHORT_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAY_SHORT_NL = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-const DAY_SHORT_EN = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+const DAY_SHORT_EN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 /** Engels: maandnamen beginnen met hoofdletter. NL: lowercase. */
 function capitalize(s: string): string {
