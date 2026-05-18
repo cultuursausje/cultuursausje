@@ -98,13 +98,14 @@ export function FestivalModal({ festival, shows, viewDate, viewCity, onClose }: 
       ? festival.voorstellingen.map(festivalShowToItem)
       : showsForFestival(festival, shows).map(showDisplayToItem);
 
-  // Wanneer Plan-je-avond een datum heeft doorgegeven, proberen we te
-  // filteren op die specifieke dag. Filter alleen toepassen als er
-  // tenminste één voorstelling speeldata heeft — anders weten we de
-  // exacte dagen niet en is "alles tonen" minder misleidend dan "niets".
+  // Wanneer Plan-je-avond een datum heeft doorgegeven, schakelen we de
+  // dag-modus aan: kopje + bericht passen zich aan op die dag.
+  const dayFilterActive = !!viewDate;
+  // De feitelijke filtering kan alleen als er speeldata zijn ingevuld.
+  // Anders weten we de exacte dagen niet en is "alles tonen" minder
+  // misleidend dan "niets".
   const hasAnySpeeldata = allItems.some(it => it.speeldata && it.speeldata.length > 0);
-  const dayFilterActive = !!viewDate && hasAnySpeeldata;
-  const items: CarouselItem[] = dayFilterActive
+  const items: CarouselItem[] = (dayFilterActive && hasAnySpeeldata)
     ? allItems.filter(it => {
         // Datum moet matchen
         const dateMatch = it.speeldata?.includes(viewDate!) ?? false;
