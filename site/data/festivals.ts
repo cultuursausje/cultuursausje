@@ -40,6 +40,8 @@ export const festivals: Festival[] = [
         gezelschap: "Christiane Jatahy / Wagner Moura",
         type: "toneel",
         english_friendly: true,
+        foto_url: "https://ita.nl/img/singles/A-Trial-after-an-Enemy-of-the-People-header.jpg?w=1200&h=630&fit=crop-50-50",
+        foto_credit: "Internationaal Theater Amsterdam",
         korte_omschrijving: "Hedendaagse herinterpretatie van Ibsens 'Een vijand van het volk' door regisseur Christiane Jatahy, met Golden Globe-winnaar Wagner Moura in de hoofdrol. Coproductie van Holland Festival, Edinburgh International Festival en Festival d'Avignon.",
         korte_omschrijving_en: "Contemporary reinterpretation of Ibsen's An Enemy of the People by director Christiane Jatahy, starring Golden Globe winner Wagner Moura. A co-production of Holland Festival, Edinburgh International Festival and Festival d'Avignon.",
         url: "https://hollandfestival.nl/nl/a-trial-after-an-enemy-of-the-people"
@@ -50,6 +52,8 @@ export const festivals: Festival[] = [
         gezelschap: "Blackhaine",
         type: "dans",
         english_friendly: true,
+        foto_url: "https://www.glamcult.com/wp-content/uploads/2026/05/smallBlackHaine-by-Archie-Finch.jpg",
+        foto_credit: "Archie Finch",
         korte_omschrijving: "De Britse popmuzikant en choreograaf Blackhaine maakt een performance in de voormalige Bijlmerbajes.",
         korte_omschrijving_en: "British pop musician and choreographer Blackhaine creates a performance in the former Bijlmerbajes prison.",
         url: "https://hollandfestival.nl/nl/and-now-i-know-what-love-is"
@@ -60,6 +64,8 @@ export const festivals: Festival[] = [
         gezelschap: "Ana Pi",
         type: "dans",
         english_friendly: true,
+        foto_url: "https://img.frascatitheater.nl/HPH20xr03WWXCC6NvD4PiO5RdMx6MAsux3Ip6HrEAhE/c:1299:681:fp:0.5:0.33/s:1200:630:1/aHR0cHM6Ly93d3cuZnJhc2NhdGl0aGVhdGVyLm5sLy9jbXNfZmlsZXMvc3lzdGVtL2ltYWdlcy9pbWcyMzE3OF9vcmlnLmpwZw",
+        foto_credit: "Levi Fanan",
         korte_omschrijving: "Een nieuwe choreografie van de Braziliaans-Franse Ana Pi.",
         korte_omschrijving_en: "A new choreography by Brazilian-French Ana Pi.",
         url: "https://hollandfestival.nl/nl/atomic-joy"
@@ -70,6 +76,8 @@ export const festivals: Festival[] = [
         gezelschap: "Damien Jalet / Kohei Nawa / Ballet du Grand Théâtre de Genève",
         type: "dans",
         english_friendly: true,
+        foto_url: "https://ita.nl/img/singles/Mirage-%C2%A9-GTG-Rahi-Rezvani_0708_high.jpg?w=1200&h=630&fit=crop-51.67-19",
+        foto_credit: "Rahi Rezvani",
         korte_omschrijving: "Samenwerking tussen choreograaf Damien Jalet en beeldend kunstenaar Kohei Nawa met het Ballet du Grand Théâtre de Genève.",
         korte_omschrijving_en: "Collaboration between choreographer Damien Jalet and visual artist Kohei Nawa with Ballet du Grand Théâtre de Genève.",
         url: "https://hollandfestival.nl/nl/mirage"
@@ -90,6 +98,8 @@ export const festivals: Festival[] = [
         gezelschap: "Caroline Guiela Nguyen / Théâtre national de Strasbourg",
         type: "toneel",
         english_friendly: true,
+        foto_url: "https://theatre.info/sites/default/files/styles/large/public/spectacles/Capture%20d%E2%80%99e%CC%81cran%202024-06-06%20a%CC%80%2009.21.27.png?itok=OZ2W_m3u",
+        foto_credit: "Jean Louis Fernandez",
         korte_omschrijving: "Theatervoorstelling van Caroline Guiela Nguyen bij het Théâtre national de Strasbourg.",
         korte_omschrijving_en: "Theatre production by Caroline Guiela Nguyen at Théâtre national de Strasbourg.",
         url: "https://www.hollandfestival.nl/nl/lacrima"
@@ -100,6 +110,8 @@ export const festivals: Festival[] = [
         gezelschap: "Het Nationale Ballet",
         type: "dans",
         english_friendly: true,
+        foto_url: "https://www.operaballet.nl/sites/default/files/styles/1200x630/public/images/HNB/seizoen%2025-26/Masters%20of%20Movement/HNB-Masters-of-Movement_1920x1080_Hugo-Thomassen_10410-web-header.jpg",
+        foto_credit: "Hugo Thomassen",
         korte_omschrijving: "Het Nationale Ballet brengt werk van choreografen David Dawson, Krzysztof Pastor en Alexei Ratmansky.",
         korte_omschrijving_en: "Dutch National Ballet performs works by choreographers David Dawson, Krzysztof Pastor and Alexei Ratmansky.",
         url: "https://www.hollandfestival.nl/en/masters-of-movement"
@@ -109,6 +121,8 @@ export const festivals: Festival[] = [
         titel: "Holobiont",
         gezelschap: "Boogaerdt/VanderSchoot",
         type: "toneel",
+        foto_url: "https://www.glamcult.com/wp-content/uploads/2026/05/smallHolobiont-byCasper-Koster.jpg",
+        foto_credit: "Casper Koster",
         korte_omschrijving: "Een queerrave, een collectief ritueel en een anarchistische speeltuin in één, waarin performers hun lichamen inzetten om te spelen met identiteit, fluiditeit en het binaire mensbeeld.",
         korte_omschrijving_en: "A queer rave, a collective ritual and an anarchic playground in one, where performers use their bodies to play with identity, fluidity and the binary view of humanity.",
         url: "https://hollandfestival.nl/nl/holobiont"
@@ -119,6 +133,8 @@ export const festivals: Festival[] = [
         gezelschap: "Germaine Kruip",
         type: "toneel",
         english_friendly: true,
+        foto_url: "https://ita.nl/img/singles/A-Possibility-kruip.jpg?w=1200&h=630&fit=crop-50-50",
+        foto_credit: "Germaine Kruip",
         korte_omschrijving: "Nieuw theaterwerk waarin Germaine Kruip perceptie en geluid onderzoekt. Te zien in Amsterdam (13–15 juni) en bij PLT Theater Heerlen (25–26 juni).",
         korte_omschrijving_en: "New theatre work in which Germaine Kruip explores perception and sound. Showing in Amsterdam (13–15 June) and at PLT Theater Heerlen (25–26 June).",
         url: "https://hollandfestival.nl/nl/a-possibility"
@@ -740,6 +756,7 @@ export const festivals: Festival[] = [
         titel: "Klei",
         gezelschap: "Schweigman& i.c.w. Zoro Feigl & HIIIT",
         type: "dans",
+        english_friendly: true,
         foto_url: "https://springutrecht.nl/app/uploads/2026/02/signal-2025-10-21-114118-1080x1080.jpeg",
         foto_credit: "Schweigman&",
         korte_omschrijving: "In een onvoorspelbaar landschap van tien ton klei zoeken performers en slagwerkers naar de oeroude connectie tussen mens en aarde. Een uitnodiging om terug te gaan naar de essentie.",
@@ -787,6 +804,7 @@ export const festivals: Festival[] = [
         titel: "SHRINE",
         gezelschap: "Khadija El Kharraz Alami",
         type: "toneel",
+        english_friendly: true,
         foto_url: "https://springutrecht.nl/app/uploads/2026/02/Dit-beeld-willen-ze-als-campagnebeeld-gebruiken-1080x1080.jpg",
         foto_credit: "Khadija El Kharraz Alami",
         korte_omschrijving: "Een meeslepende voorstelling over rouw, woede en radicaal verzet. De moegestreden dochter zoekt toevlucht bij de Jinns, niet-menselijke wezens in een parallelle wereld.",
@@ -810,6 +828,7 @@ export const festivals: Festival[] = [
         titel: "Do not go gentle into that good night",
         gezelschap: "Dries Verhoeven",
         type: "anders",
+        english_friendly: true,
         foto_url: "https://springutrecht.nl/app/uploads/2026/02/DSC8285_1536x1004-1080x1080.jpg",
         foto_credit: "Dries Verhoeven",
         korte_omschrijving: "Terwijl de wereld in elkaar stort, herleeft het activisme. Met deze interventie onderzoekt Dries Verhoeven de esthetiek van verzet. Kan een artistieke uiting verandering brengen?",
