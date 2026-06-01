@@ -397,6 +397,7 @@ export const shows: Show[] = [
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam",
     theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
     speelperiode_start: "2026-08-28", speelperiode_end: "2026-08-30",
+    speeldata: ["2026-08-28", "2026-08-29", "2026-08-30"],
     korte_samenvatting: "Twee mannen krijgen dezelfde diagnose, en moeten allebei beslissen wie ze willen zijn.",
     korte_samenvatting_en: "Two men get the same diagnosis, and both have to decide who they want to be.",
     lange_samenvatting: "New York in de jaren tachtig, met een epidemie die de regering liever niet ziet. De flamboyante Prior krijgt te horen dat hij aids heeft, en de keiharde conservatieve advocaat Roy Cohn ook. Wat ze allebei doen met dat nieuws zegt alles over angst, liefde en de moed om jezelf te zijn. Lang, groots theater, met songs van Bowie als enige soundtrack.",
