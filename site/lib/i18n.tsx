@@ -324,7 +324,8 @@ const GEZELSCHAP_TYPE_NL_TO_EN: Record<string, string> = {
   "Theatercollectief": "Theatre collective",
   "Theatercollectief (muziektheater)": "Theatre collective (music theatre)",
   "Productiehuis": "Production house",
-  "Productiehuis (interdisciplinair hiphop/urban)": "Production house (interdisciplinary hip-hop/urban)"
+  "Productiehuis (interdisciplinair hiphop/urban)": "Production house (interdisciplinary hip-hop/urban)",
+  "Dans- en theatergezelschap": "Dance and theatre company"
 };
 
 export function translateGezelschapType(type: string, lang: Lang): string {
