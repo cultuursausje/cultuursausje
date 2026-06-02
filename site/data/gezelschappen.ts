@@ -131,5 +131,20 @@ export const gezelschappen: Gezelschap[] = [
     id: "collectief-mamm", naam: "Collectief MAMM", afkorting: "MAMM",
     type: "Theatercollectief", stad: "Amsterdam", url: "https://collectiefmamm.com/",
     beschrijving: "Amsterdams dans- en theatercollectief. Toegankelijk, fysiek werk over alledaagse thema's, voor jong en oud publiek."
+  },
+  {
+    id: "nicole-beutler-projects", naam: "Nicole Beutler Projects", afkorting: "NB Projects",
+    type: "Dans- en theatergezelschap", stad: "Amsterdam", url: "https://www.nicolebeutlerprojects.nl/",
+    beschrijving: "Amsterdams dans- en theatergezelschap rond choreograaf Nicole Beutler. Beeldend, muzikaal en geëngageerd werk op het snijvlak van dans en theater."
+  },
+  {
+    id: "urland", naam: "Urland", afkorting: "Urland",
+    type: "Theatercollectief", stad: "Rotterdam", url: "https://urland.nl/",
+    beschrijving: "Rotterdams performancecollectief sinds 2010. Eclectisch, interdisciplinair werk over taal, technologie en de digitale tijd."
+  },
+  {
+    id: "frascati-producties", naam: "Frascati Producties", afkorting: "Frascati Producties",
+    type: "Productiehuis", stad: "Amsterdam", url: "https://www.frascatitheater.nl/nl/frascati-producties-jxyz",
+    beschrijving: "Het grootste (inter)nationaal opererende productiehuis van Nederland. Ondersteunt theatermakers uit binnen- en buitenland en stond aan de wieg van vele gelauwerde makers."
   }
 ];
