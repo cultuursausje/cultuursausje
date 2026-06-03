@@ -234,12 +234,9 @@ export const shows: Show[] = [
   {
     id: "het-incident", titel: "Het incident",
     gezelschap_id: "ita", gezelschap: "Internationaal Theater Amsterdam (m.m.v. June Yanez, Leila Sahir, Zephyr Brüggen)",
-    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
-    speelperiode_start: "2026-05-16", speelperiode_end: "2026-06-11",
-    speeldata: ["2026-05-16", "2026-05-17", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24"],
-    tour: [
-      { theater_id: "bijlmer-parktheater", speeldata: ["2026-06-10", "2026-06-11"] }
-    ],
+    theater_id: "bijlmer-parktheater", theater: "Bijlmer Parktheater", extra_theaters: [],
+    speelperiode_start: "2026-06-10", speelperiode_end: "2026-06-11",
+    speeldata: ["2026-06-10", "2026-06-11"],
     korte_samenvatting: "Vijftien jaar oud, grote bek, kleine wereld: Guadalupe heeft op school al een toekomst toebedeeld gekregen.",
     korte_samenvatting_en: "Fifteen years old, big mouth, small world: Guadalupe has already been handed a future at school.",
     lange_samenvatting: "Guadalupe is bijna zestien, heeft een keiharde humor en een veel zachter hart dan ze laat zien. Op één vierkante meter spelen tien personages uit haar leven door elkaar: leraren die haar al hebben afgeschreven, klasgenoten met meer kansen, familie die haar wel ziet. Over opgroeien in een wereld die al voor je heeft besloten wat je kunt.",
