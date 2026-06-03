@@ -116,16 +116,6 @@ export async function GET(
           />
         )}
 
-        {/* Donker verloop voor leesbaarheid */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 70%)"
-          }}
-        />
-
         {/* Datum-pill linksboven */}
         {datePill && (
           <div
@@ -133,7 +123,7 @@ export async function GET(
               position: "absolute",
               top: 40,
               left: 40,
-              background: "rgba(255,255,255,0.92)",
+              background: "rgba(255,255,255,0.95)",
               color: "#1A1A18",
               fontSize: 36,
               fontWeight: 500,
@@ -146,15 +136,19 @@ export async function GET(
           </div>
         )}
 
-        {/* Foto-credit rechtsonder (subtiel) */}
+        {/* Foto-credit pill rechtsboven */}
         {show.foto_credit && (
           <div
             style={{
               position: "absolute",
-              bottom: 20,
-              right: 32,
-              color: "rgba(255,255,255,0.6)",
-              fontSize: 18,
+              top: 40,
+              right: 40,
+              background: "rgba(255,255,255,0.92)",
+              color: "#1A1A18",
+              fontSize: 22,
+              fontWeight: 500,
+              padding: "8px 18px",
+              borderRadius: 9999,
               display: "flex"
             }}
           >
@@ -162,25 +156,29 @@ export async function GET(
           </div>
         )}
 
-        {/* Tekstblok onderaan: titel + gezelschap + theater */}
+        {/* Info-pill onderaan: titel + gezelschap + theater. Witte
+            achtergrond zorgt voor maximale leesbaarheid, ongeacht de foto
+            erachter. */}
         <div
           style={{
             position: "absolute",
-            bottom: 60,
+            bottom: 50,
             left: 50,
             right: 50,
-            color: "white",
+            background: "rgba(255,255,255,0.96)",
+            borderRadius: 36,
+            padding: "32px 40px",
             display: "flex",
-            flexDirection: "column",
-            gap: 6
+            flexDirection: "column"
           }}
         >
           <div
             style={{
-              fontSize: 76,
+              fontSize: 64,
               fontWeight: 600,
               lineHeight: 1.05,
-              letterSpacing: -1.5
+              letterSpacing: -1.2,
+              color: "#1A1A18"
             }}
           >
             {show.titel}
@@ -188,10 +186,10 @@ export async function GET(
           {show.gezelschap && (
             <div
               style={{
-                marginTop: 14,
-                fontSize: 32,
-                fontWeight: 400,
-                color: "rgba(255,255,255,0.92)",
+                marginTop: 16,
+                fontSize: 30,
+                fontWeight: 500,
+                color: "#3a3a36",
                 lineHeight: 1.2
               }}
             >
@@ -201,10 +199,10 @@ export async function GET(
           {theater && (
             <div
               style={{
-                marginTop: 2,
-                fontSize: 28,
+                marginTop: 4,
+                fontSize: 26,
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.78)",
+                color: "#6e6e68",
                 lineHeight: 1.2
               }}
             >
