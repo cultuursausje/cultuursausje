@@ -95,7 +95,7 @@ export default async function SharePage({
 // Bump deze waarde wanneer je data wijzigt en de gegenereerde PNG's
 // niet ververst lijken te worden — Vercel cachet ImageResponse-output
 // agressief. Een nieuwe `v=` waarde maakt het feitelijk een nieuwe URL.
-const IMAGE_VERSION = 3;
+const IMAGE_VERSION = 4;
 
 function ShareCard({ showId, titel, gezelschap }: { showId: string; titel: string; gezelschap: string }) {
   const imageUrl = `/api/instagram-card/${showId}?v=${IMAGE_VERSION}`;

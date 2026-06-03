@@ -39,7 +39,7 @@ function buildDatePill(speeldataAll: string[]): string {
 }
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: { id: string } }
 ) {
   const data = await getSiteData();
@@ -49,7 +49,37 @@ export async function GET(
   }
 
   const theater = data.theaters.find((t) => t.id === show.theater_id);
-  const photoUrl = show.foto_url || "";
+  // Relatieve paden (zoals "/shows/foo.jpg") moeten in een ImageResponse
+  // absoluut zijn — anders kan Satori 'm niet ophalen. Plak het host-deel ervoor.
+  const origin = new URL(req.url).origin;
+  const rawPhotoUrl = show.foto_url
+    ? show.foto_url.startsWith("/")
+      ? `${origin}${show.foto_url}`
+      : show.foto_url
+    : "";
+
+  // Probeer de foto vooraf op te halen. Als de externe server hem niet
+  // serveert (404, CORS, time-out, hotlink-blok) zou Satori anders de hele
+  // ImageResponse laten crashen. Met deze check laten we de foto vallen en
+  // genereren we een PNG met alleen de gekleurde achtergrond + tekst.
+  let photoUrl = "";
+  if (rawPhotoUrl) {
+    try {
+      const probe = await fetch(rawPhotoUrl, {
+        method: "GET",
+        // Browser-achtige headers — sommige servers blokkeren default fetches
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; Cultuursausje/1.0)",
+          Accept: "image/*"
+        },
+        signal: AbortSignal.timeout(3000)
+      });
+      if (probe.ok) photoUrl = rawPhotoUrl;
+    } catch {
+      // foto niet bereikbaar — we genereren zonder
+      photoUrl = "";
+    }
+  }
   // Verzamel alle speeldata uit primaire venue + tour-stops
   const allDates: string[] = [
     ...(show.speeldata ?? []),
@@ -65,7 +95,7 @@ export async function GET(
           height: 1350,
           display: "flex",
           position: "relative",
-          background: "#1B2A4E"
+          background: "#1A1A18"
         }}
       >
         {/* Foto vult de hele kaart */}
@@ -186,7 +216,12 @@ export async function GET(
     ),
     {
       width: 1080,
-      height: 1350
+      height: 1350,
+      // Korte cache (5 min) — anders cachet Vercel de PNG voor altijd
+      // en zien aanpassingen aan foto_url e.d. pas véél later effect.
+      headers: {
+        "cache-control": "public, max-age=300, s-maxage=300, stale-while-revalidate=600"
+      }
     }
   );
 }
