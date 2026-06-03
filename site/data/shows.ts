@@ -441,7 +441,7 @@ export const shows: Show[] = [
     lange_samenvatting: "Winnie zit tot haar middel ingegraven en is vastberaden er een fijne dag van te maken. Ze praat, kamt haar haar, zoekt in haar tas, en blijft praten omdat stoppen iets ergers betekent. Een buitenvoorstelling die zwart, grappig en ongemakkelijk laat zien hoe we doen alsof het wel goed komt.",
     lange_samenvatting_en: "Winnie is buried up to her waist and determined to make it a lovely day. She talks, combs her hair, rummages in her bag, and keeps talking because stopping would mean something worse. An outdoor production, dark, funny and uncomfortable, that shows how we pretend everything will be fine.",
     regisseur: "", based_on: "Stuk van Samuel Beckett",
-    foto_url: "/shows/happy-days.jpg",
+    foto_url: "https://staging.doodpaard.nl/wp-content/uploads/2025/06/Collage-Foto-Bowie-Verschuuren-1024x768.jpg",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Hoop", "Verval"],
     ticket_url: "https://www.frascatitheater.nl/nl/agenda/samuel-beckett-s-iconische-stuk-als-locatievoorstelling-over-de-mens-die-zijn-ondergang-tegemoet-dendert-dqz4",
