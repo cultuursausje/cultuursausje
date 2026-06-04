@@ -115,25 +115,46 @@ export async function GET(
           />
         )}
 
-        {/* Datum-pill linksboven */}
-        {datePill && (
-          <div
-            style={{
-              position: "absolute",
-              top: 40,
-              left: 40,
-              background: "rgba(255,255,255,0.95)",
-              color: "#1A1A18",
-              fontSize: 36,
-              fontWeight: 500,
-              padding: "12px 28px",
-              borderRadius: 9999,
-              display: "flex"
-            }}
-          >
-            {datePill}
-          </div>
-        )}
+        {/* Pill-rij linksboven: datum + (optioneel) English friendly vlaggetje */}
+        <div
+          style={{
+            position: "absolute",
+            top: 40,
+            left: 40,
+            display: "flex",
+            gap: 12
+          }}
+        >
+          {datePill && (
+            <div
+              style={{
+                background: "rgba(255,255,255,0.95)",
+                color: "#1A1A18",
+                fontSize: 36,
+                fontWeight: 500,
+                padding: "12px 28px",
+                borderRadius: 9999,
+                display: "flex"
+              }}
+            >
+              {datePill}
+            </div>
+          )}
+          {show.english_friendly && (
+            <div
+              style={{
+                background: "rgba(255,255,255,0.95)",
+                fontSize: 36,
+                padding: "12px 22px",
+                borderRadius: 9999,
+                display: "flex",
+                alignItems: "center"
+              }}
+            >
+              🇬🇧
+            </div>
+          )}
+        </div>
 
         {/* Foto-credit pill rechtsboven */}
         {show.foto_credit && (
@@ -214,6 +235,9 @@ export async function GET(
     {
       width: 1080,
       height: 1350,
+      // Twemoji rendert emoji (zoals het UK-vlaggetje 🇬🇧) als SVG —
+      // standaard Satori geeft anders alleen platte tekst en geen vlag.
+      emoji: "twemoji",
       // Korte cache (5 min) — anders cachet Vercel de PNG voor altijd
       // en zien aanpassingen aan foto_url e.d. pas véél later effect.
       headers: {
