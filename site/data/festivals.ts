@@ -26,6 +26,8 @@ export const festivals: Festival[] = [
     plaats: "Amsterdam",
     beschrijving: "Het oudste en grootste internationale podiumkunstenfestival van Nederland. Toont jaarlijks gerenommeerde internationale gezelschappen en grensverleggend werk.",
     beschrijving_en: "The oldest and largest international performing arts festival in the Netherlands. Each year showcases renowned international companies and boundary-pushing work.",
+    tagline: "Internationale producties in meerdere theaters",
+    english_friendly: true,
     url: "https://www.hollandfestival.nl",
     accent: "#FF3D8B",
     match_keywords: ["holland festival"],
