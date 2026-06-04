@@ -261,17 +261,24 @@ export function pillForMonthLang(
   const periodStart = start < monthStart ? monthStart : start;
   const periodEnd = end > monthEnd ? monthEnd : end;
   const short = monthShortLang(monthIdx, lang);
-  const shortCap = short.charAt(0).toUpperCase() + short.slice(1);
   const full = (lang === "en" ? MONTH_NAMES_EN : MONTH_NAMES_NL)[monthIdx];
-  const fullCap = full.charAt(0).toUpperCase() + full.slice(1);
+  // Engelse maanden krijgen een hoofdletter (taalconventie), Nederlandse
+  // blijven lowercase. "Hele" is het eerste woord van een zinnetje en mag
+  // dus wel een hoofdletter krijgen in beide talen.
+  const shortDisplay = lang === "en"
+    ? short.charAt(0).toUpperCase() + short.slice(1)
+    : short;
+  const fullDisplay = lang === "en"
+    ? full.charAt(0).toUpperCase() + full.slice(1)
+    : full;
 
   if (periodStart.getDate() === 1 && periodEnd.getDate() === monthEnd.getDate()) {
-    return lang === "en" ? `Whole ${fullCap}` : `Hele ${fullCap}`;
+    return lang === "en" ? `Whole ${fullDisplay}` : `Hele ${fullDisplay}`;
   }
   if (periodStart.getDate() === periodEnd.getDate()) {
-    return `${periodStart.getDate()} ${shortCap}`;
+    return `${periodStart.getDate()} ${shortDisplay}`;
   }
-  return `${periodStart.getDate()}–${periodEnd.getDate()} ${shortCap}`;
+  return `${periodStart.getDate()}–${periodEnd.getDate()} ${shortDisplay}`;
 }
 
 /** Vertaalt Nederlandse maandnamen in vrije tekst (zoals festival-periode
