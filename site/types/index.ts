@@ -136,6 +136,12 @@ export interface Festival {
   /** Optionele Engelse vertaling van de beschrijving — gebruikt wanneer
    *  de taalswitch op EN staat. Valt terug op `beschrijving` als afwezig. */
   beschrijving_en?: string;
+  /** Korte regel onder de titel op de Instagram-share-kaart — bv.
+   *  "Internationale producties in meerdere theaters". */
+  tagline?: string;
+  /** True wanneer het festival in zijn geheel English friendly is
+   *  (toegankelijk voor niet-Nederlandstalig publiek). */
+  english_friendly?: boolean;
   url: string;
   accent: string; // hex kleur voor de teaser-card
   /** Categoriewoorden die in show.categorieen kunnen voorkomen om koppeling te bepalen */
