@@ -19,7 +19,8 @@ export const runtime = "edge";
 
 const MONTH_SHORT_NL = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 
-/** Berekent de datum-pill: "Hele Juni", "9–14 Mei" of "9 Mei". */
+/** Berekent de datum-pill: "hele juni", "9–14 mei" of "9 mei".
+ *  Maandnamen zijn lowercase — Nederlandse conventie. */
 function buildDatePill(speeldataAll: string[]): string {
   if (speeldataAll.length === 0) return "";
   const sorted = [...speeldataAll].sort();
@@ -28,14 +29,12 @@ function buildDatePill(speeldataAll: string[]): string {
   const [, fm, fd] = first.split("-").map(Number);
   const [, lm, ld] = last.split("-").map(Number);
   const fMonth = MONTH_SHORT_NL[fm - 1];
-  const fMonthCap = fMonth.charAt(0).toUpperCase() + fMonth.slice(1);
-  if (fd === ld && fm === lm) return `${fd} ${fMonthCap}`;
+  if (fd === ld && fm === lm) return `${fd} ${fMonth}`;
   if (fm !== lm) {
     const lMonth = MONTH_SHORT_NL[lm - 1];
-    const lMonthCap = lMonth.charAt(0).toUpperCase() + lMonth.slice(1);
-    return `${fd} ${fMonthCap} – ${ld} ${lMonthCap}`;
+    return `${fd} ${fMonth} – ${ld} ${lMonth}`;
   }
-  return `${fd}–${ld} ${fMonthCap}`;
+  return `${fd}–${ld} ${fMonth}`;
 }
 
 export async function GET(
