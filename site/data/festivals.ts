@@ -47,6 +47,7 @@ export const festivals: Festival[] = [
         foto_credit: "Internationaal Theater Amsterdam",
         korte_omschrijving: "Hedendaagse herinterpretatie van Ibsens 'Een vijand van het volk' door regisseur Christiane Jatahy, met Golden Globe-winnaar Wagner Moura in de hoofdrol. Coproductie van Holland Festival, Edinburgh International Festival en Festival d'Avignon.",
         korte_omschrijving_en: "Contemporary reinterpretation of Ibsen's An Enemy of the People by director Christiane Jatahy, starring Golden Globe winner Wagner Moura. A co-production of Holland Festival, Edinburgh International Festival and Festival d'Avignon.",
+        speeldata: ["2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28"],
         url: "https://hollandfestival.nl/nl/a-trial-after-an-enemy-of-the-people"
       },
       {
@@ -59,6 +60,7 @@ export const festivals: Festival[] = [
         foto_credit: "Archie Finch",
         korte_omschrijving: "De Britse popmuzikant en choreograaf Blackhaine maakt een performance in de voormalige Bijlmerbajes.",
         korte_omschrijving_en: "British pop musician and choreographer Blackhaine creates a performance in the former Bijlmerbajes prison.",
+        speeldata: ["2026-06-05", "2026-06-06"],
         url: "https://hollandfestival.nl/nl/and-now-i-know-what-love-is"
       },
       {
@@ -91,6 +93,8 @@ export const festivals: Festival[] = [
         gezelschap: "Tomoko Mukaiyama",
         type: "dans",
         english_friendly: true,
+        foto_url: "https://d329d2usvpfxbn.cloudfront.net/a1PSZ000005UxML2A0_1660x727.jpg",
+        foto_credit: "Holland Festival",
         korte_omschrijving: "Multidisciplinair werk van pianiste en performance-kunstenaar Tomoko Mukaiyama.",
         korte_omschrijving_en: "Multidisciplinary work by pianist and performance artist Tomoko Mukaiyama.",
         url: "https://www.hollandfestival.nl/nl/we-are-the-house"
@@ -105,6 +109,7 @@ export const festivals: Festival[] = [
         foto_credit: "Jean Louis Fernandez",
         korte_omschrijving: "Theatervoorstelling van Caroline Guiela Nguyen bij het Théâtre national de Strasbourg.",
         korte_omschrijving_en: "Theatre production by Caroline Guiela Nguyen at Théâtre national de Strasbourg.",
+        speeldata: ["2026-06-24", "2026-06-25", "2026-06-26"],
         url: "https://www.hollandfestival.nl/nl/lacrima"
       },
       {
@@ -117,6 +122,7 @@ export const festivals: Festival[] = [
         foto_credit: "Hugo Thomassen",
         korte_omschrijving: "Het Nationale Ballet brengt werk van choreografen David Dawson, Krzysztof Pastor en Alexei Ratmansky.",
         korte_omschrijving_en: "Dutch National Ballet performs works by choreographers David Dawson, Krzysztof Pastor and Alexei Ratmansky.",
+        speeldata: ["2026-06-09", "2026-06-11", "2026-06-12", "2026-06-14", "2026-06-16", "2026-06-18", "2026-06-19"],
         url: "https://www.hollandfestival.nl/en/masters-of-movement"
       },
       {
@@ -128,6 +134,7 @@ export const festivals: Festival[] = [
         foto_credit: "Casper Koster",
         korte_omschrijving: "Een queerrave, een collectief ritueel en een anarchistische speeltuin in één, waarin performers hun lichamen inzetten om te spelen met identiteit, fluiditeit en het binaire mensbeeld.",
         korte_omschrijving_en: "A queer rave, a collective ritual and an anarchic playground in one, where performers use their bodies to play with identity, fluidity and the binary view of humanity.",
+        speeldata: ["2026-06-13"],
         url: "https://hollandfestival.nl/nl/holobiont"
       },
       {
@@ -140,6 +147,7 @@ export const festivals: Festival[] = [
         foto_credit: "Germaine Kruip",
         korte_omschrijving: "Nieuw theaterwerk waarin Germaine Kruip perceptie en geluid onderzoekt. Te zien in Amsterdam (13–15 juni) en bij PLT Theater Heerlen (25–26 juni).",
         korte_omschrijving_en: "New theatre work in which Germaine Kruip explores perception and sound. Showing in Amsterdam (13–15 June) and at PLT Theater Heerlen (25–26 June).",
+        speeldata: ["2026-06-13", "2026-06-14", "2026-06-15"],
         url: "https://hollandfestival.nl/nl/a-possibility"
       },
       {
@@ -147,6 +155,8 @@ export const festivals: Festival[] = [
         titel: "JÖRĐ",
         gezelschap: "DEGASTEN",
         type: "toneel",
+        foto_url: "https://d329d2usvpfxbn.cloudfront.net/a1PSZ000005Azyc2AC_1660x727.jpg",
+        foto_credit: "Holland Festival",
         korte_omschrijving: "Vijftien jonge spelers van het Amsterdamse gezelschap DEGASTEN maken een performance geïnspireerd door het werk van Hildur Guðnadóttir.",
         korte_omschrijving_en: "Fifteen young performers from Amsterdam company DEGASTEN create a performance inspired by the work of Hildur Guðnadóttir.",
         url: "https://hollandfestival.nl/nl/hf-lab-x-degasten-jord"
