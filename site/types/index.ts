@@ -123,6 +123,11 @@ export interface FestivalShow {
    *  rondreizende festivals (bv. De Parade in Rotterdam/Den Haag/Amsterdam/
    *  Utrecht of Karavaan op meerdere plekken in Noord-Holland). */
   stad?: string;
+  /** Concrete locatie / theater waar deze voorstelling te zien is binnen
+   *  het festival (bv. "ITA", "Frascati", "Muziekgebouw aan 't IJ").
+   *  Wordt op de Instagram-share-kaart getoond als
+   *  "{locatie} ({festival.naam})". */
+  locatie?: string;
   /** Link naar de voorstelling op de festival-website. */
   url: string;
 }

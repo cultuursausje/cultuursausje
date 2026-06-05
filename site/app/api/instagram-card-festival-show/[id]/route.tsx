@@ -215,7 +215,9 @@ export async function GET(
               lineHeight: 1.2
             }}
           >
-            {festival.naam}
+            {voorstelling.locatie
+              ? `${voorstelling.locatie} (${festival.naam})`
+              : festival.naam}
           </div>
         </div>
       </div>
