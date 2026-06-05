@@ -23,7 +23,7 @@ interface SearchParams {
 // Bump deze waarde wanneer je data wijzigt en de gegenereerde PNG's
 // niet ververst lijken te worden — Vercel cachet ImageResponse-output
 // agressief. Een nieuwe `v=` waarde maakt het feitelijk een nieuwe URL.
-const IMAGE_VERSION = 10;
+const IMAGE_VERSION = 11;
 
 const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
@@ -152,6 +152,30 @@ export default async function SharePage({
                   />
                 ))}
               </div>
+
+              {/* Per festival: een sectie met alle losse voorstellingen
+                  die in het festival-programma staan. Handig om voor elk
+                  een eigen Instagram-kaart te kunnen delen. */}
+              {filteredFestivals.map((festival) =>
+                festival.voorstellingen && festival.voorstellingen.length > 0 ? (
+                  <div key={`vs-${festival.id}`}>
+                    <h2 className="mt-16 font-display text-2xl text-ink tracking-tight">
+                      Voorstellingen tijdens {festival.naam}
+                    </h2>
+                    <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      {festival.voorstellingen.map((v) => (
+                        <ShareCard
+                          key={v.id}
+                          imageUrl={`/api/instagram-card-festival-show/${v.id}?v=${IMAGE_VERSION}`}
+                          downloadId={`festival-show-${v.id}`}
+                          titel={v.titel}
+                          subtitle={v.gezelschap ?? festival.naam}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : null
+              )}
             </>
           )}
         </>
