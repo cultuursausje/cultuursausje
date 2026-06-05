@@ -89,7 +89,10 @@ export async function GET(
           />
         )}
 
-        {/* Pill-rij linksboven: datum + (optioneel) English friendly vlag */}
+        {/* Pill-rij linksboven: datum + (optioneel) English friendly vlag.
+            Kleur: de accent-kleur van het festival (Holland Festival roze,
+            Julidans groen, Oerol blauw, etc.) — geeft elke festival-kaart
+            zijn eigen herkenbare branding. */}
         <div
           style={{
             position: "absolute",
@@ -101,8 +104,8 @@ export async function GET(
         >
           <div
             style={{
-              background: "rgba(255,255,255,0.95)",
-              color: "#1A1A18",
+              background: festival.accent,
+              color: "#ffffff",
               fontSize: 36,
               fontWeight: 500,
               padding: "12px 28px",
@@ -115,7 +118,7 @@ export async function GET(
           {festival.english_friendly && (
             <div
               style={{
-                background: "rgba(255,255,255,0.95)",
+                background: festival.accent,
                 fontSize: 36,
                 padding: "12px 22px",
                 borderRadius: 9999,
@@ -135,8 +138,8 @@ export async function GET(
               position: "absolute",
               top: 40,
               right: 40,
-              background: "rgba(255,255,255,0.92)",
-              color: "#1A1A18",
+              background: festival.accent,
+              color: "#ffffff",
               fontSize: 22,
               fontWeight: 500,
               padding: "8px 18px",
@@ -148,31 +151,14 @@ export async function GET(
           </div>
         )}
 
-        {/* Festival-logo subtiel onder de credit-pill */}
-        {festival.logo_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={festival.logo_url}
-            alt=""
-            style={{
-              position: "absolute",
-              top: 110,
-              right: 40,
-              width: 180,
-              height: "auto",
-              opacity: 0.85
-            }}
-          />
-        )}
-
-        {/* Info-pill onderaan: festivalnaam + tagline */}
+        {/* Info-pill onderaan in festival-kleur, witte tekst */}
         <div
           style={{
             position: "absolute",
             bottom: 50,
             left: 50,
             right: 50,
-            background: "rgba(255,255,255,0.96)",
+            background: festival.accent,
             borderRadius: 36,
             padding: "32px 40px",
             display: "flex",
@@ -185,7 +171,7 @@ export async function GET(
               fontWeight: 600,
               lineHeight: 1.05,
               letterSpacing: -1.2,
-              color: "#1A1A18"
+              color: "#ffffff"
             }}
           >
             {festival.naam}
@@ -196,7 +182,7 @@ export async function GET(
                 marginTop: 16,
                 fontSize: 30,
                 fontWeight: 500,
-                color: "#3a3a36",
+                color: "rgba(255,255,255,0.92)",
                 lineHeight: 1.2
               }}
             >
@@ -209,7 +195,7 @@ export async function GET(
                 marginTop: 4,
                 fontSize: 26,
                 fontWeight: 400,
-                color: "#6e6e68",
+                color: "rgba(255,255,255,0.78)",
                 lineHeight: 1.2
               }}
             >

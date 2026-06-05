@@ -38,7 +38,6 @@ export const festivals: Festival[] = [
       "https://www.hollandfestival.nl/media/cache/text_image_2xl/media/2025/berenice/16062025_berenice__copy__elodie_vreeburg__2__1394x930.jpg?b803f8d0"
     ],
     foto_credit: "Elodie Vreeburg",
-    logo_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Holland_festival_logo.png",
     voorstellingen: [
       {
         id: "holland-festival-a-trial",
