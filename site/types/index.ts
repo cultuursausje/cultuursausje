@@ -139,6 +139,10 @@ export interface Festival {
   /** Korte regel onder de titel op de Instagram-share-kaart — bv.
    *  "Internationale producties in meerdere theaters". */
   tagline?: string;
+  /** Compacte lijst van speellocaties voor op de Instagram-kaart, bv.
+   *  "ITA, Carré, Muziekgebouw aan 't IJ e.a." Wordt onder de tagline
+   *  getoond. */
+  locaties?: string;
   /** True wanneer het festival in zijn geheel English friendly is
    *  (toegankelijk voor niet-Nederlandstalig publiek). */
   english_friendly?: boolean;

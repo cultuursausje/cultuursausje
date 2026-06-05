@@ -324,5 +324,11 @@ export const theaters: Theater[] = [
     stad: "Amstelveen",
     url: "https://www.schouwburgamstelveen.nl",
     beschrijving: "Het stadstheater van Amstelveen."
+  },
+  {
+    id: "huis-oostpool-arnhem", naam: "Huis Oostpool", afkorting: "Huis Oostpool",
+    stad: "Arnhem",
+    url: "https://www.oostpool.nl/huistheater/",
+    beschrijving: "Het huistheater van Theater Oostpool in Arnhem, waar het gezelschap premières en try-outs speelt."
   }
 ];

@@ -434,7 +434,7 @@ export const shows: Show[] = [
   {
     id: "happy-days", titel: "Happy Days",
     gezelschap_id: "dood-paard", gezelschap: "Dood Paard",
-    theater_id: "frascati", theater: "Frascati", extra_theaters: ["karavaan-castricum", "chasse-breda"],
+    theater_id: "frascati", theater: "Sluisbuurt (op locatie) i.s.m. Frascati & De Meervaart", extra_theaters: ["karavaan-castricum", "chasse-breda"],
     speelperiode_start: "2026-06-04", speelperiode_end: "2026-06-17",
     korte_samenvatting: "Een vrouw zit vast in het zand en doet alsof het een mooie dag is.",
     korte_samenvatting_en: "A woman is stuck in the sand and pretends it's a beautiful day.",

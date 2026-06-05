@@ -175,6 +175,19 @@ export async function GET(
               {festival.tagline}
             </div>
           )}
+          {festival.locaties && (
+            <div
+              style={{
+                marginTop: 4,
+                fontSize: 26,
+                fontWeight: 400,
+                color: "#6e6e68",
+                lineHeight: 1.2
+              }}
+            >
+              {festival.locaties}
+            </div>
+          )}
         </div>
       </div>
     ),

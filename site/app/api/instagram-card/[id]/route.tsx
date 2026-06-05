@@ -47,7 +47,13 @@ export async function GET(
     return new Response("Show not found", { status: 404 });
   }
 
-  const theater = data.theaters.find((t) => t.id === show.theater_id);
+  // Locatie-regel: kies de show's eigen `theater` display als die er is,
+  // anders val terug op de naam uit de theaters-tabel. Voor shows met een
+  // bijzondere locatie (bv. Happy Days op buitenterrein) kan show.theater
+  // iets specifieks zeggen ("Sluisbuurt (op locatie) i.s.m. Frascati ...")
+  // dat anders verloren zou gaan via de theater_id-lookup.
+  const theaterLookup = data.theaters.find((t) => t.id === show.theater_id);
+  const theaterLabel = show.theater || theaterLookup?.naam || "";
   // Relatieve paden (zoals "/shows/foo.jpg") moeten in een ImageResponse
   // absoluut zijn — anders kan Satori 'm niet ophalen. Plak het host-deel ervoor.
   const origin = new URL(req.url).origin;
@@ -216,7 +222,7 @@ export async function GET(
               {show.gezelschap}
             </div>
           )}
-          {theater && (
+          {theaterLabel && (
             <div
               style={{
                 marginTop: 4,
@@ -226,7 +232,7 @@ export async function GET(
                 lineHeight: 1.2
               }}
             >
-              {theater.naam}
+              {theaterLabel}
             </div>
           )}
         </div>
