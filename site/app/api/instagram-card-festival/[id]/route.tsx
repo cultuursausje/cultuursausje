@@ -47,8 +47,19 @@ export async function GET(
     }
   }
 
-  // Datum-pill: gewoon de periode lowercase (bv. "juni", "mei – juni").
-  const datePill = festival.periode.toLowerCase();
+  // Datum-pill: gebruik exacte start/einddatum als beide bekend zijn,
+  // anders val terug op de vrije-tekst periode (lowercase).
+  const MONTH_SHORT_NL = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+  let datePill = festival.periode.toLowerCase();
+  if (festival.periode_start && festival.periode_end) {
+    const [, sm, sd] = festival.periode_start.split("-").map(Number);
+    const [, em, ed] = festival.periode_end.split("-").map(Number);
+    if (sm === em) {
+      datePill = `${sd}–${ed} ${MONTH_SHORT_NL[sm - 1]}`;
+    } else {
+      datePill = `${sd} ${MONTH_SHORT_NL[sm - 1]} – ${ed} ${MONTH_SHORT_NL[em - 1]}`;
+    }
+  }
 
   return new ImageResponse(
     (
@@ -135,6 +146,23 @@ export async function GET(
           >
             © {festival.foto_credit}
           </div>
+        )}
+
+        {/* Festival-logo subtiel onder de credit-pill */}
+        {festival.logo_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={festival.logo_url}
+            alt=""
+            style={{
+              position: "absolute",
+              top: 110,
+              right: 40,
+              width: 180,
+              height: "auto",
+              opacity: 0.85
+            }}
+          />
         )}
 
         {/* Info-pill onderaan: festivalnaam + tagline */}

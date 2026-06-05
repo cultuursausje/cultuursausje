@@ -143,6 +143,12 @@ export interface Festival {
    *  "ITA, Carré, Muziekgebouw aan 't IJ e.a." Wordt onder de tagline
    *  getoond. */
   locaties?: string;
+  /** Optionele exacte start- en einddatum van het festival (ISO YYYY-MM-DD).
+   *  Wanneer beide aanwezig zijn, gebruikt de Instagram-kaart deze
+   *  range voor de datum-pill (bv. "3–28 jun") in plaats van de
+   *  vrije-tekst `periode`. */
+  periode_start?: string;
+  periode_end?: string;
   /** True wanneer het festival in zijn geheel English friendly is
    *  (toegankelijk voor niet-Nederlandstalig publiek). */
   english_friendly?: boolean;

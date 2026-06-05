@@ -23,6 +23,8 @@ export const festivals: Festival[] = [
     id: "holland-festival",
     naam: "Holland Festival",
     periode: "Juni",
+    periode_start: "2026-06-03",
+    periode_end: "2026-06-28",
     plaats: "Amsterdam",
     beschrijving: "Het oudste en grootste internationale podiumkunstenfestival van Nederland. Toont jaarlijks gerenommeerde internationale gezelschappen en grensverleggend werk.",
     beschrijving_en: "The oldest and largest international performing arts festival in the Netherlands. Each year showcases renowned international companies and boundary-pushing work.",
@@ -36,6 +38,7 @@ export const festivals: Festival[] = [
       "https://www.hollandfestival.nl/media/cache/text_image_2xl/media/2025/berenice/16062025_berenice__copy__elodie_vreeburg__2__1394x930.jpg?b803f8d0"
     ],
     foto_credit: "Elodie Vreeburg",
+    logo_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Holland_festival_logo.png",
     voorstellingen: [
       {
         id: "holland-festival-a-trial",

@@ -166,6 +166,24 @@ export async function GET(
           </div>
         )}
 
+        {/* Festival-logo subtiel onder de credit-pill — maakt direct
+            zichtbaar binnen welk festival deze voorstelling valt. */}
+        {festival.logo_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={festival.logo_url}
+            alt=""
+            style={{
+              position: "absolute",
+              top: 110,
+              right: 40,
+              width: 160,
+              height: "auto",
+              opacity: 0.85
+            }}
+          />
+        )}
+
         {/* Info-pill onderaan: titel → gezelschap → festivalnaam */}
         <div
           style={{
