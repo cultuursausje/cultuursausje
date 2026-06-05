@@ -73,6 +73,7 @@ export const festivals: Festival[] = [
         foto_credit: "Levi Fanan",
         korte_omschrijving: "Een nieuwe choreografie van de Braziliaans-Franse Ana Pi.",
         korte_omschrijving_en: "A new choreography by Brazilian-French Ana Pi.",
+        speeldata: ["2026-06-05", "2026-06-06", "2026-06-07"],
         url: "https://hollandfestival.nl/nl/atomic-joy"
       },
       {
@@ -85,6 +86,7 @@ export const festivals: Festival[] = [
         foto_credit: "Rahi Rezvani",
         korte_omschrijving: "Samenwerking tussen choreograaf Damien Jalet en beeldend kunstenaar Kohei Nawa met het Ballet du Grand Théâtre de Genève.",
         korte_omschrijving_en: "Collaboration between choreographer Damien Jalet and visual artist Kohei Nawa with Ballet du Grand Théâtre de Genève.",
+        speeldata: ["2026-06-19", "2026-06-20", "2026-06-21"],
         url: "https://hollandfestival.nl/nl/mirage"
       },
       {
@@ -97,6 +99,7 @@ export const festivals: Festival[] = [
         foto_credit: "Holland Festival",
         korte_omschrijving: "Multidisciplinair werk van pianiste en performance-kunstenaar Tomoko Mukaiyama.",
         korte_omschrijving_en: "Multidisciplinary work by pianist and performance artist Tomoko Mukaiyama.",
+        speeldata: ["2026-06-13", "2026-06-14"],
         url: "https://www.hollandfestival.nl/nl/we-are-the-house"
       },
       {
@@ -159,6 +162,7 @@ export const festivals: Festival[] = [
         foto_credit: "Holland Festival",
         korte_omschrijving: "Vijftien jonge spelers van het Amsterdamse gezelschap DEGASTEN maken een performance geïnspireerd door het werk van Hildur Guðnadóttir.",
         korte_omschrijving_en: "Fifteen young performers from Amsterdam company DEGASTEN create a performance inspired by the work of Hildur Guðnadóttir.",
+        speeldata: ["2026-06-27", "2026-06-28"],
         url: "https://hollandfestival.nl/nl/hf-lab-x-degasten-jord"
       }
     ]
