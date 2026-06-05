@@ -23,7 +23,7 @@ interface SearchParams {
 // Bump deze waarde wanneer je data wijzigt en de gegenereerde PNG's
 // niet ververst lijken te worden — Vercel cachet ImageResponse-output
 // agressief. Een nieuwe `v=` waarde maakt het feitelijk een nieuwe URL.
-const IMAGE_VERSION = 18;
+const IMAGE_VERSION = 19;
 
 const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
@@ -117,6 +117,21 @@ export default async function SharePage({
         </p>
       ) : (
         <>
+          {/* Cover-kaart bovenaan: collage van alle voorstellings-foto's
+              met twee centrale pills. Eerste in de feed-volgorde van
+              een Instagram-carousel. */}
+          <h2 className="mt-12 font-display text-2xl text-ink tracking-tight">
+            Cover
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ShareCard
+              imageUrl={`/api/instagram-card-cover?month=${monthPrefix}&city=${encodeURIComponent(city)}&v=${IMAGE_VERSION}`}
+              downloadId={`cover-${monthPrefix}-${city.toLowerCase()}`}
+              titel={`Theater tips ${city} ${monthLabel.split(" ")[0]}`}
+              subtitle="Cover voor de carousel"
+            />
+          </div>
+
           {filteredShows.length > 0 && (
             <>
               <h2 className="mt-12 font-display text-2xl text-ink tracking-tight">
