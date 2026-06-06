@@ -15,6 +15,12 @@ const MIN_SOURCES = 3;
 const HIGH_STAR = 4;
 const INITIAL_QUOTES = 1;
 const MAX_FEATURED = 5;
+/** Cap per gezelschap — voorkomt dat één enkele producent (vooral ITA,
+ *  dat veel grote producties met goede pers maakt) de hele carousel
+ *  domineert. Zo blijft er ruimte voor andere makers. */
+const MAX_PER_GEZELSCHAP: Record<string, number> = {
+  ita: 3
+};
 const PANEL_BG = "#F1EFE8";
 
 interface Featured {
@@ -71,19 +77,31 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; avgStars: number; premiereMs: number } => c !== null)
     .sort((a, b) => b.avgStars - a.avgStars || a.premiereMs - b.premiereMs);
 
-  // Combineer: eerst recente buzz, dan de high-rated fallback. Cap op 5.
-  const seen = new Set(recent.map(r => r.show.id));
-  const combined: Featured[] = recent.map(({ show, quotes }) => ({ show, quotes }));
-  for (const f of fallback) {
-    if (combined.length >= MAX_FEATURED) break;
-    if (seen.has(f.show.id)) continue;
-    combined.push({ show: f.show, quotes: f.quotes });
-    seen.add(f.show.id);
-  }
+  // Combineer met cap-controles: max 5 totaal, en max N per gezelschap
+  // zoals geconfigureerd in MAX_PER_GEZELSCHAP (ITA: 3).
+  const seen = new Set<string>();
+  const combined: Featured[] = [];
+  const perGezelschapCount = new Map<string, number>();
 
-  // Als we nog steeds onder de 5 zitten: vul aan met geldige shows die
-  // op z'n minst 2 recensies hebben (van willekeurige sterren), gesorteerd
-  // op aankomende premiere-datum. Liever 5 dan een halflege carousel.
+  const tryAdd = (entry: Featured): boolean => {
+    if (combined.length >= MAX_FEATURED) return false;
+    if (seen.has(entry.show.id)) return false;
+    const gid = entry.show.gezelschap_id;
+    const cap = MAX_PER_GEZELSCHAP[gid];
+    if (cap !== undefined && (perGezelschapCount.get(gid) ?? 0) >= cap) return false;
+    combined.push(entry);
+    seen.add(entry.show.id);
+    perGezelschapCount.set(gid, (perGezelschapCount.get(gid) ?? 0) + 1);
+    return true;
+  };
+
+  // Tier 1: recente buzz, Tier 2: high-rated fallback
+  for (const r of recent) tryAdd({ show: r.show, quotes: r.quotes });
+  for (const f of fallback) tryAdd({ show: f.show, quotes: f.quotes });
+
+  // Tier 3 (vangnet): als we nog onder de 5 zitten, vul aan met shows die
+  // tenminste 2 verschillende bronnen hebben — gesorteerd op aankomende
+  // premiere-datum. tryAdd handelt alle caps af.
   if (combined.length < MAX_FEATURED) {
     const relaxed = eligible
       .filter((s) => !seen.has(s.id))
@@ -99,14 +117,24 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
       })
       .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; premiereMs: number } => c !== null)
       .sort((a, b) => a.premiereMs - b.premiereMs);
-    for (const r of relaxed) {
-      if (combined.length >= MAX_FEATURED) break;
-      combined.push({ show: r.show, quotes: r.quotes });
-      seen.add(r.show.id);
-    }
+    for (const r of relaxed) tryAdd({ show: r.show, quotes: r.quotes });
   }
 
   return combined.slice(0, MAX_FEATURED);
+}
+
+/** Formatteert "Mei – Jun" / "juni" pill voor de hele speelperiode.
+ *  Nederlandse maandnamen lowercase (consistent met de rest van de site);
+ *  Engelse maandnamen met hoofdletter (taalconventie). */
+function monthRangePill(startISO: string, endISO: string, lang: Lang): string {
+  const nl = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+  const en = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const names = lang === "en" ? en : nl;
+  const [, sm] = startISO.split("-").map(Number);
+  const [, em] = endISO.split("-").map(Number);
+  if (!Number.isFinite(sm) || !Number.isFinite(em)) return "";
+  if (sm === em) return names[sm - 1];
+  return `${names[sm - 1]} – ${names[em - 1]}`;
 }
 
 function QuoteRow({ quote, lang }: { quote: ShowDisplay["pers_quotes"][number]; lang: Lang }) {
@@ -223,6 +251,10 @@ export function RecensiesSection({ shows }: Props) {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                        {/* Maand-pill linksboven met de speelperiode */}
+                        <div className="pointer-events-none absolute top-3 left-3 z-20 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-ink">
+                          {monthRangePill(show.speelperiode_start, show.speelperiode_end, lang)}
+                        </div>
                         <div className="absolute bottom-3 left-4 right-4 text-white">
                           <div className="text-xl font-medium leading-tight sm:text-2xl">
                             {show.titel}
