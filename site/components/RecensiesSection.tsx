@@ -26,7 +26,18 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
   const now = Date.now();
   const cutoff = now - WINDOW_DAYS * 24 * 60 * 60 * 1000;
 
-  const recent = shows
+  // Een voorstelling komt alleen in "Niet te missen" als:
+  //  1. de speelperiode nog niet voorbij is (anders kun je niet meer gaan)
+  //  2. er een ticket-link is (anders kan de bezoeker er niks mee)
+  // Hierdoor verdwijnen shows die zijn afgelopen automatisch uit de lijst
+  // zodra de revalidate-cycle voorbij komt.
+  const eligible = shows.filter((s) => {
+    if (!s.ticket_url) return false;
+    const endMs = new Date(s.speelperiode_end).getTime();
+    return Number.isFinite(endMs) && endMs >= now;
+  });
+
+  const recent = eligible
     .map(show => {
       const r = show.pers_quotes.filter(q => {
         if (!q.date) return false;
@@ -45,11 +56,7 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; mostRecentMs: number } => c !== null)
     .sort((a, b) => b.mostRecentMs - a.mostRecentMs);
 
-  const fallback = shows
-    .filter(s => {
-      const endMs = new Date(s.speelperiode_end).getTime();
-      return Number.isFinite(endMs) && endMs >= now;
-    })
+  const fallback = eligible
     .map(show => {
       const highRated = show.pers_quotes.filter(q => (q.sterren ?? 0) >= HIGH_STAR);
       const sources = new Set(highRated.map(q => q.bron));
@@ -64,13 +71,41 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; avgStars: number; premiereMs: number } => c !== null)
     .sort((a, b) => b.avgStars - a.avgStars || a.premiereMs - b.premiereMs);
 
+  // Combineer: eerst recente buzz, dan de high-rated fallback. Cap op 5.
   const seen = new Set(recent.map(r => r.show.id));
   const combined: Featured[] = recent.map(({ show, quotes }) => ({ show, quotes }));
   for (const f of fallback) {
+    if (combined.length >= MAX_FEATURED) break;
     if (seen.has(f.show.id)) continue;
     combined.push({ show: f.show, quotes: f.quotes });
-    if (combined.length >= MAX_FEATURED) break;
+    seen.add(f.show.id);
   }
+
+  // Als we nog steeds onder de 5 zitten: vul aan met geldige shows die
+  // op z'n minst 2 recensies hebben (van willekeurige sterren), gesorteerd
+  // op aankomende premiere-datum. Liever 5 dan een halflege carousel.
+  if (combined.length < MAX_FEATURED) {
+    const relaxed = eligible
+      .filter((s) => !seen.has(s.id))
+      .map((show) => {
+        const perBron = new Map<string, ShowDisplay["pers_quotes"][number]>();
+        show.pers_quotes.forEach((q) => {
+          if (!perBron.has(q.bron)) perBron.set(q.bron, q);
+        });
+        const quotes = Array.from(perBron.values());
+        if (quotes.length < 2) return null;
+        const premiereMs = new Date(show.speelperiode_start).getTime();
+        return { show, quotes, premiereMs };
+      })
+      .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; premiereMs: number } => c !== null)
+      .sort((a, b) => a.premiereMs - b.premiereMs);
+    for (const r of relaxed) {
+      if (combined.length >= MAX_FEATURED) break;
+      combined.push({ show: r.show, quotes: r.quotes });
+      seen.add(r.show.id);
+    }
+  }
+
   return combined.slice(0, MAX_FEATURED);
 }
 
