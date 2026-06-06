@@ -31,16 +31,27 @@ interface Featured {
 function pickFeatured(shows: ShowDisplay[]): Featured[] {
   const now = Date.now();
   const cutoff = now - WINDOW_DAYS * 24 * 60 * 60 * 1000;
+  // Horizon: shows die binnen 4 maanden van vandaag spelen blijven in
+  // beeld. Producties die pas later in het seizoen starten verschijnen
+  // automatisch in beeld zodra ze binnen die horizon vallen.
+  const horizonDate = new Date();
+  horizonDate.setMonth(horizonDate.getMonth() + 4);
+  const horizonMs = horizonDate.getTime();
 
   // Een voorstelling komt alleen in "Niet te missen" als:
   //  1. de speelperiode nog niet voorbij is (anders kun je niet meer gaan)
-  //  2. er een ticket-link is (anders kan de bezoeker er niks mee)
+  //  2. de start ligt binnen 4 maanden van nu (geen ver-toekomst-titels)
+  //  3. er een ticket-link is (anders kan de bezoeker er niks mee)
   // Hierdoor verdwijnen shows die zijn afgelopen automatisch uit de lijst
-  // zodra de revalidate-cycle voorbij komt.
+  // zodra de revalidate-cycle voorbij komt, en verschijnen ver-toekomst-
+  // producties pas zodra ze dichterbij komen.
   const eligible = shows.filter((s) => {
     if (!s.ticket_url) return false;
     const endMs = new Date(s.speelperiode_end).getTime();
-    return Number.isFinite(endMs) && endMs >= now;
+    if (!Number.isFinite(endMs) || endMs < now) return false;
+    const startMs = new Date(s.speelperiode_start).getTime();
+    if (!Number.isFinite(startMs)) return false;
+    return startMs <= horizonMs;
   });
 
   const recent = eligible
