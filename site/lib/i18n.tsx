@@ -24,12 +24,20 @@ const T = {
 
   // Section titles
   "section.recensies.title": {
-    nl: "Niet te missen voorstellingen",
-    en: "Must-see shows"
+    nl: "Niet te missen",
+    en: "Must-see"
   },
   "section.recensies.subtitle": {
-    nl: "Voorstellingen met de meeste buzz dit seizoen, gemeten aan lovende recensies en uitverkochte speelperiodes.",
-    en: "The most buzzed-about shows of the season, with rave reviews and sold-out runs."
+    nl: "Reprises die je niet wilt missen — bewezen producties met de meeste buzz.",
+    en: "Reprises you shouldn't miss — proven productions with the most buzz."
+  },
+  "section.nieuw.title": {
+    nl: "Nieuw",
+    en: "New"
+  },
+  "section.nieuw.subtitle": {
+    nl: "Recent in premiere gegaan en al lovend ontvangen.",
+    en: "Just premiered and already winning praise."
   },
   "section.plan.title": {
     nl: "Plan je theateravond",
