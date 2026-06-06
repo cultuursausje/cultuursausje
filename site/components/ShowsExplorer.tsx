@@ -291,7 +291,13 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 
   return (
     <>
-      <RecensiesSection shows={shows} />
+      {/* Twee secties naast elkaar: Nieuw (verse premieres, links) en
+          Niet te missen (reprises met buzz, rechts). Op mobiel stapelen
+          ze automatisch onder elkaar. */}
+      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
+        <RecensiesSection shows={shows} mode="nieuw" />
+        <RecensiesSection shows={shows} mode="reprise" />
+      </div>
 
       <InspiringQuote {...inspiringQuotes[0]} />
 
