@@ -608,7 +608,7 @@ export const shows: Show[] = [
   },
   {
     id: "voor-ze-verdwijnen", titel: "Voor ze verdwijnen",
-    gezelschap_id: "", gezelschap: "Het Houten Huis & Theater STAP",
+    gezelschap_id: "het-houten-huis", gezelschap: "Het Houten Huis & Theater STAP",
     theater_id: "bostheater", theater: "Het Amsterdamse Bostheater", extra_theaters: [],
     speelperiode_start: "2026-09-05", speelperiode_end: "2026-09-11",
     speeldata: ["2026-09-05", "2026-09-06", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11"],
@@ -1334,7 +1334,7 @@ export const shows: Show[] = [
     lange_samenvatting: "SEXODUS is een rauwe, muzikale voorstelling van Naomi Velissariou, gemaakt met Theater Utrecht, Nicole Beutler Projects en Urland. Een onderzoek naar seks, intimiteit en verlangen in een tijd waarin alles bemiddeld wordt door schermen. Vijf sterren in de Volkskrant, vier sterren in NRC. Na de zomer van 2026 op tournee door Nederland.",
     lange_samenvatting_en: "SEXODUS is a raw, musical performance by Naomi Velissariou, created with Theater Utrecht, Nicole Beutler Projects and Urland. An exploration of sex, intimacy and desire in a time when everything is mediated by screens. Five stars in de Volkskrant, four stars in NRC. Touring the Netherlands from autumn 2026.",
     regisseur: "Naomi Velissariou", based_on: "",
-    foto_url: "https://www.theaterutrecht.nl/prod/media/sexodus-169-_-fotografie-dion-bal_-art-direction-ulkuhan-akgul.jpg?guid=ac4ac033-4496-42e8-bb11-687d82dd4592&width=1200&height=630",
+    foto_url: "https://www.theaterutrecht.nl/prod/media/sexodus-169-_-fotografie-dion-bal_-art-direction-ulkuhan-akgul.jpg?guid=ac4ac033-4496-42e8-bb11-687d82dd4592",
     foto_credit: "Dion Bal",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Seksualiteit", "Intimiteit", "Muziektheater"],

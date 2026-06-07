@@ -146,5 +146,10 @@ export const gezelschappen: Gezelschap[] = [
     id: "frascati-producties", naam: "Frascati Producties", afkorting: "Frascati Producties",
     type: "Productiehuis", stad: "Amsterdam", url: "https://www.frascatitheater.nl/nl/frascati-producties-jxyz",
     beschrijving: "Het grootste (inter)nationaal opererende productiehuis van Nederland. Ondersteunt theatermakers uit binnen- en buitenland en stond aan de wieg van vele gelauwerde makers."
+  },
+  {
+    id: "het-houten-huis", naam: "Het Houten Huis", afkorting: "Het Houten Huis",
+    type: "Theatergezelschap (beeldend muziektheater)", stad: "Groningen", url: "https://hethoutenhuis.org/",
+    beschrijving: "Gronings beeldend muziektheatergezelschap. Maakt sprookjesachtige, fantasievolle voorstellingen voor jong en oud, vaak met live muziek en bijzondere vormgeving."
   }
 ];
