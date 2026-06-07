@@ -609,16 +609,21 @@ export const shows: Show[] = [
   {
     id: "voor-ze-verdwijnen", titel: "Voor ze verdwijnen",
     gezelschap_id: "", gezelschap: "Het Houten Huis & Theater STAP",
-    theater_id: "", theater: "Amsterdamse Bostheater", extra_theaters: [],
+    theater_id: "bostheater", theater: "Het Amsterdamse Bostheater", extra_theaters: [],
     speelperiode_start: "2026-09-05", speelperiode_end: "2026-09-11",
+    speeldata: ["2026-09-05", "2026-09-06", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11"],
     korte_samenvatting: "Stel: er wordt midden in een natuurgebied een kabouterkolonie ontdekt. Wat doen wij dan?",
     korte_samenvatting_en: "Imagine a colony of gnomes is discovered in the middle of a nature reserve. What do we do?",
     lange_samenvatting: "Het publiek mag een net ontdekte kabouterkolonie van dichtbij observeren, en al kijkend gaat het eigenlijk over ons. Hoe gaan we om met wezens die anders zijn, kleiner zijn, kwetsbaar zijn? Een verwonderlijke buitenvoorstelling, grappig en ontwapenend.",
     lange_samenvatting_en: "The audience gets to observe a newly discovered colony of gnomes up close, and while watching it turns out to be really about us. How do we treat creatures that are different, smaller, vulnerable? A wondrous outdoor production, funny and disarming.",
-    regisseur: "", based_on: "", foto_url: "",
+    regisseur: "Elien van den Hoek", based_on: "",
+    foto_url: "https://bostheater.nl/wp-content/uploads/2026/04/HetHoutenHuis-TheaterSTAP_Voorzeverdwijnen_WEB-liggend.jpg",
+    foto_credit: "Anne Harbers",
     english_friendly: false, english_friendly_detail: "",
     categorieen: ["Natuur", "Verwondering", "Sprookje"],
-    ticket_url: "https://bostheater.nl/events/voor-ze-verdwijnen/"
+    ticket_url: "https://bostheater.nl/events/voor-ze-verdwijnen/",
+    interesting_because: "Regisseur Elien van den Hoek won de NTF Regieprijs voor deze voorstelling — unaniem verkozen tot meest indrukwekkende theaterproductie van 2024/2025.",
+    interesting_because_en: "Director Elien van den Hoek won the NTF Regieprijs for this production — unanimously voted the most impressive theatre production of 2024/2025."
   },
   {
     id: "britt-for-president", titel: "Britt for President",
