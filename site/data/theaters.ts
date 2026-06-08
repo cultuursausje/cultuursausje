@@ -330,5 +330,41 @@ export const theaters: Theater[] = [
     stad: "Arnhem",
     url: "https://www.oostpool.nl/huistheater/",
     beschrijving: "Het huistheater van Theater Oostpool in Arnhem, waar het gezelschap premières en try-outs speelt."
+  },
+  {
+    id: "theater-aan-de-schie", naam: "Theater aan de Schie", afkorting: "Aan de Schie",
+    stad: "Schiedam",
+    url: "https://theateraandeschie.nl",
+    beschrijving: "Het stadstheater van Schiedam aan de Schie."
+  },
+  {
+    id: "kunstlinie-almere", naam: "Kunstlinie", afkorting: "Kunstlinie",
+    stad: "Almere",
+    url: "https://kunstlinie.nl",
+    beschrijving: "Theater, muziek en beeldende kunst onder één dak in het centrum van Almere."
+  },
+  {
+    id: "parkstad-limburg-heerlen", naam: "Parkstad Limburg Theaters", afkorting: "Parkstad",
+    stad: "Heerlen",
+    url: "https://www.plt.nl",
+    beschrijving: "Theatercomplex in Heerlen met drie zalen en breed programma."
+  },
+  {
+    id: "goudse-schouwburg", naam: "Goudse Schouwburg", afkorting: "Goudse Schouwburg",
+    stad: "Gouda",
+    url: "https://goudseschouwburg.nl",
+    beschrijving: "Het stadstheater van Gouda."
+  },
+  {
+    id: "zwolse-theaters", naam: "Zwolse Theaters", afkorting: "Zwolse Theaters",
+    stad: "Zwolle",
+    url: "https://www.zwolsetheaters.nl",
+    beschrijving: "De grote stadstheaters van Zwolle, met Theater Odeon en de Spiegel."
+  },
+  {
+    id: "junushoff-wageningen", naam: "Junushoff", afkorting: "Junushoff",
+    stad: "Wageningen",
+    url: "https://www.junushoff.nl",
+    beschrijving: "Het stadstheater van Wageningen."
   }
 ];
