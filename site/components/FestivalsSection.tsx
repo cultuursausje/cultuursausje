@@ -36,16 +36,32 @@ function parsePeriode(periode: string): { start: number; end: number } {
 }
 
 /** Sorteer: aankomend eerst (oplopend op startmaand), daarna voorbij
- *  (aflopend, recentst geëindigd eerst). */
-function sortFestivalsByDate(festivals: Festival[], currentMonth: number): Festival[] {
+ *  (aflopend, recentst geëindigd eerst). Wanneer een festival een
+ *  `periode_end` heeft, gebruiken we die ISO-datum voor dag-precieze
+ *  vergelijking; anders vallen we terug op de maand-parser. */
+function sortFestivalsByDate(festivals: Festival[], today: Date): Festival[] {
+  const todayMs = today.getTime();
+  const currentMonth = today.getMonth() + 1;
+
+  function isPast(f: Festival): boolean {
+    if (f.periode_end) {
+      // T23:59:59 zodat een festival dat vandaag eindigt nog niet als
+      // 'past' wordt gemarkeerd
+      return new Date(f.periode_end + "T23:59:59").getTime() < todayMs;
+    }
+    return parsePeriode(f.periode).end < currentMonth;
+  }
+  function startMonth(f: Festival): number {
+    if (f.periode_start) return new Date(f.periode_start).getMonth() + 1;
+    return parsePeriode(f.periode).start;
+  }
+
   return [...festivals].sort((a, b) => {
-    const pa = parsePeriode(a.periode);
-    const pb = parsePeriode(b.periode);
-    const aPast = pa.end < currentMonth;
-    const bPast = pb.end < currentMonth;
+    const aPast = isPast(a);
+    const bPast = isPast(b);
     if (aPast !== bPast) return aPast ? 1 : -1;
-    if (!aPast) return pa.start - pb.start;
-    return pb.start - pa.start;
+    if (!aPast) return startMonth(a) - startMonth(b);
+    return startMonth(b) - startMonth(a);
   });
 }
 
@@ -57,8 +73,7 @@ export function FestivalsSection({ festivals, shows }: Props) {
 
   // Sorteer festivals op aankomende datum — voorbije gaan naar achteren
   const sortedFestivals = useMemo(() => {
-    const currentMonth = new Date().getMonth() + 1;
-    return sortFestivalsByDate(festivals, currentMonth);
+    return sortFestivalsByDate(festivals, new Date());
   }, [festivals]);
 
   const visible = expanded ? sortedFestivals : sortedFestivals.slice(0, INITIAL_COUNT);
