@@ -366,5 +366,83 @@ export const theaters: Theater[] = [
     stad: "Wageningen",
     url: "https://www.junushoff.nl",
     beschrijving: "Het stadstheater van Wageningen."
+  },
+  {
+    id: "lux-nijmegen", naam: "LUX", afkorting: "LUX",
+    stad: "Nijmegen",
+    url: "https://www.lux-nijmegen.nl",
+    beschrijving: "Cultureel centrum in Nijmegen voor theater, film, debat en muziek."
+  },
+  {
+    id: "lindenberg-nijmegen", naam: "Lindenberg Cultuurhuis", afkorting: "Lindenberg",
+    stad: "Nijmegen",
+    url: "https://www.delindenberg.com",
+    beschrijving: "Cultuurhuis in Nijmegen met podium voor theater, dans en muziek."
+  },
+  {
+    id: "theater-de-maagd-bergen-op-zoom", naam: "Theater de Maagd", afkorting: "De Maagd",
+    stad: "Bergen op Zoom",
+    url: "https://www.demaagd.nl",
+    beschrijving: "Stadstheater in Bergen op Zoom, gevestigd in een voormalige kerk."
+  },
+  {
+    id: "grand-theatre-groningen", naam: "Grand Theatre", afkorting: "Grand Theatre",
+    stad: "Groningen",
+    url: "https://www.grand-theatre.nl",
+    beschrijving: "Productiehuis en vlakke-vloer-theater voor jonge makers in Groningen."
+  },
+  {
+    id: "pand-p-eindhoven", naam: "Pand P", afkorting: "Pand P",
+    stad: "Eindhoven",
+    url: "https://www.pand-p.nl",
+    beschrijving: "Cultuurpodium voor theater, muziek en literatuur in Eindhoven."
+  },
+  {
+    id: "mimik-deventer", naam: "MIMIK", afkorting: "MIMIK",
+    stad: "Deventer",
+    url: "https://www.mimik.nl",
+    beschrijving: "Theater en filmhuis in het centrum van Deventer."
+  },
+  {
+    id: "schouwburg-kunstmin-dordrecht", naam: "Schouwburg Kunstmin", afkorting: "Kunstmin",
+    stad: "Dordrecht",
+    url: "https://www.kunstmin.nl",
+    beschrijving: "Het stadstheater van Dordrecht, deels in een art-decogebouw."
+  },
+  {
+    id: "theater-aan-de-rijn-arnhem", naam: "Theater aan de Rijn", afkorting: "Aan de Rijn",
+    stad: "Arnhem",
+    url: "https://www.theateraanderijn.nl",
+    beschrijving: "Vlakkevloertheater in Arnhem voor opkomende makers en vernieuwend werk."
+  },
+  {
+    id: "hanzehof-zutphen", naam: "Hanzehof", afkorting: "Hanzehof",
+    stad: "Zutphen",
+    url: "https://hanzehof.nl",
+    beschrijving: "Het stadstheater van Zutphen."
+  },
+  {
+    id: "het-park-hoorn", naam: "Het Park", afkorting: "Het Park",
+    stad: "Hoorn",
+    url: "https://www.theaterhetpark.nl",
+    beschrijving: "Het stadstheater van Hoorn."
+  },
+  {
+    id: "schouwburg-agnietenhof-tiel", naam: "Schouwburg Agnietenhof", afkorting: "Agnietenhof",
+    stad: "Tiel",
+    url: "https://www.agnietenhof.nl",
+    beschrijving: "Het stadstheater van Tiel, gevestigd in een voormalig klooster."
+  },
+  {
+    id: "schouwburg-cuijk", naam: "Schouwburg Cuijk", afkorting: "Schouwburg Cuijk",
+    stad: "Cuijk",
+    url: "https://www.schouwburgcuijk.nl",
+    beschrijving: "Het stadstheater van Cuijk."
+  },
+  {
+    id: "schouwburg-amphion-doetinchem", naam: "Schouwburg Amphion", afkorting: "Amphion",
+    stad: "Doetinchem",
+    url: "https://www.amphion.nl",
+    beschrijving: "Het stadstheater van Doetinchem."
   }
 ];
