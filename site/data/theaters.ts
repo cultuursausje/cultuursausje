@@ -444,5 +444,53 @@ export const theaters: Theater[] = [
     stad: "Doetinchem",
     url: "https://www.amphion.nl",
     beschrijving: "Het stadstheater van Doetinchem."
+  },
+  {
+    id: "podium-hoge-woerd", naam: "Podium Hoge Woerd", afkorting: "Hoge Woerd",
+    stad: "Utrecht",
+    url: "https://www.podiumhogewoerd.nl",
+    beschrijving: "Podium in Leidsche Rijn met theater, muziek en debat in een Romeins castellum."
+  },
+  {
+    id: "johannas-bos-anna-paulowna", naam: "Johanna's Bos", afkorting: "Johanna's Bos",
+    stad: "Anna Paulowna",
+    url: "https://www.johannasbos.nl",
+    beschrijving: "Locatie-theater in een bos in de Kop van Noord-Holland."
+  },
+  {
+    id: "musis-stadstheater-arnhem", naam: "Musis & Stadstheater", afkorting: "Musis",
+    stad: "Arnhem",
+    url: "https://www.musis.nl",
+    beschrijving: "Het stadstheater van Arnhem, samen met de naastgelegen Musis-concertzaal."
+  },
+  {
+    id: "gelderlandfabriek-culemborg", naam: "De Gelderlandfabriek", afkorting: "Gelderlandfabriek",
+    stad: "Culemborg",
+    url: "https://www.gelderlandfabriek.nl",
+    beschrijving: "Cultureel ondernemerschap in een voormalige meubelfabriek in Culemborg."
+  },
+  {
+    id: "klooster-woerden", naam: "Het Klooster", afkorting: "Het Klooster",
+    stad: "Woerden",
+    url: "https://www.kloosterwoerden.nl",
+    beschrijving: "Theater en cultuurcentrum in Woerden."
+  },
+  {
+    id: "veerensmederij-amersfoort", naam: "Theater Veerensmederij", afkorting: "Veerensmederij",
+    stad: "Amersfoort",
+    url: "https://www.theaterveerensmederij.nl",
+    beschrijving: "Vlakkevloer-theater in een industrieel monument in Amersfoort."
+  },
+  {
+    id: "theater-verbeelding-purmerend", naam: "Theater de Verbeelding", afkorting: "Verbeelding",
+    stad: "Purmerend",
+    url: "https://www.theaterdeverbeelding.nl",
+    beschrijving: "Het stadstheater van Purmerend."
+  },
+  {
+    id: "cpunt-hoofddorp", naam: "Cpunt", afkorting: "Cpunt",
+    stad: "Hoofddorp",
+    url: "https://www.cpunt.nl",
+    beschrijving: "Cultuurgebouw in Hoofddorp met podium voor theater, muziek en film."
   }
 ];
