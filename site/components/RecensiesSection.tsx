@@ -131,6 +131,26 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     for (const r of relaxed) tryAdd({ show: r.show, quotes: r.quotes });
   }
 
+  // Tier 4 (ultimate vangnet): als we ZELFS DAN nog onder de 5 zitten,
+  // vul aan met élke voorstelling die in de 4-maanden-horizon valt,
+  // ongeacht recensies. Sorteer op start. Doel: de carousel komt altijd
+  // op 5 totaal — desnoods met aankomende producties zonder reviews.
+  if (combined.length < MAX_FEATURED) {
+    const remaining = eligible
+      .filter((s) => !seen.has(s.id))
+      .map((show) => {
+        const perBron = new Map<string, ShowDisplay["pers_quotes"][number]>();
+        show.pers_quotes.forEach((q) => {
+          if (!perBron.has(q.bron)) perBron.set(q.bron, q);
+        });
+        const quotes = Array.from(perBron.values());
+        const premiereMs = new Date(show.speelperiode_start).getTime();
+        return { show, quotes, premiereMs };
+      })
+      .sort((a, b) => a.premiereMs - b.premiereMs);
+    for (const r of remaining) tryAdd({ show: r.show, quotes: r.quotes });
+  }
+
   // Sorteer chronologisch op begindatum van de speelperiode — de show
   // die het eerst start verschijnt links in de carousel. Maakt het voor
   // bezoekers makkelijk om te zien wat er als eerste te zien is.
