@@ -185,6 +185,8 @@ export const festivals: Festival[] = [
     id: "julidans",
     naam: "Julidans",
     periode: "Juli",
+    periode_start: "2026-07-01",
+    periode_end: "2026-07-15",
     plaats: "Amsterdam",
     beschrijving: "Het grootste festival voor hedendaagse internationale dans in Nederland. Twee weken lang vernieuwende choreografieën.",
     beschrijving_en: "The largest festival for contemporary international dance in the Netherlands. Two weeks of innovative choreography.",
