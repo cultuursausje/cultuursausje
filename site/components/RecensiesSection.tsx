@@ -359,7 +359,7 @@ export function RecensiesSection({ shows }: Props) {
                   </div>
                 );
               })}
-              <div className="shrink-0 w-6 sm:w-10" aria-hidden="true" />
+              <div className="shrink-0 w-10 sm:w-20" aria-hidden="true" />
             </div>
           </div>
 

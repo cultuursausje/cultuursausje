@@ -17,6 +17,11 @@ interface SmallCardProps {
   pill: string;
   isFavorite: boolean;
   isActive: boolean;
+  /** Theater-naam om op de card te tonen. Wanneer ingevuld overruled
+   *  dit `show.theater_naam` — handig wanneer een show op tour gaat en
+   *  je in de actieve stad-context het lokale theater wilt tonen i.p.v.
+   *  het primaire theater. */
+  displayTheater?: string;
   onSelect: () => void;
   onToggleFav: () => void;
 }
@@ -24,7 +29,7 @@ interface SmallCardProps {
 /** Compacte carousel-card voor de "Alle voorstellingen"-rij. Festival-stijl:
  *  portrait, foto-overlay, datum-pill linksboven, hartje rechtsboven. */
 export function SmallShowCard({
-  show, pill, isFavorite, isActive, onSelect, onToggleFav
+  show, pill, isFavorite, isActive, displayTheater, onSelect, onToggleFav
 }: SmallCardProps) {
   const photoBg = photoBgForShow(show.id);
   const hasPhoto = !!show.foto_url;
@@ -62,9 +67,9 @@ export function SmallShowCard({
           <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
             {show.gezelschap_display}
           </div>
-          {show.theater_naam && (
+          {(displayTheater || show.theater_naam) && (
             <div className="text-[10px] text-white/70 leading-tight line-clamp-1">
-              {show.theater_naam}
+              {displayTheater || show.theater_naam}
             </div>
           )}
         </div>

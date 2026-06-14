@@ -450,7 +450,8 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             items={allFavoritedShows.map(({ show, pill }): CarouselItem => ({
               kind: "show",
               show, pill,
-              key: `${show.id}--fav`
+              key: `${show.id}--fav`,
+              displayTheater: displayTheaterForShow(show, selectedCities)
             }))}
             expandedKey={expanded}
             favorites={favorites}
@@ -480,7 +481,10 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             const showItems: CarouselItem[] = currentMonthShows.map(({ show, pill }): CarouselItem => ({
               kind: "show",
               show, pill,
-              key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`
+              key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`,
+              displayTheater: displayTheaterForShow(show, selectedCities, {
+                year: currentMonth.year, monthIdx: currentMonth.monthIdx
+              })
             }));
             const allItems = [...festivalItems, ...showItems];
             if (allItems.length === 0) {
@@ -523,7 +527,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           hoogtes (geen stretch). Op mobiel stapelen ze met hun normale mt-20.
           Wanneer ze gestapeld zijn (< lg) verschijnt er een quote tussen de
           twee secties; op desktop staan beide quotes onderaan. */}
-      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-stretch">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
         <GezelschappenSection gezelschappen={allGezelschappen} />
         <div className="lg:hidden">
           <InspiringQuote {...inspiringQuotes[5]} />
@@ -585,8 +589,36 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
  *  reguliere voorstellingen, zodat bezoekers in één blik zien wat er
  *  een gegeven maand allemaal speelt (inclusief grote festivals). */
 type CarouselItem =
-  | { kind: "show"; show: ShowDisplay; pill: string; key: string }
+  | { kind: "show"; show: ShowDisplay; pill: string; key: string; displayTheater?: string }
   | { kind: "festival"; festival: Festival; key: string };
+
+/** Kies het theater om op de card te tonen — bij voorkeur het theater
+ *  in de geselecteerde stad waar de show in de actieve maand speelt.
+ *  Valt terug op een venue in de geselecteerde stad in een andere maand,
+ *  en uiteindelijk op het primaire theater. Voorkomt dat we voor een
+ *  Amsterdam-bezoeker "Theater Rotterdam" tonen terwijl de show daar
+ *  ook in Amsterdam (Frascati, ITA, ...) speelt. */
+function displayTheaterForShow(
+  show: ShowDisplay,
+  selectedCities: Set<string>,
+  viewMonth?: { year: number; monthIdx: number }
+): string {
+  if (viewMonth) {
+    const monthPrefix = `${viewMonth.year}-${String(viewMonth.monthIdx + 1).padStart(2, "0")}-`;
+    for (const v of show.venues) {
+      if (selectedCities.size > 0 && !selectedCities.has(v.theater_stad)) continue;
+      if (v.speeldata.some(d => d.startsWith(monthPrefix))) {
+        return v.theater_naam;
+      }
+    }
+  }
+  for (const v of show.venues) {
+    if (selectedCities.size > 0 && selectedCities.has(v.theater_stad)) {
+      return v.theater_naam;
+    }
+  }
+  return show.theater_naam;
+}
 
 const MONTHS_NL_LOOKUP: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
@@ -750,6 +782,7 @@ function ShowCarousel({
                   key={item.key}
                   show={item.show}
                   pill={item.pill}
+                  displayTheater={item.displayTheater}
                   isFavorite={favorites.has(item.show.id)}
                   isActive={expandedKey === item.key}
                   onSelect={() => onSelect(item.key)}
@@ -758,10 +791,10 @@ function ShowCarousel({
               );
             })}
             {/* Trailing spacer — geeft de laatste kaart ademruimte aan de
-                rechterkant, gelijk aan de padding aan de linkerkant van het
-                scroll-paneel. Zonder dit plakt de laatste kaart tegen de
-                rand omdat browsers padding-right vaak negeren bij overflow. */}
-            <div className="shrink-0 w-6 sm:w-10" aria-hidden="true" />
+                rechterkant, vergelijkbaar met de natuurlijke rechtsmarge
+                van de Theaterfestivals-grid. Browsers negeren padding-right
+                vaak bij overflow, dus we voegen een spacer-element toe. */}
+            <div className="shrink-0 w-10 sm:w-20" aria-hidden="true" />
           </div>
         </div>
         {items.length > 4 && !edge.atStart && (
