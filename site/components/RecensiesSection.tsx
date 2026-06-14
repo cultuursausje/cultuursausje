@@ -276,7 +276,11 @@ export function RecensiesSection({ shows }: Props) {
             className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
           >
             <div className="flex gap-6 snap-x snap-mandatory pb-2 w-full">
-              {featured.map(({ show, quotes }) => {
+              {/* Leading spacer komt al van het scroll-paneel zelf via
+                  px-6/sm:px-10. Trailing spacer hieronder zorgt dat de
+                  laatste kaart even ver van de rechterrand komt — anders
+                  plakt hij tegen de rand omdat scroll-containers
+                  padding-right vaak negeren bij overflow. */}
                 const photoBg = photoBgForShow(show.id);
                 const isOpenReviews = expandedReviews.has(show.id);
                 const visible = isOpenReviews ? quotes : quotes.slice(0, INITIAL_QUOTES);
@@ -354,6 +358,7 @@ export function RecensiesSection({ shows }: Props) {
                   </div>
                 );
               })}
+              <div className="shrink-0 w-6 sm:w-10" aria-hidden="true" />
             </div>
           </div>
 

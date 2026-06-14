@@ -408,29 +408,28 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                       </button>
                     );
                   })}
+                  <div className="shrink-0 w-6 sm:w-10" aria-hidden="true" />
                     </div>
                   </div>
-                  {totalResults > 4 && (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => scrollByCards(-1)}
-                        disabled={edge.atStart}
-                        className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-                        aria-label="Vorige"
-                      >
-                        <ChevronLeft size={18} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => scrollByCards(1)}
-                        disabled={edge.atEnd}
-                        className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-                        aria-label="Volgende"
-                      >
-                        <ChevronRight size={18} />
-                      </button>
-                    </>
+                  {totalResults > 4 && !edge.atStart && (
+                    <button
+                      type="button"
+                      onClick={() => scrollByCards(-1)}
+                      className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition sm:flex"
+                      aria-label="Vorige"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                  )}
+                  {totalResults > 4 && !edge.atEnd && (
+                    <button
+                      type="button"
+                      onClick={() => scrollByCards(1)}
+                      className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition sm:flex"
+                      aria-label="Volgende"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
                   )}
                 </div>
 

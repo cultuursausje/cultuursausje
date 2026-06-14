@@ -757,29 +757,32 @@ function ShowCarousel({
                 />
               );
             })}
+            {/* Trailing spacer — geeft de laatste kaart ademruimte aan de
+                rechterkant, gelijk aan de padding aan de linkerkant van het
+                scroll-paneel. Zonder dit plakt de laatste kaart tegen de
+                rand omdat browsers padding-right vaak negeren bij overflow. */}
+            <div className="shrink-0 w-6 sm:w-10" aria-hidden="true" />
           </div>
         </div>
-        {items.length > 4 && (
-          <>
-            <button
-              type="button"
-              onClick={() => scrollByCards(-1)}
-              disabled={edge.atStart}
-              className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-              aria-label="Vorige voorstellingen"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByCards(1)}
-              disabled={edge.atEnd}
-              className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-              aria-label="Volgende voorstellingen"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </>
+        {items.length > 4 && !edge.atStart && (
+          <button
+            type="button"
+            onClick={() => scrollByCards(-1)}
+            className="absolute top-1/2 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition sm:flex"
+            aria-label="Vorige voorstellingen"
+          >
+            <ChevronLeft size={18} />
+          </button>
+        )}
+        {items.length > 4 && !edge.atEnd && (
+          <button
+            type="button"
+            onClick={() => scrollByCards(1)}
+            className="absolute top-1/2 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition sm:flex"
+            aria-label="Volgende voorstellingen"
+          >
+            <ChevronRight size={18} />
+          </button>
         )}
       </div>
 
