@@ -364,5 +364,105 @@ export const pers: PersQuote[] = [
     quote: "Wie pijn lijdt, geeft pijn door. Een rauwe, fysieke voorstelling over klasse, verlangen en de cyclus van geweld die van generatie op generatie wordt doorgegeven.",
     quote_en: "Those who suffer pain pass it on. A raw, physical production about class, desire and the cycle of violence handed down from generation to generation.",
     date: "2026-12-06"
+  },
+
+  // Voor ze verdwijnen (Het Houten Huis & Theater STAP) - NTF Regieprijs 2024/2025
+  {
+    show_id: "voor-ze-verdwijnen",
+    bron: "NRC",
+    sterren: 4,
+    quote: "Fantasierijke kabouter-expeditie is minutieus uitgedacht. In het kunstig en vrolijk vormgegeven decor gaat het er bovendien vaak bijzonder bruut aan toe. Toch is er op veel momenten ruimte voor humor.",
+    quote_en: "An imaginative gnome expedition, meticulously thought out. In the artful and cheerfully designed set, things often turn unusually brutal — yet many moments leave room for humour.",
+    date: "2024-09-20"
+  },
+  {
+    show_id: "voor-ze-verdwijnen",
+    bron: "Nederlandse Toneeljury",
+    sterren: null,
+    quote: "Wreed en lieflijk, ontroerend en hartbrekend: muziek, spel, vormgeving en omgeving zijn in dit vitale sprookje naadloos met elkaar in evenwicht gebracht.",
+    quote_en: "Cruel and tender, moving and heartbreaking: music, performance, design and setting are seamlessly in balance in this vital fairy tale.",
+    date: "2025-09-01"
+  },
+  {
+    show_id: "voor-ze-verdwijnen",
+    bron: "Opium op Oerol (AVRO/TROS)",
+    sterren: null,
+    quote: "Dit is echt waanzinnig! Heel mooie voorstelling. Ik ging er erg vrolijk in en kwam er met filosofische overpeinzingen uit.",
+    quote_en: "This is truly wild! A really beautiful production. I went in cheerful and came out with philosophical musings.",
+    date: "2024-06-15"
+  },
+
+  // Beste Mensen (Bureau Vergezicht) - tour najaar 2026
+  {
+    show_id: "beste-mensen",
+    bron: "Trouw",
+    sterren: 4,
+    quote: "Hoopvol en urgent.",
+    quote_en: "Hopeful and urgent.",
+    date: "2024-11-20"
+  },
+  {
+    show_id: "beste-mensen",
+    bron: "NRC",
+    sterren: 4,
+    quote: "Even mooi als verdrietig.",
+    quote_en: "As beautiful as it is sad.",
+    date: "2024-11-20"
+  },
+  {
+    show_id: "beste-mensen",
+    bron: "de Volkskrant",
+    sterren: 4,
+    quote: "Doet duizelen van verwondering, moedeloosheid en hoopvolle signalen.",
+    quote_en: "Leaves you dizzy with wonder, despondency and signs of hope.",
+    date: "2024-11-20"
+  },
+
+  // SEXODUS (Theater Utrecht / Naomi Velissariou / Nicole Beutler Projects / URLAND)
+  {
+    show_id: "sexodus",
+    bron: "de Volkskrant",
+    sterren: 5,
+    quote: "Naomi Velissariou is een waanzinnige theaterfurie. Dat laat ze opnieuw zien in SEXODUS, waarin ze zich op de terreur van schoonheidsidealen stort.",
+    quote_en: "Naomi Velissariou is a wild theatrical fury. She proves it again in SEXODUS, hurling herself at the tyranny of beauty ideals.",
+    date: "2026-05-31",
+    url: "https://www.volkskrant.nl/cultuur-media/naomi-velissariou-is-een-waanzinnige-theaterfurie-dat-laat-ze-opnieuw-zien-in-sexodus-waarin-ze-zich-op-de-terreur-van-schoonheidsidealen-stort~ba00a5b9/"
+  },
+  {
+    show_id: "sexodus",
+    bron: "NRC",
+    sterren: 4,
+    quote: "Met het charisma van een popster zoekt theatermaker Naomi Velissariou in SEXODUS naar een uitweg.",
+    quote_en: "With the charisma of a pop star, theatre-maker Naomi Velissariou searches for a way out in SEXODUS.",
+    date: "2026-05-31",
+    url: "https://www.nrc.nl/nieuws/2026/05/31/sexodus-van-theatermaker-naomi-velissariou-doet-je-verlangen-naar-een-wereld-waarin-sekse-geen-betekenis-meer-heeft-a4928685"
+  },
+  {
+    show_id: "sexodus",
+    bron: "Het Parool",
+    sterren: null,
+    quote: "Velissarious aanklacht kruipt onder je huid.",
+    quote_en: "Velissariou's indictment gets under your skin.",
+    date: "2026-05-31",
+    url: "https://www.parool.nl/kunst-media/recensie-wat-als-penissen-het-middelpunt-en-mikpunt-van-een-uit-de-hand-gelopen-schoonheidsindustrie-zouden-worden~b47bb3ed/"
+  },
+  {
+    show_id: "sexodus",
+    bron: "Theaterkrant",
+    sterren: null,
+    quote: "In SEXODUS speelt Naomi Velissariou een schitterend manifest om als vrouw ouder te mogen worden, zonder verlies van waarde en waardigheid.",
+    quote_en: "In SEXODUS, Naomi Velissariou performs a brilliant manifesto for being allowed to age as a woman without losing value or dignity.",
+    date: "2026-05-31",
+    url: "https://www.theaterkrant.nl/recensie/sexodus/naomi-velissariou-theater-utrecht-nicole-beutler-projects-urland/"
+  },
+
+  // SUPERDRUM (Veenfabriek & Touki Delphine) - Theo d'Or nominatie
+  {
+    show_id: "veenfabriek-superdrum",
+    bron: "Theo d'Or 2026 (nominatie)",
+    sterren: null,
+    quote: "Jacobien Elffers genomineerd voor de Theo d'Or voor haar rol in SUPERDRUM — de belangrijkste Nederlandse toneelprijs voor vrouwelijke spelers.",
+    quote_en: "Jacobien Elffers nominated for the Theo d'Or for her role in SUPERDRUM — the most prestigious Dutch acting award for female performers.",
+    date: "2026-04-15"
   }
 ];

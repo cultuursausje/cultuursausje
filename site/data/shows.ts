@@ -415,23 +415,6 @@ export const shows: Show[] = [
     ticket_url: "https://www.frascatitheater.nl/nl/agenda/the-actor-fr2d"
   },
   {
-    id: "spinoza", titel: "Spinoza",
-    gezelschap_id: "nite", gezelschap: "NITE, Club Guy & Roni, HIIIT, Het Muziek",
-    theater_id: "", theater: "Amsterdamse Bostheater", extra_theaters: [],
-    speelperiode_start: "2026-06-02", speelperiode_end: "2026-07-11",
-    korte_samenvatting: "Drie kinderen in een hechte gemeenschap, en één van hen begint hardop andere vragen te stellen.",
-    korte_samenvatting_en: "Three children in a tight-knit community, and one of them starts asking different questions out loud.",
-    lange_samenvatting: "In het 17e-eeuwse Amsterdam groeien Bento en zijn zussen Rebecca en Miriam op tussen joodse vluchtelingen die net iets hebben opgebouwd. Wanneer Bento God en traditie ter discussie stelt, dwingt hij zijn zussen elk een eigen kant te kiezen. Een musical over geloven, twijfelen en wat het kost om je familie tegen te spreken.",
-    lange_samenvatting_en: "In 17th-century Amsterdam, Bento and his sisters Rebecca and Miriam grow up among Jewish refugees who have only just built something. When Bento starts questioning God and tradition, his sisters are forced to pick a side. A musical about believing, doubting, and what it costs to talk back to your family.",
-    regisseur: "Guy Weizman", based_on: "Het leven van Baruch Spinoza",
-    foto_url: "https://nite.nl/wp-content/uploads/2026/02/NITE_SPINOZA_NIEUW_SHOTBYHALIE_16x9-scaled.jpg",
-    foto_urls: ["https://nite.nl/wp-content/uploads/2026/02/NITE_SPINOZA_CAST_BTS_May-06-2026__HA_8915Rating_3_SHOTBY_HALIE-1500x1001.jpg"],
-    foto_credit: "Halie",
-    english_friendly: true, english_friendly_detail: "English surtitles",
-    categorieen: ["Vrijheid", "Tolerantie", "Familie", "Geloof"],
-    ticket_url: "https://nite.nl/voorstelling/spinoza/"
-  },
-  {
     id: "happy-days", titel: "Happy Days",
     gezelschap_id: "dood-paard", gezelschap: "Dood Paard",
     theater_id: "frascati", theater: "Sluisbuurt (op locatie) i.s.m. Frascati & De Meervaart", extra_theaters: ["karavaan-castricum", "chasse-breda"],
