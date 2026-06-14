@@ -51,7 +51,7 @@ function mapsLinkForTheater(theater: string, stad: string): string {
 // Max-hoogte van het gesloten paneel (in px). Genoeg om de eerste paar
 // steden te zien + een glimp van de volgende. Klikken op "Meer" haalt
 // deze cap weg.
-const COLLAPSED_MAX_H = 540;
+const COLLAPSED_MAX_H = 400;
 
 export function TheatersSection({ theaters }: Props) {
   const t = useT();

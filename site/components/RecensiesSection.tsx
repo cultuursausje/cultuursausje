@@ -357,27 +357,25 @@ export function RecensiesSection({ shows }: Props) {
             </div>
           </div>
 
-          {featured.length > 2 && (
-            <>
-              <button
-                type="button"
-                onClick={() => scrollByCards(-1)}
-                disabled={edge.atStart}
-                className="absolute top-32 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-                aria-label="Vorige voorstellingen"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollByCards(1)}
-                disabled={edge.atEnd}
-                className="absolute top-32 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition disabled:opacity-30 disabled:cursor-not-allowed sm:flex"
-                aria-label="Volgende voorstellingen"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </>
+          {featured.length > 2 && !edge.atStart && (
+            <button
+              type="button"
+              onClick={() => scrollByCards(-1)}
+              className="absolute top-32 -left-1 sm:-left-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition sm:flex"
+              aria-label="Vorige voorstellingen"
+            >
+              <ChevronLeft size={18} />
+            </button>
+          )}
+          {featured.length > 2 && !edge.atEnd && (
+            <button
+              type="button"
+              onClick={() => scrollByCards(1)}
+              className="absolute top-32 -right-1 sm:-right-3 -translate-y-1/2 z-10 hidden h-9 w-9 items-center justify-center rounded-full bg-white shadow-md hover:bg-[#F8F6EF] transition sm:flex"
+              aria-label="Volgende voorstellingen"
+            >
+              <ChevronRight size={18} />
+            </button>
           )}
         </div>
       </div>

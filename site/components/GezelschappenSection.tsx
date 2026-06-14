@@ -37,11 +37,11 @@ function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
     ] as [string, Gezelschap[]]);
 }
 
-// Max-hoogte van het gesloten paneel (in px). Genoeg om 1-2 steden volledig
+// Max-hoogte van het gesloten paneel (in px). Genoeg om 1 stad volledig
 // te tonen + een glimp van de volgende stad onderaan zichtbaar te laten —
 // de fade-gradient onderaan suggereert "er is meer". Klikken op "Meer"
 // haalt deze cap weg en toont alle steden in volle hoogte.
-const COLLAPSED_MAX_H = 480;
+const COLLAPSED_MAX_H = 360;
 
 export function GezelschappenSection({ gezelschappen }: Props) {
   const t = useT();
