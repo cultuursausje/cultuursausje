@@ -5,7 +5,7 @@ import {
   Heart, X,
   Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
 } from "lucide-react";
-import type { ShowDisplay, Festival } from "@/types";
+import type { ShowDisplay } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
 import { englishDays } from "@/lib/dates";
 import { useT, useLang, formatDateLang } from "@/lib/i18n";
@@ -17,11 +17,6 @@ interface SmallCardProps {
   pill: string;
   isFavorite: boolean;
   isActive: boolean;
-  /** Wanneer ingevuld, krijgt deze show een gekleurde festival-pill onder
-   *  de datum-pill (bv. "Holland Festival 🇬🇧"). Wordt buiten dit
-   *  component bepaald door overlap tussen show-speeldata en festival-
-   *  periode_start/periode_end in dezelfde stad. */
-  festival?: Festival | null;
   onSelect: () => void;
   onToggleFav: () => void;
 }
@@ -29,7 +24,7 @@ interface SmallCardProps {
 /** Compacte carousel-card voor de "Alle voorstellingen"-rij. Festival-stijl:
  *  portrait, foto-overlay, datum-pill linksboven, hartje rechtsboven. */
 export function SmallShowCard({
-  show, pill, isFavorite, isActive, festival, onSelect, onToggleFav
+  show, pill, isFavorite, isActive, onSelect, onToggleFav
 }: SmallCardProps) {
   const photoBg = photoBgForShow(show.id);
   const hasPhoto = !!show.foto_url;
@@ -56,7 +51,10 @@ export function SmallShowCard({
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-        {/* Titel + gezelschap onderin */}
+        {/* Titel + gezelschap + theater onderin. Toont alle drie zodat
+            bezoekers in één oogopslag zien wat speelt, wie het maakt en
+            waar het speelt — line-clamp-1 voorkomt dat lange theaternamen
+            de card breken. */}
         <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 text-white">
           <div className="text-sm font-medium leading-tight line-clamp-2">
             {show.titel}
@@ -64,6 +62,11 @@ export function SmallShowCard({
           <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
             {show.gezelschap_display}
           </div>
+          {show.theater_naam && (
+            <div className="text-[10px] text-white/70 leading-tight line-clamp-1">
+              {show.theater_naam}
+            </div>
+          )}
         </div>
 
         {/* Copyright rechtsonder */}
@@ -74,21 +77,9 @@ export function SmallShowCard({
         )}
       </button>
 
-      {/* Datum-pill linksboven — neutrale stijl. Optioneel daaronder een
-          gekleurde festival-pill als de show binnen een festival valt. */}
-      <div className="pointer-events-none absolute top-2 left-2 z-20 flex flex-col items-start gap-1">
-        <div className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
-          {pill}
-        </div>
-        {festival && (
-          <div
-            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium text-white shadow-sm"
-            style={{ background: festival.accent }}
-          >
-            <span>{festival.naam}</span>
-            {festival.english_friendly && <span aria-hidden="true">🇬🇧</span>}
-          </div>
-        )}
+      {/* Datum-pill linksboven — neutrale stijl */}
+      <div className="pointer-events-none absolute top-2 left-2 z-20 rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
+        {pill}
       </div>
 
       {/* Hartje rechtsboven — los klik-target */}

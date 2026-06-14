@@ -342,8 +342,11 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                             <div className="text-sm font-medium leading-tight line-clamp-2">
                               {show.titel}
                             </div>
+                            <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
+                              {show.gezelschap_display}
+                            </div>
                             {venue && (
-                              <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
+                              <div className="text-[10px] text-white/70 leading-tight line-clamp-1">
                                 {venue.theater_naam}
                               </div>
                             )}

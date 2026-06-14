@@ -131,10 +131,11 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
     for (const r of relaxed) tryAdd({ show: r.show, quotes: r.quotes });
   }
 
-  // Tier 4 (ultimate vangnet): als we ZELFS DAN nog onder de 5 zitten,
-  // vul aan met élke voorstelling die in de 4-maanden-horizon valt,
-  // ongeacht recensies. Sorteer op start. Doel: de carousel komt altijd
-  // op 5 totaal — desnoods met aankomende producties zonder reviews.
+  // Tier 4 (vangnet): als we nog onder de 5 zitten, vul aan met elke
+  // voorstelling die binnen de 4-maanden-horizon valt EN minstens één
+  // recensie/quote heeft. Voorstellingen zonder recensies komen
+  // expliciet NIET in de carousel — Emma wil dat élke kaart een
+  // recensie laat zien (niet "leeg" tonen).
   if (combined.length < MAX_FEATURED) {
     const remaining = eligible
       .filter((s) => !seen.has(s.id))
@@ -144,9 +145,11 @@ function pickFeatured(shows: ShowDisplay[]): Featured[] {
           if (!perBron.has(q.bron)) perBron.set(q.bron, q);
         });
         const quotes = Array.from(perBron.values());
+        if (quotes.length < 1) return null;
         const premiereMs = new Date(show.speelperiode_start).getTime();
         return { show, quotes, premiereMs };
       })
+      .filter((c): c is { show: ShowDisplay; quotes: ShowDisplay["pers_quotes"]; premiereMs: number } => c !== null)
       .sort((a, b) => a.premiereMs - b.premiereMs);
     for (const r of remaining) tryAdd({ show: r.show, quotes: r.quotes });
   }
@@ -280,7 +283,7 @@ export function RecensiesSection({ shows }: Props) {
                 return (
                   <div
                     key={show.id}
-                    className="shrink-0 snap-start w-[88%] sm:w-[calc((100%-1.5rem)/2)] flex flex-col gap-4"
+                    className="shrink-0 snap-start w-[88%] sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] flex flex-col gap-4"
                   >
                     {/* Foto-card — brede 3/2 aspect, zoals oorspronkelijk. */}
                     <div

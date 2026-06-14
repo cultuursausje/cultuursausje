@@ -3,10 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Heart, Instagram } from "lucide-react";
 import { SmallShowCard, ShowDetailPanel } from "./ShowCard";
-import { useT, useLang, monthLabelLang, pillForMonthLang } from "@/lib/i18n";
+import { useT, useLang, monthLabelLang, pillForMonthLang, translatePeriode } from "@/lib/i18n";
 import { isNotBelgianCity } from "@/lib/locations";
 import { RecensiesSection } from "./RecensiesSection";
 import { FestivalsSection } from "./FestivalsSection";
+import { FestivalModal } from "./FestivalModal";
 import { PlanSection } from "./PlanSection";
 import { VoordeelSection } from "./VoordeelSection";
 import { GezelschappenSection } from "./GezelschappenSection";
@@ -55,6 +56,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [flipped, setFlipped] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [openFestivalId, setOpenFestivalId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   // Filter state — Amsterdam standaard geselecteerd
@@ -445,16 +447,17 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           </div>
         ) : (
           <ShowCarousel
-            items={allFavoritedShows.map(({ show, pill }) => ({
+            items={allFavoritedShows.map(({ show, pill }): CarouselItem => ({
+              kind: "show",
               show, pill,
-              key: `${show.id}--fav`,
-              festival: findFestivalForShow(show, festivals, selectedCities)
+              key: `${show.id}--fav`
             }))}
             expandedKey={expanded}
             favorites={favorites}
             selectedCities={selectedCities}
             onSelect={(key) => setExpanded(prev => prev === key ? null : key)}
             onToggleFav={(id) => toggleFav(id)}
+            onFestivalSelect={(id) => setOpenFestivalId(id)}
           />
         )
       ) : currentMonth ? (
@@ -462,25 +465,44 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           <h3 className="font-display mb-4 text-3xl text-ink tracking-tight sm:text-4xl">
             {currentMonth.label.charAt(0).toUpperCase() + currentMonth.label.slice(1)}
           </h3>
-          {currentMonthShows.length === 0 ? (
-            <div className="px-2 py-6 text-center">
-              <div className="text-base text-ink">{t("empty.noShowsMonth")}</div>
-            </div>
-          ) : (
-            <ShowCarousel
-              items={currentMonthShows.map(({ show, pill }) => ({
-                show, pill,
-                key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`,
-                festival: findFestivalForShow(show, festivals, selectedCities)
-              }))}
-              expandedKey={expanded}
-              favorites={favorites}
-              selectedCities={selectedCities}
-              viewMonth={{ year: currentMonth.year, monthIdx: currentMonth.monthIdx }}
-              onSelect={(key) => setExpanded(prev => prev === key ? null : key)}
-              onToggleFav={(id) => toggleFav(id)}
-            />
-          )}
+          {(() => {
+            // Bouw de gemengde items-lijst: eerst festival-kaarten voor
+            // festivals die deze maand spelen in de gekozen stad/steden,
+            // daarna alle reguliere show-kaarten. Festivals krijgen
+            // voorrang omdat ze vaak meerdere voorstellingen bundelen.
+            const festivalItems: CarouselItem[] = festivalsForMonth(
+              festivals, currentMonth.year, currentMonth.monthIdx, selectedCities
+            ).map((f): CarouselItem => ({
+              kind: "festival",
+              festival: f,
+              key: `festival-${f.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`
+            }));
+            const showItems: CarouselItem[] = currentMonthShows.map(({ show, pill }): CarouselItem => ({
+              kind: "show",
+              show, pill,
+              key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`
+            }));
+            const allItems = [...festivalItems, ...showItems];
+            if (allItems.length === 0) {
+              return (
+                <div className="px-2 py-6 text-center">
+                  <div className="text-base text-ink">{t("empty.noShowsMonth")}</div>
+                </div>
+              );
+            }
+            return (
+              <ShowCarousel
+                items={allItems}
+                expandedKey={expanded}
+                favorites={favorites}
+                selectedCities={selectedCities}
+                viewMonth={{ year: currentMonth.year, monthIdx: currentMonth.monthIdx }}
+                onSelect={(key) => setExpanded(prev => prev === key ? null : key)}
+                onToggleFav={(id) => toggleFav(id)}
+                onFestivalSelect={(id) => setOpenFestivalId(id)}
+              />
+            );
+          })()}
         </div>
       ) : null}
       </div>
@@ -501,7 +523,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           hoogtes (geen stretch). Op mobiel stapelen ze met hun normale mt-20.
           Wanneer ze gestapeld zijn (< lg) verschijnt er een quote tussen de
           twee secties; op desktop staan beide quotes onderaan. */}
-      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-stretch">
         <GezelschappenSection gezelschappen={allGezelschappen} />
         <div className="lg:hidden">
           <InspiringQuote {...inspiringQuotes[5]} />
@@ -534,6 +556,22 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           className="bottle-sticker w-40 sm:w-48"
         />
       </div>
+
+      {/* Festival-modal — geopend wanneer er op een festival-kaart in de
+          "alle voorstellingen"-rij wordt geklikt. Gebruikt dezelfde modal
+          als de Theaterfestivals-sectie zodat de uitklap-ervaring met
+          voorstellingen-carousel identiek is. */}
+      {openFestivalId && (() => {
+        const f = festivals.find(x => x.id === openFestivalId);
+        if (!f) return null;
+        return (
+          <FestivalModal
+            festival={f}
+            shows={shows}
+            onClose={() => setOpenFestivalId(null)}
+          />
+        );
+      })()}
     </>
   );
 }
@@ -542,39 +580,61 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
 // Eén rij met kleine voorstellingscards + pijltjes; opent een detail-paneel
 // onder de rij wanneer je op een card klikt.
 
-interface CarouselItem {
-  show: ShowDisplay;
-  pill: string;
-  key: string;
-  /** Optioneel — wanneer de show binnen een theaterfestival valt
-   *  (overlap op periode_start/end + stad). */
-  festival?: Festival | null;
+/** Discriminated union — een carousel-item is óf een show-kaart óf een
+ *  festival-kaart. Festival-kaarten verschijnen in dezelfde rij als de
+ *  reguliere voorstellingen, zodat bezoekers in één blik zien wat er
+ *  een gegeven maand allemaal speelt (inclusief grote festivals). */
+type CarouselItem =
+  | { kind: "show"; show: ShowDisplay; pill: string; key: string }
+  | { kind: "festival"; festival: Festival; key: string };
+
+const MONTHS_NL_LOOKUP: Record<string, number> = {
+  januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
+  juli: 7, augustus: 8, september: 9, oktober: 10, november: 11, december: 12
+};
+
+function parseFestivalPeriode(periode: string): { start: number; end: number } {
+  const parts = periode.toLowerCase().split(/[–-]/).map(s => s.trim());
+  const findMonth = (text: string): number => {
+    for (const [name, num] of Object.entries(MONTHS_NL_LOOKUP)) {
+      if (text.includes(name)) return num;
+    }
+    return 12;
+  };
+  const start = findMonth(parts[0]);
+  const end = parts[1] ? findMonth(parts[1]) : start;
+  return { start, end };
 }
 
-/** Vindt het eerste theaterfestival waarvan de periode (periode_start
- *  en periode_end) overlapt met een van de show-speeldata in dezelfde
- *  stad. Geeft null als geen overlap. Festivals zonder ISO-datums in
- *  `periode_start`/`periode_end` worden overgeslagen — voor die festivals
- *  gebruiken we geen show-tagging om vals-positieven te voorkomen. */
-function findFestivalForShow(
-  show: ShowDisplay,
+/** Festivals die in de actieve maand spelen in een van de geselecteerde
+ *  steden. Voor festivals met `periode_start`/`periode_end` gebruiken we
+ *  ISO-datum-overlap (precies); voor festivals zonder die velden vallen
+ *  we terug op maand-parsing van het `periode`-tekstveld. */
+function festivalsForMonth(
   festivals: Festival[],
+  year: number,
+  monthIdx: number,
   selectedCities: Set<string>
-): Festival | null {
-  for (const f of festivals) {
-    const start = f.periode_start;
-    const end = f.periode_end;
-    if (!start || !end) continue;
-    const plaatsLower = f.plaats.toLowerCase();
-    for (const venue of show.venues) {
-      if (selectedCities.size > 0 && !selectedCities.has(venue.theater_stad)) continue;
-      if (!plaatsLower.includes(venue.theater_stad.toLowerCase())) continue;
-      if (venue.speeldata.some(d => d >= start && d <= end)) {
-        return f;
-      }
+): Festival[] {
+  const m = monthIdx + 1;
+  const monthStartMs = new Date(year, monthIdx, 1).getTime();
+  const monthEndMs = new Date(year, monthIdx + 1, 0, 23, 59, 59).getTime();
+  return festivals.filter(f => {
+    if (selectedCities.size > 0) {
+      const plaatsLower = f.plaats.toLowerCase();
+      const cityMatch = Array.from(selectedCities).some(c =>
+        plaatsLower.includes(c.toLowerCase())
+      );
+      if (!cityMatch) return false;
     }
-  }
-  return null;
+    if (f.periode_start && f.periode_end) {
+      const startMs = new Date(f.periode_start + "T00:00:00").getTime();
+      const endMs = new Date(f.periode_end + "T23:59:59").getTime();
+      return startMs <= monthEndMs && endMs >= monthStartMs;
+    }
+    const parsed = parseFestivalPeriode(f.periode);
+    return m >= parsed.start && m <= parsed.end;
+  });
 }
 
 interface ShowCarouselProps {
@@ -585,11 +645,15 @@ interface ShowCarouselProps {
   viewMonth?: { year: number; monthIdx: number };
   onSelect: (key: string) => void;
   onToggleFav: (id: string) => void;
+  /** Wanneer een festival-kaart wordt geklikt — opent de FestivalModal
+   *  buiten dit component. */
+  onFestivalSelect: (festivalId: string) => void;
 }
 
 function ShowCarousel({
-  items, expandedKey, favorites, selectedCities, viewMonth, onSelect, onToggleFav
+  items, expandedKey, favorites, selectedCities, viewMonth, onSelect, onToggleFav, onFestivalSelect
 }: ShowCarouselProps) {
+  const { lang } = useLang();
   const ref = useRef<HTMLDivElement>(null);
   const [edge, setEdge] = useState({ atStart: true, atEnd: false });
 
@@ -614,7 +678,11 @@ function ShowCarousel({
     el.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
   };
 
-  const expandedItem = items.find(it => it.key === expandedKey);
+  // Voor het detail-paneel onder de carousel: alleen show-items kunnen
+  // uitgeklapt zijn (festival-kaarten openen een eigen modal).
+  const expandedItem = items.find(it => it.key === expandedKey && it.kind === "show") as
+    | (CarouselItem & { kind: "show" })
+    | undefined;
   const cityResolvedVenues = expandedItem
     ? (() => {
         const cityFiltered = selectedCities.size === 0
@@ -633,18 +701,62 @@ function ShowCarousel({
           className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
         >
           <div className="flex gap-4 snap-x snap-mandatory pb-2 w-full">
-            {items.map(({ show, pill, key, festival }) => (
-              <SmallShowCard
-                key={key}
-                show={show}
-                pill={pill}
-                festival={festival}
-                isFavorite={favorites.has(show.id)}
-                isActive={expandedKey === key}
-                onSelect={() => onSelect(key)}
-                onToggleFav={() => onToggleFav(show.id)}
-              />
-            ))}
+            {items.map(item => {
+              if (item.kind === "festival") {
+                const f = item.festival;
+                const hero = f.foto_urls?.[0];
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => onFestivalSelect(f.id)}
+                    className="group relative shrink-0 snap-start w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)] overflow-hidden rounded-2xl text-left transition-transform hover:scale-[1.02] hover:-rotate-[0.6deg]"
+                    style={{ background: f.accent }}
+                  >
+                    <div className="relative aspect-[4/5]">
+                      {hero && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={hero}
+                          alt=""
+                          className="absolute inset-0 block h-full w-full object-cover"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                      <div className="pointer-events-none absolute top-2 left-2 flex flex-wrap gap-1">
+                        <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
+                          Festival
+                        </span>
+                        {f.english_friendly && (
+                          <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink inline-flex items-center gap-1">
+                            <span aria-hidden="true">🇬🇧</span>
+                          </span>
+                        )}
+                      </div>
+                      <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 text-white">
+                        <div className="text-sm font-medium leading-tight line-clamp-2">
+                          {f.naam}
+                        </div>
+                        <div className="mt-0.5 text-[10px] text-white/85 leading-tight line-clamp-1">
+                          {translatePeriode(f.periode, lang)} · {f.plaats}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              }
+              return (
+                <SmallShowCard
+                  key={item.key}
+                  show={item.show}
+                  pill={item.pill}
+                  isFavorite={favorites.has(item.show.id)}
+                  isActive={expandedKey === item.key}
+                  onSelect={() => onSelect(item.key)}
+                  onToggleFav={() => onToggleFav(item.show.id)}
+                />
+              );
+            })}
           </div>
         </div>
         {items.length > 4 && (

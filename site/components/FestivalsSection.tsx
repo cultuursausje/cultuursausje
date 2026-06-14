@@ -112,11 +112,6 @@ export function FestivalsSection({ festivals, shows }: Props) {
                 )}
                 {/* Donker gradient voor leesbaarheid van witte tekst */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                {f.english_friendly && (
-                  <div className="pointer-events-none absolute top-3 right-3 rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink inline-flex items-center gap-1">
-                    <span aria-hidden="true">🇬🇧</span>
-                  </div>
-                )}
                 <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
                   <div className="text-xs font-semibold uppercase tracking-widest opacity-90">
                     {translatePeriode(f.periode, lang)} · {f.plaats}
