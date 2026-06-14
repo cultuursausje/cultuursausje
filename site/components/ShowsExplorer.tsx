@@ -531,7 +531,7 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
         <TheatersSection theaters={allTheaters} mentionedTheaters={theaters} />
       </div>
 
-      <div className="hidden lg:block">
+      <div className="hidden lg:block lg:mt-8">
         <InspiringQuote {...inspiringQuotes[5]} />
       </div>
       <InspiringQuote {...inspiringQuotes[6]} />

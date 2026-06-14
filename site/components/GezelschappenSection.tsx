@@ -41,7 +41,7 @@ function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
 // te tonen + een glimp van de volgende stad onderaan zichtbaar te laten —
 // de fade-gradient onderaan suggereert "er is meer". Klikken op "Meer"
 // haalt deze cap weg en toont alle steden in volle hoogte.
-const COLLAPSED_MAX_H = 360;
+const COLLAPSED_MAX_H = 280;
 
 export function GezelschappenSection({ gezelschappen }: Props) {
   const t = useT();

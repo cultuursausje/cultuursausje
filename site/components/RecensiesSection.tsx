@@ -277,10 +277,11 @@ export function RecensiesSection({ shows }: Props) {
           >
             <div className="flex gap-6 snap-x snap-mandatory pb-2 w-full">
               {/* Leading spacer komt al van het scroll-paneel zelf via
-                  px-6/sm:px-10. Trailing spacer hieronder zorgt dat de
+                  px-6/sm:px-10. Trailing spacer onderaan zorgt dat de
                   laatste kaart even ver van de rechterrand komt — anders
                   plakt hij tegen de rand omdat scroll-containers
                   padding-right vaak negeren bij overflow. */}
+              {featured.map(({ show, quotes }) => {
                 const photoBg = photoBgForShow(show.id);
                 const isOpenReviews = expandedReviews.has(show.id);
                 const visible = isOpenReviews ? quotes : quotes.slice(0, INITIAL_QUOTES);
