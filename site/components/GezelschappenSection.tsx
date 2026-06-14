@@ -50,9 +50,9 @@ export function GezelschappenSection({ gezelschappen }: Props) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section id="gezelschappen" className="mt-20 sm:mt-24 lg:mt-20 lg:h-full">
+    <section id="gezelschappen" className="mt-20 sm:mt-24 lg:mt-20">
       <div
-        className="rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10 lg:flex lg:h-full lg:flex-col"
+        className="rounded-3xl px-6 pt-10 pb-8 sm:px-10 sm:pt-14 sm:pb-10"
         style={{ background: "#2D4DEB" }}
       >
         <h2 className="font-display mb-3 text-3xl text-white tracking-tight sm:text-4xl">
@@ -109,7 +109,7 @@ export function GezelschappenSection({ gezelschappen }: Props) {
           )}
         </div>
 
-        <div className="mt-6 flex justify-center lg:mt-auto lg:pt-6">
+        <div className="mt-6 flex justify-center">
           <button
             onClick={() => setExpanded(v => !v)}
             className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
