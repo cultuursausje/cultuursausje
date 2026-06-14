@@ -5,7 +5,7 @@ import {
   Heart, X,
   Play, Mic, ExternalLink, Star, ChevronLeft, ChevronRight
 } from "lucide-react";
-import type { ShowDisplay } from "@/types";
+import type { ShowDisplay, Festival } from "@/types";
 import { photoBgForShow } from "@/lib/colors";
 import { englishDays } from "@/lib/dates";
 import { useT, useLang, formatDateLang } from "@/lib/i18n";
@@ -17,6 +17,11 @@ interface SmallCardProps {
   pill: string;
   isFavorite: boolean;
   isActive: boolean;
+  /** Wanneer ingevuld, krijgt deze show een gekleurde festival-pill onder
+   *  de datum-pill (bv. "Holland Festival 🇬🇧"). Wordt buiten dit
+   *  component bepaald door overlap tussen show-speeldata en festival-
+   *  periode_start/periode_end in dezelfde stad. */
+  festival?: Festival | null;
   onSelect: () => void;
   onToggleFav: () => void;
 }
@@ -24,7 +29,7 @@ interface SmallCardProps {
 /** Compacte carousel-card voor de "Alle voorstellingen"-rij. Festival-stijl:
  *  portrait, foto-overlay, datum-pill linksboven, hartje rechtsboven. */
 export function SmallShowCard({
-  show, pill, isFavorite, isActive, onSelect, onToggleFav
+  show, pill, isFavorite, isActive, festival, onSelect, onToggleFav
 }: SmallCardProps) {
   const photoBg = photoBgForShow(show.id);
   const hasPhoto = !!show.foto_url;
@@ -69,9 +74,21 @@ export function SmallShowCard({
         )}
       </button>
 
-      {/* Datum-pill linksboven — neutrale stijl */}
-      <div className="pointer-events-none absolute top-2 left-2 z-20 rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
-        {pill}
+      {/* Datum-pill linksboven — neutrale stijl. Optioneel daaronder een
+          gekleurde festival-pill als de show binnen een festival valt. */}
+      <div className="pointer-events-none absolute top-2 left-2 z-20 flex flex-col items-start gap-1">
+        <div className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
+          {pill}
+        </div>
+        {festival && (
+          <div
+            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium text-white shadow-sm"
+            style={{ background: festival.accent }}
+          >
+            <span>{festival.naam}</span>
+            {festival.english_friendly && <span aria-hidden="true">🇬🇧</span>}
+          </div>
+        )}
       </div>
 
       {/* Hartje rechtsboven — los klik-target */}

@@ -382,6 +382,11 @@ export function PlanSection({ shows, festivals, favorites, onToggleFav }: Props)
                             <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink">
                               {t("festival.pill")}
                             </span>
+                            {f.english_friendly && (
+                              <span className="rounded-full bg-white/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-medium text-ink inline-flex items-center gap-1">
+                                <span aria-hidden="true">🇬🇧</span>
+                              </span>
+                            )}
                           </div>
                           <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 text-white">
                             <div className="text-sm font-medium leading-tight line-clamp-2">

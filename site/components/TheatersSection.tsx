@@ -48,7 +48,10 @@ function mapsLinkForTheater(theater: string, stad: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater + ", " + stad)}`;
 }
 
-const INITIAL_CITY_COUNT = 3;
+// Max-hoogte van het gesloten paneel (in px). Genoeg om de eerste paar
+// steden te zien + een glimp van de volgende. Klikken op "Meer" haalt
+// deze cap weg.
+const COLLAPSED_MAX_H = 540;
 
 export function TheatersSection({ theaters }: Props) {
   const t = useT();
@@ -58,8 +61,6 @@ export function TheatersSection({ theaters }: Props) {
   const nlTheaters = theaters.filter(th => isNotBelgianCity(th.stad));
   const grouped = groupByCity(nlTheaters);
   const [expanded, setExpanded] = useState(false);
-  const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
-  const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
     <section id="theaters" className="mt-20 sm:mt-24">
@@ -74,52 +75,68 @@ export function TheatersSection({ theaters }: Props) {
           {t("section.theaters.subtitle")}
         </p>
 
-        <div className="space-y-10">
-          {visibleCities.map(([city, list]) => (
-            <div key={city}>
-              <h3
-                className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
-                style={{ color: colorForCity(city) }}
-              >
-                {city}
-              </h3>
-              <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
-                {list.map(th => (
-                  <div key={th.id}>
-                    <a
-                      href={th.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
-                    >
-                      {th.naam}
-                      <ExternalLink size={12} className="text-ink-soft" />
-                    </a>
-                    <a
-                      href={mapsLinkForTheater(th.naam, th.stad)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-0.5 inline-flex items-center gap-1 text-xs text-ink-soft hover:text-ink underline-offset-2 hover:underline"
-                    >
-                      <MapPin size={11} /> {t("theater.onMap")}
-                    </a>
-                  </div>
-                ))}
+        <div className="relative">
+          <div
+            className="space-y-10 overflow-hidden transition-[max-height] duration-500 ease-out"
+            style={{ maxHeight: expanded ? 6000 : COLLAPSED_MAX_H }}
+          >
+            {grouped.map(([city, list]) => (
+              <div key={city}>
+                <h3
+                  className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
+                  style={{ color: colorForCity(city) }}
+                >
+                  {city}
+                </h3>
+                <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
+                  {list.map(th => (
+                    <div key={th.id}>
+                      <a
+                        href={th.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-base font-bold text-ink hover:underline underline-offset-2"
+                      >
+                        {th.naam}
+                        <ExternalLink size={12} className="text-ink-soft" />
+                      </a>
+                      <a
+                        href={mapsLinkForTheater(th.naam, th.stad)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-0.5 inline-flex items-center gap-1 text-xs text-ink-soft hover:text-ink underline-offset-2 hover:underline"
+                      >
+                        <MapPin size={11} /> {t("theater.onMap")}
+                      </a>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Bottom fade-gradient — kleur matcht sectie-achtergrond #C7DC2D. */}
+          {!expanded && (
+            <div
+              className="pointer-events-none absolute bottom-0 left-0 right-0 h-28"
+              style={{
+                background:
+                  "linear-gradient(to top, #C7DC2D 0%, rgba(199,220,45,0.85) 40%, rgba(199,220,45,0) 100%)"
+              }}
+            />
+          )}
         </div>
 
-        {hasMore && (
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={() => setExpanded(v => !v)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
-            >
-              {expanded ? <>{t("button.less")} <ChevronUp size={14} /></> : <>{t("button.seeMore")} <ChevronDown size={14} /></>}
-            </button>
-          </div>
-        )}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => setExpanded(v => !v)}
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
+          >
+            {expanded
+              ? <>{t("button.less")} <ChevronUp size={14} /></>
+              : <>{t("button.seeMore")} <ChevronDown size={14} /></>}
+          </button>
+        </div>
       </div>
     </section>
   );

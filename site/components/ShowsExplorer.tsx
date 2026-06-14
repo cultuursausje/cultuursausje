@@ -445,7 +445,11 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
           </div>
         ) : (
           <ShowCarousel
-            items={allFavoritedShows.map(({ show, pill }) => ({ show, pill, key: `${show.id}--fav` }))}
+            items={allFavoritedShows.map(({ show, pill }) => ({
+              show, pill,
+              key: `${show.id}--fav`,
+              festival: findFestivalForShow(show, festivals, selectedCities)
+            }))}
             expandedKey={expanded}
             favorites={favorites}
             selectedCities={selectedCities}
@@ -466,7 +470,8 @@ export function ShowsExplorer({ shows, theaters, allTheaters, allGezelschappen, 
             <ShowCarousel
               items={currentMonthShows.map(({ show, pill }) => ({
                 show, pill,
-                key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`
+                key: `${show.id}--${monthKey(currentMonth.year, currentMonth.monthIdx)}`,
+                festival: findFestivalForShow(show, festivals, selectedCities)
               }))}
               expandedKey={expanded}
               favorites={favorites}
@@ -541,6 +546,35 @@ interface CarouselItem {
   show: ShowDisplay;
   pill: string;
   key: string;
+  /** Optioneel — wanneer de show binnen een theaterfestival valt
+   *  (overlap op periode_start/end + stad). */
+  festival?: Festival | null;
+}
+
+/** Vindt het eerste theaterfestival waarvan de periode (periode_start
+ *  en periode_end) overlapt met een van de show-speeldata in dezelfde
+ *  stad. Geeft null als geen overlap. Festivals zonder ISO-datums in
+ *  `periode_start`/`periode_end` worden overgeslagen — voor die festivals
+ *  gebruiken we geen show-tagging om vals-positieven te voorkomen. */
+function findFestivalForShow(
+  show: ShowDisplay,
+  festivals: Festival[],
+  selectedCities: Set<string>
+): Festival | null {
+  for (const f of festivals) {
+    const start = f.periode_start;
+    const end = f.periode_end;
+    if (!start || !end) continue;
+    const plaatsLower = f.plaats.toLowerCase();
+    for (const venue of show.venues) {
+      if (selectedCities.size > 0 && !selectedCities.has(venue.theater_stad)) continue;
+      if (!plaatsLower.includes(venue.theater_stad.toLowerCase())) continue;
+      if (venue.speeldata.some(d => d >= start && d <= end)) {
+        return f;
+      }
+    }
+  }
+  return null;
 }
 
 interface ShowCarouselProps {
@@ -599,11 +633,12 @@ function ShowCarousel({
           className="-mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto scrollbar-hide"
         >
           <div className="flex gap-4 snap-x snap-mandatory pb-2 w-full">
-            {items.map(({ show, pill, key }) => (
+            {items.map(({ show, pill, key, festival }) => (
               <SmallShowCard
                 key={key}
                 show={show}
                 pill={pill}
+                festival={festival}
                 isFavorite={favorites.has(show.id)}
                 isActive={expandedKey === key}
                 onSelect={() => onSelect(key)}

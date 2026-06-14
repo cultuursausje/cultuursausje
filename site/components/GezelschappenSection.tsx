@@ -37,15 +37,17 @@ function groupByCity(items: Gezelschap[]): Array<[string, Gezelschap[]]> {
     ] as [string, Gezelschap[]]);
 }
 
-const INITIAL_CITY_COUNT = 2;
+// Max-hoogte van het gesloten paneel (in px). Genoeg om 1-2 steden volledig
+// te tonen + een glimp van de volgende stad onderaan zichtbaar te laten —
+// de fade-gradient onderaan suggereert "er is meer". Klikken op "Meer"
+// haalt deze cap weg en toont alle steden in volle hoogte.
+const COLLAPSED_MAX_H = 480;
 
 export function GezelschappenSection({ gezelschappen }: Props) {
   const t = useT();
   const { lang } = useLang();
   const grouped = groupByCity(gezelschappen);
   const [expanded, setExpanded] = useState(false);
-  const visibleCities = expanded ? grouped : grouped.slice(0, INITIAL_CITY_COUNT);
-  const hasMore = grouped.length > INITIAL_CITY_COUNT;
 
   return (
     <section id="gezelschappen" className="mt-20 sm:mt-24">
@@ -60,45 +62,63 @@ export function GezelschappenSection({ gezelschappen }: Props) {
           {t("section.gezelschappen.subtitle")}
         </p>
 
-        <div className="space-y-10">
-          {visibleCities.map(([city, list]) => (
-            <div key={city}>
-              <h3
-                className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
-                style={{ color: colorForCity(city) }}
-              >
-                {city}
-              </h3>
-              <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
-                {list.map(g => (
-                  <div key={g.id}>
-                    <a
-                      href={g.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-base font-bold text-white hover:underline underline-offset-2"
-                    >
-                      {g.naam}
-                      <ExternalLink size={12} className="text-white/70" />
-                    </a>
-                    <div className="mt-0.5 text-xs text-white/75">{translateGezelschapType(g.type, lang)}</div>
-                  </div>
-                ))}
+        <div className="relative">
+          <div
+            className="space-y-10 overflow-hidden transition-[max-height] duration-500 ease-out"
+            style={{ maxHeight: expanded ? 4000 : COLLAPSED_MAX_H }}
+          >
+            {grouped.map(([city, list]) => (
+              <div key={city}>
+                <h3
+                  className="mb-5 text-xl font-bold tracking-tight sm:text-2xl"
+                  style={{ color: colorForCity(city) }}
+                >
+                  {city}
+                </h3>
+                <div className="grid grid-cols-1 gap-x-12 gap-y-3 md:grid-cols-2">
+                  {list.map(g => (
+                    <div key={g.id}>
+                      <a
+                        href={g.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-base font-bold text-white hover:underline underline-offset-2"
+                      >
+                        {g.naam}
+                        <ExternalLink size={12} className="text-white/70" />
+                      </a>
+                      <div className="mt-0.5 text-xs text-white/75">{translateGezelschapType(g.type, lang)}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Bottom fade-gradient — alleen zichtbaar in collapsed state.
+              Suggereert "er is meer" zonder de ruimte van het paneel te
+              ontploffen. Kleur matcht de sectie-achtergrond #2D4DEB. */}
+          {!expanded && (
+            <div
+              className="pointer-events-none absolute bottom-0 left-0 right-0 h-28"
+              style={{
+                background:
+                  "linear-gradient(to top, #2D4DEB 0%, rgba(45,77,235,0.85) 40%, rgba(45,77,235,0) 100%)"
+              }}
+            />
+          )}
         </div>
 
-        {hasMore && (
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={() => setExpanded(v => !v)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
-            >
-              {expanded ? <>{t("button.less")} <ChevronUp size={14} /></> : <>{t("button.seeMore")} <ChevronDown size={14} /></>}
-            </button>
-          </div>
-        )}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => setExpanded(v => !v)}
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-ink hover:bg-white transition-colors"
+          >
+            {expanded
+              ? <>{t("button.less")} <ChevronUp size={14} /></>
+              : <>{t("button.seeMore")} <ChevronDown size={14} /></>}
+          </button>
+        </div>
       </div>
     </section>
   );
