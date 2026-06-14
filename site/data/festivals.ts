@@ -188,6 +188,7 @@ export const festivals: Festival[] = [
     plaats: "Amsterdam",
     beschrijving: "Het grootste festival voor hedendaagse internationale dans in Nederland. Twee weken lang vernieuwende choreografieën.",
     beschrijving_en: "The largest festival for contemporary international dance in the Netherlands. Two weeks of innovative choreography.",
+    english_friendly: true,
     url: "https://www.julidans.nl",
     accent: "#9BD43F",
     match_keywords: ["julidans"],
