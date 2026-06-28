@@ -464,5 +464,31 @@ export const pers: PersQuote[] = [
     quote: "Jacobien Elffers genomineerd voor de Theo d'Or voor haar rol in SUPERDRUM — de belangrijkste Nederlandse toneelprijs voor vrouwelijke spelers.",
     quote_en: "Jacobien Elffers nominated for the Theo d'Or for her role in SUPERDRUM — the most prestigious Dutch acting award for female performers.",
     date: "2026-04-15"
+  },
+
+  // NORTH SIDE STORY (YoungGangsters) - tournee Karavaan → Oerol → NDSM-werf
+  {
+    show_id: "north-side-story",
+    bron: "Trouw",
+    sterren: 4,
+    quote: "Sterk acteerwerk in 'North Side Story'.",
+    quote_en: "Strong acting in 'North Side Story'.",
+    date: "2026-05-31"
+  },
+  {
+    show_id: "north-side-story",
+    bron: "NRC",
+    sterren: 4,
+    quote: "Dynamische spektakel. De zes acteurs benutten de locatie aan de haven optimaal.",
+    quote_en: "A dynamic spectacle. The six actors make optimal use of the harbour location.",
+    date: "2026-05-31"
+  },
+  {
+    show_id: "north-side-story",
+    bron: "de Volkskrant",
+    sterren: 3,
+    quote: "Toneelschrijver Jibbe Willems zorgde voor eigenzinnige, shakespeareaanse taal vol fijne woordgrapjes; de spelers vinden een goede balans tussen onbeschaamd, smeuïg én liefdevol spel, waardoor je beide kampen in je hart sluit.",
+    quote_en: "Playwright Jibbe Willems delivered idiosyncratic, Shakespearean language full of clever wordplay; the performers strike a good balance between unabashed, juicy and loving acting, making you take both camps to heart.",
+    date: "2026-05-31"
   }
 ];

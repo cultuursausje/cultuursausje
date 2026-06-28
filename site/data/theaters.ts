@@ -492,5 +492,11 @@ export const theaters: Theater[] = [
     stad: "Hoofddorp",
     url: "https://www.cpunt.nl",
     beschrijving: "Cultuurgebouw in Hoofddorp met podium voor theater, muziek en film."
+  },
+  {
+    id: "ndsm-werf", naam: "NDSM-werf", afkorting: "NDSM",
+    stad: "Amsterdam",
+    url: "https://www.ndsm.nl",
+    beschrijving: "Voormalige scheepswerf in Amsterdam-Noord. Industriële openluchtlocatie voor kunst, festivals en grootschalig locatietheater."
   }
 ];

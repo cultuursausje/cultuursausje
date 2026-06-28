@@ -151,5 +151,10 @@ export const gezelschappen: Gezelschap[] = [
     id: "het-houten-huis", naam: "Het Houten Huis", afkorting: "Het Houten Huis",
     type: "Theatergezelschap (beeldend muziektheater)", stad: "Groningen", url: "https://hethoutenhuis.org/",
     beschrijving: "Gronings beeldend muziektheatergezelschap. Maakt sprookjesachtige, fantasievolle voorstellingen voor jong en oud, vaak met live muziek en bijzondere vormgeving."
+  },
+  {
+    id: "younggangsters", naam: "YoungGangsters", afkorting: "YoungGangsters",
+    type: "Theatercollectief (locatietheater)", stad: "Amsterdam", url: "https://younggangsters.com/",
+    beschrijving: "Amsterdams locatietheater-collectief onder leiding van Annechien de Vocht. Spektakelvoorstellingen op bijzondere plekken, met rauwe energie, slapstick en live muziek."
   }
 ];

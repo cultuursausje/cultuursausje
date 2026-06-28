@@ -1623,5 +1623,25 @@ export const shows: Show[] = [
     ticket_url: "https://ita.nl/nl/voorstellingen/wachten-op-marsha/4039940/",
     interesting_because: "Programma-onderdeel van WorldPride Amsterdam 2026. Een nieuwe productie van Raymi Sambo Maakt (Wie is er bang voor Sylvana), met ITA als coproducent. Verbindt Stonewall met de hedendaagse strijd voor queer rechten.",
     interesting_because_en: "Part of WorldPride Amsterdam 2026. A new production from Raymi Sambo Maakt (Wie is er bang voor Sylvana), co-produced by ITA. Connects Stonewall with the contemporary fight for queer rights."
+  },
+  {
+    id: "north-side-story",
+    titel: "NORTH SIDE STORY",
+    gezelschap_id: "younggangsters", gezelschap: "YoungGangsters",
+    theater_id: "ndsm-werf", theater: "NDSM-werf", extra_theaters: [],
+    speelperiode_start: "2026-07-01", speelperiode_end: "2026-07-05",
+    speeldata: ["2026-07-01", "2026-07-02", "2026-07-03", "2026-07-05"],
+    korte_samenvatting: "Een actiemusical over liefde in een volksbuurt vol nieuwkomers — Romeo en Julia op de NDSM-werf, met rauw spektakel en slapstickgevechten.",
+    korte_samenvatting_en: "An action musical about love in a working-class neighbourhood full of newcomers — Romeo and Juliet on the NDSM shipyard, with raw spectacle and slapstick fights.",
+    lange_samenvatting: "In een grootsteedse volksbuurt waar de rijke yuppen als indringers worden beschouwd, bloeit een liefde op die het conflict tussen de bevolkingsgroepen overstijgt. Hij: een aannemerszoon die noodgedwongen maar gezellig nog bij zijn ouders woont. Zij: een ambitieuze, idealistische bewonersonderzoekster uit een peperduur nieuwbouwappartement. Vrij geïnspireerd op Shakespeare's Romeo en Julia én de musicalfilm West Side Story schreef Jibbe Willems een libretto met romantische één-tweetjes, dramatische verwikkelingen en gezongen confrontaties. Een actiemusical in YoungGangsters-stijl, vol kleurrijke figuren, rauw spektakel en op z'n tijd een slapstickgevecht.",
+    lange_samenvatting_en: "In a city neighbourhood where wealthy yuppies are seen as intruders, a love blossoms that rises above the conflict between the two camps. Him: a builder's son still living with his parents. Her: an ambitious, idealistic resident-researcher from a pricey new-build apartment. Loosely inspired by Shakespeare's Romeo and Juliet and the musical film West Side Story, playwright Jibbe Willems wrote a libretto full of romantic exchanges, dramatic twists and sung confrontations. An action musical in YoungGangsters style — colourful characters, raw spectacle and the occasional slapstick fight.",
+    regisseur: "Annechien de Vocht & Jochem Stavenuiter", based_on: "Romeo en Julia (Shakespeare) en West Side Story",
+    foto_url: "https://younggangsters.com/wp-content/uploads/2026/01/NORTH-SIDE-STORY-Bart-Grietens-16-1-1652x708.jpg",
+    foto_credit: "Bart Grietens",
+    english_friendly: false, english_friendly_detail: "",
+    categorieen: ["Locatietheater", "Musical", "Romeo en Julia"],
+    ticket_url: "https://younggangsters.com/north-side-story/",
+    interesting_because: "Een actiemusical op de NDSM-werf, met spel, zang en spektakel buiten onder de zomerhemel. Bekroond met vier sterren in Trouw en NRC. Verschillende voorstellingen zijn al uitverkocht — wees er snel bij.",
+    interesting_because_en: "An action musical on the NDSM shipyard, with acting, singing and spectacle outside under the summer sky. Awarded four stars in Trouw and NRC. Several performances are already sold out — book quickly."
   }
 ];
