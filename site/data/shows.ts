@@ -1603,5 +1603,25 @@ export const shows: Show[] = [
     ticket_url: "https://veenfabriek.nl/voorstellingen/frankenstein/",
     interesting_because: "Veenfabriek blaast Mary Shelley's monster nieuw leven in als steampunk-horrortrip. Regisseur Joeri Vos (van het Theo-d'Or-genomineerde SUPERDRUM) met componisten die Schuberts Unfinished Symphony proberen af te maken.",
     interesting_because_en: "Veenfabriek breathes new life into Mary Shelley's monster as a steampunk horror trip. Directed by Joeri Vos (of the Theo d'Or-nominated SUPERDRUM), with composers attempting to finally finish Schubert's Unfinished Symphony."
+  },
+  {
+    id: "wachten-op-marsha",
+    titel: "Wachten op Marsha",
+    gezelschap_id: "ita", gezelschap: "Raymi Sambo Maakt / Internationaal Theater Amsterdam",
+    theater_id: "ita", theater: "Internationaal Theater Amsterdam", extra_theaters: [],
+    speelperiode_start: "2026-07-28", speelperiode_end: "2026-07-31",
+    speeldata: ["2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31"],
+    korte_samenvatting: "Een groep queer activisten bereidt tijdens World Pride 2026 een ingrijpende actie voor — en de vraag wordt hoe ver je mag gaan in de strijd voor zichtbaarheid.",
+    korte_samenvatting_en: "A group of queer activists prepares a high-stakes action during World Pride 2026 — and the question becomes how far you may go in the fight for visibility.",
+    lange_samenvatting: "New York, 1969. In een bar vol muziek, kleur en spanning loopt de frustratie van de queer gemeenschap uit op de Stonewall-rellen — het beginpunt van een wereldwijde strijd voor gelijke rechten. Meer dan vijftig jaar later wordt die geschiedenis gespiegeld aan het heden, waarin queer rechten opnieuw ter discussie staan. Onder leiding van Marvan bereidt een groep queer activisten een ingrijpende actie voor tijdens World Pride 2026, om aandacht af te dwingen voor de toename van geweld, uitsluiting en politieke druk op de gemeenschap. Wat begint als een gedeelde missie verandert langzaam in een spanningsveld tussen idealen en strategie.",
+    lange_samenvatting_en: "New York, 1969. In a bar full of music, colour and tension, queer frustration boils over into the Stonewall riots — the starting point of a worldwide fight for equal rights. More than fifty years on, that history is held up against today, when queer rights are once again under pressure. Under Marvan's leadership, a group of queer activists prepares a high-stakes action during World Pride 2026 to draw attention to rising violence, exclusion and political pressure. What starts as a shared mission slowly turns into a tense negotiation between ideals and strategy.",
+    regisseur: "Raymi Sambo", based_on: "De Stonewall-rellen, 1969",
+    foto_url: "https://ita.nl/img/singles/RSM043_Marsha_keyvisual_150-x-100.jpg?w=1200&h=630&fit=crop-50-50",
+    foto_credit: "Raymi Sambo Maakt",
+    english_friendly: true, english_friendly_detail: "Engelse boventiteling op 30 & 31 juli",
+    categorieen: ["Pride", "Queer", "Activisme"],
+    ticket_url: "https://ita.nl/nl/voorstellingen/wachten-op-marsha/4039940/",
+    interesting_because: "Programma-onderdeel van WorldPride Amsterdam 2026. Een nieuwe productie van Raymi Sambo Maakt (Wie is er bang voor Sylvana), met ITA als coproducent. Verbindt Stonewall met de hedendaagse strijd voor queer rechten.",
+    interesting_because_en: "Part of WorldPride Amsterdam 2026. A new production from Raymi Sambo Maakt (Wie is er bang voor Sylvana), co-produced by ITA. Connects Stonewall with the contemporary fight for queer rights."
   }
 ];

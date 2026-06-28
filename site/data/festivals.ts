@@ -298,7 +298,7 @@ export const festivals: Festival[] = [
         gezelschap: "Alan Lucien Øyen / winterguests",
         type: "dans",
         english_friendly: true,
-        foto_url: "https://julidans.nl/img/singles/IMG_5590IMG_00-c-MATS-BÄCKER.JPG",
+        foto_url: "https://ita.nl/img/singles/IMG_5590IMG_00-c-MATS-BA%CC%88CKER.JPG?w=1200&h=630&fit=crop-50-50",
         foto_credit: "Mats Bäcker",
         korte_omschrijving: "Aangrijpend danstheater over verzet, geweten en de prijs die een individu betaalt wanneer het zich tegen de macht keert. In de geest van Pina Bausch.",
         korte_omschrijving_en: "Gripping dance theatre about resistance, conscience and the price an individual pays when standing up to power. In the spirit of Pina Bausch.",
