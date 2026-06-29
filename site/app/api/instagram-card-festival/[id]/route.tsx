@@ -61,6 +61,15 @@ export async function GET(
     }
   }
 
+  // Tekstkleur voor inhoud op de accent-kleur. Standaard wit; festivals
+  // met een lichte accent-kleur kunnen `accent_text: "#000000"` zetten
+  // voor leesbaarheid. De afgeleide mid/subtle varianten gebruiken
+  // automatisch de juiste basiskleur met semi-transparantie.
+  const textColor = festival.accent_text ?? "#ffffff";
+  const isDark = textColor === "#000000" || textColor === "#000";
+  const textMid = isDark ? "rgba(0,0,0,0.78)" : "rgba(255,255,255,0.92)";
+  const textSubtle = isDark ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.78)";
+
   return new ImageResponse(
     (
       <div
@@ -105,7 +114,7 @@ export async function GET(
           <div
             style={{
               background: festival.accent,
-              color: "#ffffff",
+              color: textColor,
               fontSize: 36,
               fontWeight: 500,
               padding: "12px 28px",
@@ -139,7 +148,7 @@ export async function GET(
               top: 40,
               right: 40,
               background: festival.accent,
-              color: "#ffffff",
+              color: textColor,
               fontSize: 22,
               fontWeight: 500,
               padding: "8px 18px",
@@ -171,7 +180,7 @@ export async function GET(
               fontWeight: 600,
               lineHeight: 1.05,
               letterSpacing: -1.2,
-              color: "#ffffff"
+              color: textColor
             }}
           >
             {festival.naam}
@@ -182,7 +191,7 @@ export async function GET(
                 marginTop: 16,
                 fontSize: 30,
                 fontWeight: 500,
-                color: "rgba(255,255,255,0.92)",
+                color: textMid,
                 lineHeight: 1.2
               }}
             >
@@ -195,7 +204,7 @@ export async function GET(
                 marginTop: 4,
                 fontSize: 26,
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.78)",
+                color: textSubtle,
                 lineHeight: 1.2
               }}
             >

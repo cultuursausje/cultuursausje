@@ -192,7 +192,8 @@ export const festivals: Festival[] = [
     beschrijving_en: "The largest festival for contemporary international dance in the Netherlands. Two weeks of innovative choreography.",
     english_friendly: true,
     url: "https://www.julidans.nl",
-    accent: "#9BD43F",
+    accent: "#ADCF52",
+    accent_text: "#000000",
     match_keywords: ["julidans"],
     foto_urls: [
       "https://julidans.nl/img/singles/cropped-beeld-zonder-iets-voor-website.jpg?w=1280&h=720&fit=crop-50-50",

@@ -159,6 +159,11 @@ export interface Festival {
   english_friendly?: boolean;
   url: string;
   accent: string; // hex kleur voor de teaser-card
+  /** Optionele tekstkleur voor inhoud bovenop de accent-kleur (info-pills
+   *  e.d.). Standaard wit; zet op "#000000" wanneer de accent-kleur licht
+   *  is en zwarte tekst beter leesbaar is (bv. lichte sage-green van
+   *  Julidans). */
+  accent_text?: string;
   /** Categoriewoorden die in show.categorieen kunnen voorkomen om koppeling te bepalen */
   match_keywords: string[];
   foto_urls?: string[];
