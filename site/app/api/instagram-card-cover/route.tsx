@@ -26,12 +26,19 @@ const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
   juli: 7, augustus: 8, september: 9, oktober: 10, november: 11, december: 12
 };
+const MONTHS_NL_SHORT: Record<string, number> = {
+  jan: 1, feb: 2, mrt: 3, apr: 4, jun: 6,
+  jul: 7, aug: 8, sep: 9, okt: 10, nov: 11, dec: 12
+};
 
 function parsePeriode(periode: string): { start: number; end: number } {
   const parts = periode.toLowerCase().split(/[–-]/).map((s) => s.trim());
   const findMonth = (text: string): number => {
     for (const [name, num] of Object.entries(MONTHS_NL)) {
       if (text.includes(name)) return num;
+    }
+    for (const [name, num] of Object.entries(MONTHS_NL_SHORT)) {
+      if (new RegExp(`\\b${name}\\b`).test(text)) return num;
     }
     return 12;
   };

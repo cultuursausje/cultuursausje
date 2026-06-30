@@ -23,20 +23,31 @@ interface SearchParams {
 // Bump deze waarde wanneer je data wijzigt en de gegenereerde PNG's
 // niet ververst lijken te worden — Vercel cachet ImageResponse-output
 // agressief. Een nieuwe `v=` waarde maakt het feitelijk een nieuwe URL.
-const IMAGE_VERSION = 24;
+const IMAGE_VERSION = 25;
 
 const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
   juli: 7, augustus: 8, september: 9, oktober: 10, november: 11, december: 12
 };
+const MONTHS_NL_SHORT: Record<string, number> = {
+  jan: 1, feb: 2, mrt: 3, apr: 4, jun: 6,
+  jul: 7, aug: 8, sep: 9, okt: 10, nov: 11, dec: 12
+  // "mei" en "mar" overlappen niet — "mei" zit in de FULL-dict
+};
 
-/** Parseert een vrije-tekst periode zoals "Juni", "Mei – Juni" of
- *  "Eind mei – begin juni" naar een start/end-maandnummer (1-12). */
+/** Parseert een vrije-tekst periode zoals "Juni", "Mei – Juni",
+ *  "Eind mei – begin juni" of "19 jun – 30 aug" naar een
+ *  start/end-maandnummer (1-12). */
 function parsePeriode(periode: string): { start: number; end: number } {
   const parts = periode.toLowerCase().split(/[–-]/).map((s) => s.trim());
   const findMonth = (text: string): number => {
+    // Eerst lange maandnamen (specifieker), daarna korte afkortingen.
     for (const [name, num] of Object.entries(MONTHS_NL)) {
       if (text.includes(name)) return num;
+    }
+    for (const [name, num] of Object.entries(MONTHS_NL_SHORT)) {
+      // \b zorgt dat "jun" niet matcht in "junior" o.i.d.
+      if (new RegExp(`\\b${name}\\b`).test(text)) return num;
     }
     return 12;
   };
@@ -75,11 +86,23 @@ export default async function SharePage({
     });
   });
 
-  // Festival-filter: speelt in {city} én de periode overlapt met de maand
-  const monthNum = parseInt(monthPrefix.split("-")[1], 10);
+  // Festival-filter: speelt in {city} én de periode overlapt met de maand.
+  // Wanneer een festival ISO-datums in `periode_start`/`periode_end` heeft
+  // (zoals De Parade: 19 jun – 30 aug), gebruiken we die voor dag-precieze
+  // overlap. Anders vallen we terug op het vrije-tekst maand-parsen.
+  const [yearStr, monthStr] = monthPrefix.split("-");
+  const yearNum = parseInt(yearStr, 10);
+  const monthNum = parseInt(monthStr, 10);
+  const monthStartMs = new Date(yearNum, monthNum - 1, 1).getTime();
+  const monthEndMs = new Date(yearNum, monthNum, 0, 23, 59, 59).getTime();
   const cityLower = city.toLowerCase();
   const filteredFestivals = festivals.filter((f) => {
     if (!f.plaats.toLowerCase().includes(cityLower)) return false;
+    if (f.periode_start && f.periode_end) {
+      const startMs = new Date(f.periode_start + "T00:00:00").getTime();
+      const endMs = new Date(f.periode_end + "T23:59:59").getTime();
+      return startMs <= monthEndMs && endMs >= monthStartMs;
+    }
     const { start, end } = parsePeriode(f.periode);
     return monthNum >= start && monthNum <= end;
   });
