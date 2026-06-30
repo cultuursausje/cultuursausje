@@ -6,7 +6,7 @@ import { festivals } from "@/data/festivals";
  * Genereert een 1080×1350 Instagram-portrait PNG met een COVER-collage:
  * alle voorstellings-foto's van de geselecteerde maand+stad in een
  * mengelmoes, met centraal twee pills ("Theater tips Amsterdam Juni" en
- * "Swipen maar") over de foto's heen.
+ * "swipe →") over de foto's heen.
  *
  * Selectie:
  *   - Reguliere shows die in {city} spelen in {monthPrefix}
@@ -68,6 +68,11 @@ export async function GET(req: Request) {
 
   // 2) Foto-URLs van festival-voorstellingen, ZONDER De Parade en ZONDER
   //    de overkoepelende festival-foto's zelf.
+  //
+  //    Speciale curatie voor Julidans: het festival heeft veel internationale
+  //    voorstellingen en zou de cover-collage anders volledig domineren.
+  //    Daarom nemen we alleen het Nicole Beutler-project mee (Room in Our
+  //    House) — de meest aansprekende lokale Julidans-productie.
   const monthNum = parseInt(monthPrefix.split("-")[1], 10);
   const cityLower = city.toLowerCase();
   const festivalShowUrls: string[] = [];
@@ -77,7 +82,14 @@ export async function GET(req: Request) {
     const { start, end } = parsePeriode(f.periode);
     if (!(monthNum >= start && monthNum <= end)) return;
     (f.voorstellingen ?? []).forEach((v) => {
-      if (v.foto_url) festivalShowUrls.push(v.foto_url);
+      if (!v.foto_url) return;
+      // Julidans: filter op Nicole Beutler — andere internationale acts
+      // overslaan zodat de cover niet door Julidans wordt overspoeld.
+      if (f.id === "julidans") {
+        const gez = (v.gezelschap ?? "").toLowerCase();
+        if (!gez.includes("nicole beutler")) return;
+      }
+      festivalShowUrls.push(v.foto_url);
     });
   });
 
@@ -103,11 +115,13 @@ export async function GET(req: Request) {
   );
   const photoUrls = probed.filter((u): u is string => u !== null);
 
-  // Layout: tegel-grid van foto's. 4 kolommen × 5 rijen = 20 cellen.
-  // Foto's herhalen wanneer er minder dan 20 beschikbaar zijn, zodat
-  // het beeld volledig vult.
-  const COLS = 4;
-  const ROWS = 5;
+  // Layout: tegel-grid van foto's. 3 kolommen × 4 rijen = 12 cellen.
+  // Met 360px-tegels zijn de foto's groot en duidelijk herkenbaar — de
+  // collage werkt vooral als er ~6-12 verschillende foto's zijn (anders
+  // worden ze veel herhaald). Foto's herhalen wanneer er minder dan 12
+  // beschikbaar zijn, zodat het beeld volledig vult.
+  const COLS = 3;
+  const ROWS = 4;
   const TOTAL_CELLS = COLS * ROWS;
   const cells: string[] = [];
   if (photoUrls.length > 0) {
@@ -115,7 +129,7 @@ export async function GET(req: Request) {
       cells.push(photoUrls[i % photoUrls.length]);
     }
   }
-  const cellSize = 270;
+  const cellSize = 360;
   // Lichte deterministische rotatie per cel — voor de "mengelmoes" feel
   const rotations = [-2.2, 1.4, -1.8, 2.6, -0.8, 1.9, -2.8, 0.7, -1.3, 2.1, -2.0, 1.0];
 
@@ -215,7 +229,7 @@ export async function GET(req: Request) {
               boxShadow: "0 10px 28px rgba(0,0,0,0.3)"
             }}
           >
-            Swipen maar →
+            swipe →
           </div>
         </div>
       </div>
