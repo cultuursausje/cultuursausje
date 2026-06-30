@@ -994,7 +994,8 @@ export const festivals: Festival[] = [
     beschrijving: "Het enige rondreizende theaterfestival ter wereld. 80+ korte voorstellingen in theatertenten — theater, dans, mime en muziek, ieder zo'n 30 minuten zodat je er meerdere op een avond kan combineren. 's Zomers achtereenvolgens in Rotterdam (19 t/m 28 juni), Den Haag (3 t/m 19 juli), Amsterdam (24 juli t/m 9 augustus) en Utrecht (14 t/m 30 augustus).",
     beschrijving_en: "The only travelling theatre festival in the world. 80+ short performances in circus tents — theatre, dance, mime and music, each about 30 minutes long so you can combine several in one evening. In summer it travels in succession through Rotterdam (19–28 June), The Hague (3–19 July), Amsterdam (24 July – 9 August) and Utrecht (14–30 August).",
     url: "https://deparade.nl",
-    accent: "#FF8A33",
+    accent: "#B5DBE9",
+    accent_text: "#000000",
     match_keywords: ["de parade", "parade"],
     foto_urls: [
       "https://deparade.nl/wp-content/uploads/2026/05/Parade-Rotterdam-2026-Erik-van-t-hof-1-1920x1280.jpg",
