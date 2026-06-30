@@ -47,13 +47,52 @@ export async function GET(
     return new Response("Show not found", { status: 404 });
   }
 
+  // Optionele city/month query params — gebruikt om een Amsterdam-deel
+  // van een tournee-show te genereren zonder de Rotterdam-/Den Haag-data
+  // mee te tonen. Pakt de venue in de geselecteerde stad en gebruikt
+  // alleen díe speeldata + theater-label.
+  const reqUrl = new URL(req.url);
+  const cityParam = reqUrl.searchParams.get("city") ?? "";
+  const monthParam = reqUrl.searchParams.get("month") ?? "";
+
+  // Bouw venues-lijst (primair + tour-stops) met hun bijbehorende stad.
+  // Wanneer een city-param is meegegeven filteren we hierop, zodat alleen
+  // venues in die stad meedoen.
+  const theaterById = new Map(data.theaters.map((t) => [t.id, t]));
+  type VenueInfo = { theater_id: string; stad: string; naam: string; dates: string[] };
+  const allVenues: VenueInfo[] = [];
+  const primT = theaterById.get(show.theater_id);
+  if (primT) {
+    allVenues.push({
+      theater_id: show.theater_id,
+      stad: primT.stad,
+      naam: primT.naam,
+      dates: show.speeldata ?? []
+    });
+  }
+  (show.tour ?? []).forEach((stop) => {
+    const t = theaterById.get(stop.theater_id);
+    if (!t) return;
+    allVenues.push({
+      theater_id: stop.theater_id,
+      stad: t.stad,
+      naam: t.naam,
+      dates: stop.speeldata ?? []
+    });
+  });
+  const cityVenues = cityParam
+    ? allVenues.filter((v) => v.stad === cityParam)
+    : allVenues;
+
   // Locatie-regel: kies de show's eigen `theater` display als die er is,
-  // anders val terug op de naam uit de theaters-tabel. Voor shows met een
-  // bijzondere locatie (bv. Happy Days op buitenterrein) kan show.theater
-  // iets specifieks zeggen ("Sluisbuurt (op locatie) i.s.m. Frascati ...")
-  // dat anders verloren zou gaan via de theater_id-lookup.
+  // tenzij we een specifieke stad filteren — dan gebruiken we de
+  // venue-naam uit die stad. Voor shows met een bijzondere locatie (bv.
+  // Happy Days op buitenterrein) kan show.theater iets specifieks zeggen
+  // ("Sluisbuurt (op locatie)") dat we anders zouden verliezen.
   const theaterLookup = data.theaters.find((t) => t.id === show.theater_id);
-  const theaterLabel = show.theater || theaterLookup?.naam || "";
+  const theaterLabel = cityParam && cityVenues.length > 0
+    ? cityVenues[0].naam
+    : (show.theater || theaterLookup?.naam || "");
   // Relatieve paden (zoals "/shows/foo.jpg") moeten in een ImageResponse
   // absoluut zijn — anders kan Satori 'm niet ophalen. Plak het host-deel ervoor.
   const origin = new URL(req.url).origin;
@@ -85,11 +124,13 @@ export async function GET(
       photoUrl = "";
     }
   }
-  // Verzamel alle speeldata uit primaire venue + tour-stops
-  const allDates: string[] = [
-    ...(show.speeldata ?? []),
-    ...((show.tour ?? []).flatMap((stop) => stop.speeldata ?? []))
-  ];
+  // Verzamel speeldata uit de relevante venues (alleen geselecteerde stad
+  // wanneer city-param is meegegeven), optioneel verder gefilterd op
+  // maand. Zo komt op een Amsterdam-Juli kaart geen Rotterdam-datum mee.
+  const allDates: string[] = cityVenues.flatMap((v) => v.dates).filter((d) => {
+    if (monthParam && !d.startsWith(monthParam)) return false;
+    return true;
+  });
   const datePill = buildDatePill(allDates);
 
   return new ImageResponse(

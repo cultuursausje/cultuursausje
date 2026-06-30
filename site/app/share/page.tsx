@@ -23,7 +23,7 @@ interface SearchParams {
 // Bump deze waarde wanneer je data wijzigt en de gegenereerde PNG's
 // niet ververst lijken te worden — Vercel cachet ImageResponse-output
 // agressief. Een nieuwe `v=` waarde maakt het feitelijk een nieuwe URL.
-const IMAGE_VERSION = 26;
+const IMAGE_VERSION = 28;
 
 const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
@@ -164,8 +164,8 @@ export default async function SharePage({
                 {filteredShows.map((show) => (
                   <ShareCard
                     key={show.id}
-                    imageUrl={`/api/instagram-card/${show.id}?v=${IMAGE_VERSION}`}
-                    downloadId={show.id}
+                    imageUrl={`/api/instagram-card/${show.id}?v=${IMAGE_VERSION}&city=${encodeURIComponent(city)}&month=${monthPrefix}`}
+                    downloadId={`${show.id}-${city.toLowerCase()}`}
                     titel={show.titel}
                     subtitle={show.gezelschap}
                   />
@@ -192,28 +192,53 @@ export default async function SharePage({
               </div>
 
               {/* Per festival: een sectie met alle losse voorstellingen
-                  die in het festival-programma staan. Handig om voor elk
-                  een eigen Instagram-kaart te kunnen delen. */}
-              {filteredFestivals.map((festival) =>
-                festival.voorstellingen && festival.voorstellingen.length > 0 ? (
+                  die in het festival-programma staan. Voor rondreizende
+                  festivals (De Parade) filteren we per stad: alleen
+                  voorstellingen die in de geselecteerde stad+maand spelen
+                  worden getoond, en de IG-kaart krijgt city/month params
+                  door zodat de datum-pill alleen Amsterdam-datums laat
+                  zien. */}
+              {filteredFestivals.map((festival) => {
+                if (!festival.voorstellingen || festival.voorstellingen.length === 0) return null;
+                const cityRange = festival.city_periods?.[city];
+                const filteredV = festival.voorstellingen.filter((v) => {
+                  // Geen speeldata → toon (fallback, geen filter mogelijk)
+                  if (!v.speeldata || v.speeldata.length === 0) {
+                    if (v.stad && v.stad !== city) return false;
+                    return true;
+                  }
+                  // City+month filter via city_periods (rondreizende festivals)
+                  if (cityRange) {
+                    return v.speeldata.some(
+                      (d) =>
+                        d >= cityRange.start &&
+                        d <= cityRange.end &&
+                        d.startsWith(monthPrefix)
+                    );
+                  }
+                  // Geen city_periods → filter alleen op maand
+                  return v.speeldata.some((d) => d.startsWith(monthPrefix));
+                });
+                if (filteredV.length === 0) return null;
+                return (
                   <div key={`vs-${festival.id}`}>
                     <h2 className="mt-16 font-display text-2xl text-ink tracking-tight">
                       Voorstellingen tijdens {festival.naam}
                     </h2>
                     <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                      {festival.voorstellingen.map((v) => (
+                      {filteredV.map((v) => (
                         <ShareCard
                           key={v.id}
-                          imageUrl={`/api/instagram-card-festival-show/${v.id}?v=${IMAGE_VERSION}`}
-                          downloadId={`festival-show-${v.id}`}
+                          imageUrl={`/api/instagram-card-festival-show/${v.id}?v=${IMAGE_VERSION}&city=${encodeURIComponent(city)}&month=${monthPrefix}`}
+                          downloadId={`festival-show-${v.id}-${city.toLowerCase()}`}
                           titel={v.titel}
                           subtitle={v.gezelschap ?? festival.naam}
                         />
                       ))}
                     </div>
                   </div>
-                ) : null
-              )}
+                );
+              })}
             </>
           )}
         </>

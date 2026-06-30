@@ -36,7 +36,7 @@ function buildDatePillFromSpeeldata(speeldata: string[] | undefined): string | n
 }
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: { id: string } }
 ) {
   // Zoek de voorstelling en haar bijbehorende festival
@@ -53,6 +53,23 @@ export async function GET(
   if (!voorstelling || !festival) {
     return new Response("Festival show not found", { status: 404 });
   }
+
+  // Optionele city/month query params — gebruikt voor rondreizende
+  // festivals (zoals De Parade). Wanneer beide aanwezig: filter de
+  // speeldata zodat alleen datums uit die stad in die maand worden
+  // gebruikt voor de datum-pill. Voor De Parade in Amsterdam-juli toont
+  // de kaart dan alleen "24–29 jul" i.p.v. ook Den Haag/Utrecht datums.
+  const url = new URL(req.url);
+  const cityParam = url.searchParams.get("city") ?? "";
+  const monthParam = url.searchParams.get("month") ?? "";
+  const cityRange = cityParam && festival.city_periods?.[cityParam];
+  const filteredSpeeldata = voorstelling.speeldata
+    ? voorstelling.speeldata.filter((d) => {
+        if (cityRange && (d < cityRange.start || d > cityRange.end)) return false;
+        if (monthParam && !d.startsWith(monthParam)) return false;
+        return true;
+      })
+    : undefined;
 
   // Foto vooraf checken om Satori-crashes te voorkomen
   const rawPhotoUrl = voorstelling.foto_url || "";
@@ -73,10 +90,10 @@ export async function GET(
     }
   }
 
-  // Datum-pill: gebruik specifieke speeldata als die er zijn,
-  // anders de festival-periode (lowercase).
+  // Datum-pill: gebruik gefilterde speeldata (per stad+maand) als die er
+  // zijn, anders de festival-periode (lowercase).
   const datePill =
-    buildDatePillFromSpeeldata(voorstelling.speeldata) ??
+    buildDatePillFromSpeeldata(filteredSpeeldata ?? voorstelling.speeldata) ??
     festival.periode.toLowerCase();
 
   // Tekstkleur voor inhoud op de accent-kleur — afgeleid van het festival,
