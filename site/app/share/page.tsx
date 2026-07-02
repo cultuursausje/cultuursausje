@@ -23,7 +23,7 @@ interface SearchParams {
 // Bump deze waarde wanneer je data wijzigt en de gegenereerde PNG's
 // niet ververst lijken te worden — Vercel cachet ImageResponse-output
 // agressief. Een nieuwe `v=` waarde maakt het feitelijk een nieuwe URL.
-const IMAGE_VERSION = 28;
+const IMAGE_VERSION = 30;
 
 const MONTHS_NL: Record<string, number> = {
   januari: 1, februari: 2, maart: 3, april: 4, mei: 5, juni: 6,
@@ -140,19 +140,29 @@ export default async function SharePage({
         </p>
       ) : (
         <>
-          {/* Cover-kaart bovenaan: collage van alle voorstellings-foto's
-              met twee centrale pills. Eerste in de feed-volgorde van
-              een Instagram-carousel. */}
+          {/* Cover-kaarten bovenaan: vier stijlen om uit te kiezen als
+              openings-slide van de Instagram-carousel. Klik op de download
+              knop van degene die je wilt gebruiken. */}
           <h2 className="mt-12 font-display text-2xl text-ink tracking-tight">
-            Cover
+            Cover — kies er één
           </h2>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <ShareCard
-              imageUrl={`/api/instagram-card-cover?month=${monthPrefix}&city=${encodeURIComponent(city)}&v=${IMAGE_VERSION}`}
-              downloadId={`cover-${monthPrefix}-${city.toLowerCase()}`}
-              titel={`Theater tips ${city} ${monthLabel.split(" ")[0]}`}
-              subtitle="Cover voor de carousel"
-            />
+            {[
+              { variant: "a", label: "Collage-grid" },
+              { variant: "b", label: "2×2 foto's" },
+              { variant: "c", label: "Hero-foto" },
+              { variant: "d", label: "Typografisch" },
+              { variant: "e", label: "Festival-first grid" },
+              { variant: "f", label: "Festival-kleurhelften" }
+            ].map(({ variant, label }) => (
+              <ShareCard
+                key={variant}
+                imageUrl={`/api/instagram-card-cover?month=${monthPrefix}&city=${encodeURIComponent(city)}&variant=${variant}&v=${IMAGE_VERSION}`}
+                downloadId={`cover-${variant}-${monthPrefix}-${city.toLowerCase()}`}
+                titel={`Theater tips ${city} ${monthLabel.split(" ")[0]}`}
+                subtitle={`Stijl: ${label}`}
+              />
+            ))}
           </div>
 
           {filteredShows.length > 0 && (
@@ -183,8 +193,8 @@ export default async function SharePage({
                 {filteredFestivals.map((festival) => (
                   <ShareCard
                     key={festival.id}
-                    imageUrl={`/api/instagram-card-festival/${festival.id}?v=${IMAGE_VERSION}`}
-                    downloadId={`festival-${festival.id}`}
+                    imageUrl={`/api/instagram-card-festival/${festival.id}?v=${IMAGE_VERSION}&city=${encodeURIComponent(city)}`}
+                    downloadId={`festival-${festival.id}-${city.toLowerCase()}`}
                     titel={festival.naam}
                     subtitle={festival.tagline ?? festival.plaats}
                   />

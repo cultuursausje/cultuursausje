@@ -194,6 +194,7 @@ export const festivals: Festival[] = [
     url: "https://www.julidans.nl",
     accent: "#ADCF52",
     accent_text: "#000000",
+    locaties: "ITA, Frascati, De Meervaart, Stadsschouwburg & meer",
     match_keywords: ["julidans"],
     foto_urls: [
       "https://julidans.nl/img/singles/cropped-beeld-zonder-iets-voor-website.jpg?w=1280&h=720&fit=crop-50-50",
@@ -996,6 +997,12 @@ export const festivals: Festival[] = [
     url: "https://deparade.nl",
     accent: "#B5DBE9",
     accent_text: "#000000",
+    city_periods: {
+      "Rotterdam": { start: "2026-06-19", end: "2026-06-28", locatie: "Park de Twee Heuvels" },
+      "Den Haag":  { start: "2026-07-03", end: "2026-07-19", locatie: "Westbroekpark" },
+      "Amsterdam": { start: "2026-07-24", end: "2026-08-09", locatie: "Martin Luther Kingpark" },
+      "Utrecht":   { start: "2026-08-14", end: "2026-08-30", locatie: "Moreelsepark" }
+    },
     match_keywords: ["de parade", "parade"],
     foto_urls: [
       "https://deparade.nl/wp-content/uploads/2026/05/Parade-Rotterdam-2026-Erik-van-t-hof-1-1920x1280.jpg",

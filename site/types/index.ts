@@ -164,6 +164,14 @@ export interface Festival {
    *  is en zwarte tekst beter leesbaar is (bv. lichte sage-green van
    *  Julidans). */
   accent_text?: string;
+  /** Voor rondreizende festivals (zoals De Parade) — per-stad ISO-datum
+   *  range die aangeeft wanneer het festival in die specifieke stad
+   *  plaatsvindt. Wordt gebruikt om voorstellings-speeldata te filteren
+   *  zodat een Amsterdam-kaart alleen Amsterdam-datums toont, etc. Het
+   *  optionele `locatie`-veld overrijdt de festival-brede `locaties`-
+   *  string in Instagram-kaarten (bv. "Martin Luther Kingpark" voor De
+   *  Parade in Amsterdam). */
+  city_periods?: Record<string, { start: string; end: string; locatie?: string }>;
   /** Categoriewoorden die in show.categorieen kunnen voorkomen om koppeling te bepalen */
   match_keywords: string[];
   foto_urls?: string[];

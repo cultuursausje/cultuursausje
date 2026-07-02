@@ -24,6 +24,14 @@ export async function GET(
     return new Response("Festival not found", { status: 404 });
   }
 
+  // Optionele city query param — voor rondreizende festivals (De Parade)
+  // overrijdt de per-stad locatie de festival-brede `locaties`-string.
+  const reqUrl = new URL(req.url);
+  const cityParam = reqUrl.searchParams.get("city") ?? "";
+  const cityLocatie =
+    (cityParam && festival.city_periods?.[cityParam]?.locatie) || null;
+  const locatiesText = cityLocatie ?? festival.locaties;
+
   // Foto vooraf checken om te voorkomen dat Satori crasht op
   // niet-bereikbare externe images (zelfde patroon als voorstelling-kaart).
   const rawPhotoUrl =
@@ -198,7 +206,7 @@ export async function GET(
               {festival.tagline}
             </div>
           )}
-          {festival.locaties && (
+          {locatiesText && (
             <div
               style={{
                 marginTop: 4,
@@ -208,7 +216,7 @@ export async function GET(
                 lineHeight: 1.2
               }}
             >
-              {festival.locaties}
+              {locatiesText}
             </div>
           )}
         </div>
